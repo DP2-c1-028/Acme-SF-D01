@@ -1,0 +1,16 @@
+request-id,request-method,request-path,request-query,request-payload,response-status,response-content-type,response-payload,response-oops,pre-handle-timestamp,post-handle-timestamp,"after-completion-timestamp"
+"689f93f8-25af-4698-b951-d1ddbc590ad7",GET,/any/system/welcome,,,200,text/html;charset=utf-8,,,970757785281900,970757860313400,970764731440000
+"7d2f92c2-6cd4-4767-ba2c-d41254b9779a",GET,"/libraries/fontawesome/5.2.0/css/all.min.css",,,200,text/css,,,970765112412000,970765140767000,970765144328900
+"90ae36d8-bd01-4907-90ee-45ba4cf7e3bb",GET,"/libraries/bootstrap/4.1.3/css/bootstrap.min.css",,,200,text/css,,,970765161828500,970765170953900,970765175797100
+"17c0dcf7-3bc8-42cb-94e8-c61a6039b191",GET,"/libraries/datatables/1.10.18/css/datatables.min.css",,,200,text/css,,,970765199457500,970765209431800,970765214122900
+"0514dc24-c7b6-4f88-82b0-9eb5e3dded3d",GET,"/libraries/jquery/3.3.1/js/jquery.min.js",,,200,application/javascript,,,970765232738000,970765243449900,970765247094000
+"e6d7e1c9-e591-4260-9ef3-6956472cd981",GET,"/libraries/areyousure/1.9.0/js/areyousure.min.js",,,200,application/javascript,,,970765262557200,970765272532400,970765277456200
+"d01afec0-f512-4bf5-84ee-66cfe43f0ad5",GET,"/libraries/popper.js/1.14.4/js/popper.min.js",,,200,application/javascript,,,970765296012700,970765306136200,970765310062800
+"b29f78a7-88f5-41f2-b809-fea9455727d0",GET,"/libraries/acme/js/acme.js",,,200,application/javascript,,,970765324575500,970765331946200,970765335603600
+"690573a3-02dc-4289-9a4b-4d0c90103b3c",GET,"/libraries/bootstrap/4.1.3/js/bootstrap.min.js",,,200,application/javascript,,,970765350414100,970765359661500,970765364046500
+"b69d5d0c-34db-482d-b9c0-cdb9e939e11e",GET,"/libraries/datatables/1.10.18/js/jquery.datatables.min.js",,,200,application/javascript,,,970765378495300,970765387069400,970765390606700
+"e0da167b-8ba7-4042-b8f4-8e307042fbaa",GET,"/libraries/datatables/1.10.18/js/datatables.min.js",,,200,application/javascript,,,970765412929800,970765420183700,970765422754800
+"e1f98726-a7d7-4751-9b45-a98fcef5cb19",GET,"/libraries/chart.js/2.7.2/js/chart.bundle.min.js",,,200,application/javascript,,,970765453585600,970765462561500,970765465459600
+"0b5a674b-e8e2-4c53-9f64-ee86ae25e2fe",GET,"/libraries/acme/css/acme.css",,,200,text/css,,,970765480609000,970765489017500,970765492025700
+"84c3564d-76f9-40d7-bcc8-02ca78564afd",GET,/images/banner.png,,,200,image/png,,,970765515496300,970765524423100,970765526834600
+"25967246-c76b-4488-8c93-020adb3568fc",GET,/images/logo.png,,,200,image/png,,,970765540152700,970765545703100,970765548005700
