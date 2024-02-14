@@ -1,0 +1,16 @@
+request-id,request-method,request-path,request-query,request-payload,response-status,response-content-type,response-payload,response-oops,pre-handle-timestamp,post-handle-timestamp,"after-completion-timestamp"
+"a9c11696-6627-43b8-b954-697e55d2b0b0",GET,/any/system/welcome,,,200,text/html;charset=utf-8,,,972720941271100,972721121337700,972736756997900
+"b0cc983c-0611-4ef1-b150-98e0055e8199",GET,"/libraries/fontawesome/5.2.0/css/all.min.css",,,200,text/css,,,972737184999200,972737214371400,972737218637200
+"9440c052-ccc7-4baa-af53-cbf0c2367e2e",GET,"/libraries/bootstrap/4.1.3/css/bootstrap.min.css",,,200,text/css,,,972737241069400,972737250913100,972737255484600
+"3b7d0822-cf8d-4140-bf54-55667411732a",GET,"/libraries/datatables/1.10.18/js/datatables.min.js",,,200,application/javascript,,,972737275922600,972737285255700,972737289373900
+"9a2e5ad7-7d4c-455d-be2b-3c932db7bdfe",GET,"/libraries/datatables/1.10.18/css/datatables.min.css",,,200,text/css,,,972737323376600,972737331928300,972737344308500
+"98424715-a4b2-439d-b6c3-2415958b077e",GET,"/libraries/areyousure/1.9.0/js/areyousure.min.js",,,200,application/javascript,,,972737360223300,972737369820700,972737374177700
+"f1096101-1df6-4962-b1aa-560cd2a425ed",GET,"/libraries/jquery/3.3.1/js/jquery.min.js",,,200,application/javascript,,,972737388979000,972737400494600,972737405364900
+"ef8fa38e-f59a-4c00-8d17-56f00ad75d49",GET,"/libraries/acme/js/acme.js",,,200,application/javascript,,,972737423844800,972737430217800,972737432846300
+"fa59033b-3bd7-4576-aa31-66568a784f02",GET,"/libraries/popper.js/1.14.4/js/popper.min.js",,,200,application/javascript,,,972737446209000,972737453968500,972737457769100
+"2d55d984-a2ad-44f1-ba96-9610431c6f50",GET,"/libraries/bootstrap/4.1.3/js/bootstrap.min.js",,,200,application/javascript,,,972737470637200,972737477526500,972737479447300
+"45922d59-c588-47ab-b14a-cdc0e0d93c54",GET,"/libraries/datatables/1.10.18/js/jquery.datatables.min.js",,,200,application/javascript,,,972737493350900,972737499995600,972737502654100
+"09076581-5f6f-43a6-9e32-2913eb4d8dcd",GET,"/libraries/chart.js/2.7.2/js/chart.bundle.min.js",,,200,application/javascript,,,972737516105700,972737523946900,972737527688900
+"a456e874-28a6-4abb-a65e-2c463496c598",GET,"/libraries/acme/css/acme.css",,,200,text/css,,,972737541930800,972737548840000,972737552382300
+"cd4aaae4-e6aa-4aac-ba51-945401bdb6e2",GET,/images/banner.png,,,200,image/png,,,972737575613500,972737584721900,972737587565100
+"a202f5c4-54db-4754-97b7-6af82e73cdb4",GET,/images/logo.png,,,200,image/png,,,972737643573100,972737651898400,972737654248700
