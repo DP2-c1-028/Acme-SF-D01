@@ -10,6 +10,10 @@
 
 master.license.title = Licencia
 master.license.text = \
+	En virtud de los poderes conferidos por la Junta de Comercio y Empresas Ficticias, \
+	se otorga a ACME SF la licencia para operar como una entidad comercial en el ámbito \
+	de la innovación y tecnología. \
+	
 	Puede usar este sistema de forma completamente gratuita respetando las leyes \
 	que sean aplicables.  No compartimos ninguna información sobre Ud. con ninguna \
 	otra empresa.  Almacenamos los siguientes datos en su browser: \
