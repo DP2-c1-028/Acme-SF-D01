@@ -10,6 +10,10 @@
 
 master.license.title = License
 master.license.text = \
+	Under the powers conferred by the Trade and Shell Companies Board, ACME SF is \
+	granted a license to operate as a commercial entity in the field of innovation \
+	and technology. \
+	
 	You may use this system free of charge, as long as you carefully observe the \
 	existing applicable laws.  Please, note that we do not share any information \
 	about you with any other company.  We store the following items in your computer: \
