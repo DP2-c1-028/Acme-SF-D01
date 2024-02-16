@@ -24,7 +24,8 @@
 	<name>Acme-SF-D01</name>
 	<description>Acme - Software Factory - D01</description>
 
-	<artifactId>Acme-SF-D01</artifactId>
+	<artifactId>Acme-SF</artifactId>
+	<version>D01</version>
 	<packaging>war</packaging>
 	
 	<parent>
