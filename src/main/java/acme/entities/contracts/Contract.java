@@ -43,6 +43,8 @@ public class Contract extends AbstractEntity {
 	@Length(max = 100)
 	private String				customerName;
 
+	//introducir many to one de evolution= list<progressLog>();
+
 	//hay q conectar este atributo al proyecto de alguna forma para que no sea mayor que el cost
 	//posible hacerlo mediante una funcion trayendonos el proyecto y mirando que proyect.cost>= budget
 	@PositiveOrZero
