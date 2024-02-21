@@ -17,7 +17,7 @@ master.menu.sign-out = Sign out
 
 # master.menu.anonymous #######################################################
 
-master.menu.anonymous = Links
+master.menu.anonymous = Anonymous
 master.menu.anonymous.favourite-link = Favourite link
 master.menu.anonymous.danbenhid= 47559862: Benito Hidalgo, Daniel
 master.menu.anonymous.ferdehur = 29644731: de Celis Hurtado, Fernando Jose
