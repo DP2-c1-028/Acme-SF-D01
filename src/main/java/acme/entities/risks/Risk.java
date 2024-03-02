@@ -1,23 +1,21 @@
 
-package acme.roles;
+package acme.entities.risks;
+
+import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
-import acme.client.data.AbstractRole;
-import lombok.Getter;
-import lombok.Setter;
+import acme.client.data.AbstractEntity;
 
-@Entity
-@Getter
-@Setter
-public class Client extends AbstractRole {
+public class Risk extends AbstractEntity {
 
 	// Serialisation identifier -----------------------------------------------
 
@@ -26,25 +24,29 @@ public class Client extends AbstractRole {
 	// Attributes -------------------------------------------------------------
 
 	@NotBlank
-	@Pattern(regexp = "CLI-\\d{4}")
+	@Pattern(regexp = "R-[0-9]{3}")
 	@Column(unique = true)
-	private String				identification;
+	private String				reference;
+
+	@Past
+	private Date				identificationDate;
+
+	@Positive
+	private Integer				impact;
+
+	@PositiveOrZero
+	private Double				probability;
 
 	@NotBlank
-	@Length(max = 75)
-	private String				companyName;
-
-	//el notblank y notEmpty no es valido para enums
-	@NotNull
-	private Type				type;
-
-	@NotBlank
-	private String				email;
+	@Length(max = 100)
+	private String				description;
 
 	@URL
 	private String				optionalLink;
 
 	// Derived attributes -----------------------------------------------------
+
+	private Double				value				= this.impact * this.probability;
 
 	// Relationships ----------------------------------------------------------
 
