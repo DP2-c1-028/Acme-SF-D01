@@ -4,6 +4,7 @@ package acme.roles;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
@@ -25,7 +26,7 @@ public class Client extends AbstractRole {
 	// Attributes -------------------------------------------------------------
 
 	@NotBlank
-	@Pattern(regexp = "CLI-[0-9]{4}")
+	@Pattern(regexp = "CLI-\\d{4}")
 	@Column(unique = true)
 	private String				identification;
 
@@ -33,6 +34,8 @@ public class Client extends AbstractRole {
 	@Length(max = 75)
 	private String				companyName;
 
+	//el notblank y notEmpty no es valido para enums
+	@NotNull
 	private Type				type;
 
 	@NotBlank
