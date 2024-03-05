@@ -25,30 +25,33 @@ import lombok.Setter;
 public class TrainingModule extends AbstractEntity {
 	// Serialisation identifier -----------------------------------------------
 
-	private static final long	serialVersionUID	= 1L;
+	private static final long			serialVersionUID	= 1L;
 
 	// Attributes -------------------------------------------------------------
 
 	@Column(unique = true)
 	@NotBlank
 	@Pattern(regexp = "[A-Z]{1,3}-[0-9]{3}")
-	private String				code;
+	private String						code;
 
 	@Past
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date				creationMoment;
+	private Date						creationMoment;
 
 	@NotBlank
 	@Length(max = 100)
-	private String				details;
+	private String						details;
 
 	@Past
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date				updateMoment;
-
-	@URL
-	private String				link;
+	private Date						updateMoment;
 
 	@NotNull
-	private Integer				totalTime;
+	private TrainingModuleDifficulty	difficulty;
+
+	@URL
+	private String						link;
+
+	@NotNull
+	private Integer						totalTime;
 }
