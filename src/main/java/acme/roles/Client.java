@@ -1,28 +1,24 @@
 
-package acme.entities.projects;
-
-import java.util.List;
+package acme.roles;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.PositiveOrZero;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
-import acme.client.data.AbstractEntity;
-import acme.entities.userStory.UserStory;
+import acme.client.data.AbstractRole;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
-public class Project extends AbstractEntity {
+public class Client extends AbstractRole {
+
 	// Serialisation identifier -----------------------------------------------
 
 	private static final long	serialVersionUID	= 1L;
@@ -30,30 +26,26 @@ public class Project extends AbstractEntity {
 	// Attributes -------------------------------------------------------------
 
 	@NotBlank
-	@Pattern(regexp = "[A-Z]{3}-[0-9]{4}")
+	@Pattern(regexp = "CLI-\\d{4}")
 	@Column(unique = true)
-	private String				code;
+	private String				identification;
 
 	@NotBlank
 	@Length(max = 75)
-	private String				title;
+	private String				companyName;
+
+	//el notblank y notEmpty no es valido para enums
+	@NotNull
+	private Type				type;
 
 	@NotBlank
-	@Length(max = 100)
-	private String				abstractText;
-
-	@NotNull
-	private Boolean				hasFatalError;
-
-	@PositiveOrZero
-	private Double				cost;
+	private String				email;
 
 	@URL
 	private String				optionalLink;
 
-	// Relations -------------------------------------------------------------
+	// Derived attributes -----------------------------------------------------
 
-	@OneToMany
-	private List<UserStory>		userStories;
+	// Relationships ----------------------------------------------------------
 
 }
