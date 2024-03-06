@@ -1,4 +1,4 @@
-key,code,moment,duration-start-time,duration-end-time,amount,type,email,optional-link,"key:project"
+key,code,moment,duration-start-time,duration-end-time,amount,type,email,optional-link,key:project
 sponsorship-01,ABC-120,2021/07/20 0:00,2021/07/30 13:00,2021/09/30 13:00,EUR 20000.3,FINANCIAL,sponsor01@acme.com,https://snap.fan/,project-01
 sponsorship-02,ABC-121,2021/07/21 0:00,2021/07/31 13:00,2021/10/01 13:00,EUR 21000.3,FINANCIAL,sponsor02@acme.com,https://snap.fan/,project-02
 sponsorship-03,ABC-122,1984/07/22 0:00,2021/08/01 13:00,2021/10/02 13:00,EUR 20000.4,FINANCIAL,sponsor03@acme.com,,project-03

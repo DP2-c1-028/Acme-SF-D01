@@ -14,7 +14,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Positive;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
@@ -50,10 +49,9 @@ public class Invoice extends AbstractEntity {
 	private Date				dueDate;
 
 	@NotNull
-	@Positive
 	private Money				quantity;
 
-	@Positive
+	@NotNull
 	private Money				tax;
 
 	@URL
@@ -65,7 +63,7 @@ public class Invoice extends AbstractEntity {
 
 	@Transient
 	public Double totalAmount() {
-		return this.quantity.getAmount() + this.tax.getAmount();
+		return this.quantity.getAmount() + this.tax.getAmount() * this.quantity.getAmount();
 	}
 
 
