@@ -7,3 +7,5 @@ user-account-client-01,true,"UserIdentity{name:'client1',surname:'Client',email:
 user-account-client-02,true,"UserIdentity{name:'client2',surname:'Client',email:'client2@acme.com'}",client2,client2
 user-account-developer-01,true,"UserIdentity{name:'我爱很小猫',surname:'但是我最爱狗',email:'maomaogou@acme.com'}",developer1,developer1
 user-account-developer-02,true,"UserIdentity{name:'Frank',surname:'Woods',email:'frankwoods@acme.com'}",developer2,developer2
+user-account-auditor-01,true,"UserIdentity{name:'auditorfirst',surname:'first',email:'auditor1@acme.com'}",auditor1,auditor1
+user-account-auditor-02,true,"UserIdentity{name:'auditorsecond',surname:'second',email:'auditor2@acme.com'}",auditor2,auditor2
