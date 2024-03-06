@@ -16,9 +16,11 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
 import acme.client.data.AbstractEntity;
+import acme.client.data.datatypes.Money;
 import acme.entities.sponsorships.Sponsorship;
 import lombok.Getter;
 import lombok.Setter;
@@ -49,12 +51,13 @@ public class Invoice extends AbstractEntity {
 
 	@NotNull
 	@Positive
-	private Double				quantity;
+	private Money				quantity;
 
 	@Positive
-	private Double				tax;
+	private Money				tax;
 
 	@URL
+	@Length(max = 255)
 	private String				optionalLink;
 
 	// Derived Attributes -------------------------------------------------------------
@@ -62,11 +65,11 @@ public class Invoice extends AbstractEntity {
 
 	@Transient
 	public Double totalAmount() {
-		return this.quantity + this.tax;
+		return this.quantity.getAmount() + this.tax.getAmount();
 	}
 
 
-	@ManyToOne
+	@ManyToOne(optional = false)
 	@NotNull
 	@Valid
 	private Sponsorship sponsorship;
