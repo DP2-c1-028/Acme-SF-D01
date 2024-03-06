@@ -1,7 +1,7 @@
 
 package acme.roles;
 
-public enum Type {
+public enum CompanyType {
 	company, individual
 
 }
