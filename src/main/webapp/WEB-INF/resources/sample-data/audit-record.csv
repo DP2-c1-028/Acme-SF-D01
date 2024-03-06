@@ -1,8 +1,8 @@
-key,code,audit-start-time,audit-end-time,mark,optional-link
-audit-record-01,AU-0000-000,2021/07/30 0:00,2021/07/31 0:00,AA,https://www3.animeflv.net/anime/one-piece-tv
-audit-record-02,AU-9999-999,2021/07/30 0:00,2021/07/31 0:00,A,https://www3.animeflv.net/anime/one-piece-tv
-audit-record-03,AU-0000-004,1970/01/01 0:00,1970/01/01 1:00,B,https://www3.animeflv.net/anime/one-piece-tv
-audit-record-04,AU-0000-005,1970/02/15 0:00,1970/02/15 2:00,C,https://www3.animeflv.net/anime/one-piece-tv
-audit-record-05,AU-0000-006,2000/07/09 0:00,2000/07/11 0:00,F,
-audit-record-06,AU-0000-007,2022/06/22 0:00,2022/06/22 5:00,FF,https://www3.animeflv.net/anime/one-piece-tv
-audit-record-07,AU-0000-008,2022/07/09 17:00,2022/07/09 18:00,AA,https://www3.animeflv.net/anime/one-piece-tv
+key,code,audit-start-time,audit-end-time,mark,optional-link,key:code-audit
+audit-record-01,AU-0000-000,2021/07/30 0:00,2021/07/31 0:00,AA,https://www3.animeflv.net/anime/one-piece-tv,code-audit-11
+audit-record-02,AU-9999-999,2021/07/30 0:00,2021/07/31 0:00,A,https://www3.animeflv.net/anime/one-piece-tv,code-audit-11
+audit-record-03,AU-0000-004,1970/01/01 0:00,1970/01/01 1:00,B,https://www3.animeflv.net/anime/one-piece-tv,code-audit-11
+audit-record-04,AU-0000-005,1970/02/15 0:00,1970/02/15 2:00,C,https://www3.animeflv.net/anime/one-piece-tv,code-audit-11
+audit-record-05,AU-0000-006,2000/07/09 0:00,2000/07/11 0:00,F,,code-audit-11
+audit-record-06,AU-0000-007,2022/06/22 0:00,2022/06/22 5:00,FF,https://www3.animeflv.net/anime/one-piece-tv,code-audit-11
+audit-record-07,AU-0000-008,2022/07/09 17:00,2022/07/09 18:00,AA,https://www3.animeflv.net/anime/one-piece-tv,code-audit-11

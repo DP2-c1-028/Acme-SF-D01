@@ -5,10 +5,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -19,7 +17,6 @@ import org.hibernate.validator.constraints.URL;
 
 import acme.client.data.AbstractEntity;
 import acme.entities.auditRecords.Mark;
-import acme.entities.projects.Project;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -57,9 +54,13 @@ public class CodeAudit extends AbstractEntity {
 	@URL
 	private String				optionalLink;
 
-	@ManyToOne
-	@Valid
-	@NotNull
-	private Project				project;
+	/*
+	 * @ManyToOne
+	 * 
+	 * @Valid
+	 * 
+	 * @NotNull
+	 * private Project project;
+	 */
 
 }

@@ -3,6 +3,7 @@ package acme.roles;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -36,8 +37,9 @@ public class Client extends AbstractRole {
 
 	//el notblank y notEmpty no es valido para enums
 	@NotNull
-	private Type				type;
+	private CompanyType			type;
 
+	@Email
 	@NotBlank
 	private String				email;
 
