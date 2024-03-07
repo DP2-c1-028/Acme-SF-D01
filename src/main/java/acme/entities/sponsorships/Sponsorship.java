@@ -5,18 +5,23 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Positive;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
 import acme.client.data.AbstractEntity;
+import acme.client.data.datatypes.Money;
+import acme.entities.projects.Project;
+import acme.roles.Sponsor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -49,22 +54,28 @@ public class Sponsorship extends AbstractEntity {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date				durationEndTime;
 
-	@Positive
 	@NotNull
-	private Double				amount;
+	private Money				amount;
 
 	@NotNull
 	private SponsorshipType		type;
 
 	@Email
+	@Length(max = 255)
 	private String				email;
 
 	@URL
-	private String				optionalLink;
+	@Length(max = 255)
+	private String				link;
 
-	//	@ManyToOne
-	//	@NotNull
-	//	@Valid
-	//	private Project				project;
+	@ManyToOne(optional = false)
+	@NotNull
+	@Valid
+	private Project				project;
+
+	@ManyToOne(optional = false)
+	@NotNull
+	@Valid
+	private Sponsor				sponsor;
 
 }

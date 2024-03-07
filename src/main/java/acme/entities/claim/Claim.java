@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -50,8 +51,11 @@ public class Claim extends AbstractEntity {
 	@Length(max = 100)
 	private String				department;
 
+	@Email
+	@Length(max = 255)
 	private String				email;
 
 	@URL
-	private String				optionalLink;
+	@Length(max = 255)
+	private String				link;
 }
