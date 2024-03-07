@@ -55,7 +55,7 @@ public class Invoice extends AbstractEntity {
 
 	@DecimalMin(value = "0.0")
 	@DecimalMax(value = "1.0")
-	private double				tax;
+	private float				tax;
 
 	@URL
 	@Length(max = 255)
