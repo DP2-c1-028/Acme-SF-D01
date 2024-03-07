@@ -4,6 +4,7 @@ package acme.roles;
 import javax.persistence.Entity;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
@@ -31,9 +32,12 @@ public class Sponsor extends AbstractRole {
 	private String				benefits;
 
 	@URL
+	@Length(max = 255)
 	private String				webPage;
 
 	@Email
+	@Length(max = 255)
+	@NotNull
 	private String				email;
 
 }
