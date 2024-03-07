@@ -10,6 +10,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.Valid;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -41,29 +43,30 @@ public class Invoice extends AbstractEntity {
 
 	@Past
 	@NotNull
-	@Temporal(TemporalType.TIME)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date				registrationTime;
 
 	@NotNull
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date				dueDate;
 
 	@NotNull
 	private Money				quantity;
 
-	@NotNull
-	private Money				tax;
+	@DecimalMin(value = "0.0")
+	@DecimalMax(value = "1.0")
+	private double				tax;
 
 	@URL
 	@Length(max = 255)
-	private String				optionalLink;
+	private String				link;
 
 	// Derived Attributes -------------------------------------------------------------
 
 
 	@Transient
 	public Double totalAmount() {
-		return this.quantity.getAmount() + this.tax.getAmount() * this.quantity.getAmount();
+		return this.quantity.getAmount() + this.tax * this.quantity.getAmount();
 	}
 
 
