@@ -56,7 +56,6 @@ public class Risk extends AbstractEntity {
 	@Length(max = 100)
 	private String				description;
 
-	@Length(max = 255)
 	@URL
 	private String				link;
 
