@@ -1,0 +1,31 @@
+key,reference,identification-date,impact,probability,description,link,key:project
+risk-01,R-001,2000/07/09 0:00,0.01,0.01,...,,project-01
+risk-02,R-999,2000/07/09 0:00,0.01,0.01,...,,project-01
+risk-03,R-499,2000/07/09 0:00,0.01,0.01,...,,project-01
+risk-04,R-173,2000/07/09 0:00,0.01,0.01,...,,project-01
+risk-05,R-766,2000/07/09 0:00,0.01,0.01,...,,project-01
+risk-06,R-002,2022/06/30 23:59,0.01,0.01,...,,project-01
+risk-07,R-003,2011/01/07 12:22,0.01,0.01,...,,project-01
+risk-08,R-004,2020/08/23 18:16,0.01,0.01,...,,project-01
+risk-09,R-005,2008/01/31 5:23,0.01,0.01,...,,project-01
+risk-10,R-006,2000/07/09 0:00,0.01,0.01,...,,project-01
+risk-11,R-007,2000/07/09 0:00,150.00,0.01,...,,project-01
+risk-12,R-008,2000/07/09 0:00,75.00,0.01,...,,project-01
+risk-13,R-009,2000/07/09 0:00,95.34,0.01,...,,project-01
+risk-14,R-010,2000/07/09 0:00,2.69,0.01,...,,project-01
+risk-15,R-011,2000/07/09 0:00,0.01,0.01,...,,project-01
+risk-16,R-012,2000/07/09 0:00,0.01,99.99,...,,project-01
+risk-17,R-013,2000/07/09 0:00,0.01,50.00,...,,project-01
+risk-18,R-014,2000/07/09 0:00,0.01,87.33,...,,project-01
+risk-19,R-015,2000/07/09 0:00,0.01,26.48,...,,project-01
+risk-20,R-016,2000/07/09 0:00,0.01,0.01,...,,project-01
+risk-21,R-017,2000/07/09 0:00,0.01,0.01,DELIRIOS PERSECUTORIOS DELIRIOS PERSECUTORIOS DELIRIOS PERSECUTORIOS DELIRIOS PERSECUTORIOS DELIRIOS,,project-01
+risk-22,R-018,2000/07/09 0:00,0.01,0.01,un elefante se balanceaba sobre la tela de una oca,,project-01
+risk-23,R-019,2000/07/09 0:00,0.01,0.01,alguna vez piensas por que estamos escribiendo estas movidas cuando nadie las leerá?,,project-01
+risk-24,R-020,2000/07/09 0:00,0.01,0.01,hola soy alfredo,,project-01
+risk-25,R-021,2000/07/09 0:00,0.01,0.01,...,https://y.com/,project-01
+risk-26,R-022,2000/07/09 0:00,0.01,0.01,...,https://quieroHacerUnEnlaceDeUnosDoscientosCincuentaYCincoCaracteresYPorEsoEstoyEscribiendoEstaParrafadaDeLaCualNoSeNiComoSeguirBuenasTradesNightCityEnPacificaHanDerribadoOtroHelicopteroDelTraumaTeamArasakaVuelveACrecerEnBolsaSubiendoComoCincoPuntos.com,project-01
+risk-27,R-023,2000/07/09 0:00,0.01,0.01,...,https://github.com/FP-21-22/p02-proy_2_cuat-d4niel980/blob/master/src/fp/tipos/operacion/test/TestOperacionesStream.java,project-01
+risk-28,R-024,2000/07/09 0:00,0.01,0.01,...,https://www.google.com/search?q=animales+de+3+letras&oq=animales+de+3+le&gs_lcrp=EgZjaHJvbWUqBwgAEAAYgAQyBwgAEAAYgAQyBwgBEAAYgAQyBggCEEUYOTIICAMQABgWGB4yCAgEEAAYFhgeqAIAsAIA&sourceid=chrome&ie=UTF-8,project-01
+risk-29,R-025,2000/07/09 0:00,0.01,0.01,...,https://www.porsche.com/spain/models/911/,project-01
+risk-30,R-026,2000/07/09 0:00,0.01,0.01,...,,project-01
