@@ -17,7 +17,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
-import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
 import acme.client.data.AbstractEntity;
@@ -53,12 +52,11 @@ public class Invoice extends AbstractEntity {
 	@NotNull
 	private Money				quantity;
 
-	@DecimalMin(value = "0.0")
-	@DecimalMax(value = "1.0")
-	private float				tax;
+	@DecimalMin(value = "0.00")
+	@DecimalMax(value = "1.00")
+	private Double				tax;
 
 	@URL
-	@Length(max = 255)
 	private String				link;
 
 	// Derived Attributes -------------------------------------------------------------
