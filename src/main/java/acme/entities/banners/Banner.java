@@ -52,7 +52,6 @@ public class Banner extends AbstractEntity {
 
 	@URL
 	@NotNull
-	@Length(max = 255)
 	private String				link;
 
 	// Relationships ----------------------------------------------------------
