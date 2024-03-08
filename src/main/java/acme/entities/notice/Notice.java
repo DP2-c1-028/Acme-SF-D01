@@ -3,18 +3,24 @@ package acme.entities.notice;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
-import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
 import acme.client.data.AbstractEntity;
+import lombok.Getter;
+import lombok.Setter;
 
+@Entity
+@Getter
+@Setter
 public class Notice extends AbstractEntity {
 	// Serialisation identifier -----------------------------------------------
 
@@ -22,14 +28,16 @@ public class Notice extends AbstractEntity {
 
 	// Attributes -------------------------------------------------------------
 
+	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@Past
 	private Date				instantiationMoment;
 
+	@NotBlank
 	@Length(max = 75)
 	private String				title;
 
-	@Pattern(regexp = "[A-Za-z0-9]+ - [A-Za-z]+, [A-Za-z]+")
+	@NotBlank
 	private String				author;
 
 	@Length(max = 100)
@@ -37,7 +45,7 @@ public class Notice extends AbstractEntity {
 	private String				message;
 
 	@Email
-	private String				emailAddress;
+	private String				email;
 
 	@URL
 	private String				link;

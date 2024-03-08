@@ -27,7 +27,7 @@ public class Client extends AbstractRole {
 	// Attributes -------------------------------------------------------------
 
 	@NotBlank
-	@Pattern(regexp = "CLI-\\d{4}")
+	@Pattern(regexp = "CLI-[0-9]{4}")
 	@Column(unique = true)
 	private String				identification;
 
@@ -35,16 +35,17 @@ public class Client extends AbstractRole {
 	@Length(max = 75)
 	private String				companyName;
 
-	//el notblank y notEmpty no es valido para enums
 	@NotNull
 	private CompanyType			type;
 
 	@Email
 	@NotBlank
+	@Length(max = 255)
 	private String				email;
 
 	@URL
-	private String				optionalLink;
+	@Length(max = 255)
+	private String				link;
 
 	// Derived attributes -----------------------------------------------------
 
