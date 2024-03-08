@@ -49,7 +49,7 @@ public class Contract extends AbstractEntity {
 	private String				providerName;
 
 	@NotBlank
-	@Length(max = 100)
+	@Length(max = 75)
 	private String				customerName;
 
 	@NotBlank
