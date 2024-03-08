@@ -1,5 +1,5 @@
 
-package acme.entities.progress_logs;
+package acme.entities.codeAudits;
 
 import java.util.Date;
 
@@ -8,25 +8,27 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.Valid;
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.URL;
 
 import acme.client.data.AbstractEntity;
-import acme.entities.contracts.Contract;
+import acme.entities.auditRecords.Mark;
+import acme.entities.projects.Project;
+import acme.roles.Auditor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
-public class ProgressLog extends AbstractEntity {
+public class CodeAudit extends AbstractEntity {
 
 	// Serialisation identifier -----------------------------------------------
 
@@ -35,33 +37,41 @@ public class ProgressLog extends AbstractEntity {
 	// Attributes -------------------------------------------------------------
 
 	@NotBlank
-	@Pattern(regexp = "PG-[A-Z]{1,2}-[0-9]{4}")
+	@Pattern(regexp = "[A-Z]{1,3}-[0-9]{3}")
 	@Column(unique = true)
-	private String				recordId;
+	private String				code;
 
-	@DecimalMin(value = "0.00")
-	@DecimalMax(value = "100.00")
-	private float				completeness;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Past
+	@NotNull
+	private Date				execution;
+
+	@NotNull
+	private CodeAuditType		type;
 
 	@NotBlank
 	@Length(max = 100)
-	private String				comment;
+	private String				proposedCorrectiveActions;
 
-	@NotNull
-	@Past
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date				registrationMoment;
+	@URL
+	@Length(max = 255)
+	private String				link;
 
-	@NotBlank
-	@Length(max = 75)
-	private String				responsiblePerson;
+	// Derived atributes ------------------------------------------------------
 
-	// Derived attributes -----------------------------------------------------
+	@Transient
+	private Mark				mark;
 
 	// Relationships ----------------------------------------------------------
 
 	@ManyToOne(optional = false)
-	@NotNull
 	@Valid
-	private Contract			contract;
+	@NotNull
+	private Project				project;
+
+	@ManyToOne(optional = false)
+	@Valid
+	@NotNull
+	private Auditor				auditor;
+
 }

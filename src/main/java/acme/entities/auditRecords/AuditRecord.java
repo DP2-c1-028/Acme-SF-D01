@@ -1,5 +1,5 @@
 
-package acme.entities.progress_logs;
+package acme.entities.auditRecords;
 
 import java.util.Date;
 
@@ -9,24 +9,23 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.URL;
 
 import acme.client.data.AbstractEntity;
-import acme.entities.contracts.Contract;
+import acme.entities.codeAudits.CodeAudit;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
-public class ProgressLog extends AbstractEntity {
+public class AuditRecord extends AbstractEntity {
 
 	// Serialisation identifier -----------------------------------------------
 
@@ -35,33 +34,32 @@ public class ProgressLog extends AbstractEntity {
 	// Attributes -------------------------------------------------------------
 
 	@NotBlank
-	@Pattern(regexp = "PG-[A-Z]{1,2}-[0-9]{4}")
+	@Pattern(regexp = "AU-[0-9]{4}-[0-9]{3}")
 	@Column(unique = true)
-	private String				recordId;
-
-	@DecimalMin(value = "0.00")
-	@DecimalMax(value = "100.00")
-	private float				completeness;
-
-	@NotBlank
-	@Length(max = 100)
-	private String				comment;
+	private String				code;
 
 	@NotNull
-	@Past
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date				registrationMoment;
+	@Past
+	private Date				auditStartTime;
 
-	@NotBlank
-	@Length(max = 75)
-	private String				responsiblePerson;
+	@NotNull
+	@Temporal(TemporalType.TIMESTAMP)
+	@Past
+	private Date				auditEndTime;
 
-	// Derived attributes -----------------------------------------------------
+	@NotNull
+	private Mark				mark;
+
+	@URL
+	@Length(max = 255)
+	private String				link;
 
 	// Relationships ----------------------------------------------------------
 
 	@ManyToOne(optional = false)
-	@NotNull
 	@Valid
-	private Contract			contract;
+	@NotNull
+	private CodeAudit			codeAudit;
+
 }

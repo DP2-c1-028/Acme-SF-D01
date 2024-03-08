@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Manager extends AbstractForm {
+public class AuditorDashboard extends AbstractForm {
 
 	// Serialisation identifier -----------------------------------------------
 
@@ -15,18 +15,16 @@ public class Manager extends AbstractForm {
 
 	// Attributes -------------------------------------------------------------
 
-	Integer						totalNumberOfMust;
-	Integer						totalNumberOfShould;
-	Integer						totalNumberOfCould;
-	Integer						totalNumberOfWont;
-	Double						averageEstimatedCost;
-	Double						deviationEstimatedCost;
-	Double						minimumEstimatedCost;
-	Double						maximumEstimatedCost;
-	Double						averageCost;
-	Double						deviationCost;
-	Double						minimumCost;
-	Double						maximumCost;
+	int							totalCodeAuditsStatic;
+	int							totalCodeAuditsDynamic;
+	Double						auditRecordsAverageTime;
+	Double						auditRecordsDeviationTime;
+	int							auditRecordsMinimumTime;
+	int							auditRecordsMaximumTime;
+	Double						periodAverageTime;
+	Double						periodDeviationTime;
+	int							periodMinimumTime;
+	int							periodMaximumTime;
 
 	// Derived attributes -----------------------------------------------------
 
