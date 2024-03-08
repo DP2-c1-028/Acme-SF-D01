@@ -48,7 +48,6 @@ public class TrainingModule extends AbstractEntity {
 	@Length(max = 100)
 	private String						details;
 
-	@NotNull
 	@Past
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date						updateMoment;
