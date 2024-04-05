@@ -4,6 +4,7 @@ manager.project.list.label.code = Code
 manager.project.list.label.abstract = Abstract
 manager.project.list.label.cost = Cost
 manager.project.list.label.link = Link
+manager.project.list.label.published = Published
 manager.project.form.label.title = Title
 manager.project.form.label.code = Code
 manager.project.form.label.abstract = Abstract

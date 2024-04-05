@@ -48,6 +48,8 @@ public class Project extends AbstractEntity {
 	@URL
 	private String				link;
 
+	private boolean				published;
+
 	// Relations -------------------------------------------------------------
 
 	@NotNull
