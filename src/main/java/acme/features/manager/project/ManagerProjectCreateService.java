@@ -1,8 +1,6 @@
 
 package acme.features.manager.project;
 
-import java.util.Collection;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +10,7 @@ import acme.entities.projects.Project;
 import acme.roles.Manager;
 
 @Service
-public class ManagerProjectListService extends AbstractService<Manager, Project> {
-
+public class ManagerProjectCreateService extends AbstractService<Manager, Project> {
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
@@ -29,14 +26,33 @@ public class ManagerProjectListService extends AbstractService<Manager, Project>
 
 	@Override
 	public void load() {
-		Collection<Project> objects;
-		int managerId;
+		Project object;
 
-		managerId = super.getRequest().getPrincipal().getActiveRoleId();
+		object = new Project();
+		Integer managerId = super.getRequest().getPrincipal().getActiveRoleId();
+		Manager manager = this.repository.findOneManagerById(managerId);
+		object.setManager(manager);
 
-		objects = this.repository.findProjectsByManagerId(managerId);
+		super.getBuffer().addData(object);
+	}
 
-		super.getBuffer().addData(objects);
+	@Override
+	public void bind(final Project object) {
+		assert object != null;
+
+		super.bind(object, "title", "code", "abstractText", "cost", "link");
+	}
+
+	@Override
+	public void validate(final Project object) {
+		assert object != null;
+	}
+
+	@Override
+	public void perform(final Project object) {
+		assert object != null;
+
+		this.repository.save(object);
 	}
 
 	@Override
@@ -45,9 +61,8 @@ public class ManagerProjectListService extends AbstractService<Manager, Project>
 
 		Dataset dataset;
 
-		dataset = super.unbind(object, "title", "code", "abstractText", "cost", "link", "published");
+		dataset = super.unbind(object, "title", "code", "abstractText", "cost", "link");
 
 		super.getResponse().addData(dataset);
 	}
-
 }

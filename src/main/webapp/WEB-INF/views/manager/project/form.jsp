@@ -12,19 +12,19 @@
 		path="abstractText" />
 	<acme:input-double code="manager.project.form.label.cost"
 		path="cost" />
-	<acme:input-textbox code="manager.project.form.label.link"
+	<acme:input-url code="manager.project.form.label.link"
 		path="link" />
 	
 	<jstl:choose>
 		<jstl:when test="${acme:anyOf(_command, 'show|update|delete')}">
 			<acme:submit code="manager.project.form.button.update"
-				action="/employer/works-for/update" />
+				action="/manager/project/update" />
 			<acme:submit code="manager.project.form.button.delete"
-				action="/employer/works-for/delete" />
+				action="/manager/project/delete" />
 		</jstl:when>
 		<jstl:when test="${_command == 'create'}">
 			<acme:submit code="manager.project.form.button.create"
-				action="/employer/works-for/create" />
+				action="/manager/project/create" />
 		</jstl:when>
 	</jstl:choose>
 </acme:form>
