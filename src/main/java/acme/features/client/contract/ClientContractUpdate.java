@@ -15,50 +15,61 @@ import acme.features.manager.project.ManagerProjectRepository;
 import acme.roles.Client;
 
 @Service
-public class ClientContractShowService extends AbstractService<Client, Contract> {
+public class ClientContractUpdate extends AbstractService<Client, Contract> {
 
 	// Internal state ---------------------------------------------------------
+
 	@Autowired
 	private ClientContractRepository	repository;
 
 	//TODO Puede estar mal asiq revisar
 	@Autowired
 	private ManagerProjectRepository	projectRepository;
+
 	// AbstractService interface ----------------------------------------------
 
 
 	@Override
 	public void authorise() {
-
-		int contractId;
-		Contract contract;
-		int clientId;
-		boolean isValid;
-
-		contractId = super.getRequest().getData("id", int.class);
-		contract = this.repository.findContractById(contractId);
-		clientId = super.getRequest().getPrincipal().getActiveRoleId();
-
-		isValid = clientId == contract.getClient().getId();
-
-		super.getResponse().setAuthorised(isValid);
+		super.getResponse().setAuthorised(true);
 	}
 
 	@Override
 	public void load() {
-
 		Contract contract;
-		int contractId;
+		Integer id;
 
-		contractId = super.getRequest().getData("id", int.class);
-		contract = this.repository.findContractById(contractId);
+		id = super.getRequest().getData("id", int.class);
+		contract = this.repository.findContractById(id);
 
 		super.getBuffer().addData(contract);
 	}
 
 	@Override
-	public void unbind(final Contract contract) {
+	public void bind(final Contract contract) {
+		assert contract != null;
 
+		Integer managerId = super.getRequest().getPrincipal().getActiveRoleId();
+		Client client = this.repository.findClientById(managerId);
+
+		contract.setClient(client);
+		super.bind(contract, "code", "project", "providerName", "customerName", "instantiationMoment", "budget", "goals");
+	}
+
+	@Override
+	public void validate(final Contract contract) {
+		assert contract != null;
+	}
+
+	@Override
+	public void perform(final Contract contract) {
+		assert contract != null;
+
+		this.repository.save(contract);
+	}
+
+	@Override
+	public void unbind(final Contract contract) {
 		assert contract != null;
 
 		Dataset dataset;
@@ -75,5 +86,4 @@ public class ClientContractShowService extends AbstractService<Client, Contract>
 
 		super.getResponse().addData(dataset);
 	}
-
 }
