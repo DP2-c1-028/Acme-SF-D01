@@ -29,3 +29,5 @@
 	</jstl:choose>
 </acme:form>
 
+<acme:button code="manager.project.form.button.user-stories" action="/manager/user-story/list?projectId=${id}"/>
+

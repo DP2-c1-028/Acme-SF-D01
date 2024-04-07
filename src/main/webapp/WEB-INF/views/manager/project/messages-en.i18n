@@ -14,3 +14,4 @@ manager.project.form.button.update = Update
 manager.project.form.button.delete = Delete
 manager.project.form.button.create = Create
 manager.project.form.title = Project data
+manager.project.form.button.user-stories = User Stories
