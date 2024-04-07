@@ -58,7 +58,7 @@ public class SponsorSponsorshipDeleteService extends AbstractService<Sponsor, Sp
 	public void perform(final Sponsorship object) {
 		assert object != null;
 
-		this.repository.save(object);
+		this.repository.delete(object);
 	}
 
 	@Override

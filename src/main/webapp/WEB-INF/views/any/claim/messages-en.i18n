@@ -1,0 +1,21 @@
+any.claim.list.title = Your claims
+claim.list.label.code = Code
+claim.list.label.instantiationMoment = Instantiation Moment
+claim.list.label.heading = Heading
+claim.list.label.description = Description
+claim.list.label.department = Department
+claim.list.label.email = Email
+claim.list.label.link = Link
+any.claim.list.button.create = Create
+
+any.claim.form.title = Your claim data
+claim.form.label.code = Code
+claim.form.label.instantiationMoment = Instantiation Moment
+claim.form.label.heading = Heading
+claim.form.label.description = Description
+claim.form.label.department = Department
+claim.form.label.email = Email
+claim.form.label.link = Link
+any.claim.form.label.confirmation = This action cannot be undone, are you sure?
+validation.claim.publish.message = It is necessary to check the box to confirm the claim.
+validation.claim.code.duplicate = There is already a claim with that code, try another. 

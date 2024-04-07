@@ -25,7 +25,8 @@
 			<acme:menu-suboption code="master.menu.anonymous.pabcascom" action="https://snap.fan/"/>
 			<acme:menu-suboption code="master.menu.anonymous.mighersan1" action="https://yato03.github.io/"/>
 			<acme:menu-suboption code="master.menu.anonymous.gonnavrem" action="https://lpl.qq.com/web202301/live.html"/>
-		</acme:menu-option>
+			<acme:menu-suboption code="master.menu.anonymous.claims" action="/any/claim/list"/>
+		</acme:menu-option> 
 
 		<acme:menu-option code="master.menu.administrator" access="hasRole('Administrator')">
 			<acme:menu-suboption code="master.menu.administrator.user-accounts" action="/administrator/user-account/list"/>

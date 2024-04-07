@@ -1,0 +1,21 @@
+any.claim.list.title = Tus reclamaciones
+claim.list.label.code = Código
+claim.list.label.instantiationMoment = Momento de instanciación
+claim.list.label.heading = Cabecera
+claim.list.label.description = Descripción
+claim.list.label.department = Departamento
+claim.list.label.email = Correo
+claim.list.label.link = Enlace
+any.claim.list.button.create = Crear
+
+any.claim.form.title = Datos de tus reclamaciones
+claim.form.label.code = Código
+claim.form.label.instantiationMoment = Momento de instanciación
+claim.form.label.heading = Cabecera
+claim.form.label.description = Descripción
+claim.form.label.department = Departmento
+claim.form.label.email = Correo
+claim.form.label.link = Enlace
+any.claim.form.label.confirmation = Esta acción no se puede revertir, ¿estás seguro?
+validation.claim.publish.message = Es necesario marcar la casilla para confirmar la reclamación.
+validation.claim.code.duplicate = Ya existe una reclamación con ese código, pruebe otro. 

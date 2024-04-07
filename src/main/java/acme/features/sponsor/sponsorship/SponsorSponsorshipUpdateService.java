@@ -1,8 +1,6 @@
 
 package acme.features.sponsor.sponsorship;
 
-import java.util.Collection;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,14 +27,14 @@ public class SponsorSponsorshipUpdateService extends AbstractService<Sponsor, Sp
 
 	@Override
 	public void load() {
-		Collection<Sponsorship> objects;
-		int managerId;
+		Sponsorship object;
+		int id;
 
-		managerId = super.getRequest().getPrincipal().getActiveRoleId();
+		id = super.getRequest().getData("id", int.class);
 
-		objects = this.repository.findSponsorshipBySponsorId(managerId);
+		object = this.repository.findOneSponsorshipById(id);
 
-		super.getBuffer().addData(objects);
+		super.getBuffer().addData(object);
 	}
 
 	@Override
