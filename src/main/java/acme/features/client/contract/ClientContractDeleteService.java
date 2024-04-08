@@ -15,7 +15,7 @@ import acme.features.manager.project.ManagerProjectRepository;
 import acme.roles.Client;
 
 @Service
-public class ClientContractUpdate extends AbstractService<Client, Contract> {
+public class ClientContractDeleteService extends AbstractService<Client, Contract> {
 
 	// Internal state ---------------------------------------------------------
 
@@ -65,7 +65,7 @@ public class ClientContractUpdate extends AbstractService<Client, Contract> {
 	public void perform(final Contract contract) {
 		assert contract != null;
 
-		this.repository.save(contract);
+		this.repository.delete(contract);
 	}
 
 	@Override
