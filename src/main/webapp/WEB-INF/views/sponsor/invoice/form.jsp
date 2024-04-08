@@ -19,6 +19,8 @@
 	
 	<jstl:choose>
 		<jstl:when test="${acme:anyOf(_command, 'show|update|delete')}">
+		<acme:input-double code="sponsor.inovice.list.label.totalAmount"
+				path="totalAmount" readonly="true" />
 			<acme:submit code="sponsor.invoice.form.button.update"
 				action="/sponsor/invoice/update" />
 			<acme:submit code="sponsor.invoice.form.button.delete"

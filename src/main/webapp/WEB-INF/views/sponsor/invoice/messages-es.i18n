@@ -5,6 +5,7 @@ sponsor.invoice.list.label.dueDate = Fecha de vencimiento
 sponsor.invoice.list.label.quantity = Cantidad
 sponsor.invoice.list.label.tax = Impuesto
 sponsor.invoice.list.label.link = Enlace
+sponsor.inovice.list.label.totalAmount= Cantidad total
 sponsor.invoice.list.button.create = Crear
 
 sponsor.invoice.form.label.code = Código

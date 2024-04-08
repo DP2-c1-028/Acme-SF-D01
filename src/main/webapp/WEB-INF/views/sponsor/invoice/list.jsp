@@ -10,6 +10,7 @@
 	<acme:list-column code="sponsor.invoice.list.label.quantity" path="quantity" width="10%"/>
 	<acme:list-column code="sponsor.invoice.list.label.tax" path="tax" width="10%"/>
 	<acme:list-column code="sponsor.invoice.list.label.link" path="link" width="10%"/>		
+	<acme:list-column code="sponsor.inovice.list.label.totalAmount" path="totalAmount" width="10%"/>
 </acme:list>
 
 <acme:button code="sponsor.invoice.list.button.create" action="/sponsor/invoice/create"/>

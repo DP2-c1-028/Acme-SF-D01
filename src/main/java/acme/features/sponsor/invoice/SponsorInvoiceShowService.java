@@ -1,28 +1,21 @@
 
 package acme.features.sponsor.invoice;
 
-import java.util.Collection;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
 import acme.entities.invoices.Invoice;
-import acme.entities.sponsorships.Sponsorship;
-import acme.features.sponsor.sponsorship.SponsorSponsorshipRepository;
 import acme.roles.Sponsor;
 
 @Service
-public class SponsorInvoiceListService extends AbstractService<Sponsor, Invoice> {
+public class SponsorInvoiceShowService extends AbstractService<Sponsor, Invoice> {
 
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	private SponsorInvoiceRepository		repository;
-
-	@Autowired
-	private SponsorSponsorshipRepository	sponsorshipRepository;
+	private SponsorInvoiceRepository repository;
 
 	// AbstractService interface ----------------------------------------------
 
@@ -30,30 +23,29 @@ public class SponsorInvoiceListService extends AbstractService<Sponsor, Invoice>
 	@Override
 	public void authorise() {
 		boolean status;
-		int sponsorshipId;
+		int id;
 		int sponsorId;
-		Sponsorship sponsorship;
+		Invoice invoice;
 
-		sponsorshipId = super.getRequest().getData("sponsorshipId", int.class);
-		sponsorship = this.sponsorshipRepository.findOneSponsorshipById(sponsorshipId);
+		id = super.getRequest().getData("id", int.class);
+		invoice = this.repository.findOneInvoiceById(id);
 
 		sponsorId = super.getRequest().getPrincipal().getActiveRoleId();
 
-		status = sponsorId == sponsorship.getSponsor().getId();
+		status = sponsorId == invoice.getSponsor().getId();
 
 		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
 	public void load() {
-		Collection<Invoice> objects;
-		int sponsorshipId;
+		Invoice object;
+		int id;
 
-		sponsorshipId = super.getRequest().getData("sponsorshipId", int.class);
+		id = super.getRequest().getData("id", int.class);
+		object = this.repository.findOneInvoiceById(id);
 
-		objects = this.repository.findAllInvoicesBySponsorshipId(sponsorshipId);
-
-		super.getBuffer().addData(objects);
+		super.getBuffer().addData(object);
 	}
 
 	@Override
@@ -64,6 +56,7 @@ public class SponsorInvoiceListService extends AbstractService<Sponsor, Invoice>
 
 		dataset = super.unbind(object, "code", "registrationTime", "dueDate", "quantity", "tax", "link");
 		dataset.put("totalAmount", object.totalAmount());
+
 		super.getResponse().addData(dataset);
 	}
 

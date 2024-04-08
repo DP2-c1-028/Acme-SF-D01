@@ -5,6 +5,7 @@ sponsor.invoice.list.label.dueDate = Due date
 sponsor.invoice.list.label.quantity = Quantity
 sponsor.invoice.list.label.tax = Tax
 sponsor.invoice.list.label.link = Link
+sponsor.inovice.list.label.totalAmount= Total amount
 sponsor.invoice.list.button.create = Create
 
 sponsor.invoice.form.label.code = Code

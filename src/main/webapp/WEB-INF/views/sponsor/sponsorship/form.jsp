@@ -39,5 +39,5 @@
 	</jstl:choose>
 </acme:form>
 
-<acme:button code="sponsor.sponsorship.form.button.invoices" action="/sponsor/invoices/list?sponsorshipId=${id}"/>
+<acme:button code="sponsor.sponsorship.form.button.invoices" action="/sponsor/invoice/list?sponsorshipId=${id}"/>
 
