@@ -29,20 +29,20 @@ public class ClientProgressLogListService extends AbstractService<Client, Progre
 
 	@Override
 	public void load() {
+
 		Collection<ProgressLog> progressLogs;
-		int clientId;
+		int contractId;
 
-		clientId = super.getRequest().getPrincipal().getActiveRoleId();
-
-		progressLogs = this.repository.findProgressLogsByClientId(clientId);
+		contractId = super.getRequest().getData("contractId", int.class);
+		progressLogs = this.repository.findProgressLogsByContractId(contractId);
 
 		super.getBuffer().addData(progressLogs);
 	}
 
 	@Override
 	public void unbind(final ProgressLog progressLog) {
-		assert progressLog != null;
 
+		assert progressLog != null;
 		Dataset dataset;
 
 		dataset = super.unbind(progressLog, "recordId", "completeness", "comment", "registrationMoment", "responsiblePerson");

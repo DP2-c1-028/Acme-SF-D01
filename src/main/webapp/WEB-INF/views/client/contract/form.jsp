@@ -22,3 +22,4 @@
 		</jstl:when>
 	</jstl:choose>
 </acme:form>
+<acme:button code="client.contract.form.button.progress-logs" action="/client/progress-log/list?contractId=${id}"/>
