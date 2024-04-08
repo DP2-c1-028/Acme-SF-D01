@@ -1,17 +1,19 @@
 
 package acme.features.manager.project;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
 import acme.entities.projects.Project;
+import acme.entities.userStories.UserStoryProject;
 import acme.roles.Manager;
 
 @Service
-public class ManagerProjectShowService extends AbstractService<Manager, Project> {
-
+public class ManagerProjectDeleteService extends AbstractService<Manager, Project> {
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
@@ -32,7 +34,7 @@ public class ManagerProjectShowService extends AbstractService<Manager, Project>
 
 		managerId = super.getRequest().getPrincipal().getActiveRoleId();
 
-		status = managerId == project.getManager().getId();
+		status = managerId == project.getManager().getId() && project.isDraftMode();
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -49,12 +51,36 @@ public class ManagerProjectShowService extends AbstractService<Manager, Project>
 	}
 
 	@Override
+	public void bind(final Project object) {
+		assert object != null;
+
+		super.bind(object, "title", "code", "abstractText", "cost", "link");
+	}
+
+	@Override
+	public void validate(final Project object) {
+		assert object != null;
+
+	}
+
+	@Override
+	public void perform(final Project object) {
+		assert object != null;
+
+		Collection<UserStoryProject> userStoryProjects = this.repository.findUserStoryProjectByProjectId(object.getId());
+
+		this.repository.deleteAll(userStoryProjects);
+
+		this.repository.delete(object);
+	}
+
+	@Override
 	public void unbind(final Project object) {
 		assert object != null;
 
 		Dataset dataset;
 
-		dataset = super.unbind(object, "title", "code", "abstractText", "cost", "link", "draftMode");
+		dataset = super.unbind(object, "title", "code", "abstractText", "cost", "link");
 
 		super.getResponse().addData(dataset);
 	}

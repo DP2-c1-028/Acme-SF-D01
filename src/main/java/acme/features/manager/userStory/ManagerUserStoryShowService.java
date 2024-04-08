@@ -1,21 +1,21 @@
 
-package acme.features.manager.project;
+package acme.features.manager.userStory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
-import acme.entities.projects.Project;
+import acme.entities.userStories.UserStory;
 import acme.roles.Manager;
 
 @Service
-public class ManagerProjectShowService extends AbstractService<Manager, Project> {
+public class ManagerUserStoryShowService extends AbstractService<Manager, UserStory> {
 
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	private ManagerProjectRepository repository;
+	private ManagerUserStoryRepository repository;
 
 	// AbstractService interface ----------------------------------------------
 
@@ -25,37 +25,38 @@ public class ManagerProjectShowService extends AbstractService<Manager, Project>
 		boolean status;
 		int id;
 		int managerId;
-		Project project;
+		UserStory userStory;
 
 		id = super.getRequest().getData("id", int.class);
-		project = this.repository.findOneProjectById(id);
+		userStory = this.repository.findOneUserStoryById(id);
 
 		managerId = super.getRequest().getPrincipal().getActiveRoleId();
 
-		status = managerId == project.getManager().getId();
+		status = managerId == userStory.getManager().getId();
 
 		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
 	public void load() {
-		Project object;
+		UserStory object;
 		int id;
 
 		id = super.getRequest().getData("id", int.class);
-		object = this.repository.findOneProjectById(id);
+		object = this.repository.findOneUserStoryById(id);
 
 		super.getBuffer().addData(object);
 	}
 
 	@Override
-	public void unbind(final Project object) {
+	public void unbind(final UserStory object) {
 		assert object != null;
 
 		Dataset dataset;
 
-		dataset = super.unbind(object, "title", "code", "abstractText", "cost", "link", "draftMode");
+		dataset = super.unbind(object, "title", "description", "estimatedCost", "priority", "link", "acceptanceCriteria");
 
 		super.getResponse().addData(dataset);
 	}
+
 }

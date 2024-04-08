@@ -1,16 +1,19 @@
 
 package acme.features.manager.project;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
 import acme.entities.projects.Project;
+import acme.entities.userStories.UserStory;
 import acme.roles.Manager;
 
 @Service
-public class ManagerProjectUpdateService extends AbstractService<Manager, Project> {
+public class ManagerProjectPublishService extends AbstractService<Manager, Project> {
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
@@ -39,7 +42,7 @@ public class ManagerProjectUpdateService extends AbstractService<Manager, Projec
 	@Override
 	public void load() {
 		Project object;
-		Integer id;
+		int id;
 
 		id = super.getRequest().getData("id", int.class);
 		object = this.repository.findOneProjectById(id);
@@ -51,9 +54,6 @@ public class ManagerProjectUpdateService extends AbstractService<Manager, Projec
 	public void bind(final Project object) {
 		assert object != null;
 
-		Integer managerId = super.getRequest().getPrincipal().getActiveRoleId();
-		Manager manager = this.repository.findOneManagerById(managerId);
-		object.setManager(manager);
 		super.bind(object, "title", "code", "abstractText", "cost", "link");
 	}
 
@@ -61,19 +61,22 @@ public class ManagerProjectUpdateService extends AbstractService<Manager, Projec
 	public void validate(final Project object) {
 		assert object != null;
 
-		if (!super.getBuffer().getErrors().hasErrors("code")) {
+		if (!super.getBuffer().getErrors().hasErrors("hasFatalError"))
+			super.state(!object.isHasFatalError(), "*", "manager.project.form.error.hasFatalError");
 
-			Project projectSameCode = this.repository.findOneProjectByCode(object.getCode());
-
-			super.state(projectSameCode == null, "code", "manager.project.form.error.code");
+		if (!super.getBuffer().getErrors().hasErrors("userStory")) {
+			Collection<UserStory> userStories = this.repository.findUserStoryByProjectId(object.getId());
+			super.state(!userStories.isEmpty(), "*", "manager.project.form.error.atLeastOneUserStory");
+			boolean userStoriesPublished = userStories.stream().allMatch(u -> !u.isDraftMode());
+			super.state(!userStoriesPublished, "*", "manager.project.form.error.userStoriesPublished");
 		}
-
 	}
 
 	@Override
 	public void perform(final Project object) {
 		assert object != null;
 
+		object.setDraftMode(false);
 		this.repository.save(object);
 	}
 
