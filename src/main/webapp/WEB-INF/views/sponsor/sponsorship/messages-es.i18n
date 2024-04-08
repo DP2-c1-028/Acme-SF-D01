@@ -7,8 +7,9 @@ sponsor.sponsorship.list.label.amount = Cantidad
 sponsor.sponsorship.list.label.type = Tipo de patrocionio
 sponsor.sponsorship.list.label.email = Correo
 sponsor.sponsorship.list.label.link = Enlace
-sponsor.sponsorship.list.label.project = Proyectos
+sponsor.sponsorship.list.label.project = Proyecto
 sponsor.sponsorship.list.button.create = Crear
+sponsor.sponsorship.form.button.invoices= Facturas
 
 sponsor.sponsorship.form.label.code = Código
 sponsor.sponsorship.form.label.moment = Momento
@@ -18,7 +19,7 @@ sponsor.sponsorship.form.label.amount = Cantidad
 sponsor.sponsorship.form.label.type = Tipo de patrocinio
 sponsor.sponsorship.form.label.email = Correo
 sponsor.sponsorship.form.label.link = Enlace
-sponsor.sponsorship.form.label.project = Proyectos
+sponsor.sponsorship.form.label.project = Proyecto
 
 sponsor.sponsorship.form.button.update = Actualizar
 sponsor.sponsorship.form.button.delete = Borrar
