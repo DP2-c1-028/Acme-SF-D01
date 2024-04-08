@@ -1,0 +1,21 @@
+client.contract.list.title = Your Contracts
+client.contract.list.label.code = Code
+client.contract.list.label.project = Project name
+client.contract.list.label.providerName = Provider name
+client.contract.list.label.customerName = Customer name
+client.contract.list.label.instantiationMoment = Instantiation moment
+client.contract.list.label.budget = Budget
+client.contract.list.label.goals = Goals
+
+client.contract.form.title = Project data
+client.contract.form.label.code = Code
+client.contract.form.label.project = Project name
+client.contract.form.label.providerName = Provider name
+client.contract.form.label.customerName = Customer name
+client.contract.form.label.instantiationMoment = Instantiation moment
+client.contract.form.label.budget = Budget
+client.contract.form.label.goals = Goals
+client.contract.form.button.update = Update
+client.contract.form.button.delete = Delete
+client.contract.form.button.create = Create
+

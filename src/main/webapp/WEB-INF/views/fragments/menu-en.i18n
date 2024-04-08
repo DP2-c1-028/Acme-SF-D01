@@ -38,6 +38,10 @@ master.menu.administrator.shut-down = Shut down
 master.menu.manager = Manager
 master.menu.manager.project.list = List Your Projects
 
+# master.menu.client ###################################################
+master.menu.client = Client
+master.menu.client.contract.list = List your contracts
+
 # master.menu.provider ########################################################
 
 master.menu.provider = Provider
