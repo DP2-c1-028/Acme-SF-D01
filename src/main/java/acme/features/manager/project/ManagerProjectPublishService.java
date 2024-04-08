@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
 import acme.entities.projects.Project;
-import acme.entities.userStories.UserStoryProject;
+import acme.entities.userStories.UserStory;
 import acme.roles.Manager;
 
 @Service
-public class ManagerProjectDeleteService extends AbstractService<Manager, Project> {
+public class ManagerProjectPublishService extends AbstractService<Manager, Project> {
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
@@ -61,17 +61,23 @@ public class ManagerProjectDeleteService extends AbstractService<Manager, Projec
 	public void validate(final Project object) {
 		assert object != null;
 
+		if (!super.getBuffer().getErrors().hasErrors("hasFatalError"))
+			super.state(!object.isHasFatalError(), "*", "manager.project.form.error.hasFatalError");
+
+		if (!super.getBuffer().getErrors().hasErrors("userStory")) {
+			Collection<UserStory> userStories = this.repository.findUserStoryByProjectId(object.getId());
+			super.state(!userStories.isEmpty(), "*", "manager.project.form.error.atLeastOneUserStory");
+			boolean userStoriesPublished = userStories.stream().allMatch(u -> !u.isDraftMode());
+			super.state(!userStoriesPublished, "*", "manager.project.form.error.userStoriesPublished");
+		}
 	}
 
 	@Override
 	public void perform(final Project object) {
 		assert object != null;
 
-		Collection<UserStoryProject> userStoryProjects = this.repository.findUserStoryProjectByProjectId(object.getId());
-
-		this.repository.deleteAll(userStoryProjects);
-
-		this.repository.delete(object);
+		object.setDraftMode(false);
+		this.repository.save(object);
 	}
 
 	@Override

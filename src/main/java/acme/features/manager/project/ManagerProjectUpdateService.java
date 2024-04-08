@@ -21,7 +21,19 @@ public class ManagerProjectUpdateService extends AbstractService<Manager, Projec
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
+		boolean status;
+		int id;
+		int managerId;
+		Project project;
+
+		id = super.getRequest().getData("id", int.class);
+		project = this.repository.findOneProjectById(id);
+
+		managerId = super.getRequest().getPrincipal().getActiveRoleId();
+
+		status = managerId == project.getManager().getId() && project.isDraftMode();
+
+		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
@@ -48,6 +60,14 @@ public class ManagerProjectUpdateService extends AbstractService<Manager, Projec
 	@Override
 	public void validate(final Project object) {
 		assert object != null;
+
+		if (!super.getBuffer().getErrors().hasErrors("code")) {
+
+			Project projectSameCode = this.repository.findOneProjectByCode(object.getCode());
+
+			super.state(projectSameCode == null, "code", "manager.project.form.error.code");
+		}
+
 	}
 
 	@Override
