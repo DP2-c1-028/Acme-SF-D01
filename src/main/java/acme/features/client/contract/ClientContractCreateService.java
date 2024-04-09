@@ -11,17 +11,13 @@ import acme.client.services.AbstractService;
 import acme.client.views.SelectChoices;
 import acme.entities.contracts.Contract;
 import acme.entities.projects.Project;
-import acme.features.manager.project.ManagerProjectRepository;
 import acme.roles.Client;
 
 @Service
 public class ClientContractCreateService extends AbstractService<Client, Contract> {
 
 	@Autowired
-	private ClientContractRepository	repository;
-
-	@Autowired
-	private ManagerProjectRepository	projectRepository;
+	private ClientContractRepository repository;
 
 
 	@Override
@@ -39,7 +35,7 @@ public class ClientContractCreateService extends AbstractService<Client, Contrac
 		contract.setClient(client);
 
 		Integer projectId = super.getRequest().getPrincipal().getActiveRoleId();
-		Project project = this.projectRepository.findOneProjectById(projectId);
+		Project project = this.repository.findProjectById(projectId);
 		contract.setProject(project);
 
 		super.getBuffer().addData(contract);
