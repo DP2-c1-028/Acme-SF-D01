@@ -5,7 +5,6 @@
 
 <acme:form>
 	<acme:input-textbox code="client.contract.form.label.code" path="code" />
-	
 	<acme:input-textbox code="client.contract.form.label.providerName" path="providerName" />
 	<acme:input-textbox code="client.contract.form.label.customerName" path="customerName" />
 	<acme:input-moment code="client.contract.form.label.instantiationMoment" path="instantiationMoment" />
