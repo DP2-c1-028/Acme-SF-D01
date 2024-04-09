@@ -11,7 +11,6 @@ import acme.client.services.AbstractService;
 import acme.client.views.SelectChoices;
 import acme.entities.contracts.Contract;
 import acme.entities.projects.Project;
-import acme.features.manager.project.ManagerProjectRepository;
 import acme.roles.Client;
 
 @Service
@@ -19,11 +18,8 @@ public class ClientContractShowService extends AbstractService<Client, Contract>
 
 	// Internal state ---------------------------------------------------------
 	@Autowired
-	private ClientContractRepository	repository;
+	private ClientContractRepository repository;
 
-	//TODO Puede estar mal asiq revisar
-	@Autowired
-	private ManagerProjectRepository	projectRepository;
 	// AbstractService interface ----------------------------------------------
 
 
@@ -62,12 +58,13 @@ public class ClientContractShowService extends AbstractService<Client, Contract>
 		assert contract != null;
 
 		Dataset dataset;
-		String projectName = this.projectRepository.findOneProjectById(contract.getProject().getId()).getTitle();
+		String projectName = this.repository.findProjectById(contract.getProject().getId()).getTitle();
+
 		Collection<Project> projects = this.repository.findlAllProjects();
 		SelectChoices options;
 
-		//TODO TMABIEN MIRAR AQUI SI ESTA BIEN O HAYQ  CREAR OTRO METODO EN EL CLIENTCONTRACTREPOSITORY
-		options = SelectChoices.from(projects, "title", this.projectRepository.findOneProjectById(contract.getProject().getId()));
+		options = SelectChoices.from(projects, "title", this.repository.findProjectById(contract.getProject().getId()));
+
 		dataset = super.unbind(contract, "code", "project", "providerName", "customerName", "instantiationMoment", "budget", "goals");
 
 		dataset.put("project", projectName);

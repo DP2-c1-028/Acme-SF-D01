@@ -7,7 +7,6 @@ client.contract.list.label.instantiationMoment = Momento de creación
 client.contract.list.label.budget = Presupuesto
 client.contract.list.label.goals = Objetivos
 
-
 client.contract.form.title = Datos del contrato
 client.contract.form.label.code = Código
 client.contract.form.label.project = Nombre del proyecto
@@ -19,3 +18,4 @@ client.contract.form.label.goals = Objetivos
 client.contract.form.button.update = Actualizar
 client.contract.form.button.delete = Borrar
 client.contract.form.button.create = Crear
+client.contract.form.button.progress-logs = Registros de progreso
