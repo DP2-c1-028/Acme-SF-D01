@@ -29,6 +29,8 @@
 				action="/sponsor/sponsorship/update" />
 			<acme:submit code="sponsor.sponsorship.form.button.delete"
 				action="/sponsor/sponsorship/delete" />
+			<acme:submit code="sponsor.sponsorship.form.button.publish"
+				action="/sponsor/sponsorship/publish" />
 		</jstl:when>
 		<jstl:when test="${_command == 'create'}">
 			<acme:input-select code="sponsor.sponsorship.form.label.project"
