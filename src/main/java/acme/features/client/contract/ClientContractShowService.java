@@ -35,7 +35,7 @@ public class ClientContractShowService extends AbstractService<Client, Contract>
 		contract = this.repository.findContractById(contractId);
 		clientId = super.getRequest().getPrincipal().getActiveRoleId();
 
-		isValid = clientId == contract.getClient().getId();
+		isValid = clientId == contract.getClient().getId() && contract.getProject() != null;
 
 		super.getResponse().setAuthorised(isValid);
 	}

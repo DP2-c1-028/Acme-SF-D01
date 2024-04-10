@@ -26,16 +26,27 @@ public class ClientContractUpdateService extends AbstractService<Client, Contrac
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
+		int contractId;
+		Contract contract;
+		int clientId;
+		boolean isValid;
+
+		contractId = super.getRequest().getData("id", int.class);
+		contract = this.repository.findContractById(contractId);
+		clientId = super.getRequest().getPrincipal().getActiveRoleId();
+
+		isValid = clientId == contract.getClient().getId() && contract.getProject() != null;
+
+		super.getResponse().setAuthorised(isValid);
 	}
 
 	@Override
 	public void load() {
 		Contract contract;
-		Integer id;
+		Integer contractId;
 
-		id = super.getRequest().getData("id", int.class);
-		contract = this.repository.findContractById(id);
+		contractId = super.getRequest().getData("id", int.class);
+		contract = this.repository.findContractById(contractId);
 
 		super.getBuffer().addData(contract);
 	}
@@ -54,6 +65,9 @@ public class ClientContractUpdateService extends AbstractService<Client, Contrac
 	@Override
 	public void validate(final Contract contract) {
 		assert contract != null;
+
+		Project referencedProject = contract.getProject();
+		assert referencedProject.getCost() >= contract.getBudget().getAmount();
 	}
 
 	@Override
