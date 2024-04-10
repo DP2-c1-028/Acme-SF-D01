@@ -20,6 +20,7 @@ sponsor.sponsorship.form.label.type = Tipo de patrocinio
 sponsor.sponsorship.form.label.email = Correo
 sponsor.sponsorship.form.label.link = Enlace
 sponsor.sponsorship.form.label.project = Proyecto
+sponsor.sponsorship.form.button.publish = Publicar
 
 sponsor.sponsorship.form.button.update = Actualizar
 sponsor.sponsorship.form.button.delete = Borrar

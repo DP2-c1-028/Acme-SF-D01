@@ -20,6 +20,7 @@ sponsor.sponsorship.form.label.type = Sponsorship type
 sponsor.sponsorship.form.label.email = Email
 sponsor.sponsorship.form.label.link = Link
 sponsor.sponsorship.form.label.project = Project
+sponsor.sponsorship.form.button.publish = Publish
 
 sponsor.sponsorship.form.button.update = Update
 sponsor.sponsorship.form.button.delete = Delete

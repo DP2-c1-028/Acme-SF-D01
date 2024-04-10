@@ -1,18 +1,17 @@
 
 package acme.features.sponsor.sponsorship;
 
-import java.util.Collection;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
+import acme.entities.projects.Project;
 import acme.entities.sponsorships.Sponsorship;
 import acme.roles.Sponsor;
 
 @Service
-public class SponsorSponsorshipDeleteService extends AbstractService<Sponsor, Sponsorship> {
+public class SponsorSponsorshipPublishService extends AbstractService<Sponsor, Sponsorship> {
 
 	// Internal state ---------------------------------------------------------
 
@@ -24,41 +23,51 @@ public class SponsorSponsorshipDeleteService extends AbstractService<Sponsor, Sp
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
+		boolean status;
+		int id;
+		int sponsorId;
+		Sponsorship sponsorship;
+
+		id = super.getRequest().getData("id", int.class);
+		sponsorship = this.repository.findOneSponsorshipById(id);
+
+		sponsorId = super.getRequest().getPrincipal().getActiveRoleId();
+
+		status = sponsorId == sponsorship.getSponsor().getId() && sponsorship.isDraftMode();
+
+		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
 	public void load() {
-		Collection<Sponsorship> objects;
-		int managerId;
+		Project object;
+		int id;
 
-		managerId = super.getRequest().getPrincipal().getActiveRoleId();
+		id = super.getRequest().getData("id", int.class);
+		object = this.repository.findOneProjectById(id);
 
-		objects = this.repository.findSponsorshipBySponsorId(managerId);
-
-		super.getBuffer().addData(objects);
+		super.getBuffer().addData(object);
 	}
 
 	@Override
 	public void bind(final Sponsorship object) {
 		assert object != null;
 
-		super.bind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link");
+		super.bind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link", "project");
 	}
 
-	//falta validar que: Sponsorships can be updated or deleted as long as they have not been
-	// published. For a sponsorship to be published, the sum of the total amount of all their
-	// invoices must be equal to the amount of the sponsorship
 	@Override
 	public void validate(final Sponsorship object) {
 		assert object != null;
+
 	}
 
 	@Override
 	public void perform(final Sponsorship object) {
 		assert object != null;
 
-		this.repository.delete(object);
+		object.setDraftMode(false);
+		this.repository.save(object);
 	}
 
 	@Override
@@ -67,7 +76,7 @@ public class SponsorSponsorshipDeleteService extends AbstractService<Sponsor, Sp
 
 		Dataset dataset;
 
-		dataset = super.unbind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link");
+		dataset = super.unbind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link", "project");
 
 		super.getResponse().addData(dataset);
 	}
