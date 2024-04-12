@@ -13,6 +13,7 @@
 
 	<jstl:choose>
 		<jstl:when test="${acme:anyOf(_command, 'show|update|delete')}">
+			<acme:input-textbox code="client.progress-log.form.label.draftMode" path="draftMode" readonly="true" />
 			<acme:submit code="client.progress-log.form.button.update" action="/client/progress-log/update" />
 			<acme:submit code="client.progress-log.form.button.delete" action="/client/progress-log/delete" />
 		</jstl:when>

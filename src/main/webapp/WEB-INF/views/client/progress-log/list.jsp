@@ -7,6 +7,7 @@
 <acme:list>
 
 	<acme:list-column code="client.progress-log.list.label.recordId" path="recordId" width="10%" />
+	<acme:list-column code="client.progress-log.list.label.draftMode" path="draftMode" width="10%" />
 	<acme:list-column code="client.progress-log.list.label.completeness" path="completeness" width="10%" />
 	<acme:list-column code="client.progress-log.list.label.comment" path="comment" />
 	<acme:list-column code="client.progress-log.list.label.registrationMoment" path="registrationMoment" width="10%" />

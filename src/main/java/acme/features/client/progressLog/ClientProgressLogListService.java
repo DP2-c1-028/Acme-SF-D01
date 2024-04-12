@@ -45,7 +45,7 @@ public class ClientProgressLogListService extends AbstractService<Client, Progre
 		assert progressLog != null;
 		Dataset dataset;
 
-		dataset = super.unbind(progressLog, "recordId", "completeness", "comment", "registrationMoment", "responsiblePerson");
+		dataset = super.unbind(progressLog, "recordId", "draftMode", "completeness", "comment", "registrationMoment", "responsiblePerson");
 
 		super.getResponse().addData(dataset);
 	}
