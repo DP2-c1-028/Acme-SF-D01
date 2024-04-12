@@ -51,7 +51,7 @@ public class ClientContractListService extends AbstractService<Client, Contract>
 		Dataset dataset;
 		String projectName = this.projectRepository.findOneProjectById(contract.getProject().getId()).getTitle();
 
-		dataset = super.unbind(contract, "code", "project", "providerName", "customerName", "instantiationMoment", "budget", "goals");
+		dataset = super.unbind(contract, "code", "project", "draftMode", "providerName", "customerName", "instantiationMoment", "budget", "goals");
 
 		dataset.put("project", projectName);
 		super.getResponse().addData(dataset);

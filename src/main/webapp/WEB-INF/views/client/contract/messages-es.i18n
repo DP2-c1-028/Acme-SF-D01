@@ -1,5 +1,6 @@
 client.contract.list.title = Tus Contratos
 client.contract.list.label.code = Código
+client.contract.list.label.draftMode = esta en modo borrador ?
 client.contract.list.label.project = Nombre del proyecto
 client.contract.list.label.providerName = Nombre del Proveedor
 client.contract.list.label.customerName = Nombre del cliente
@@ -9,6 +10,7 @@ client.contract.list.label.goals = Objetivos
 
 client.contract.form.title = Datos del contrato
 client.contract.form.label.code = Código
+client.contract.form.label.draftMode = esta en modo borrador ?
 client.contract.form.label.project = Nombre del proyecto
 client.contract.form.label.providerName = Nombre del Proveedor
 client.contract.form.label.customerName = Nombre del cliente
