@@ -5,13 +5,15 @@
 
 <acme:form>
 	<acme:input-textbox code="developer.training-module.form.label.code" path="code" />
-	<acme:input-moment code="developer.training-module.form.label.creation-moment" path="creationMoment" />
-	<acme:input-moment code="developer.training-module.form.label.update-moment" path="updateMoment" />
+	<acme:input-moment code="developer.training-module.form.label.creation-moment" path="creationMoment" readonly="true" />
+	<acme:input-moment code="developer.training-module.form.label.update-moment" path="updateMoment" readonly="true" />
 	<acme:input-select code="developer.training-module.form.label.difficulty" path="difficulty"  
 		choices="${difficulties}" readonly="${acme:anyOf(difficulties, 'BASIC|INTERMEDIATE|ADVANCED')}"/>
 	<acme:input-textbox code="developer.training-module.form.label.details" path="details" />
 	<acme:input-integer code="developer.training-module.form.label.total-time" path="totalTime" />
-	<acme:input-url code="developer.training-module.form.label.link" path="link" />	
+	<acme:input-url code="developer.training-module.form.label.link" path="link" />
+	<acme:input-select code="developer.training-module.form.label.project" path="project"  
+		choices="${projects}"/>	
 	
 	<jstl:choose>
 		<jstl:when test="${acme:anyOf(_command, 'show|update|delete')}">

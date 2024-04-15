@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.client.data.models.Dataset;
+import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractService;
 import acme.entities.training_modules.TrainingModule;
 import acme.roles.Developer;
@@ -44,8 +45,14 @@ public class DeveloperTrainingModuleUpdateService extends AbstractService<Develo
 		Integer DeveloperId = super.getRequest().getPrincipal().getActiveRoleId();
 		Developer Developer = this.repository.findOneDeveloperById(DeveloperId);
 		object.setDeveloper(Developer);
-		super.bind(object, "code", "creationMoment", "updateMoment", "difficulty", "details", "totalTime", "link");
+		super.bind(object, "code", "creationMoment", "updateMoment", "difficulty", "details", "totalTime", "link", "project");
 
+		Date currentMoment;
+		Date updateMoment;
+
+		currentMoment = MomentHelper.getCurrentMoment();
+		updateMoment = new Date(currentMoment.getTime() - 1000); //Substracts one second to ensure the moment is in the past
+		object.setUpdateMoment(updateMoment);
 	}
 
 	@Override
@@ -53,22 +60,15 @@ public class DeveloperTrainingModuleUpdateService extends AbstractService<Develo
 		assert object != null;
 
 		if (!super.getBuffer().getErrors().hasErrors("published")) {
-			Boolean isPublished;
-			isPublished = !this.repository.findTrainingSessionsByTrainingModuleId(object.getId()).isEmpty();
-			super.state(isPublished == false, "published", "developer.training-module.form.error.published");
+			Boolean unpublished;
+			unpublished = this.repository.findTrainingSessionsByTrainingModuleId(object.getId()).isEmpty();
+			super.state(unpublished, "published", "developer.training-module.form.error.published");
 		}
 	}
 
 	@Override
 	public void perform(final TrainingModule object) {
 		assert object != null;
-
-		Date currentMoment;
-		Date updateMoment;
-
-		currentMoment = new Date();
-		updateMoment = new Date(currentMoment.getTime() - 1000); //Substracts one second to ensure the moment is in the past
-		object.setUpdateMoment(updateMoment);
 
 		this.repository.save(object);
 	}
@@ -79,7 +79,7 @@ public class DeveloperTrainingModuleUpdateService extends AbstractService<Develo
 
 		Dataset dataset;
 
-		dataset = super.unbind(object, "code", "creationMoment", "updateMoment", "difficulty", "details", "totalTime", "link");
+		dataset = super.unbind(object, "code", "creationMoment", "updateMoment", "difficulty", "details", "totalTime", "link", "project");
 
 		super.getResponse().addData(dataset);
 	}

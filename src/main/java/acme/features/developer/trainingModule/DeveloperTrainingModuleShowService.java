@@ -54,14 +54,17 @@ public class DeveloperTrainingModuleShowService extends AbstractService<Develope
 	public void unbind(final TrainingModule object) {
 		assert object != null;
 
-		SelectChoices choices;
+		SelectChoices difficultyChoices;
+		SelectChoices projectChoices;
 
-		choices = SelectChoices.from(TrainingModuleDifficulty.class, object.getDifficulty());
+		difficultyChoices = SelectChoices.from(TrainingModuleDifficulty.class, object.getDifficulty());
+		projectChoices = SelectChoices.from(this.repository.findAllProjects(), "title", object.getProject());
 
 		Dataset dataset;
 
-		dataset = super.unbind(object, "code", "creationMoment", "updateMoment", "difficulty", "details", "totalTime", "link");
-		dataset.put("difficulties", choices);
+		dataset = super.unbind(object, "code", "creationMoment", "updateMoment", "difficulty", "details", "totalTime", "link", "project");
+		dataset.put("difficulties", difficultyChoices);
+		dataset.put("projects", projectChoices);
 
 		super.getResponse().addData(dataset);
 	}

@@ -1,10 +1,13 @@
 
 package acme.features.developer.trainingModule;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.client.data.models.Dataset;
+import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractService;
 import acme.client.views.SelectChoices;
 import acme.entities.training_modules.TrainingModule;
@@ -42,7 +45,14 @@ public class DeveloperTrainingModuleCreateService extends AbstractService<Develo
 	public void bind(final TrainingModule object) {
 		assert object != null;
 
-		super.bind(object, "code", "creationMoment", "updateMoment", "difficulty", "details", "totalTime", "link");
+		super.bind(object, "code", "creationMoment", "updateMoment", "difficulty", "details", "totalTime", "link", "project");
+
+		Date currentMoment;
+		Date creationMoment;
+
+		currentMoment = MomentHelper.getCurrentMoment();
+		creationMoment = new Date(currentMoment.getTime() - 1000); //Substracts one second to ensure the moment is in the past
+		object.setCreationMoment(creationMoment);
 	}
 
 	@Override
@@ -61,14 +71,17 @@ public class DeveloperTrainingModuleCreateService extends AbstractService<Develo
 	public void unbind(final TrainingModule object) {
 		assert object != null;
 
-		SelectChoices choices;
+		SelectChoices difficultyChoices;
+		SelectChoices projectChoices;
 
-		choices = SelectChoices.from(TrainingModuleDifficulty.class, object.getDifficulty());
+		difficultyChoices = SelectChoices.from(TrainingModuleDifficulty.class, object.getDifficulty());
+		projectChoices = SelectChoices.from(this.repository.findAllProjects(), "title", null);
 
 		Dataset dataset;
 
-		dataset = super.unbind(object, "code", "creationMoment", "updateMoment", "difficulty", "details", "totalTime", "link");
-		dataset.put("difficulties", choices);
+		dataset = super.unbind(object, "code", "creationMoment", "updateMoment", "difficulty", "details", "totalTime", "link", "project");
+		dataset.put("difficulties", difficultyChoices);
+		dataset.put("projects", projectChoices);
 
 		super.getResponse().addData(dataset);
 	}
