@@ -25,16 +25,34 @@ public interface ClientContractRepository extends AbstractRepository {
 	@Query("select c from Contract c where c.code = :code")
 	Contract findContractByCode(String code);
 
+	@Query("select c from Contract c where c.client.id = :clientId and c.project.id = :projectId")
+	Collection<Contract> findProjectContractsByClientId(int clientId, int projectId);
+
 	@Query("select p from Project p")
 	Collection<Project> findlAllProjects();
-
-	@Query("select c from Client c where c.id = :id")
-	Client findClientById(int id);
 
 	@Query("select p from Project p where p.id = :id")
 	Project findProjectById(int id);
 
-	//TODO ARREGLAR ERROR EN CONVERSOR ORIGINAL
+	@Query("select c from Client c where c.id = :id")
+	Client findClientById(int id);
+
+	default double currencyTransformerUsd(final Money initial) {
+		double res = initial.getAmount();
+
+		if (initial.getCurrency().equals("USD"))
+			res = initial.getAmount();
+
+		else if (initial.getCurrency().equals("EUR"))
+			res = initial.getAmount() * 1.07;
+
+		else
+			res = initial.getAmount() * 1.25;
+
+		return res;
+	}
+
+	//TODO ARREGLAR ERROR EN CONVERSOR UNIVERSAL
 	default double currencyTransformer(final Money initial, final String currency) {
 		double res = initial.getAmount();
 		ArrayList<Double> factor = new ArrayList<>();
@@ -64,18 +82,4 @@ public interface ClientContractRepository extends AbstractRepository {
 		return res;
 	}
 
-	default double currencyTransformerUsd(final Money initial) {
-		double res = initial.getAmount();
-
-		if (initial.getCurrency().equals("USD"))
-			res = initial.getAmount();
-
-		else if (initial.getCurrency().equals("EUR"))
-			res = initial.getAmount() * 1.07;
-
-		else
-			res = initial.getAmount() * 1.25;
-
-		return res;
-	}
 }
