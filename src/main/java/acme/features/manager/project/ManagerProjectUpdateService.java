@@ -65,7 +65,8 @@ public class ManagerProjectUpdateService extends AbstractService<Manager, Projec
 
 			Project projectSameCode = this.repository.findOneProjectByCode(object.getCode());
 
-			super.state(projectSameCode == null, "code", "manager.project.form.error.code");
+			if (projectSameCode != null)
+				super.state(projectSameCode.getId() == object.getId(), "code", "manager.project.form.error.code");
 		}
 
 	}
