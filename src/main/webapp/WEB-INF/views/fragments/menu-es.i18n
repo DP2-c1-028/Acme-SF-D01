@@ -42,6 +42,11 @@ master.menu.manager.project.list = Listar tus proyectos
 master.menu.sponsor = Patrocinador
 master.menu.sponsor.sponsorship.list = Listar tus patrocinios
 
+# master.menu.client ###################################################
+master.menu.client = Cliente
+master.menu.client.contract.list = Listado de contratos
+
+
 # master.menu.provider ########################################################
 
 master.menu.provider = Proveedor
