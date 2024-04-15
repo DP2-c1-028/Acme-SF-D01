@@ -1,13 +1,11 @@
 
 package acme.features.client.contract;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import acme.client.data.datatypes.Money;
 import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
 import acme.client.views.SelectChoices;
@@ -58,46 +56,20 @@ public class ClientContractCreateService extends AbstractService<Client, Contrac
 	public void validate(final Contract contract) {
 
 		assert contract != null;
+
 		//validacion del D02 budget debe ser menor o igual que coste
-		Project referencedProject = contract.getProject();
-		assert referencedProject.getCost() >= contract.getBudget().getAmount();
+		if (!super.getBuffer().getErrors().hasErrors("budget")) {
+			Project referencedProject = contract.getProject();
+			super.state(this.repository.currencyTransformerUsd(referencedProject.getCost()) >= this.repository.currencyTransformerUsd(contract.getBudget()), "budget", "client.contract.form.error.budget");
 
-		/*
-		 * if( referencedProject.getCost().getCurrency.equals(contract.getBudget().getCurrency()) ){
-		 * assert referencedProject().getCost().getAmount() >= contract.getBudget().getAmount()
-		 * }else{
-		 * assert this.currencyTransformer(referencedProject.getCost(), "EUR") >= this.currencyTransformer(contract.getBudget(), "EUR");
-		 * }
-		 * 
-		 */
-	}
+		}
 
-	private double currencyTransformer(final Money initial, final String currency) {
-		double res = initial.getAmount();
-		ArrayList<Double> factor = new ArrayList<>();
-		factor.add(1.0);
-		factor.add(1.07);
-		factor.add(0.9);//EURtoEUR, EURtoUSD, EURtoGBP
+		if (!super.getBuffer().getErrors().hasErrors("code")) {
 
-		factor.add(0.93);
-		factor.add(1.0);
-		factor.add(0.00);//USDtoEUR, USDtoUSD, USDtoGBP
+			Contract contractWithCode = this.repository.findContractByCode(contract.getCode());
 
-		factor.add(1.1);
-		factor.add(0.00);
-		factor.add(1.0);//GBtoEUR, GBPtoUSD, GBPtoGBP
-
-		ArrayList<String> lista = new ArrayList<>();
-		lista.add("EUR");
-		lista.add("USD");
-		lista.add("GBP");
-
-		for (int i = 0; i < lista.size(); i++)
-			for (int j = 0; j < lista.size(); j++)
-				if (lista.get(i) == initial.getCurrency() && lista.get(j) == currency)
-					res = initial.getAmount() * factor.get(i + j);
-
-		return res;
+			super.state(contractWithCode == null, "code", "client.contract.form.error.code");
+		}
 	}
 
 	@Override

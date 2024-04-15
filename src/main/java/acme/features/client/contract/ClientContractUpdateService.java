@@ -66,8 +66,28 @@ public class ClientContractUpdateService extends AbstractService<Client, Contrac
 	public void validate(final Contract contract) {
 		assert contract != null;
 
-		Project referencedProject = contract.getProject();
-		assert referencedProject.getCost() >= contract.getBudget().getAmount();
+		if (!super.getBuffer().getErrors().hasErrors("budget")) {
+			Project referencedProject = contract.getProject();
+
+			System.out.println(referencedProject.getCost());
+			System.out.println("x to usd" + this.repository.currencyTransformer(referencedProject.getCost(), "USD"));
+			System.out.println("x to usd budget" + this.repository.currencyTransformer(contract.getBudget(), "USD"));
+
+			System.out.println("transformerUsd" + this.repository.currencyTransformerUsd(referencedProject.getCost()));
+			System.out.println("TransfomerUsd budget" + this.repository.currencyTransformerUsd(contract.getBudget()));
+
+			super.state(this.repository.currencyTransformerUsd(referencedProject.getCost()) >= this.repository.currencyTransformerUsd(contract.getBudget()), "budget", "client.contract.form.error.budget");
+
+		}
+
+		if (!super.getBuffer().getErrors().hasErrors("code")) {
+
+			Contract contractWithCode = this.repository.findContractByCode(contract.getCode());
+
+			if (contractWithCode != null)
+				super.state(contractWithCode.getId() == contract.getId(), "code", "client.contract.form.error.code");
+		}
+
 	}
 
 	@Override

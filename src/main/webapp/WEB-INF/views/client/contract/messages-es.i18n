@@ -21,3 +21,6 @@ client.contract.form.button.update = Actualizar
 client.contract.form.button.delete = Borrar
 client.contract.form.button.create = Crear
 client.contract.form.button.progress-logs = Registros de progreso
+
+client.contract.form.error.code = el código asociado esta ya en uso
+client.contract.form.error.budget = no puedes asignar un presupuesto mayor que el coste asociado al proyecto

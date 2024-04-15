@@ -21,3 +21,6 @@ client.contract.form.button.update = Update
 client.contract.form.button.delete = Delete
 client.contract.form.button.create = Create
 client.contract.form.button.progress-logs = Progress Logs
+
+client.contract.form.error.code = the code assigned is alreaady in use
+client.contract.form.error.budget= cannot assign a budget higher than the associated project cost
