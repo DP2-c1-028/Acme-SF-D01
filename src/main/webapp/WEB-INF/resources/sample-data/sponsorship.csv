@@ -1,5 +1,5 @@
 key,code,moment,duration-start-time,duration-end-time,amount,type,email,link,draftMode,key:project,key:sponsor
-sponsorship-01,ABC-120,2021/07/20 0:00,2021/07/30 13:00,2021/09/30 13:00,EUR 20000.3,FINANCIAL,sponsor01@acme.com,https://snap.fan/,false,project-01,sponsor-01
+sponsorship-01,ABC-120,2021/07/20 0:00,2021/07/30 13:00,2021/09/30 13:00,EUR 20000.3,FINANCIAL,sponsor01@acme.com,https://snap.fan/,true,project-01,sponsor-01
 sponsorship-02,ABC-121,2021/07/21 0:00,2021/07/31 13:00,2021/10/01 13:00,EUR 21000.3,FINANCIAL,sponsor02@acme.com,https://snap.fan/,false,project-02,sponsor-02
 sponsorship-03,ABC-122,1984/07/22 0:00,1985/08/01 13:00,1990/10/02 13:00,EUR 20000.4,FINANCIAL,sponsor03@acme.com,,false,project-03,sponsor-01
 sponsorship-04,ABC-123,2021/07/23 0:00,2021/08/02 13:00,2021/10/03 13:00,EUR 0.0,FINANCIAL,sponsor04@acme.com,https://snap.fan/,false,project-04,sponsor-02
@@ -8,7 +8,7 @@ sponsorship-06,ABC-125,2021/07/25 0:00,2021/08/04 0:00,2021/10/05 0:00,USD 0.0,F
 sponsorship-07,ABC-126,2021/07/26 0:00,2021/08/05 13:00,2021/10/06 13:00,USD 0.1,FINANCIAL,,https://snap.fan/,false,project-07,sponsor-01
 sponsorship-08,ABC-127,2021/07/27 0:00,2021/08/06 13:00,2021/10/07 13:00,EUR 21000.6,FINANCIAL,orsponsorsponsorsponsorsponsorsponsorsponsorsponso@acme.com,https://snap.fan/,false,project-08,sponsor-02
 sponsorship-09,ABC-128,2021/07/28 0:00,2021/08/07 13:00,2021/10/08 13:00,USD 20000.7,INKIND,sponsor09@acme.com,https://snap.fan/,false,project-09,sponsor-01
-sponsorship-10,ABC-129,2021/07/29 0:00,2021/08/08 13:00,2021/10/09 13:00,EUR 21000.7,FINANCIAL,orsponsorsponsorspponsorsponso@acme.com,,false,project-10,sponsor-02
+sponsorship-10,ABC-129,2021/07/29 0:00,2021/08/08 13:00,2021/10/09 13:00,GBP 21000.7,FINANCIAL,orsponsorsponsorspponsorsponso@acme.com,,false,project-10,sponsor-02
 sponsorship-11,AB-130,2003/07/30 0:00,2004/08/09 13:00,2005/10/10 13:00,EUR 20000.8,FINANCIAL,,https://snap.fan/,false,project-11,sponsor-01
 sponsorship-12,ABC-131,2021/07/31 0:00,2021/08/10 13:00,2021/10/11 13:00,EUR 21000.8,FINANCIAL,sponsor12@acme.com,https://snap.fan/,false,project-12,sponsor-02
 sponsorship-13,ABC-132,2021/08/01 0:00,2021/08/11 13:00,2021/10/12 13:00,EUR 20000.9,FINANCIAL,,https://snap.fan/,false,project-13,sponsor-01

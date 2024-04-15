@@ -24,7 +24,19 @@ public class SponsorSponsorshipDeleteService extends AbstractService<Sponsor, Sp
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
+		boolean status;
+		int id;
+		int sponsorId;
+		Sponsorship sponsorship;
+
+		id = super.getRequest().getData("id", int.class);
+		sponsorship = this.repository.findOneSponsorshipById(id);
+
+		sponsorId = super.getRequest().getPrincipal().getActiveRoleId();
+
+		status = sponsorId == sponsorship.getSponsor().getId() && sponsorship.isDraftMode();
+
+		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
@@ -46,9 +58,6 @@ public class SponsorSponsorshipDeleteService extends AbstractService<Sponsor, Sp
 		super.bind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link");
 	}
 
-	//falta validar que: Sponsorships can be updated or deleted as long as they have not been
-	// published. For a sponsorship to be published, the sum of the total amount of all their
-	// invoices must be equal to the amount of the sponsorship
 	@Override
 	public void validate(final Sponsorship object) {
 		assert object != null;
@@ -67,7 +76,7 @@ public class SponsorSponsorshipDeleteService extends AbstractService<Sponsor, Sp
 
 		Dataset dataset;
 
-		dataset = super.unbind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link");
+		dataset = super.unbind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link", "draftMode");
 
 		super.getResponse().addData(dataset);
 	}

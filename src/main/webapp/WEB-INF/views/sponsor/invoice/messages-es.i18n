@@ -18,4 +18,7 @@ sponsor.invoice.form.label.link = Enlace
 sponsor.invoice.form.button.update = Actualizar
 sponsor.invoice.form.button.delete = Borrar
 sponsor.invoice.form.button.create = Crear
+sponsor.invoice.form.button.publish = Publicar
 sponsor.invoice.form.title = Datos de tu facturas
+
+sponsor.invoice.form.error.code =  El código debe ser único, pruebe otro

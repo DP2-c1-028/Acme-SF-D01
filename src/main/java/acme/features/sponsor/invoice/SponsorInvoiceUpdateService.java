@@ -10,7 +10,7 @@ import acme.entities.invoices.Invoice;
 import acme.roles.Sponsor;
 
 @Service
-public class SponsorInvoiceShowService extends AbstractService<Sponsor, Invoice> {
+public class SponsorInvoiceUpdateService extends AbstractService<Sponsor, Invoice> {
 
 	// Internal state ---------------------------------------------------------
 
@@ -32,7 +32,7 @@ public class SponsorInvoiceShowService extends AbstractService<Sponsor, Invoice>
 
 		sponsorId = super.getRequest().getPrincipal().getActiveRoleId();
 
-		status = sponsorId == invoice.getSponsor().getId();
+		status = sponsorId == invoice.getSponsor().getId() && invoice.isDraftMode();
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -43,9 +43,40 @@ public class SponsorInvoiceShowService extends AbstractService<Sponsor, Invoice>
 		int id;
 
 		id = super.getRequest().getData("id", int.class);
+
 		object = this.repository.findOneInvoiceById(id);
 
 		super.getBuffer().addData(object);
+	}
+
+	@Override
+	public void bind(final Invoice object) {
+		assert object != null;
+
+		Integer sponsorId = super.getRequest().getPrincipal().getActiveRoleId();
+		Sponsor sponsor = this.repository.findOneSponsorById(sponsorId);
+		object.setSponsor(sponsor);
+		super.bind(object, "code", "registrationTime", "dueDate", "quantity", "tax", "link");
+	}
+
+	@Override
+	public void validate(final Invoice object) {
+		assert object != null;
+
+		if (!super.getBuffer().getErrors().hasErrors("code")) {
+
+			Invoice projectSameCode = this.repository.findOneInvoiceByCode(object.getCode());
+
+			if (projectSameCode != null)
+				super.state(projectSameCode.getId() == object.getId(), "code", "sponsor.Invoice.form.error.code");
+		}
+	}
+
+	@Override
+	public void perform(final Invoice object) {
+		assert object != null;
+
+		this.repository.save(object);
 	}
 
 	@Override
@@ -55,7 +86,6 @@ public class SponsorInvoiceShowService extends AbstractService<Sponsor, Invoice>
 		Dataset dataset;
 
 		dataset = super.unbind(object, "code", "registrationTime", "dueDate", "quantity", "tax", "link", "draftMode");
-		dataset.put("totalAmount", object.totalAmount());
 
 		super.getResponse().addData(dataset);
 	}

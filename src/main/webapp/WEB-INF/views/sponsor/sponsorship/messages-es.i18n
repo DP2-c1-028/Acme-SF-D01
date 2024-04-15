@@ -26,3 +26,7 @@ sponsor.sponsorship.form.button.update = Actualizar
 sponsor.sponsorship.form.button.delete = Borrar
 sponsor.sponsorship.form.button.create = Crear
 sponsor.sponsorship.form.title = Datos de tu patrocinio
+
+
+sponsor.sponsorship.form.error.code = El código debe ser único, pruebe otro
+sponsor.sponsorship.form.error.invalidTotalAmount = La suma de la cantidad total de los invoices debe ser igual a la cantidad del patrocinio

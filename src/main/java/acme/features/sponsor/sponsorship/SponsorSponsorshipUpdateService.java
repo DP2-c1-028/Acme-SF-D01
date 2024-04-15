@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 
 import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
+import acme.client.views.SelectChoices;
+import acme.entities.projects.Project;
 import acme.entities.sponsorships.Sponsorship;
+import acme.entities.sponsorships.SponsorshipType;
 import acme.roles.Sponsor;
 
 @Service
@@ -24,17 +27,29 @@ public class SponsorSponsorshipUpdateService extends AbstractService<Sponsor, Sp
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
+		boolean status;
+		int id;
+		int sponsorId;
+		Sponsorship sponsorship;
+
+		id = super.getRequest().getData("id", int.class);
+		sponsorship = this.repository.findOneSponsorshipById(id);
+
+		sponsorId = super.getRequest().getPrincipal().getActiveRoleId();
+
+		status = sponsorId == sponsorship.getSponsor().getId() && sponsorship.isDraftMode();
+
+		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
 	public void load() {
 		Collection<Sponsorship> objects;
-		int managerId;
+		int sponsorId;
 
-		managerId = super.getRequest().getPrincipal().getActiveRoleId();
+		sponsorId = super.getRequest().getPrincipal().getActiveRoleId();
 
-		objects = this.repository.findSponsorshipBySponsorId(managerId);
+		objects = this.repository.findSponsorshipBySponsorId(sponsorId);
 
 		super.getBuffer().addData(objects);
 	}
@@ -46,12 +61,17 @@ public class SponsorSponsorshipUpdateService extends AbstractService<Sponsor, Sp
 		super.bind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link");
 	}
 
-	//falta validar que: Sponsorships can be updated or deleted as long as they have not been
-	// published. For a sponsorship to be published, the sum of the total amount of all their
-	// invoices must be equal to the amount of the sponsorship
 	@Override
 	public void validate(final Sponsorship object) {
 		assert object != null;
+
+		if (!super.getBuffer().getErrors().hasErrors("code")) {
+
+			Sponsorship projectSameCode = this.repository.findOneSponsorshipByCode(object.getCode());
+
+			if (projectSameCode != null)
+				super.state(projectSameCode.getId() == object.getId(), "code", "sponsor.sponsorship.form.error.code");
+		}
 	}
 
 	@Override
@@ -65,9 +85,17 @@ public class SponsorSponsorshipUpdateService extends AbstractService<Sponsor, Sp
 	public void unbind(final Sponsorship object) {
 		assert object != null;
 
+		SelectChoices choices;
+		Collection<Project> projects = this.repository.findProjects();
+		SelectChoices choices2;
 		Dataset dataset;
 
-		dataset = super.unbind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link");
+		choices = SelectChoices.from(SponsorshipType.class, object.getType());
+		choices2 = SelectChoices.from(projects, "title", object.getProject());
+
+		dataset = super.unbind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link", "draftMode");
+		dataset.put("types", choices);
+		dataset.put("projects", choices2);
 
 		super.getResponse().addData(dataset);
 	}

@@ -1,12 +1,14 @@
 
 package acme.features.sponsor.sponsorship;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
-import acme.entities.projects.Project;
+import acme.entities.invoices.Invoice;
 import acme.entities.sponsorships.Sponsorship;
 import acme.roles.Sponsor;
 
@@ -40,11 +42,11 @@ public class SponsorSponsorshipPublishService extends AbstractService<Sponsor, S
 
 	@Override
 	public void load() {
-		Project object;
+		Sponsorship object;
 		int id;
 
 		id = super.getRequest().getData("id", int.class);
-		object = this.repository.findOneProjectById(id);
+		object = this.repository.findOneSponsorshipById(id);
 
 		super.getBuffer().addData(object);
 	}
@@ -59,6 +61,13 @@ public class SponsorSponsorshipPublishService extends AbstractService<Sponsor, S
 	@Override
 	public void validate(final Sponsorship object) {
 		assert object != null;
+
+		if (!super.getBuffer().getErrors().hasErrors("totalAmount")) {
+			Collection<Invoice> invoices = this.repository.findInvoicesOfASponsorship(object.getId());
+
+			double invoiceTotAmount = invoices.stream().mapToDouble(i -> i.totalAmount()).sum();
+			super.state(invoiceTotAmount == object.getAmount().getAmount(), "*", "sponsor.sponsorship.form.error.invalidTotalAmount");
+		}
 
 	}
 

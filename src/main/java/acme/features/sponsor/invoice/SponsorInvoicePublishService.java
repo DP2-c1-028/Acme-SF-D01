@@ -10,7 +10,7 @@ import acme.entities.invoices.Invoice;
 import acme.roles.Sponsor;
 
 @Service
-public class SponsorInvoiceShowService extends AbstractService<Sponsor, Invoice> {
+public class SponsorInvoicePublishService extends AbstractService<Sponsor, Invoice> {
 
 	// Internal state ---------------------------------------------------------
 
@@ -32,7 +32,7 @@ public class SponsorInvoiceShowService extends AbstractService<Sponsor, Invoice>
 
 		sponsorId = super.getRequest().getPrincipal().getActiveRoleId();
 
-		status = sponsorId == invoice.getSponsor().getId();
+		status = sponsorId == invoice.getSponsor().getId() && invoice.isDraftMode();
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -49,13 +49,33 @@ public class SponsorInvoiceShowService extends AbstractService<Sponsor, Invoice>
 	}
 
 	@Override
+	public void bind(final Invoice object) {
+		assert object != null;
+
+		super.bind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link", "project");
+	}
+
+	@Override
+	public void validate(final Invoice object) {
+		assert object != null;
+
+	}
+
+	@Override
+	public void perform(final Invoice object) {
+		assert object != null;
+
+		object.setDraftMode(false);
+		this.repository.save(object);
+	}
+
+	@Override
 	public void unbind(final Invoice object) {
 		assert object != null;
 
 		Dataset dataset;
 
-		dataset = super.unbind(object, "code", "registrationTime", "dueDate", "quantity", "tax", "link", "draftMode");
-		dataset.put("totalAmount", object.totalAmount());
+		dataset = super.unbind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link", "project", "draftMode");
 
 		super.getResponse().addData(dataset);
 	}

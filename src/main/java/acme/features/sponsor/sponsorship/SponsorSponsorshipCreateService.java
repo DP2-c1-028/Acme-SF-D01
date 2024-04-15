@@ -38,10 +38,7 @@ public class SponsorSponsorshipCreateService extends AbstractService<Sponsor, Sp
 		Integer sponsorId = super.getRequest().getPrincipal().getActiveRoleId();
 		Sponsor sponsor = this.repository.findOneSponsorById(sponsorId);
 		object.setSponsor(sponsor);
-
-		Integer projectId = super.getRequest().getPrincipal().getActiveRoleId();
-		Project project = this.repository.findOneProjectById(projectId);
-		object.setProject(project);
+		object.setDraftMode(true);
 
 		super.getBuffer().addData(object);
 
@@ -57,6 +54,13 @@ public class SponsorSponsorshipCreateService extends AbstractService<Sponsor, Sp
 	@Override
 	public void validate(final Sponsorship object) {
 		assert object != null;
+
+		if (!super.getBuffer().getErrors().hasErrors("code")) {
+
+			Sponsorship projectSameCode = this.repository.findOneSponsorshipByCode(object.getCode());
+
+			super.state(projectSameCode == null, "code", "sponsor.sponsorship.form.error.code");
+		}
 	}
 
 	@Override
@@ -76,9 +80,9 @@ public class SponsorSponsorshipCreateService extends AbstractService<Sponsor, Sp
 		Dataset dataset;
 
 		choices = SelectChoices.from(SponsorshipType.class, object.getType());
-		choices2 = SelectChoices.from(projects, "title", this.repository.findOneProjectById(0));
+		choices2 = SelectChoices.from(projects, "title", (Project) projects.toArray()[0]);
 
-		dataset = super.unbind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link", "project");
+		dataset = super.unbind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link", "project", "draftMode");
 		dataset.put("types", choices);
 		dataset.put("projects", choices2);
 

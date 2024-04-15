@@ -18,17 +18,19 @@
 		path="link" />
 	
 	<jstl:choose>
-		<jstl:when test="${acme:anyOf(_command, 'show|update|delete')}">
+		<jstl:when test="${acme:anyOf(_command, 'show|update|delete|publish') && draftMode==true}">
 		<acme:input-double code="sponsor.inovice.list.label.totalAmount"
 				path="totalAmount" readonly="true" />
 			<acme:submit code="sponsor.invoice.form.button.update"
 				action="/sponsor/invoice/update" />
 			<acme:submit code="sponsor.invoice.form.button.delete"
 				action="/sponsor/invoice/delete" />
+				<acme:submit code="sponsor.invoice.form.button.publish"
+				action="/sponsor/invoice/publish" />
 		</jstl:when>
 		<jstl:when test="${_command == 'create'}">
 			<acme:submit code="sponsor.invoice.form.button.create"
-				action="/sponsor/invoice/create" />
+				action="/sponsor/invoice/create?sponsorshipId=${sponsorshipId}" />
 		</jstl:when>
 	</jstl:choose>
 </acme:form>
