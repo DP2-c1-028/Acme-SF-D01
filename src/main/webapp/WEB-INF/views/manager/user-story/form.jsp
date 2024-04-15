@@ -10,24 +10,25 @@
 		path="description" />
 	<acme:input-double code="manager.user-story.form.label.estimatedCost"
 		path="estimatedCost" />
-	<acme:input-textbox code="manager.user-story.form.label.priority"
-		path="priority" />
+	<acme:input-select code="manager.user-story.form.label.priority"
+		path="priority" choices="${priorities}" />
 	<acme:input-textbox code="manager.user-story.form.label.acceptanceCriteria"
 		path="acceptanceCriteria" />
 	<acme:input-url code="manager.user-story.form.label.link"
 		path="link" />
 	
-	
 	<jstl:choose>
-		<jstl:when test="${acme:anyOf(_command, 'show|update|delete')}">
+		<jstl:when test="${acme:anyOf(_command, 'show|update|delete') && draftMode==true}">
 			<acme:submit code="manager.user-story.form.button.update"
 				action="/manager/user-story/update" />
 			<acme:submit code="manager.user-story.form.button.delete"
 				action="/manager/user-story/delete" />
+			<acme:submit code="manager.project.form.button.publish"
+				action="/manager/project/publish" />
 		</jstl:when>
 		<jstl:when test="${_command == 'create'}">
 			<acme:submit code="manager.user-story.form.button.create"
-				action="/manager/user-story/create" />
+				action="/manager/user-story/create?projectId=${projectId}" />
 		</jstl:when>
 	</jstl:choose>
 </acme:form>
