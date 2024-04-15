@@ -10,7 +10,7 @@
 		path="code" />
 	<acme:input-textbox code="manager.project.form.label.abstract"
 		path="abstractText" />
-	<acme:input-double code="manager.project.form.label.cost"
+	<acme:input-money code="manager.project.form.label.cost"
 		path="cost" />
 	<acme:input-url code="manager.project.form.label.link"
 		path="link" />
