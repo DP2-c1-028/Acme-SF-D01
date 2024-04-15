@@ -26,7 +26,7 @@ public interface ManagerProjectRepository extends AbstractRepository {
 	Manager findOneManagerById(int id);
 
 	@Query("select usp from UserStoryProject usp where usp.project.id=:projectId")
-	Collection<UserStoryProject> findUserStoryProjectByProjectId(int projectId);
+	Collection<UserStoryProject> findRelationsByProjectId(int projectId);
 
 	@Query("select tm from TrainingModule tm where tm.project.id=:projectId")
 	Collection<TrainingModule> findTrainingModuleByProjectId(int projectId);

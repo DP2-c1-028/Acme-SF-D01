@@ -24,7 +24,7 @@
 			<acme:submit code="manager.user-story.form.button.delete"
 				action="/manager/user-story/delete" />
 			<acme:submit code="manager.project.form.button.publish"
-				action="/manager/project/publish" />
+				action="/manager/user-story/publish" />
 		</jstl:when>
 		<jstl:when test="${_command == 'create'}">
 			<acme:submit code="manager.user-story.form.button.create"
