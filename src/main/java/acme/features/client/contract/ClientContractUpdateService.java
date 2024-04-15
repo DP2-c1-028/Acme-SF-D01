@@ -69,13 +69,6 @@ public class ClientContractUpdateService extends AbstractService<Client, Contrac
 		if (!super.getBuffer().getErrors().hasErrors("budget")) {
 			Project referencedProject = contract.getProject();
 
-			System.out.println(referencedProject.getCost());
-			System.out.println("x to usd" + this.repository.currencyTransformer(referencedProject.getCost(), "USD"));
-			System.out.println("x to usd budget" + this.repository.currencyTransformer(contract.getBudget(), "USD"));
-
-			System.out.println("transformerUsd" + this.repository.currencyTransformerUsd(referencedProject.getCost()));
-			System.out.println("TransfomerUsd budget" + this.repository.currencyTransformerUsd(contract.getBudget()));
-
 			super.state(this.repository.currencyTransformerUsd(referencedProject.getCost()) >= this.repository.currencyTransformerUsd(contract.getBudget()), "budget", "client.contract.form.error.budget");
 
 		}
