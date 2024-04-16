@@ -24,7 +24,19 @@ public class DeveloperTrainingModuleUpdateService extends AbstractService<Develo
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
+		boolean status;
+		int id;
+		int developerId;
+		TrainingModule trainingModule;
+
+		id = super.getRequest().getData("id", int.class);
+		trainingModule = this.repository.findOneTrainingModuleById(id);
+
+		developerId = super.getRequest().getPrincipal().getActiveRoleId();
+
+		status = developerId == trainingModule.getDeveloper().getId() && !trainingModule.isPublished();
+
+		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
@@ -42,9 +54,9 @@ public class DeveloperTrainingModuleUpdateService extends AbstractService<Develo
 	public void bind(final TrainingModule object) {
 		assert object != null;
 
-		Integer DeveloperId = super.getRequest().getPrincipal().getActiveRoleId();
-		Developer Developer = this.repository.findOneDeveloperById(DeveloperId);
-		object.setDeveloper(Developer);
+		Integer developerId = super.getRequest().getPrincipal().getActiveRoleId();
+		Developer developer = this.repository.findOneDeveloperById(developerId);
+		object.setDeveloper(developer);
 		super.bind(object, "code", "creationMoment", "updateMoment", "difficulty", "details", "totalTime", "link", "project");
 
 		Date currentMoment;
@@ -59,11 +71,14 @@ public class DeveloperTrainingModuleUpdateService extends AbstractService<Develo
 	public void validate(final TrainingModule object) {
 		assert object != null;
 
-		if (!super.getBuffer().getErrors().hasErrors("published")) {
-			Boolean unpublished;
-			unpublished = this.repository.findTrainingSessionsByTrainingModuleId(object.getId()).isEmpty();
-			super.state(unpublished, "published", "developer.training-module.form.error.published");
+		if (!super.getBuffer().getErrors().hasErrors("code")) {
+
+			TrainingModule trainingModuleSameCode = this.repository.findOneTrainingModuleByCode(object.getCode());
+
+			if (trainingModuleSameCode != null)
+				super.state(trainingModuleSameCode.getId() == object.getId(), "code", "sponsor.training-module.form.error.code");
 		}
+
 	}
 
 	@Override

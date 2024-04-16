@@ -6,13 +6,11 @@ import org.springframework.stereotype.Service;
 
 import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
-import acme.client.views.SelectChoices;
 import acme.entities.training_modules.TrainingModule;
-import acme.entities.training_modules.TrainingModuleDifficulty;
 import acme.roles.Developer;
 
 @Service
-public class DeveloperTrainingModuleShowService extends AbstractService<Developer, TrainingModule> {
+public class DeveloperTrainingModuleDeleteService extends AbstractService<Developer, TrainingModule> {
 
 	// Internal state ---------------------------------------------------------
 
@@ -34,7 +32,7 @@ public class DeveloperTrainingModuleShowService extends AbstractService<Develope
 
 		developerId = super.getRequest().getPrincipal().getActiveRoleId();
 
-		status = developerId == trainingModule.getDeveloper().getId();
+		status = developerId == trainingModule.getDeveloper().getId() && !trainingModule.isPublished();
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -42,7 +40,7 @@ public class DeveloperTrainingModuleShowService extends AbstractService<Develope
 	@Override
 	public void load() {
 		TrainingModule object;
-		int id;
+		Integer id;
 
 		id = super.getRequest().getData("id", int.class);
 		object = this.repository.findOneTrainingModuleById(id);
@@ -51,20 +49,31 @@ public class DeveloperTrainingModuleShowService extends AbstractService<Develope
 	}
 
 	@Override
-	public void unbind(final TrainingModule object) {
+	public void bind(final TrainingModule object) {
 		assert object != null;
 
-		SelectChoices difficultyChoices;
-		SelectChoices projectChoices;
+		super.bind(object, "code", "creationMoment", "updateMoment", "difficulty", "details", "totalTime", "link", "published", "project");
+	}
 
-		difficultyChoices = SelectChoices.from(TrainingModuleDifficulty.class, object.getDifficulty());
-		projectChoices = SelectChoices.from(this.repository.findAllProjects(), "title", object.getProject());
+	@Override
+	public void validate(final TrainingModule object) {
+		assert object != null;
+	}
+
+	@Override
+	public void perform(final TrainingModule object) {
+		assert object != null;
+
+		this.repository.delete(object);
+	}
+
+	@Override
+	public void unbind(final TrainingModule object) {
+		assert object != null;
 
 		Dataset dataset;
 
 		dataset = super.unbind(object, "code", "creationMoment", "updateMoment", "difficulty", "details", "totalTime", "link", "published", "project");
-		dataset.put("difficulties", difficultyChoices);
-		dataset.put("projects", projectChoices);
 
 		super.getResponse().addData(dataset);
 	}

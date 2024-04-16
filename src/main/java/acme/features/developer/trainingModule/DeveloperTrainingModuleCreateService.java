@@ -53,11 +53,21 @@ public class DeveloperTrainingModuleCreateService extends AbstractService<Develo
 		currentMoment = MomentHelper.getCurrentMoment();
 		creationMoment = new Date(currentMoment.getTime() - 1000); //Substracts one second to ensure the moment is in the past
 		object.setCreationMoment(creationMoment);
+
+		object.setPublished(false);
 	}
 
 	@Override
 	public void validate(final TrainingModule object) {
 		assert object != null;
+
+		if (!super.getBuffer().getErrors().hasErrors("code")) {
+
+			TrainingModule trainingModuleSameCode = this.repository.findOneTrainingModuleByCode(object.getCode());
+
+			if (trainingModuleSameCode != null)
+				super.state(trainingModuleSameCode.getId() == object.getId(), "code", "sponsor.training-module.form.error.code");
+		}
 	}
 
 	@Override
@@ -79,7 +89,7 @@ public class DeveloperTrainingModuleCreateService extends AbstractService<Develo
 
 		Dataset dataset;
 
-		dataset = super.unbind(object, "code", "creationMoment", "updateMoment", "difficulty", "details", "totalTime", "link", "project");
+		dataset = super.unbind(object, "code", "creationMoment", "updateMoment", "difficulty", "details", "totalTime", "link", "published", "project");
 		dataset.put("difficulties", difficultyChoices);
 		dataset.put("projects", projectChoices);
 

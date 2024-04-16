@@ -5,8 +5,6 @@
 
 <acme:form>
 	<acme:input-textbox code="developer.training-module.form.label.code" path="code" />
-	<acme:input-moment code="developer.training-module.form.label.creation-moment" path="creationMoment" readonly="true" />
-	<acme:input-moment code="developer.training-module.form.label.update-moment" path="updateMoment" readonly="true" />
 	<acme:input-select code="developer.training-module.form.label.difficulty" path="difficulty"  
 		choices="${difficulties}" readonly="${acme:anyOf(difficulties, 'BASIC|INTERMEDIATE|ADVANCED')}"/>
 	<acme:input-textbox code="developer.training-module.form.label.details" path="details" />
@@ -17,10 +15,19 @@
 	
 	<jstl:choose>
 		<jstl:when test="${acme:anyOf(_command, 'show|update|delete')}">
-			<acme:submit code="developer.training-module.form.button.update"
-				action="/developer/training-module/update" />
-			<acme:submit code="developer.training-module.form.button.delete"
-				action="/developer/training-module/delete" />
+			<acme:input-moment code="developer.training-module.form.label.creation-moment" path="creationMoment" readonly="true" />
+			<acme:input-moment code="developer.training-module.form.label.update-moment" path="updateMoment" readonly="true" />
+			<acme:input-checkbox code="developer.training-module.form.label.published" path="published" readonly="true"/>
+			<jstl:choose>
+				<jstl:when test="${published==false}">
+					<acme:submit code="developer.training-module.form.button.update"
+						action="/developer/training-module/update" />
+					<acme:submit code="developer.training-module.form.button.delete"
+						action="/developer/training-module/delete" />
+					<acme:submit code="developer.training-module.form.button.publish"
+						action="/developer/training-module/publish" />
+				</jstl:when>
+			</jstl:choose>
 		</jstl:when>
 		<jstl:when test="${_command == 'create'}">
 			<acme:submit code="developer.training-module.form.button.create"
