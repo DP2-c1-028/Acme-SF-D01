@@ -40,9 +40,9 @@ master.menu.manager.project.list = List Your Projects
 master.menu.manager.user-story-project.list = Manage UserStories/Projects
 master.menu.manager.dashboard = Manager Dashboard
 
-# master.menu.manager ###################################################
-master.menu.sponsor = Sponsor
-master.menu.sponsor.sponsorship.list = List Your Sponsorships
+# master.menu.client ###################################################
+master.menu.client = Client
+master.menu.client.contract.list = List your contracts
 
 # master.menu.provider ########################################################
 

@@ -44,6 +44,11 @@ master.menu.manager.dashboard = Panel de indicadores de gestor
 master.menu.sponsor = Patrocinador
 master.menu.sponsor.sponsorship.list = Listar tus patrocinios
 
+# master.menu.client ###################################################
+master.menu.client = Cliente
+master.menu.client.contract.list = Listado de contratos
+
+
 # master.menu.provider ########################################################
 
 master.menu.provider = Proveedor
