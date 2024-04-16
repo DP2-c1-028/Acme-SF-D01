@@ -1,0 +1,18 @@
+manager.user-story.list.title = User Stories
+manager.user-story.list.label.title = Title
+manager.user-story.list.label.description = Description
+manager.user-story.list.label.estimatedCost = Estimated Cost
+manager.user-story.list.label.priority = Priority
+manager.user-story.list.label.link = Link
+manager.user-story.list.label.acceptanceCriteria = Acceptance Criteria
+
+manager.user-story.form.title = User Story Data
+manager.user-story.form.label.title = Title
+manager.user-story.form.label.description = Description
+manager.user-story.form.label.estimatedCost = Estimated Cost
+manager.user-story.form.label.priority = Priority
+manager.user-story.form.label.link = Link
+manager.user-story.form.label.acceptanceCriteria = Acceptance Criteria
+manager.user-story.form.button.update = Update
+manager.user-story.form.button.delete = Delete
+manager.user-story.form.button.create = Create
