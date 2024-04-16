@@ -1,0 +1,9 @@
+manager.dashboard.form.title = Panel de indicadores de gestor
+
+manager.dashboard.form.title.general-indicators = Indicadores generales
+manager.dashboard.form.title.priorities = Indicadores de prioridad
+
+manager.dashboard.form.label.average-estimated-cost =  Media del coste estimado en las historias de usuario
+manager.dashboard.form.label.deviation-estimated-cost =  Deviación dl coste estimado en las historias de usuario
+
+

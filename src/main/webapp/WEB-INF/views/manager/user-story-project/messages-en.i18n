@@ -1,0 +1,11 @@
+manager.user-story-project.list.title = Projects/User Stories
+manager.user-story-project.list.label.project = Project Code
+manager.user-story-project.list.label.user-story = User Story Title
+
+manager.user-story-project.form.title = Projects/User Story Data
+manager.user-story-project.form.label.project = Project
+manager.user-story-project.form.label.user-story = User Story
+manager.user-story-project.form.button.update = Update
+manager.user-story-project.form.button.delete = Delete
+manager.user-story-project.form.button.create = Create
+manager.user-story-project.form.error.same = A relation already exists with this data

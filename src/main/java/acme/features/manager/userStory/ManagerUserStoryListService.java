@@ -40,8 +40,6 @@ public class ManagerUserStoryListService extends AbstractService<Manager, UserSt
 
 		status = managerId == project.getManager().getId();
 
-		System.out.println("Status:" + status);
-
 		super.getResponse().setAuthorised(status);
 	}
 
