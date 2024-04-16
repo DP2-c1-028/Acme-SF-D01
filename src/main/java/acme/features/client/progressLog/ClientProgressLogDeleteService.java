@@ -10,7 +10,7 @@ import acme.entities.progress_logs.ProgressLog;
 import acme.roles.Client;
 
 @Service
-public class ClientProgressLogShowService extends AbstractService<Client, ProgressLog> {
+public class ClientProgressLogDeleteService extends AbstractService<Client, ProgressLog> {
 
 	// Internal state ---------------------------------------------------------
 
@@ -49,6 +49,29 @@ public class ClientProgressLogShowService extends AbstractService<Client, Progre
 	}
 
 	@Override
+	public void bind(final ProgressLog progressLog) {
+		assert progressLog != null;
+
+		Integer clientId = super.getRequest().getPrincipal().getActiveRoleId();
+		Client client = this.repository.findClientById(clientId);
+
+		progressLog.setClient(client);
+		super.bind(progressLog, "code", "project", "providerName", "customerName", "instantiationMoment", "budget", "goals");
+	}
+
+	@Override
+	public void validate(final ProgressLog progressLog) {
+		assert progressLog != null;
+	}
+
+	@Override
+	public void perform(final ProgressLog progressLog) {
+		assert progressLog != null;
+
+		this.repository.delete(progressLog);
+	}
+
+	@Override
 	public void unbind(final ProgressLog progressLog) {
 
 		assert progressLog != null;
@@ -58,4 +81,5 @@ public class ClientProgressLogShowService extends AbstractService<Client, Progre
 
 		super.getResponse().addData(dataset);
 	}
+
 }
