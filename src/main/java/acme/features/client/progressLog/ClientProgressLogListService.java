@@ -49,4 +49,15 @@ public class ClientProgressLogListService extends AbstractService<Client, Progre
 
 		super.getResponse().addData(dataset);
 	}
+
+	@Override
+	public void unbind(final Collection<ProgressLog> progressLogs) {
+		assert progressLogs != null;
+
+		int contractId;
+
+		contractId = super.getRequest().getData("contractId", int.class);
+
+		super.getResponse().addGlobal("contractId", contractId);
+	}
 }

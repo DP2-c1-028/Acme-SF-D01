@@ -16,5 +16,10 @@ client.progress-log.form.label.responsiblePerson = Responsible person
 client.progress-log.form.button.update = Update
 client.progress-log.form.button.delete = Delete
 client.progress-log.form.button.create = Create
+client.progress-log.form.button.progressLogs = Progress Logs
+
+client.progress-log.form.error.invalidContract = you are trying to create a progress log related to no contract
+client.progress-log.form.error.recordId = this record id is already in use
+
 
 

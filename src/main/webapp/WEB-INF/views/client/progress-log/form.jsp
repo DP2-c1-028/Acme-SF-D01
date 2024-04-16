@@ -18,7 +18,7 @@
 			<acme:submit code="client.progress-log.form.button.delete" action="/client/progress-log/delete" />
 		</jstl:when>
 		<jstl:when test="${_command == 'create'}">
-			<acme:submit code="client.progress-log.form.button.create" action="/client/progress-log/create" />
+			<acme:submit code="client.progress-log.form.button.create" action="/client/progress-log/create?contractId=${contractId}" />
 		</jstl:when>
 	</jstl:choose>
 </acme:form>

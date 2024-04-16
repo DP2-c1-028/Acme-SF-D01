@@ -17,3 +17,6 @@ client.progress-log.form.button.update = Actualizar
 client.progress-log.form.button.delete = Borrar
 client.progress-log.form.button.create = Crear
 client.progress-log.form.button.progressLogs = Registros de progreso
+
+client.progress-log.form.error.invalidContract = estas intentando crear un resgistro de progreso no asociado a ningun contrato
+client.progress-log.form.error.recordId = este identificador de registro ya esta en uso

@@ -15,4 +15,4 @@
 
 		
 </acme:list>
-<acme:button code="client.progress-log.form.button.create" action="/client/progress-log/create"/>
+<acme:button code="client.progress-log.form.button.create" action="/client/progress-log/create?contractId=${contractId}"/>
