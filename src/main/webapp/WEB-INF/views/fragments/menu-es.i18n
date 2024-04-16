@@ -45,7 +45,7 @@ master.menu.sponsor.sponsorship.list = Listar tus patrocinios
 # master.menu.client ###################################################
 master.menu.client = Cliente
 master.menu.client.contract.list = Listado de contratos
-
+master.menu.client.dashboard = Tu panel de cliente
 
 # master.menu.provider ########################################################
 
