@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import acme.client.data.datatypes.Money;
 import acme.client.repositories.AbstractRepository;
 import acme.entities.contracts.Contract;
+import acme.entities.progress_logs.ProgressLog;
 import acme.entities.projects.Project;
 import acme.roles.Client;
 
@@ -36,6 +37,9 @@ public interface ClientContractRepository extends AbstractRepository {
 
 	@Query("select c from Client c where c.id = :id")
 	Client findClientById(int id);
+
+	@Query("select p from ProgressLog p where p.contract.id = :id")
+	Collection<ProgressLog> findProgressLogsByContractId(int id);
 
 	default double currencyTransformerUsd(final Money initial) {
 		double res = initial.getAmount();

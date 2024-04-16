@@ -25,6 +25,7 @@ public class ClientContractListService extends AbstractService<Client, Contract>
 	@Override
 	public void authorise() {
 		super.getResponse().setAuthorised(true);
+
 	}
 
 	@Override
@@ -44,11 +45,11 @@ public class ClientContractListService extends AbstractService<Client, Contract>
 
 		assert contract != null;
 		Dataset dataset;
-		String projectName = this.repository.findProjectById(contract.getProject().getId()).getTitle();
+		String projectCode = this.repository.findProjectById(contract.getProject().getId()).getCode();
 
 		dataset = super.unbind(contract, "code", "project", "draftMode", "providerName", "customerName", "instantiationMoment", "budget", "goals");
 
-		dataset.put("project", projectName);
+		dataset.put("project", projectCode);
 		super.getResponse().addData(dataset);
 	}
 }
