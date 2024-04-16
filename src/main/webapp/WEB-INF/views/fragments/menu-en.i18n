@@ -42,6 +42,10 @@ master.menu.manager.project.list = List Your Projects
 master.menu.client = Client
 master.menu.client.contract.list = List your contracts
 
+# master.menu.developer ###################################################
+master.menu.developer = Developer
+master.menu.developer.training-module.list = List Your Training Modules
+
 # master.menu.provider ########################################################
 
 master.menu.provider = Provider
