@@ -38,9 +38,9 @@ master.menu.administrator.shut-down = Shut down
 master.menu.manager = Manager
 master.menu.manager.project.list = List Your Projects
 
-# master.menu.manager ###################################################
-master.menu.sponsor = Sponsor
-master.menu.sponsor.sponsorship.list = List Your Sponsorships
+# master.menu.client ###################################################
+master.menu.client = Client
+master.menu.client.contract.list = List your contracts
 
 # master.menu.developer ###################################################
 master.menu.developer = Developer
@@ -64,3 +64,5 @@ master.menu.user-account.provider = Provider data
 master.menu.user-account.become-provider = Become a provider
 master.menu.user-account.consumer = Consumer data
 master.menu.user-account.become-consumer = Become a consumer
+master.menu.user-account.manager = Manager data
+master.menu.user-account.become-manager = Become a manager
