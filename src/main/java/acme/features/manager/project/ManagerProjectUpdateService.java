@@ -10,8 +10,7 @@ import acme.entities.projects.Project;
 import acme.roles.Manager;
 
 @Service
-public class ManagerProjectShowService extends AbstractService<Manager, Project> {
-
+public class ManagerProjectUpdateService extends AbstractService<Manager, Project> {
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
@@ -32,7 +31,7 @@ public class ManagerProjectShowService extends AbstractService<Manager, Project>
 
 		managerId = super.getRequest().getPrincipal().getActiveRoleId();
 
-		status = managerId == project.getManager().getId();
+		status = managerId == project.getManager().getId() && project.isDraftMode();
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -40,7 +39,7 @@ public class ManagerProjectShowService extends AbstractService<Manager, Project>
 	@Override
 	public void load() {
 		Project object;
-		int id;
+		Integer id;
 
 		id = super.getRequest().getData("id", int.class);
 		object = this.repository.findOneProjectById(id);
@@ -49,12 +48,43 @@ public class ManagerProjectShowService extends AbstractService<Manager, Project>
 	}
 
 	@Override
+	public void bind(final Project object) {
+		assert object != null;
+
+		Integer managerId = super.getRequest().getPrincipal().getActiveRoleId();
+		Manager manager = this.repository.findOneManagerById(managerId);
+		object.setManager(manager);
+		super.bind(object, "title", "code", "abstractText", "cost", "link");
+	}
+
+	@Override
+	public void validate(final Project object) {
+		assert object != null;
+
+		if (!super.getBuffer().getErrors().hasErrors("code")) {
+
+			Project projectSameCode = this.repository.findOneProjectByCode(object.getCode());
+
+			if (projectSameCode != null)
+				super.state(projectSameCode.getId() == object.getId(), "code", "manager.project.form.error.code");
+		}
+
+	}
+
+	@Override
+	public void perform(final Project object) {
+		assert object != null;
+
+		this.repository.save(object);
+	}
+
+	@Override
 	public void unbind(final Project object) {
 		assert object != null;
 
 		Dataset dataset;
 
-		dataset = super.unbind(object, "title", "code", "abstractText", "cost", "link", "draftMode");
+		dataset = super.unbind(object, "title", "code", "abstractText", "cost", "link");
 
 		super.getResponse().addData(dataset);
 	}

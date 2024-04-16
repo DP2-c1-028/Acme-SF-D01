@@ -14,10 +14,9 @@ import acme.entities.projects.Project;
 import acme.roles.Client;
 
 @Service
-public class ClientContractUpdateService extends AbstractService<Client, Contract> {
+public class ClientContractPublishService extends AbstractService<Client, Contract> {
 
 	// Internal state ---------------------------------------------------------
-
 	@Autowired
 	private ClientContractRepository repository;
 
@@ -26,6 +25,7 @@ public class ClientContractUpdateService extends AbstractService<Client, Contrac
 
 	@Override
 	public void authorise() {
+
 		int contractId;
 		Contract contract;
 		int clientId;
@@ -41,9 +41,34 @@ public class ClientContractUpdateService extends AbstractService<Client, Contrac
 	}
 
 	@Override
+	public void bind(final Contract contract) {
+		assert contract != null;
+
+		super.bind(contract, "code", "project", "draftMode", "providerName", "customerName", "instantiationMoment", "budget", "goals");
+	}
+
+	@Override
+	public void validate(final Contract contract) {
+		assert contract != null;
+
+		int clientId = contract.getClient().getId();
+		int projectId = contract.getProject().getId();
+
+		if (!super.getBuffer().getErrors().hasErrors("budget")) {
+			Collection<Contract> contracts = this.repository.findProjectContractsByClientId(clientId, projectId);
+
+			Double totalBudgetUsd = contracts.stream().mapToDouble(u -> this.repository.currencyTransformerUsd(u.getBudget())).sum();
+			Double projectCostUsd = this.repository.currencyTransformerUsd(contract.getProject().getCost());
+
+			super.state(totalBudgetUsd <= projectCostUsd, "*", "client.contract.form.error.publishError");
+		}
+	}
+
+	@Override
 	public void load() {
+
 		Contract contract;
-		Integer contractId;
+		int contractId;
 
 		contractId = super.getRequest().getData("id", int.class);
 		contract = this.repository.findContractById(contractId);
@@ -52,46 +77,16 @@ public class ClientContractUpdateService extends AbstractService<Client, Contrac
 	}
 
 	@Override
-	public void bind(final Contract contract) {
-		assert contract != null;
-
-		Integer managerId = super.getRequest().getPrincipal().getActiveRoleId();
-		Client client = this.repository.findClientById(managerId);
-
-		contract.setClient(client);
-		super.bind(contract, "code", "project", "providerName", "customerName", "instantiationMoment", "budget", "goals");
-	}
-
-	@Override
-	public void validate(final Contract contract) {
-		assert contract != null;
-
-		if (!super.getBuffer().getErrors().hasErrors("budget")) {
-			Project referencedProject = contract.getProject();
-
-			super.state(this.repository.currencyTransformerUsd(referencedProject.getCost()) >= this.repository.currencyTransformerUsd(contract.getBudget()), "budget", "client.contract.form.error.budget");
-
-		}
-
-		if (!super.getBuffer().getErrors().hasErrors("code")) {
-
-			Contract contractWithCode = this.repository.findContractByCode(contract.getCode());
-
-			if (contractWithCode != null)
-				super.state(contractWithCode.getId() == contract.getId(), "code", "client.contract.form.error.code");
-		}
-
-	}
-
-	@Override
 	public void perform(final Contract contract) {
 		assert contract != null;
 
+		contract.setDraftMode(false);
 		this.repository.save(contract);
 	}
 
 	@Override
 	public void unbind(final Contract contract) {
+
 		assert contract != null;
 
 		Dataset dataset;
@@ -102,7 +97,7 @@ public class ClientContractUpdateService extends AbstractService<Client, Contrac
 
 		options = SelectChoices.from(projects, "title", this.repository.findProjectById(contract.getProject().getId()));
 
-		dataset = super.unbind(contract, "code", "project", "providerName", "customerName", "instantiationMoment", "budget", "goals");
+		dataset = super.unbind(contract, "code", "project", "draftMode", "providerName", "customerName", "instantiationMoment", "budget", "goals");
 
 		dataset.put("project", projectName);
 		dataset.put("projects", options);
