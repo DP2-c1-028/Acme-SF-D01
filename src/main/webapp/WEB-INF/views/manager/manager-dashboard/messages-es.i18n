@@ -9,9 +9,9 @@ manager.dashboard.form.label.deviation-estimated-cost =  Deviación del coste es
 manager.dashboard.form.label.max-estimated-cost = Coste máximo estimado
 manager.dashboard.form.label.min-estimated-cost = Coste mínimo estimado
 
-manager.dashboard.form.label.average-cost = Coste medio
-manager.dashboard.form.label.deviation-cost = Deviación del coste
-manager.dashboard.form.label.max-cost = Coste máximo
-manager.dashboard.form.label.min-cost = Coste mínimo
+manager.dashboard.form.label.average-cost = Coste medio (USD)
+manager.dashboard.form.label.deviation-cost = Deviación del coste (USD)
+manager.dashboard.form.label.max-cost = Coste máximo (USD)
+manager.dashboard.form.label.min-cost = Coste mínimo (USD)
 
 

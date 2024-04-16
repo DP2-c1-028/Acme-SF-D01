@@ -12,6 +12,7 @@
 
 package acme.features.manager.dashboard;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -86,7 +87,7 @@ public class ManagerDashboardShowService extends AbstractService<Manager, Manage
 		dashboard.setMaximumEstimatedCost(maximumEstimatedCost);
 
 		//Projects
-		Collection<Money> projectCosts = this.repository.projectCosts(managerId);
+		Collection<Money> projectCosts = this.repository.projectCosts(managerId).stream().map(this::currencyTransformerUsd).collect(Collectors.toCollection(ArrayList<Money>::new));
 
 		minimumCost = projectCosts.stream().mapToDouble(Money::getAmount).min().getAsDouble();
 		maximumCost = projectCosts.stream().mapToDouble(Money::getAmount).max().getAsDouble();
@@ -116,9 +117,23 @@ public class ManagerDashboardShowService extends AbstractService<Manager, Manage
 		double sumOfSquaredDifferences = squaredDifferencesStream.reduce(0.0, Double::sum);
 
 		// Calcular la desviación estándar
-		double standardDeviation = Math.sqrt(sumOfSquaredDifferences / values.size());
+		return Math.sqrt(sumOfSquaredDifferences / values.size());
+	}
 
-		return standardDeviation;
+	private Money currencyTransformerUsd(final Money initial) {
+		Money res = new Money();
+		res.setCurrency("USD");
+
+		if (initial.getCurrency().equals("USD"))
+			res.setAmount(initial.getAmount());
+
+		else if (initial.getCurrency().equals("EUR"))
+			res.setAmount(initial.getAmount() * 1.07);
+
+		else
+			res.setAmount(initial.getAmount() * 1.25);
+
+		return res;
 	}
 
 	@Override
