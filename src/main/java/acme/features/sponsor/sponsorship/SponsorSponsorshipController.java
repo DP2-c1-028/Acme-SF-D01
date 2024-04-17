@@ -15,22 +15,22 @@ public class SponsorSponsorshipController extends AbstractController<Sponsor, Sp
 
 	// Internal state ---------------------------------------------------------
 	@Autowired
-	private SponsorSponsorshipListService	listService;
+	private SponsorSponsorshipListService		listService;
 
 	@Autowired
-	private SponsorSponsorshipShowService	showService;
+	private SponsorSponsorshipShowService		showService;
 
 	@Autowired
-	private SponsorSponsorshipCreateService	createService;
+	private SponsorSponsorshipCreateService		createService;
 
 	@Autowired
-	private SponsorSponsorshipUpdateService	updateService;
+	private SponsorSponsorshipUpdateService		updateService;
 
 	@Autowired
-	private SponsorSponsorshipDeleteService	deleteService;
+	private SponsorSponsorshipDeleteService		deleteService;
 
 	@Autowired
-	SponsorSponsorshipPublishService		publishService;
+	private SponsorSponsorshipPublishService	publishService;
 
 
 	// Constructors -----------------------------------------------------------

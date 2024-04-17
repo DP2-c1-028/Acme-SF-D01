@@ -1,12 +1,15 @@
 
 package acme.features.sponsor.sponsorship;
 
+import java.time.temporal.ChronoUnit;
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.client.data.models.Dataset;
+import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractService;
 import acme.client.views.SelectChoices;
 import acme.entities.projects.Project;
@@ -61,6 +64,29 @@ public class SponsorSponsorshipCreateService extends AbstractService<Sponsor, Sp
 
 			super.state(projectSameCode == null, "code", "sponsor.sponsorship.form.error.code");
 		}
+
+		if (!super.getBuffer().getErrors().hasErrors("durationStartTime")) {
+			Date durationStartTime;
+			Date moment;
+			durationStartTime = object.getDurationStartTime();
+			moment = object.getMoment();
+
+			super.state(durationStartTime.after(moment), "durationStartTime", "sponsor.sponsorship.form.error.durationStartTime");
+		}
+
+		if (!super.getBuffer().getErrors().hasErrors("durationEndTime")) {
+			Date durationStartTime;
+			Date durationEndTime;
+
+			durationStartTime = object.getDurationStartTime();
+			durationEndTime = object.getDurationEndTime();
+
+			super.state(MomentHelper.isLongEnough(durationStartTime, durationEndTime, 1, ChronoUnit.MONTHS) && durationEndTime.after(durationStartTime), "durationEndTime", "sponsor.sponsorship.form.error.durationEndTime");
+		}
+
+		if (!super.getBuffer().getErrors().hasErrors("amount"))
+			super.state(object.getAmount().getAmount() >= 0, "amount", "sponsor.sponsorship.form.error.amount");
+
 	}
 
 	@Override
@@ -80,7 +106,7 @@ public class SponsorSponsorshipCreateService extends AbstractService<Sponsor, Sp
 		Dataset dataset;
 
 		choices = SelectChoices.from(SponsorshipType.class, object.getType());
-		choices2 = SelectChoices.from(projects, "title", (Project) projects.toArray()[0]);
+		choices2 = SelectChoices.from(projects, "code", (Project) projects.toArray()[0]);
 
 		dataset = super.unbind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link", "project", "draftMode");
 		dataset.put("types", choices);

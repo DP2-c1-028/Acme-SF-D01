@@ -1,12 +1,15 @@
 
 package acme.features.sponsor.sponsorship;
 
+import java.time.temporal.ChronoUnit;
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.client.data.models.Dataset;
+import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractService;
 import acme.client.views.SelectChoices;
 import acme.entities.projects.Project;
@@ -44,21 +47,21 @@ public class SponsorSponsorshipUpdateService extends AbstractService<Sponsor, Sp
 
 	@Override
 	public void load() {
-		Collection<Sponsorship> objects;
+		Sponsorship object;
 		int sponsorId;
 
-		sponsorId = super.getRequest().getPrincipal().getActiveRoleId();
+		sponsorId = super.getRequest().getData("id", int.class);
 
-		objects = this.repository.findSponsorshipBySponsorId(sponsorId);
+		object = this.repository.findOneSponsorshipById(sponsorId);
 
-		super.getBuffer().addData(objects);
+		super.getBuffer().addData(object);
 	}
 
 	@Override
 	public void bind(final Sponsorship object) {
 		assert object != null;
 
-		super.bind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link");
+		super.bind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link", "project");
 	}
 
 	@Override
@@ -72,6 +75,28 @@ public class SponsorSponsorshipUpdateService extends AbstractService<Sponsor, Sp
 			if (projectSameCode != null)
 				super.state(projectSameCode.getId() == object.getId(), "code", "sponsor.sponsorship.form.error.code");
 		}
+
+		if (!super.getBuffer().getErrors().hasErrors("durationStartTime")) {
+			Date durationStartTime;
+			Date moment;
+			durationStartTime = object.getDurationStartTime();
+			moment = object.getMoment();
+
+			super.state(durationStartTime.after(moment), "durationStartTime", "sponsor.sponsorship.form.error.durationStartTime");
+		}
+
+		if (!super.getBuffer().getErrors().hasErrors("durationEndTime")) {
+			Date durationStartTime;
+			Date durationEndTime;
+
+			durationStartTime = object.getDurationStartTime();
+			durationEndTime = object.getDurationEndTime();
+
+			super.state(MomentHelper.isLongEnough(durationStartTime, durationEndTime, 1, ChronoUnit.MONTHS) && durationEndTime.after(durationStartTime), "durationEndTime", "sponsor.sponsorship.form.error.durationEndTime");
+		}
+
+		if (!super.getBuffer().getErrors().hasErrors("amount"))
+			super.state(object.getAmount().getAmount() >= 0, "amount", "sponsor.sponsorship.form.error.amount");
 	}
 
 	@Override
@@ -91,7 +116,7 @@ public class SponsorSponsorshipUpdateService extends AbstractService<Sponsor, Sp
 		Dataset dataset;
 
 		choices = SelectChoices.from(SponsorshipType.class, object.getType());
-		choices2 = SelectChoices.from(projects, "title", object.getProject());
+		choices2 = SelectChoices.from(projects, "code", object.getProject());
 
 		dataset = super.unbind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link", "draftMode");
 		dataset.put("types", choices);

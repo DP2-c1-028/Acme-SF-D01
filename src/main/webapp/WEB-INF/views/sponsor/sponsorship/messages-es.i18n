@@ -30,3 +30,6 @@ sponsor.sponsorship.form.title = Datos de tu patrocinio
 
 sponsor.sponsorship.form.error.code = El código debe ser único, pruebe otro
 sponsor.sponsorship.form.error.invalidTotalAmount = La suma de la cantidad total de los invoices debe ser igual a la cantidad del patrocinio
+sponsor.sponsorship.form.error.durationStartTime = La fecha de inicio debe ser posterior al momento
+sponsor.sponsorship.form.error.durationEndTime = La fecha de fin debe ser posterior al momento y además debe haber al menos un mes de diferencia entre las dos
+sponsor.sponsorship.form.error.amount  = La cantidad debe ser positiva

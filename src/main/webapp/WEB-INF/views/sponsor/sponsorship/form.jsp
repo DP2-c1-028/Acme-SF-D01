@@ -33,9 +33,13 @@
 				action="/sponsor/sponsorship/publish" />
 			<acme:button code="sponsor.sponsorship.form.button.invoices" action="/sponsor/invoice/list?sponsorshipId=${id}"/>
 		</jstl:when>
+		
 		<jstl:when test="${acme:anyOf(_command, 'show|update|delete') && draftMode==false}">
+			<acme:input-select code="sponsor.sponsorship.form.label.project"
+				path="project" choices="${projects}"/>
 			<acme:button code="sponsor.sponsorship.form.button.invoices" action="/sponsor/invoice/list?sponsorshipId=${id}"/>
 		</jstl:when>
+		
 		<jstl:when test="${_command == 'create'}">
 			<acme:input-select code="sponsor.sponsorship.form.label.project"
 				path="project" choices="${projects}"/>

@@ -41,6 +41,7 @@ master.menu.manager.project.list = Listar tus proyectos
 # master.menu.sponsor ###################################################
 master.menu.sponsor = Patrocinador
 master.menu.sponsor.sponsorship.list = Listar tus patrocinios
+master.menu.sponsor.dashboard = Panel de indicadores del patrocinador
 
 # master.menu.provider ########################################################
 

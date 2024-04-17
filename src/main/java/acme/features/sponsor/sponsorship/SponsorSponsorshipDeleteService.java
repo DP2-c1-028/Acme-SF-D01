@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
+import acme.entities.invoices.Invoice;
 import acme.entities.sponsorships.Sponsorship;
 import acme.roles.Sponsor;
 
@@ -41,14 +42,14 @@ public class SponsorSponsorshipDeleteService extends AbstractService<Sponsor, Sp
 
 	@Override
 	public void load() {
-		Collection<Sponsorship> objects;
-		int managerId;
+		Sponsorship object;
+		int id;
 
-		managerId = super.getRequest().getPrincipal().getActiveRoleId();
+		id = super.getRequest().getData("id", int.class);
 
-		objects = this.repository.findSponsorshipBySponsorId(managerId);
+		object = this.repository.findOneSponsorshipById(id);
 
-		super.getBuffer().addData(objects);
+		super.getBuffer().addData(object);
 	}
 
 	@Override
@@ -67,6 +68,10 @@ public class SponsorSponsorshipDeleteService extends AbstractService<Sponsor, Sp
 	public void perform(final Sponsorship object) {
 		assert object != null;
 
+		Collection<Invoice> relations = this.repository.findInvoicesOfASponsorship(object.getId());
+
+		this.repository.deleteAll(relations);
+
 		this.repository.delete(object);
 	}
 
@@ -76,7 +81,7 @@ public class SponsorSponsorshipDeleteService extends AbstractService<Sponsor, Sp
 
 		Dataset dataset;
 
-		dataset = super.unbind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link", "draftMode");
+		dataset = super.unbind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link");
 
 		super.getResponse().addData(dataset);
 	}
