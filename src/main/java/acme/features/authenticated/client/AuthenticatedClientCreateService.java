@@ -57,6 +57,13 @@ public class AuthenticatedClientCreateService extends AbstractService<Authentica
 	@Override
 	public void validate(final Client client) {
 		assert client != null;
+
+		if (!super.getBuffer().getErrors().hasErrors("identification")) {
+
+			Client clientWithCode = this.repository.findClientByIdentification(client.getIdentification());
+
+			super.state(clientWithCode == null, "identification", "client.contract.form.error.code");
+		}
 	}
 
 	@Override

@@ -17,4 +17,7 @@ public interface AuthenticatedClientRepository extends AbstractRepository {
 	@Query("select c from Client c where c.userAccount.id = :id")
 	Client findClientByUserAccountId(int id);
 
+	@Query("select c from Client c where c.identification = :idem")
+	Client findClientByIdentification(String idem);
+
 }
