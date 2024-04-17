@@ -7,11 +7,11 @@ sponsor.dashboard.form.total-number-of-invoices = Total number of invoices with 
 sponsor.dashboard.form.label.total-number-of-sponsorships-with-link = Total number of sponsorships with link
 
 sponsor.dashboard.form.label.sponsorships-average-amount = Average amount of sponsorships (USD)
-sponsor.dashboard.form.label.sponsorships-deviation-amount = Deviation amount in sponsorships (USD)
+sponsor.dashboard.form.label.sponsorships-deviation-amount = Deviation amount of sponsorships (USD)
 sponsor.dashboard.form.label.sponsorships-maximum-amount = Maximum amount in a sponsorship (USD)
 sponsor.dashboard.form.label.sponsorships-minimum-amount = Minimum amount in a sponsorship (USD)
 
 sponsor.dashboard.form.label.invoices-average-quantity = Average amount of invoices (USD)
-sponsor.dashboard.form.label.invoices-deviation-quantity = Deviation amount in invoices (USD)
+sponsor.dashboard.form.label.invoices-deviation-quantity = Deviation amount of invoices (USD)
 sponsor.dashboard.form.label.invoices-minimum-quantity = Minimum amount in an invoice (USD)
 sponsor.dashboard.form.label.invoices-maximum-quantity = Maximum amount in an invoice (USD)
