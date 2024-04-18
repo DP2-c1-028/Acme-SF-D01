@@ -81,7 +81,7 @@ public class SponsorSponsorshipDeleteService extends AbstractService<Sponsor, Sp
 
 		Dataset dataset;
 
-		dataset = super.unbind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link");
+		dataset = super.unbind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link", "draftMode");
 
 		super.getResponse().addData(dataset);
 	}
