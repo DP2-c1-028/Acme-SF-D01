@@ -45,6 +45,8 @@ master.menu.sponsor.sponsorship.list = Listar tus patrocinios
 # master.menu.developer ###################################################
 master.menu.developer = Desarrollador
 master.menu.developer.training-module.list = Listar tus módulos de entrenamiento
+master.menu.developer.dashboard = Dashboard de desarrollador
+
 
 # master.menu.client ###################################################
 master.menu.client = Cliente

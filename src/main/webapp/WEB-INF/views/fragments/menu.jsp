@@ -46,6 +46,7 @@
 		
 		<acme:menu-option code="master.menu.developer" access="hasRole('Developer')">
 			<acme:menu-suboption code="master.menu.developer.training-module.list" action="/developer/training-module/list"/>
+			<acme:menu-suboption code="master.menu.developer.dashboard" action="/developer/developer-dashboard/show"/>
 		</acme:menu-option>
 
 		<acme:menu-option code="master.menu.client" access="hasRole('Client')">
