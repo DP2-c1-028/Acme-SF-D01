@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import acme.client.data.models.Dataset;
 import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractService;
+import acme.client.views.SelectChoices;
 import acme.entities.training_modules.TrainingModule;
+import acme.entities.training_modules.TrainingModuleDifficulty;
 import acme.roles.Developer;
 
 @Service
@@ -76,7 +78,7 @@ public class DeveloperTrainingModuleUpdateService extends AbstractService<Develo
 			TrainingModule trainingModuleSameCode = this.repository.findOneTrainingModuleByCode(object.getCode());
 
 			if (trainingModuleSameCode != null)
-				super.state(trainingModuleSameCode.getId() == object.getId(), "code", "sponsor.training-module.form.error.code");
+				super.state(trainingModuleSameCode.getId() == object.getId(), "code", "developer.training-module.form.error.code");
 		}
 
 	}
@@ -92,9 +94,17 @@ public class DeveloperTrainingModuleUpdateService extends AbstractService<Develo
 	public void unbind(final TrainingModule object) {
 		assert object != null;
 
+		SelectChoices difficultyChoices;
+		SelectChoices projectChoices;
+
+		difficultyChoices = SelectChoices.from(TrainingModuleDifficulty.class, object.getDifficulty());
+		projectChoices = SelectChoices.from(this.repository.findAllProjects(), "title", object.getProject());
+
 		Dataset dataset;
 
-		dataset = super.unbind(object, "code", "creationMoment", "updateMoment", "difficulty", "details", "totalTime", "link", "project");
+		dataset = super.unbind(object, "code", "creationMoment", "updateMoment", "difficulty", "details", "totalTime", "link", "published", "project");
+		dataset.put("difficulties", difficultyChoices);
+		dataset.put("projects", projectChoices);
 
 		super.getResponse().addData(dataset);
 	}
