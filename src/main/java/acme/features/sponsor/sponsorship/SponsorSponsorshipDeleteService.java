@@ -8,8 +8,11 @@ import org.springframework.stereotype.Service;
 
 import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
+import acme.client.views.SelectChoices;
 import acme.entities.invoices.Invoice;
+import acme.entities.projects.Project;
 import acme.entities.sponsorships.Sponsorship;
+import acme.entities.sponsorships.SponsorshipType;
 import acme.roles.Sponsor;
 
 @Service
@@ -79,9 +82,18 @@ public class SponsorSponsorshipDeleteService extends AbstractService<Sponsor, Sp
 	public void unbind(final Sponsorship object) {
 		assert object != null;
 
+		SelectChoices choices;
+
+		Collection<Project> projects = this.repository.findProjects();
+		SelectChoices choices2;
 		Dataset dataset;
 
-		dataset = super.unbind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link", "draftMode");
+		choices = SelectChoices.from(SponsorshipType.class, object.getType());
+		choices2 = SelectChoices.from(projects, "code", (Project) projects.toArray()[0]);
+
+		dataset = super.unbind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link", "project", "draftMode");
+		dataset.put("types", choices);
+		dataset.put("projects", choices2);
 
 		super.getResponse().addData(dataset);
 	}

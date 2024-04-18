@@ -111,14 +111,15 @@ public class SponsorSponsorshipUpdateService extends AbstractService<Sponsor, Sp
 		assert object != null;
 
 		SelectChoices choices;
+
 		Collection<Project> projects = this.repository.findProjects();
 		SelectChoices choices2;
 		Dataset dataset;
 
 		choices = SelectChoices.from(SponsorshipType.class, object.getType());
-		choices2 = SelectChoices.from(projects, "code", object.getProject());
+		choices2 = SelectChoices.from(projects, "code", (Project) projects.toArray()[0]);
 
-		dataset = super.unbind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link", "draftMode");
+		dataset = super.unbind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link", "project", "draftMode");
 		dataset.put("types", choices);
 		dataset.put("projects", choices2);
 
