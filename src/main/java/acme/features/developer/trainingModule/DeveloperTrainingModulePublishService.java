@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 
 import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
+import acme.client.views.SelectChoices;
 import acme.entities.training_modules.TrainingModule;
+import acme.entities.training_modules.TrainingModuleDifficulty;
 import acme.roles.Developer;
 
 @Service
@@ -61,7 +63,22 @@ public class DeveloperTrainingModulePublishService extends AbstractService<Devel
 	public void validate(final TrainingModule object) {
 		assert object != null;
 
-		//TODO Validar que para poder publicarse tiene que tener training sessions
+		if (!super.getBuffer().getErrors().hasErrors("code")) {
+
+			TrainingModule trainingModuleSameCode = this.repository.findOneTrainingModuleByCode(object.getCode());
+
+			if (trainingModuleSameCode != null)
+				super.state(trainingModuleSameCode.getId() == object.getId(), "code", "developer.training-module.form.error.code");
+		}
+
+		if (!super.getBuffer().getErrors().hasErrors("unpublishable")) {
+
+			boolean publishable;
+
+			publishable = !this.repository.findTrainingSessionsByTrainingModuleId(object.getId()).isEmpty();
+
+			super.state(publishable, "*", "developer.training-module.form.error.unpublishable");
+		}
 
 	}
 
@@ -78,9 +95,17 @@ public class DeveloperTrainingModulePublishService extends AbstractService<Devel
 	public void unbind(final TrainingModule object) {
 		assert object != null;
 
+		SelectChoices difficultyChoices;
+		SelectChoices projectChoices;
+
+		difficultyChoices = SelectChoices.from(TrainingModuleDifficulty.class, object.getDifficulty());
+		projectChoices = SelectChoices.from(this.repository.findAllProjects(), "title", object.getProject());
+
 		Dataset dataset;
 
-		dataset = super.unbind(object, "code", "creationMoment", "updateMoment", "difficulty", "details", "totalTime", "link", "project");
+		dataset = super.unbind(object, "code", "creationMoment", "updateMoment", "difficulty", "details", "totalTime", "link", "published", "project");
+		dataset.put("difficulties", difficultyChoices);
+		dataset.put("projects", projectChoices);
 
 		super.getResponse().addData(dataset);
 	}
