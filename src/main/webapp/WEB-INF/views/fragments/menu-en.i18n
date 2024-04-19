@@ -38,6 +38,11 @@ master.menu.administrator.shut-down = Shut down
 master.menu.manager = Manager
 master.menu.manager.project.list = List Your Projects
 
+# master.menu.auditor ###################################################
+master.menu.auditor = Auditor
+master.menu.auditor.codeAudit.list = List Your Code Audits
+master.menu.auditor.dashboard = Auditor Dashboard
+
 # master.menu.provider ########################################################
 
 master.menu.provider = Provider
@@ -56,3 +61,5 @@ master.menu.user-account.provider = Provider data
 master.menu.user-account.become-provider = Become a provider
 master.menu.user-account.consumer = Consumer data
 master.menu.user-account.become-consumer = Become a consumer
+master.menu.user-account.auditor = Auditor data
+master.menu.user-account.become-auditor = Become a auditor
