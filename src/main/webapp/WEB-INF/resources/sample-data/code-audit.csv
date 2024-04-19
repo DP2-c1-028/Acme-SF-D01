@@ -1,22 +1,22 @@
-key,code,execution,type,proposed-corrective-actions,link,key:project,key:auditor
-code-audit-01,A-000,2021/07/30 0:00,Static,Random actions,https://www3.animeflv.net/anime/one-piece-tv,project-02,auditor-01
-code-audit-02,Z-999,2021/07/30 0:00,Static,Random actions,https://www3.animeflv.net/anime/one-piece-tv,project-02,auditor-01
-code-audit-03,AAA-500,2021/07/30 0:00,Static,Random actions,https://www3.animeflv.net/anime/one-piece-tv,project-02,auditor-01
-code-audit-04,ZZZ-500,2021/07/30 0:00,Static,Random actions,https://www3.animeflv.net/anime/one-piece-tv,project-02,auditor-01
-code-audit-05,AA-005,1970/01/01 0:00,Static,Random actions,https://www3.animeflv.net/anime/one-piece-tv,project-02,auditor-01
-code-audit-06,ZZ-006,1970/02/15 0:00,Static,Random actions,https://www3.animeflv.net/anime/one-piece-tv,project-02,auditor-01
-code-audit-07,A-007,2000/07/09 0:00,Static,Random actions,https://www3.animeflv.net/anime/one-piece-tv,project-02,auditor-01
-code-audit-08,A-008,2022/06/22 0:00,Static,Random actions,https://www3.animeflv.net/anime/one-piece-tv,project-02,auditor-01
-code-audit-09,A-009,2022/07/09 0:00,Static,Random actions,https://www3.animeflv.net/anime/one-piece-tv,project-02,auditor-01
-code-audit-10,A-010,2021/07/30 0:00,Static,A,https://www3.animeflv.net/anime/one-piece-tv,project-02,auditor-01
-code-audit-11,A-011,2021/07/30 0:00,Static,สวัสดีชาวโลก,https://www3.animeflv.net/anime/one-piece-tv,project-02,auditor-01
-code-audit-12,A-012,2021/07/30 0:00,Static,SOYUNTEXTOCON100CARACTERESSOYUNTEXTOCON100CARACTERESSOYUNTEXTOCON100CARACTERESSOYUNTEXTOCON100CARAC,https://www3.animeflv.net/anime/one-piece-tv,project-02,auditor-01
-code-audit-13,A-013,2021/07/30 0:00,Static,אני יודע לדבר עברית,https://www3.animeflv.net/anime/one-piece-tv,project-02,auditor-01
-code-audit-14,A-014,2021/07/30 0:00,Static,Türkmençe gürlemegi bilýärin,https://www3.animeflv.net/anime/one-piece-tv,project-02,auditor-01
-code-audit-15,A-015,2021/07/30 0:00,Dynamic,Random actions,,project-02,auditor-01
-code-audit-16,A-016,2021/07/30 0:00,Dynamic,Random actions,,project-02,auditor-01
-code-audit-17,A-017,2021/07/30 0:00,Dynamic,Random actions,https://www.google.com/?hl=es,project-02,auditor-01
-code-audit-18,A-018,2021/07/31 0:00,Dynamic,Random actions,https://www.ejemplo-url-ficticia-123.com/abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0,project-02,auditor-01
-code-audit-19,A-019,2021/08/01 0:00,Dynamic,Random actions,https://www.google.com,project-02,auditor-01
-code-audit-20,A-020,2021/08/02 0:00,Dynamic,Random actions,https://www3.animeflv.net/anime/one-piece-tv,project-02,auditor-01
-code-audit-21,A-021,2021/07/31 0:00,Dynamic,Random actions,https://www.ejemplo-url-ficticia-123.com/abcdefghijklABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0,project-02,auditor-01
+key,code,execution,type,proposed-corrective-actions,link,key:project,key:auditor,draft-mode
+code-audit-01,A-000,2021/07/30 0:00,Static,Random actions,https://www3.animeflv.net/anime/one-piece-tv,project-01,auditor-01,true
+code-audit-02,Z-999,2021/07/30 0:00,Static,Random actions,https://www3.animeflv.net/anime/one-piece-tv,project-01,auditor-01,false
+code-audit-03,AAA-500,2021/07/30 0:00,Static,Random actions,https://www3.animeflv.net/anime/one-piece-tv,project-01,auditor-01,false
+code-audit-04,ZZZ-500,2021/07/30 0:00,Static,Random actions,https://www3.animeflv.net/anime/one-piece-tv,project-01,auditor-01,false
+code-audit-05,AA-005,1970/01/01 0:00,Static,Random actions,https://www3.animeflv.net/anime/one-piece-tv,project-01,auditor-01,false
+code-audit-06,ZZ-006,1970/02/15 0:00,Static,Random actions,https://www3.animeflv.net/anime/one-piece-tv,project-03,auditor-01,false
+code-audit-07,A-007,2000/07/09 0:00,Static,Random actions,https://www3.animeflv.net/anime/one-piece-tv,project-02,auditor-01,true
+code-audit-08,A-008,2022/06/22 0:00,Static,Random actions,https://www3.animeflv.net/anime/one-piece-tv,project-02,auditor-01,false
+code-audit-09,A-009,2022/07/09 0:00,Static,Random actions,https://www3.animeflv.net/anime/one-piece-tv,project-02,auditor-01,false
+code-audit-10,A-010,2021/07/30 0:00,Static,A,https://www3.animeflv.net/anime/one-piece-tv,project-02,auditor-01,false
+code-audit-11,A-011,2021/07/30 0:00,Static,สวัสดีชาวโลก,https://www3.animeflv.net/anime/one-piece-tv,project-02,auditor-01,false
+code-audit-12,A-012,2021/07/30 0:00,Static,SOYUNTEXTOCON100CARACTERESSOYUNTEXTOCON100CARACTERESSOYUNTEXTOCON100CARACTERESSOYUNTEXTOCON100CARAC,https://www3.animeflv.net/anime/one-piece-tv,project-02,auditor-02,false
+code-audit-13,A-013,2021/07/30 0:00,Static,אני יודע לדבר עברית,https://www3.animeflv.net/anime/one-piece-tv,project-02,auditor-02,false
+code-audit-14,A-014,2021/07/30 0:00,Static,Türkmençe gürlemegi bilýärin,https://www3.animeflv.net/anime/one-piece-tv,project-02,auditor-02,false
+code-audit-15,A-015,2021/07/30 0:00,Dynamic,Random actions,,project-02,auditor-02,false
+code-audit-16,A-016,2021/07/30 0:00,Dynamic,Random actions,,project-02,auditor-02,false
+code-audit-17,A-017,2021/07/30 0:00,Dynamic,Random actions,https://www.google.com/?hl=es,project-02,auditor-02,false
+code-audit-18,A-018,2021/07/31 0:00,Dynamic,Random actions,https://www.ejemplo-url-ficticia-123.com/abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0,project-02,auditor-02,false
+code-audit-19,A-019,2021/08/01 0:00,Dynamic,Random actions,https://www.google.com,project-02,auditor-02,false
+code-audit-20,A-020,2021/08/02 0:00,Dynamic,Random actions,https://www3.animeflv.net/anime/one-piece-tv,project-02,auditor-02,false
+code-audit-21,A-021,2021/07/31 0:00,Dynamic,Random actions,https://www.ejemplo-url-ficticia-123.com/abcdefghijklABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0,project-18,auditor-02,false
