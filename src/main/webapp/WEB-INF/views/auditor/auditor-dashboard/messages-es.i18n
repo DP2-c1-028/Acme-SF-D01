@@ -1,0 +1,16 @@
+auditor.auditor-dashboard.form.title = Panel de indicadores del auditor
+
+auditor.dashboard.form.title.code-audits-indicators = Indicadores generales de las auditorías de código
+auditor.dashboard.form.title.audit-records-indicators = Indicadores generales de los registros de auditoría
+
+auditor.dashboard.form.label.total-code-audits-static = Número total de auditorías de código con tipo Static (Estático)
+auditor.dashboard.form.label.total-code-audits-dynamic = Número total de auditorías de código con tipo Dynamic (Dinámico)
+
+auditor.dashboard.form.label.audit-records-average = Media del número de registros de auditoría por cada auditoría
+auditor.dashboard.form.label.audit-records-deviation = Desviación del número de registros de auditoría por cada auditoría
+auditor.dashboard.form.label.audit-records-minimum = Mínimo del número de registros de auditoría por cada auditoría
+auditor.dashboard.form.label.audit-records-maximum = Máximo del número de registros de auditoría por cada auditoría
+auditor.dashboard.form.label.period-average-time = Media del tiempo que dura el periodo en sus registros de auditoría (horas)
+auditor.dashboard.form.label.period-deviation-time = Desviación del tiempo que dura el periodo en sus registros de auditoría (horas)
+auditor.dashboard.form.label.period-minimum-time = Mínimo del tiempo que dura el periodo en sus registros de auditoría (horas)
+auditor.dashboard.form.label.period-maximum-time = Máximo del tiempo que dura el periodo en sus registros de auditoría (horas)
