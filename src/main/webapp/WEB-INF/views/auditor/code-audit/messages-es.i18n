@@ -8,6 +8,7 @@ auditor.code-audit.list.label.mark = Nota
 auditor.code-audit.list.label.project = Proyecto
 auditor.code-audit.list.button.create = Crear
 
+auditor.code-audit.form.button.audit-records= Registros de auditoría
 auditor.code-audit.form.label.code = Código
 auditor.code-audit.form.label.execution = Ejecución
 auditor.code-audit.form.label.type = Tipo

@@ -1,8 +1,8 @@
 key,code,execution,type,proposed-corrective-actions,link,key:project,key:auditor,draft-mode
 code-audit-01,A-000,2021/07/30 0:00,Static,Random actions,https://www3.animeflv.net/anime/one-piece-tv,project-01,auditor-01,true
 code-audit-02,Z-999,2021/07/30 0:00,Static,Random actions,https://www3.animeflv.net/anime/one-piece-tv,project-01,auditor-01,false
-code-audit-03,AAA-500,2021/07/30 0:00,Static,Random actions,https://www3.animeflv.net/anime/one-piece-tv,project-01,auditor-01,false
-code-audit-04,ZZZ-500,2021/07/30 0:00,Static,Random actions,https://www3.animeflv.net/anime/one-piece-tv,project-01,auditor-01,false
+code-audit-03,AAA-500,2021/07/30 0:00,Static,Random actions,https://www3.animeflv.net/anime/one-piece-tv,project-01,auditor-02,false
+code-audit-04,ZZZ-500,2021/07/30 0:00,Static,Random actions,https://www3.animeflv.net/anime/one-piece-tv,project-01,auditor-02,false
 code-audit-05,AA-005,1970/01/01 0:00,Static,Random actions,https://www3.animeflv.net/anime/one-piece-tv,project-01,auditor-01,false
 code-audit-06,ZZ-006,1970/02/15 0:00,Static,Random actions,https://www3.animeflv.net/anime/one-piece-tv,project-03,auditor-01,false
 code-audit-07,A-007,2000/07/09 0:00,Static,Random actions,https://www3.animeflv.net/anime/one-piece-tv,project-02,auditor-01,true

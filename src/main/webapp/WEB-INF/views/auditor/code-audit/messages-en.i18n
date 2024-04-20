@@ -8,6 +8,7 @@ auditor.code-audit.list.label.mark = Mark
 auditor.code-audit.list.label.project = Project
 auditor.code-audit.list.button.create = Create
 
+auditor.code-audit.form.button.audit-records= Audit records
 auditor.code-audit.form.label.code = Code
 auditor.code-audit.form.label.execution = Execution
 auditor.code-audit.form.label.type = Type
