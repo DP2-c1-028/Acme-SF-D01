@@ -6,6 +6,7 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import acme.client.data.datatypes.Money;
 import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
 import acme.client.views.SelectChoices;
@@ -54,14 +55,44 @@ public class ClientContractPublishService extends AbstractService<Client, Contra
 		int clientId = contract.getClient().getId();
 		int projectId = contract.getProject().getId();
 
+		//validacion de publish
 		if (!super.getBuffer().getErrors().hasErrors("budget")) {
 			Collection<Contract> contracts = this.repository.findProjectContractsByClientId(clientId, projectId);
 
-			Double totalBudgetUsd = contracts.stream().mapToDouble(u -> this.repository.currencyTransformerUsd(u.getBudget())).sum();
-			Double projectCostUsd = this.repository.currencyTransformerUsd(contract.getProject().getCost());
+			Double totalBudgetUsd = contracts.stream().mapToDouble(u -> this.currencyTransformerUsd(u.getBudget())).sum();
+			Double projectCostUsd = this.currencyTransformerUsd(contract.getProject().getCost());
 
 			super.state(totalBudgetUsd <= projectCostUsd, "*", "client.contract.form.error.publishError");
 		}
+
+		//validaciones de actualización
+		if (!super.getBuffer().getErrors().hasErrors("budget")) {
+			Project referencedProject = contract.getProject();
+			super.state(this.currencyTransformerUsd(referencedProject.getCost()) >= this.currencyTransformerUsd(contract.getBudget()), "budget", "client.contract.form.error.budget");
+
+		}
+
+		if (!super.getBuffer().getErrors().hasErrors("code")) {
+
+			Contract contractWithCode = this.repository.findContractByCode(contract.getCode());
+
+			super.state(contractWithCode == null, "code", "client.contract.form.error.code");
+		}
+	}
+
+	private double currencyTransformerUsd(final Money initial) {
+		double res = initial.getAmount();
+
+		if (initial.getCurrency().equals("USD"))
+			res = initial.getAmount();
+
+		else if (initial.getCurrency().equals("EUR"))
+			res = initial.getAmount() * 1.07;
+
+		else
+			res = initial.getAmount() * 1.25;
+
+		return res;
 	}
 
 	@Override
