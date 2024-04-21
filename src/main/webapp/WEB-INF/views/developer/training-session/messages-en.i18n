@@ -20,4 +20,4 @@ developer.training-session.form.button.create = Create
 developer.training-session.form.button.publish = Publish
 developer.training-session.form.error.code = The code is already in use
 developer.training-session.form.error.period-start = The period start must be at least one week ahead the training module creation moment
-developer.training-session.form.error.period-end = The period must be at least one week long
+developer.training-session.form.error.period-end = The period must be at least one week long and its end must be after the period start
