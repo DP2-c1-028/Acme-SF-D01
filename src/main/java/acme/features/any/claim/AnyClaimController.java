@@ -11,17 +11,17 @@ import acme.client.data.accounts.Any;
 import acme.entities.claim.Claim;
 
 @Controller
-public class ClaimController extends AbstractController<Any, Claim> {
+public class AnyClaimController extends AbstractController<Any, Claim> {
 
 	// Internal state ---------------------------------------------------------
 	@Autowired
-	private ClaimListService	listService;
+	private AnyClaimListService	listService;
 
 	@Autowired
-	private ClaimShowService	showService;
+	private AnyClaimShowService	showService;
 
 	@Autowired
-	private ClaimCreateService	createService;
+	private AnyClaimCreateService	createService;
 
 
 	// Constructors -----------------------------------------------------------

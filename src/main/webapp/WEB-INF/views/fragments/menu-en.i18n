@@ -24,6 +24,10 @@ master.menu.anonymous.ferdehur = 29644731: de Celis Hurtado, Fernando Jose
 master.menu.anonymous.pabcascom = 30268012: Castellanos Compaña, Pablo Jesus 
 master.menu.anonymous.mighersan1 = 49111638: Hernández Sánchez, Miguel
 master.menu.anonymous.gonnavrem = 29516545: Navas Remmers, Gonzalo
+
+# master.menu.any #######################################################
+
+master.menu.any = Any
 master.menu.anonymous.claims = Claim list
 
 # master.menu.administrator ###################################################

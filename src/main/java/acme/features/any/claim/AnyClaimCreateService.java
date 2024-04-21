@@ -13,12 +13,12 @@ import acme.client.services.AbstractService;
 import acme.entities.claim.Claim;
 
 @Service
-public class ClaimCreateService extends AbstractService<Any, Claim> {
+public class AnyClaimCreateService extends AbstractService<Any, Claim> {
 
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	private ClaimRepository repository;
+	private AnyClaimRepository repository;
 
 	// AbstractService interface ----------------------------------------------
 

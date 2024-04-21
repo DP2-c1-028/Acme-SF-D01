@@ -1,6 +1,8 @@
 
 package acme.features.any.claim;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,12 +12,12 @@ import acme.client.services.AbstractService;
 import acme.entities.claim.Claim;
 
 @Service
-public class ClaimShowService extends AbstractService<Any, Claim> {
+public class AnyClaimListService extends AbstractService<Any, Claim> {
 
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	private ClaimRepository repository;
+	private AnyClaimRepository repository;
 
 	// AbstractService interface ----------------------------------------------
 
@@ -27,13 +29,11 @@ public class ClaimShowService extends AbstractService<Any, Claim> {
 
 	@Override
 	public void load() {
-		Claim object;
-		int id;
+		Collection<Claim> objects;
 
-		id = super.getRequest().getData("id", int.class);
-		object = this.repository.findOneClaimById(id);
+		objects = this.repository.findAllClaims();
 
-		super.getBuffer().addData(object);
+		super.getBuffer().addData(objects);
 	}
 
 	@Override
@@ -43,8 +43,8 @@ public class ClaimShowService extends AbstractService<Any, Claim> {
 		Dataset dataset;
 
 		dataset = super.unbind(object, "code", "instantiationMoment", "heading", "description", "department", "email", "link");
-		dataset.put("readonly", true);
 
 		super.getResponse().addData(dataset);
 	}
+
 }
