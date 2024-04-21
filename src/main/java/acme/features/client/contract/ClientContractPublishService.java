@@ -76,7 +76,8 @@ public class ClientContractPublishService extends AbstractService<Client, Contra
 
 			Contract contractWithCode = this.repository.findContractByCode(contract.getCode());
 
-			super.state(contractWithCode == null, "code", "client.contract.form.error.code");
+			if (contractWithCode != null)
+				super.state(contractWithCode.getId() == contract.getId(), "code", "client.contract.form.error.code");
 		}
 	}
 
