@@ -53,7 +53,7 @@ public class SponsorInvoiceDeleteService extends AbstractService<Sponsor, Invoic
 	public void bind(final Invoice object) {
 		assert object != null;
 
-		super.bind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link");
+		super.bind(object, "code", "registrationTime", "dueDate", "quantity", "tax", "link");
 	}
 
 	@Override
@@ -74,7 +74,7 @@ public class SponsorInvoiceDeleteService extends AbstractService<Sponsor, Invoic
 
 		Dataset dataset;
 
-		dataset = super.unbind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link", "draftMode");
+		dataset = super.unbind(object, "code", "registrationTime", "dueDate", "quantity", "tax", "link", "draftMode");
 
 		super.getResponse().addData(dataset);
 	}

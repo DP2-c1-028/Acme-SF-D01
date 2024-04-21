@@ -33,3 +33,4 @@ sponsor.sponsorship.form.error.invalidTotalAmount = La suma de la cantidad total
 sponsor.sponsorship.form.error.durationStartTime = The start date must be after the moment
 sponsor.sponsorship.form.error.durationEndTime = The end date must be after the moment and there must also be at least one month difference between both of them
 sponsor.sponsorship.form.error.amount  = Amount must be positive
+sponsor.sponsorship.form.error.acceptedCurrency= Currency is not accepted by the system

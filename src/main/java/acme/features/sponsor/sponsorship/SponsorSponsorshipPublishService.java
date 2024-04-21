@@ -8,6 +8,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import acme.client.data.datatypes.Money;
 import acme.client.data.models.Dataset;
 import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractService;
@@ -16,6 +17,7 @@ import acme.entities.invoices.Invoice;
 import acme.entities.projects.Project;
 import acme.entities.sponsorships.Sponsorship;
 import acme.entities.sponsorships.SponsorshipType;
+import acme.entities.systemConfiguration.SystemConfiguration;
 import acme.roles.Sponsor;
 
 @Service
@@ -71,8 +73,8 @@ public class SponsorSponsorshipPublishService extends AbstractService<Sponsor, S
 		if (!super.getBuffer().getErrors().hasErrors("totalAmount")) {
 			Collection<Invoice> invoices = this.repository.findInvoicesOfASponsorship(object.getId());
 
-			double invoiceTotAmount = invoices.stream().mapToDouble(i -> i.totalAmount()).sum();
-			super.state(invoiceTotAmount == object.getAmount().getAmount(), "*", "sponsor.sponsorship.form.error.invalidTotalAmount");
+			double invoiceTotAmount = invoices.stream().mapToDouble(i -> this.currencyTransformerUsd(i.getQuantity(), i.totalAmount()).getAmount()).sum();
+			super.state(invoiceTotAmount == this.currencyTransformerUsd(object.getAmount(), object.getAmount().getAmount()).getAmount(), "*", "sponsor.sponsorship.form.error.invalidTotalAmount");
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("durationStartTime")) {
@@ -97,6 +99,37 @@ public class SponsorSponsorshipPublishService extends AbstractService<Sponsor, S
 		if (!super.getBuffer().getErrors().hasErrors("amount"))
 			super.state(object.getAmount().getAmount() >= 0, "amount", "sponsor.sponsorship.form.error.amount");
 
+		if (!super.getBuffer().getErrors().hasErrors("amount"))
+			super.state(this.isCurrencyAccepted(object.getAmount()), "amount", "sponsor.sponsorship.form.error.acceptedCurrency");
+
+	}
+
+	public boolean isCurrencyAccepted(final Money moneda) {
+		SystemConfiguration moneys;
+		moneys = this.repository.findSystemConfiguration();
+
+		String[] listaMonedas = moneys.getAcceptedCurrencies().split(",");
+		for (String divisa : listaMonedas)
+			if (moneda.getCurrency().equals(divisa))
+				return true;
+
+		return false;
+	}
+
+	private Money currencyTransformerUsd(final Money currency, final Double amount) {
+		Money res = new Money();
+		res.setCurrency("USD");
+
+		if (currency.getCurrency().equals("USD"))
+			res.setAmount(amount);
+
+		else if (currency.getCurrency().equals("EUR"))
+			res.setAmount(amount * 1.07);
+
+		else
+			res.setAmount(amount * 1.25);
+
+		return res;
 	}
 
 	@Override

@@ -56,7 +56,7 @@ public class SponsorInvoicePublishService extends AbstractService<Sponsor, Invoi
 	public void bind(final Invoice object) {
 		assert object != null;
 
-		super.bind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link", "project");
+		super.bind(object, "code", "registrationTime", "dueDate", "quantity", "tax", "link");
 	}
 
 	@Override
@@ -68,7 +68,7 @@ public class SponsorInvoicePublishService extends AbstractService<Sponsor, Invoi
 			Invoice projectSameCode = this.repository.findOneInvoiceByCode(object.getCode());
 
 			if (projectSameCode != null)
-				super.state(projectSameCode.getId() == object.getId(), "code", "sponsor.Invoice.form.error.code");
+				super.state(projectSameCode.getId() == object.getId(), "code", "sponsor.invoice.form.error.code");
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("dueDate")) {
@@ -100,7 +100,7 @@ public class SponsorInvoicePublishService extends AbstractService<Sponsor, Invoi
 
 		Dataset dataset;
 
-		dataset = super.unbind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link", "project", "draftMode");
+		dataset = super.unbind(object, "code", "registrationTime", "dueDate", "quantity", "tax", "link", "draftMode");
 
 		super.getResponse().addData(dataset);
 	}
