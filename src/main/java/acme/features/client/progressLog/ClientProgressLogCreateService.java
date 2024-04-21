@@ -54,9 +54,6 @@ public class ClientProgressLogCreateService extends AbstractService<Client, Prog
 	public void validate(final ProgressLog progressLog) {
 		assert progressLog != null;
 
-		//Contract referencedContract = progressLog.getContract();
-		//super.state(referencedContract != null, "*", "client.progressLog.form.error.invalidContract");
-
 		if (!super.getBuffer().getErrors().hasErrors("recordId")) {
 
 			ProgressLog progressLogWithCode = this.repository.findProgressLogByRecordId(progressLog.getRecordId());

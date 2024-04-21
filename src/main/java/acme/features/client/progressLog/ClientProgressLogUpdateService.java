@@ -52,19 +52,12 @@ public class ClientProgressLogUpdateService extends AbstractService<Client, Prog
 	public void bind(final ProgressLog progressLog) {
 		assert progressLog != null;
 
-		Integer clientId = super.getRequest().getPrincipal().getActiveRoleId();
-		Client client = this.repository.findClientById(clientId);
-
-		progressLog.setClient(client);
-		super.bind(progressLog, "code", "project", "providerName", "customerName", "instantiationMoment", "budget", "goals");
+		super.bind(progressLog, "recordId", "completeness", "comment", "registrationMoment", "responsiblePerson");
 	}
 
 	@Override
 	public void validate(final ProgressLog progressLog) {
 		assert progressLog != null;
-
-		//Contract referencedContract = progressLog.getContract();
-		//super.state(referencedContract != null, "*", "client.progressLog.form.error.invalidContract");
 
 		if (!super.getBuffer().getErrors().hasErrors("recordId")) {
 
@@ -72,7 +65,6 @@ public class ClientProgressLogUpdateService extends AbstractService<Client, Prog
 
 			if (progressLogWithCode != null)
 				super.state(progressLogWithCode.getId() == progressLog.getId(), "recordId", "client.progress-log.form.error.recordId");
-
 		}
 
 	}
@@ -90,8 +82,7 @@ public class ClientProgressLogUpdateService extends AbstractService<Client, Prog
 
 		Dataset dataset;
 
-		dataset = super.unbind(progressLog, "recordId", "completeness", "comment", "registrationMoment", "responsiblePerson");
-		dataset.put("contractId", super.getRequest().getData("contractId", int.class));
+		dataset = super.unbind(progressLog, "recordId", "completeness", "comment", "registrationMoment", "responsiblePerson", "draftMode");
 
 		super.getResponse().addData(dataset);
 	}

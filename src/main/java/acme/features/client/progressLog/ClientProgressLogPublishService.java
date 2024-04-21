@@ -40,22 +40,21 @@ public class ClientProgressLogPublishService extends AbstractService<Client, Pro
 	public void bind(final ProgressLog progressLog) {
 		assert progressLog != null;
 
-		super.bind(progressLog, "code", "project", "providerName", "customerName", "instantiationMoment", "budget", "goals");
+		super.bind(progressLog, "recordId", "completeness", "comment", "registrationMoment", "responsiblePerson");
 	}
 
 	@Override
 	public void validate(final ProgressLog progressLog) {
 		assert progressLog != null;
 
-		//Contract referencedContract = progressLog.getContract();
-		//super.state(referencedContract != null, "*", "client.progressLog.form.error.invalidContract");
+		if (!super.getBuffer().getErrors().hasErrors("recordId")) {
 
-		//		if (!super.getBuffer().getErrors().hasErrors("recordId")) {
-		//
-		//			ProgressLog progressLogWithCode = this.repository.findProgressLogByRecordId(progressLog.getRecordId());
-		//
-		//			super.state(progressLogWithCode == null, "recordId", "client.progress-log.form.error.recordId");
-		//		}
+			ProgressLog progressLogWithCode = this.repository.findProgressLogByRecordId(progressLog.getRecordId());
+
+			if (progressLogWithCode != null)
+				super.state(progressLogWithCode.getId() == progressLog.getId(), "recordId", "client.progress-log.form.error.recordId");
+
+		}
 
 	}
 
@@ -85,8 +84,7 @@ public class ClientProgressLogPublishService extends AbstractService<Client, Pro
 
 		Dataset dataset;
 
-		dataset = super.unbind(progressLog, "recordId", "completeness", "comment", "registrationMoment", "responsiblePerson");
-		dataset.put("contractId", super.getRequest().getData("contractId", int.class));
+		dataset = super.unbind(progressLog, "recordId", "completeness", "comment", "registrationMoment", "responsiblePerson", "draftMode");
 
 		super.getResponse().addData(dataset);
 	}

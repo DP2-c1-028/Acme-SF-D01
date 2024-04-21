@@ -56,7 +56,7 @@ public class ClientProgressLogDeleteService extends AbstractService<Client, Prog
 		Client client = this.repository.findClientById(clientId);
 
 		progressLog.setClient(client);
-		super.bind(progressLog, "code", "project", "providerName", "customerName", "instantiationMoment", "budget", "goals");
+		super.bind(progressLog, "recordId", "completeness", "comment", "registrationMoment", "responsiblePerson");
 	}
 
 	@Override
