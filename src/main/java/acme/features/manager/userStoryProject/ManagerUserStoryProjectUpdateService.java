@@ -62,14 +62,23 @@ public class ManagerUserStoryProjectUpdateService extends AbstractService<Manage
 	@Override
 	public void validate(final UserStoryProject object) {
 		assert object != null;
+		int managerId;
 
-		if (!super.getBuffer().getErrors().hasErrors("userStoryProject")) {
+		managerId = super.getRequest().getPrincipal().getActiveRoleId();
+
+		if (!super.getBuffer().getErrors().hasErrors("userStoryProject") && object.getProject() != null && object.getUserStory() != null) {
 
 			UserStoryProject uspSameData = this.repository.findOneUserStoryProjectByProjectAndUserStory(object.getProject().getId(), object.getUserStory().getId());
 
 			if (uspSameData != null)
 				super.state(uspSameData.getId() == object.getId(), "*", "manager.user-story-project.form.error.same");
 		}
+
+		if (!super.getBuffer().getErrors().hasErrors("project") && object.getProject() != null)
+			super.state(object.getProject().getManager().getId() == managerId, "*", "manager.user-story-project.form.error.project-owned");
+
+		if (!super.getBuffer().getErrors().hasErrors("userStory") && object.getUserStory() != null)
+			super.state(object.getUserStory().getManager().getId() == managerId, "*", "manager.user-story-project.form.error.user-story-owned");
 
 	}
 
@@ -88,6 +97,8 @@ public class ManagerUserStoryProjectUpdateService extends AbstractService<Manage
 		SelectChoices choicesProject;
 		SelectChoices choicesUserStory;
 		int managerId;
+		String code;
+		String title;
 
 		managerId = super.getRequest().getPrincipal().getActiveRoleId();
 
@@ -99,8 +110,11 @@ public class ManagerUserStoryProjectUpdateService extends AbstractService<Manage
 
 		dataset = new Dataset();
 
-		dataset.put("project", object.getProject().getCode());
-		dataset.put("userStory", object.getUserStory().getTitle());
+		code = object.getProject() != null ? object.getProject().getCode() : null;
+		title = object.getUserStory() != null ? object.getUserStory().getTitle() : null;
+
+		dataset.put("project", code);
+		dataset.put("userStory", title);
 		dataset.put("projects", choicesProject);
 		dataset.put("userStories", choicesUserStory);
 		dataset.put("id", object.getId());
