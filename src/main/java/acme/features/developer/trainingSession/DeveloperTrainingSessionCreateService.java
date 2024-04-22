@@ -80,11 +80,14 @@ public class DeveloperTrainingSessionCreateService extends AbstractService<Devel
 		if (!super.getBuffer().getErrors().hasErrors("periodEnd")) {
 			Date periodStart;
 			Date periodEnd;
+			Boolean periodEndIsValid;
 
 			periodStart = object.getPeriodStart();
 			periodEnd = object.getPeriodEnd();
 
-			super.state(MomentHelper.isLongEnough(periodStart, periodEnd, 1, ChronoUnit.WEEKS), "periodEnd", "developer.training-session.form.error.period-end");
+			periodEndIsValid = MomentHelper.isLongEnough(periodStart, periodEnd, 1, ChronoUnit.WEEKS) && periodEnd.after(periodStart);
+
+			super.state(periodEndIsValid, "periodEnd", "developer.training-session.form.error.period-end");
 		}
 
 	}
