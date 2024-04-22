@@ -58,16 +58,16 @@ public class ClientContractShowService extends AbstractService<Client, Contract>
 		assert contract != null;
 
 		Dataset dataset;
-		String projectName = this.repository.findProjectById(contract.getProject().getId()).getTitle();
+		String projectCode = this.repository.findProjectById(contract.getProject().getId()).getTitle();
 
 		Collection<Project> projects = this.repository.findlAllProjects();
 		SelectChoices options;
 
-		options = SelectChoices.from(projects, "title", this.repository.findProjectById(contract.getProject().getId()));
+		options = SelectChoices.from(projects, "code", this.repository.findProjectById(contract.getProject().getId()));
 
 		dataset = super.unbind(contract, "code", "project", "draftMode", "providerName", "customerName", "instantiationMoment", "budget", "goals");
 
-		dataset.put("project", projectName);
+		dataset.put("project", projectCode);
 		dataset.put("projects", options);
 
 		super.getResponse().addData(dataset);

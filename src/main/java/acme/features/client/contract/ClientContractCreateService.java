@@ -6,6 +6,7 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import acme.client.data.datatypes.Money;
 import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
 import acme.client.views.SelectChoices;
@@ -60,7 +61,7 @@ public class ClientContractCreateService extends AbstractService<Client, Contrac
 		//validacion del D02 budget debe ser menor o igual que coste
 		if (!super.getBuffer().getErrors().hasErrors("budget")) {
 			Project referencedProject = contract.getProject();
-			super.state(this.repository.currencyTransformerUsd(referencedProject.getCost()) >= this.repository.currencyTransformerUsd(contract.getBudget()), "budget", "client.contract.form.error.budget");
+			super.state(this.currencyTransformerUsd(referencedProject.getCost()) >= this.currencyTransformerUsd(contract.getBudget()), "budget", "client.contract.form.error.budget");
 
 		}
 
@@ -70,6 +71,21 @@ public class ClientContractCreateService extends AbstractService<Client, Contrac
 
 			super.state(contractWithCode == null, "code", "client.contract.form.error.code");
 		}
+	}
+
+	private double currencyTransformerUsd(final Money initial) {
+		double res = initial.getAmount();
+
+		if (initial.getCurrency().equals("USD"))
+			res = initial.getAmount();
+
+		else if (initial.getCurrency().equals("EUR"))
+			res = initial.getAmount() * 1.07;
+
+		else
+			res = initial.getAmount() * 1.25;
+
+		return res;
 	}
 
 	@Override
@@ -88,7 +104,7 @@ public class ClientContractCreateService extends AbstractService<Client, Contrac
 		Collection<Project> projects = this.repository.findlAllProjects();
 		Dataset dataset;
 
-		choices = SelectChoices.from(projects, "title", null);
+		choices = SelectChoices.from(projects, "code", null);
 
 		dataset = super.unbind(contract, "code", "instantiationMoment", "providerName", "customerName", "goals", "budget", "project");
 		dataset.put("projects", choices);

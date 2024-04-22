@@ -10,6 +10,7 @@ import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
 import acme.client.views.SelectChoices;
 import acme.entities.contracts.Contract;
+import acme.entities.progress_logs.ProgressLog;
 import acme.entities.projects.Project;
 import acme.roles.Client;
 
@@ -26,7 +27,18 @@ public class ClientContractDeleteService extends AbstractService<Client, Contrac
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
+		int contractId;
+		Contract contract;
+		int clientId;
+		boolean isValid;
+
+		contractId = super.getRequest().getData("id", int.class);
+		contract = this.repository.findContractById(contractId);
+		clientId = super.getRequest().getPrincipal().getActiveRoleId();
+
+		isValid = clientId == contract.getClient().getId() && contract.getProject() != null;
+
+		super.getResponse().setAuthorised(isValid);
 	}
 
 	@Override
@@ -59,6 +71,9 @@ public class ClientContractDeleteService extends AbstractService<Client, Contrac
 	@Override
 	public void perform(final Contract contract) {
 		assert contract != null;
+
+		Collection<ProgressLog> relatedProgressLogs = this.repository.findProgressLogsByContractId(contract.getId());
+		this.repository.deleteAll(relatedProgressLogs);
 
 		this.repository.delete(contract);
 	}
