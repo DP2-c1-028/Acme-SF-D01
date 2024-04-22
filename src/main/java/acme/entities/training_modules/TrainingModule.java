@@ -61,6 +61,8 @@ public class TrainingModule extends AbstractEntity {
 	@Min(1)
 	private int							totalTime;
 
+	private boolean						published;
+
 	// Derived attributes -----------------------------------------------------
 
 	// Relationships ----------------------------------------------------------

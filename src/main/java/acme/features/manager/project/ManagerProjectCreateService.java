@@ -32,6 +32,8 @@ public class ManagerProjectCreateService extends AbstractService<Manager, Projec
 		Integer managerId = super.getRequest().getPrincipal().getActiveRoleId();
 		Manager manager = this.repository.findOneManagerById(managerId);
 		object.setManager(manager);
+		object.setDraftMode(true);
+		object.setHasFatalError(false);
 
 		super.getBuffer().addData(object);
 	}
@@ -46,6 +48,14 @@ public class ManagerProjectCreateService extends AbstractService<Manager, Projec
 	@Override
 	public void validate(final Project object) {
 		assert object != null;
+
+		if (!super.getBuffer().getErrors().hasErrors("code")) {
+
+			Project projectSameCode = this.repository.findOneProjectByCode(object.getCode());
+
+			super.state(projectSameCode == null, "code", "manager.project.form.error.code");
+		}
+
 	}
 
 	@Override

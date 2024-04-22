@@ -8,7 +8,7 @@
 # purposes.  The copyright owner does not offer any warranties or representations, nor do
 # they accept any liabilities with respect to them.
 
-﻿# master.menu #################################################################
+# master.menu #################################################################
 
 master.menu.home = Inicio
 master.menu.sign-up = Registrarse
@@ -36,13 +36,25 @@ master.menu.administrator.shut-down = Parar el sistema
 master.menu.administrator.system-configuration = Mostrar la configuración del sistema
 
 # master.menu.manager ###################################################
-master.menu.manager = Manager
+master.menu.manager = Gerente
 master.menu.manager.project.list = Listar tus proyectos
+master.menu.manager.user-story-project.list = Gestionar Historias/Proyectos
+master.menu.manager.dashboard = Panel de indicadores de gestor
 
 # master.menu.sponsor ###################################################
 master.menu.sponsor = Patrocinador
 master.menu.sponsor.sponsorship.list = Listar tus patrocinios
 master.menu.sponsor.dashboard = Panel de indicadores del patrocinador
+
+# master.menu.developer ###################################################
+master.menu.developer = Desarrollador
+master.menu.developer.training-module.list = Listar tus módulos de entrenamiento
+master.menu.developer.dashboard = Dashboard de desarrollador
+
+
+# master.menu.client ###################################################
+master.menu.client = Cliente
+master.menu.client.contract.list = Listado de contratos
 
 # master.menu.provider ########################################################
 
@@ -64,3 +76,5 @@ master.menu.user-account.consumer = Datos de consumidor
 master.menu.user-account.become-consumer = Hazte consumidor
 master.menu.user-account.sponsor = Datos de patrocinador
 master.menu.user-account.become-sponsor = Hazte patrocinador
+master.menu.user-account.manager = Datos de gerente
+master.menu.user-account.become-manager = Hazte gerente
