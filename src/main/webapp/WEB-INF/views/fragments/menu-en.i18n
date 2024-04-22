@@ -55,6 +55,11 @@ master.menu.sponsor = Sponsor
 master.menu.sponsor.sponsorship.list = List Your Sponsorships
 master.menu.sponsor.dashboard = Sponsor dashboard
 
+# master.menu.auditor ###################################################
+master.menu.auditor = Auditor
+master.menu.auditor.codeAudit.list = List Your Code Audits
+master.menu.auditor.dashboard = Auditor Dashboard
+
 # master.menu.provider ########################################################
 
 master.menu.provider = Provider
@@ -73,6 +78,8 @@ master.menu.user-account.provider = Provider data
 master.menu.user-account.become-provider = Become a provider
 master.menu.user-account.consumer = Consumer data
 master.menu.user-account.become-consumer = Become a consumer
+master.menu.user-account.auditor = Auditor data
+master.menu.user-account.become-auditor = Become a auditor
 master.menu.user-account.sponsor = Sponsor data
 master.menu.user-account.become-sponsor = Become a sponsor
 master.menu.user-account.manager = Manager data
