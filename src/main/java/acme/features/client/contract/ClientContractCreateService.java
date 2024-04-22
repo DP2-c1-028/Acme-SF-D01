@@ -36,10 +36,6 @@ public class ClientContractCreateService extends AbstractService<Client, Contrac
 		Client client = this.repository.findClientById(clientId);
 		contract.setClient(client);
 
-		//Integer projectId = super.getRequest().getData("project", int.class);
-		//Project project = this.repository.findProjectById(projectId);
-
-		//contract.setProject(project);
 		contract.setDraftMode(true);
 
 		super.getBuffer().addData(contract);

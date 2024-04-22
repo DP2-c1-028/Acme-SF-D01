@@ -19,7 +19,18 @@ public class ClientProgressLogCreateService extends AbstractService<Client, Prog
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
+		int contractId;
+		Contract contract;
+		int clientId;
+		boolean isValid;
+
+		contractId = super.getRequest().getData("contractId", int.class);
+		contract = this.repository.findContractById(contractId);
+		clientId = super.getRequest().getPrincipal().getActiveRoleId();
+
+		isValid = clientId == contract.getClient().getId();
+
+		super.getResponse().setAuthorised(isValid);
 
 	}
 
@@ -59,6 +70,13 @@ public class ClientProgressLogCreateService extends AbstractService<Client, Prog
 			ProgressLog progressLogWithCode = this.repository.findProgressLogByRecordId(progressLog.getRecordId());
 
 			super.state(progressLogWithCode == null, "recordId", "client.progress-log.form.error.recordId");
+		}
+
+		if (progressLog.getContract().isDraftMode() == false) {
+
+			Boolean isDraftMode = progressLog.getContract().isDraftMode();
+
+			super.state(isDraftMode == false, "*", "client.progress-log.form.error.cantCreate");
 		}
 
 	}

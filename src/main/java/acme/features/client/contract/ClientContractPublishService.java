@@ -11,6 +11,7 @@ import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
 import acme.client.views.SelectChoices;
 import acme.entities.contracts.Contract;
+import acme.entities.progress_logs.ProgressLog;
 import acme.entities.projects.Project;
 import acme.roles.Client;
 
@@ -36,7 +37,7 @@ public class ClientContractPublishService extends AbstractService<Client, Contra
 		contract = this.repository.findContractById(contractId);
 		clientId = super.getRequest().getPrincipal().getActiveRoleId();
 
-		isValid = clientId == contract.getClient().getId() && contract.getProject() != null;
+		isValid = clientId == contract.getClient().getId() && contract.getProject() != null && contract.isDraftMode();
 
 		super.getResponse().setAuthorised(isValid);
 	}
@@ -52,18 +53,23 @@ public class ClientContractPublishService extends AbstractService<Client, Contra
 	public void validate(final Contract contract) {
 		assert contract != null;
 
-		int clientId = contract.getClient().getId();
 		int projectId = contract.getProject().getId();
+
+		Collection<ProgressLog> ProgressLogs = this.repository.findProgressLogsByContractId(contract.getId());
+		Boolean logsPublished = ProgressLogs.stream().allMatch(pl -> !pl.isDraftMode());
 
 		//validacion de publish
 		if (!super.getBuffer().getErrors().hasErrors("budget")) {
-			Collection<Contract> contracts = this.repository.findProjectContractsByClientId(clientId, projectId);
+			Collection<Contract> contracts = this.repository.findContractsByProjectId(projectId);
 
 			Double totalBudgetUsd = contracts.stream().mapToDouble(u -> this.currencyTransformerUsd(u.getBudget())).sum();
 			Double projectCostUsd = this.currencyTransformerUsd(contract.getProject().getCost());
 
 			super.state(totalBudgetUsd <= projectCostUsd, "*", "client.contract.form.error.publishError");
 		}
+
+		if (logsPublished == false)
+			super.state(logsPublished == true, "*", "client.contract.form.error.publishError-progressLog");
 
 		//validaciones de actualización
 		if (!super.getBuffer().getErrors().hasErrors("budget")) {
