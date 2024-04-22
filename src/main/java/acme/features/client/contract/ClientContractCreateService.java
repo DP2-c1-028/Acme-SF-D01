@@ -71,6 +71,9 @@ public class ClientContractCreateService extends AbstractService<Client, Contrac
 
 			super.state(contractWithCode == null, "code", "client.contract.form.error.code");
 		}
+
+		if (!super.getBuffer().getErrors().hasErrors("budget"))
+			super.state(contract.getBudget().getAmount() >= 0, "budget", "client.contract.form.error.budget-negative");
 	}
 
 	private double currencyTransformerUsd(final Money initial) {
@@ -99,15 +102,23 @@ public class ClientContractCreateService extends AbstractService<Client, Contrac
 	public void unbind(final Contract contract) {
 		assert contract != null;
 
-		SelectChoices choices;
+		Dataset dataset;
+		String projectCode;
+
+		projectCode = contract.getProject() != null ? contract.getProject().getCode() : null;
 
 		Collection<Project> projects = this.repository.findlAllProjects();
-		Dataset dataset;
 
-		choices = SelectChoices.from(projects, "code", null);
+		SelectChoices options;
 
-		dataset = super.unbind(contract, "code", "instantiationMoment", "providerName", "customerName", "goals", "budget", "project");
-		dataset.put("projects", choices);
+		Project project = contract.getProject() != null ? contract.getProject() : (Project) projects.toArray()[0];
+
+		options = SelectChoices.from(projects, "code", project);
+
+		dataset = super.unbind(contract, "code", "project", "providerName", "customerName", "instantiationMoment", "budget", "goals", "draftMode");
+
+		dataset.put("project", projectCode);
+		dataset.put("projects", options);
 
 		super.getResponse().addData(dataset);
 	}

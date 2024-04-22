@@ -70,6 +70,9 @@ public class ManagerProjectPublishService extends AbstractService<Manager, Proje
 			boolean userStoriesPublished = userStories.stream().allMatch(u -> !u.isDraftMode());
 			super.state(userStoriesPublished, "*", "manager.project.form.error.userStoriesPublished");
 		}
+
+		if (!super.getBuffer().getErrors().hasErrors("cost"))
+			super.state(object.getCost().getAmount() >= 0, "cost", "manager.project.form.error.cost-negative");
 	}
 
 	@Override

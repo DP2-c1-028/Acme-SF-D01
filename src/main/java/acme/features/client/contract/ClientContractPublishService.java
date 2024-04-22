@@ -68,7 +68,7 @@ public class ClientContractPublishService extends AbstractService<Client, Contra
 		//validaciones de actualización
 		if (!super.getBuffer().getErrors().hasErrors("budget")) {
 			Project referencedProject = contract.getProject();
-			super.state(this.currencyTransformerUsd(referencedProject.getCost()) >= this.currencyTransformerUsd(contract.getBudget()), "budget", "client.contract.form.error.budget");
+			super.state(this.currencyTransformerUsd(referencedProject.getCost()) >= this.currencyTransformerUsd(contract.getBudget()), "budget", "client.contract.form.error.budget-negative");
 
 		}
 
@@ -79,6 +79,9 @@ public class ClientContractPublishService extends AbstractService<Client, Contra
 			if (contractWithCode != null)
 				super.state(contractWithCode.getId() == contract.getId(), "code", "client.contract.form.error.code");
 		}
+
+		if (!super.getBuffer().getErrors().hasErrors("budget"))
+			super.state(contract.getBudget().getAmount() >= 0, "budget", "client.contract.form.error.budget");
 	}
 
 	private double currencyTransformerUsd(final Money initial) {
@@ -118,20 +121,24 @@ public class ClientContractPublishService extends AbstractService<Client, Contra
 
 	@Override
 	public void unbind(final Contract contract) {
-
 		assert contract != null;
 
 		Dataset dataset;
-		String projectName = this.repository.findProjectById(contract.getProject().getId()).getTitle();
+		String projectCode;
+
+		projectCode = contract.getProject() != null ? contract.getProject().getCode() : null;
 
 		Collection<Project> projects = this.repository.findlAllProjects();
+
 		SelectChoices options;
 
-		options = SelectChoices.from(projects, "title", this.repository.findProjectById(contract.getProject().getId()));
+		Project project = contract.getProject() != null ? contract.getProject() : (Project) projects.toArray()[0];
 
-		dataset = super.unbind(contract, "code", "project", "draftMode", "providerName", "customerName", "instantiationMoment", "budget", "goals");
+		options = SelectChoices.from(projects, "code", project);
 
-		dataset.put("project", projectName);
+		dataset = super.unbind(contract, "code", "project", "providerName", "customerName", "instantiationMoment", "budget", "goals", "draftMode");
+
+		dataset.put("project", projectCode);
 		dataset.put("projects", options);
 
 		super.getResponse().addData(dataset);

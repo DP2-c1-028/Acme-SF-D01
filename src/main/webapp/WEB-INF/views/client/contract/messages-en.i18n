@@ -27,3 +27,4 @@ client.contract.form.button.publish = publish
 client.contract.form.error.code = the code assigned is already in use
 client.contract.form.error.budget= cannot assign a budget higher than the associated project cost
 client.contract.form.error.publishError = cannot publish a contract if the total budget for that project is superior to the project cost
+client.contract.form.error.budget-negative = budget cannot be negative

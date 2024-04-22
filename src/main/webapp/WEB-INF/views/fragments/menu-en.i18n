@@ -57,7 +57,7 @@ master.menu.sponsor.dashboard = Sponsor dashboard
 
 # master.menu.auditor ###################################################
 master.menu.auditor = Auditor
-master.menu.auditor.codeAudit.list = List Your Code Audits
+master.menu.auditor.code-audit.list = List Your Code Audits
 master.menu.auditor.dashboard = Auditor Dashboard
 
 # master.menu.provider ########################################################

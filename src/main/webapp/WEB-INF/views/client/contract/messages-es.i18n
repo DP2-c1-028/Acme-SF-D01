@@ -27,3 +27,4 @@ client.contract.form.button.publish = publicar
 client.contract.form.error.code = el código asociado esta ya en uso
 client.contract.form.error.budget = no puedes asignar un presupuesto mayor que el coste asociado al proyecto
 client.contract.form.error.publishError = no se puede publicar un comtrato si el presupuesto total para el projecto es superior al coste de este
+client.contract.form.error.budget-negative = no puedes poner un presupuesto negativo
