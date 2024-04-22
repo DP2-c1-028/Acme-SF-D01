@@ -25,3 +25,4 @@ developer.training-module.form.button.publish = Publicar
 developer.training-module.form.button.training-sessions = Sesiones de entrenamiento
 developer.training-module.form.error.code = El código ya está en uso
 developer.training-module.form.error.unpublishable = Para que un módulo de entrenamiento sea publicado, debe tener al menos una sesión de entrenamiento
+developer.training-module.form.error.update-moment = El momento de actualización debe ser posterior al momento de creación

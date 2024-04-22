@@ -1,6 +1,8 @@
 
 package acme.features.developer.trainingModule;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -69,6 +71,16 @@ public class DeveloperTrainingModulePublishService extends AbstractService<Devel
 
 			if (trainingModuleSameCode != null)
 				super.state(trainingModuleSameCode.getId() == object.getId(), "code", "developer.training-module.form.error.code");
+		}
+
+		if (!super.getBuffer().getErrors().hasErrors("updateMoment")) {
+			Date creationMoment;
+			Date updateMoment;
+
+			creationMoment = object.getCreationMoment();
+			updateMoment = object.getUpdateMoment();
+
+			super.state(updateMoment.after(creationMoment), "updateMoment", "developer.training-module.form.error.update-moment");
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("unpublishable")) {
