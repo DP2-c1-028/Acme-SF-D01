@@ -14,6 +14,6 @@
 	<acme:list-column code="client.contract.list.label.goals" path="goals" width="10%"/>	
 		
 </acme:list>
-<acme:button code="manager.project.form.button.create" action="/client/contract/create"/>
+<acme:button code="client.contract.form.button.create" action="/client/contract/create"/>
 
 

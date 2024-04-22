@@ -14,7 +14,7 @@ import acme.entities.projects.Project;
 import acme.roles.Client;
 
 @Service
-public class ClientContractShowService extends AbstractService<Client, Contract> {
+public class ClientContractPublishService extends AbstractService<Client, Contract> {
 
 	// Internal state ---------------------------------------------------------
 	@Autowired
@@ -41,6 +41,30 @@ public class ClientContractShowService extends AbstractService<Client, Contract>
 	}
 
 	@Override
+	public void bind(final Contract contract) {
+		assert contract != null;
+
+		super.bind(contract, "code", "project", "draftMode", "providerName", "customerName", "instantiationMoment", "budget", "goals");
+	}
+
+	@Override
+	public void validate(final Contract contract) {
+		assert contract != null;
+
+		int clientId = contract.getClient().getId();
+		int projectId = contract.getProject().getId();
+
+		if (!super.getBuffer().getErrors().hasErrors("budget")) {
+			Collection<Contract> contracts = this.repository.findProjectContractsByClientId(clientId, projectId);
+
+			Double totalBudgetUsd = contracts.stream().mapToDouble(u -> this.repository.currencyTransformerUsd(u.getBudget())).sum();
+			Double projectCostUsd = this.repository.currencyTransformerUsd(contract.getProject().getCost());
+
+			super.state(totalBudgetUsd <= projectCostUsd, "*", "client.contract.form.error.publishError");
+		}
+	}
+
+	@Override
 	public void load() {
 
 		Contract contract;
@@ -53,24 +77,31 @@ public class ClientContractShowService extends AbstractService<Client, Contract>
 	}
 
 	@Override
+	public void perform(final Contract contract) {
+		assert contract != null;
+
+		contract.setDraftMode(false);
+		this.repository.save(contract);
+	}
+
+	@Override
 	public void unbind(final Contract contract) {
 
 		assert contract != null;
 
 		Dataset dataset;
-		String projectCode = this.repository.findProjectById(contract.getProject().getId()).getTitle();
+		String projectName = this.repository.findProjectById(contract.getProject().getId()).getTitle();
 
 		Collection<Project> projects = this.repository.findlAllProjects();
 		SelectChoices options;
 
-		options = SelectChoices.from(projects, "code", this.repository.findProjectById(contract.getProject().getId()));
+		options = SelectChoices.from(projects, "title", this.repository.findProjectById(contract.getProject().getId()));
 
 		dataset = super.unbind(contract, "code", "project", "draftMode", "providerName", "customerName", "instantiationMoment", "budget", "goals");
 
-		dataset.put("project", projectCode);
+		dataset.put("project", projectName);
 		dataset.put("projects", options);
 
 		super.getResponse().addData(dataset);
 	}
-
 }

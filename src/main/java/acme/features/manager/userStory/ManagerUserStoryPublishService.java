@@ -6,14 +6,11 @@ import org.springframework.stereotype.Service;
 
 import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
-import acme.client.views.SelectChoices;
-import acme.entities.userStories.Priority;
 import acme.entities.userStories.UserStory;
 import acme.roles.Manager;
 
 @Service
-public class ManagerUserStoryShowService extends AbstractService<Manager, UserStory> {
-
+public class ManagerUserStoryPublishService extends AbstractService<Manager, UserStory> {
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
@@ -34,7 +31,7 @@ public class ManagerUserStoryShowService extends AbstractService<Manager, UserSt
 
 		managerId = super.getRequest().getPrincipal().getActiveRoleId();
 
-		status = managerId == userStory.getManager().getId();
+		status = managerId == userStory.getManager().getId() && userStory.isDraftMode();
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -51,18 +48,33 @@ public class ManagerUserStoryShowService extends AbstractService<Manager, UserSt
 	}
 
 	@Override
+	public void bind(final UserStory object) {
+		assert object != null;
+
+		super.bind(object, "title", "description", "estimatedCost", "priority", "link", "acceptanceCriteria");
+	}
+
+	@Override
+	public void validate(final UserStory object) {
+		assert object != null;
+	}
+
+	@Override
+	public void perform(final UserStory object) {
+		assert object != null;
+
+		object.setDraftMode(false);
+		this.repository.save(object);
+	}
+
+	@Override
 	public void unbind(final UserStory object) {
 		assert object != null;
 
 		Dataset dataset;
-		SelectChoices choices;
-
-		choices = SelectChoices.from(Priority.class, object.getPriority());
 
 		dataset = super.unbind(object, "title", "description", "estimatedCost", "priority", "link", "acceptanceCriteria", "draftMode");
-		dataset.put("priorities", choices);
 
 		super.getResponse().addData(dataset);
 	}
-
 }

@@ -1,20 +1,22 @@
 
-package acme.features.manager.project;
+package acme.features.manager.userStory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
-import acme.entities.projects.Project;
+import acme.client.views.SelectChoices;
+import acme.entities.userStories.Priority;
+import acme.entities.userStories.UserStory;
 import acme.roles.Manager;
 
 @Service
-public class ManagerProjectUpdateService extends AbstractService<Manager, Project> {
+public class ManagerUserStoryUpdateService extends AbstractService<Manager, UserStory> {
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	private ManagerProjectRepository repository;
+	private ManagerUserStoryRepository repository;
 
 	// AbstractService interface ----------------------------------------------
 
@@ -24,67 +26,61 @@ public class ManagerProjectUpdateService extends AbstractService<Manager, Projec
 		boolean status;
 		int id;
 		int managerId;
-		Project project;
+		UserStory userStory;
 
 		id = super.getRequest().getData("id", int.class);
-		project = this.repository.findOneProjectById(id);
+		userStory = this.repository.findOneUserStoryById(id);
 
 		managerId = super.getRequest().getPrincipal().getActiveRoleId();
 
-		status = managerId == project.getManager().getId() && project.isDraftMode();
+		status = managerId == userStory.getManager().getId() && userStory.isDraftMode();
 
 		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
 	public void load() {
-		Project object;
+		UserStory object;
 		Integer id;
 
 		id = super.getRequest().getData("id", int.class);
-		object = this.repository.findOneProjectById(id);
+		object = this.repository.findOneUserStoryById(id);
 
 		super.getBuffer().addData(object);
 	}
 
 	@Override
-	public void bind(final Project object) {
+	public void bind(final UserStory object) {
 		assert object != null;
 
 		Integer managerId = super.getRequest().getPrincipal().getActiveRoleId();
 		Manager manager = this.repository.findOneManagerById(managerId);
 		object.setManager(manager);
-		super.bind(object, "title", "code", "abstractText", "cost", "link");
+		super.bind(object, "title", "description", "estimatedCost", "priority", "link", "acceptanceCriteria");
 	}
 
 	@Override
-	public void validate(final Project object) {
+	public void validate(final UserStory object) {
 		assert object != null;
-
-		if (!super.getBuffer().getErrors().hasErrors("code")) {
-
-			Project projectSameCode = this.repository.findOneProjectByCode(object.getCode());
-
-			if (projectSameCode != null)
-				super.state(projectSameCode.getId() == object.getId(), "code", "manager.project.form.error.code");
-		}
-
 	}
 
 	@Override
-	public void perform(final Project object) {
+	public void perform(final UserStory object) {
 		assert object != null;
 
 		this.repository.save(object);
 	}
 
 	@Override
-	public void unbind(final Project object) {
+	public void unbind(final UserStory object) {
 		assert object != null;
 
 		Dataset dataset;
+		SelectChoices choices;
+		choices = SelectChoices.from(Priority.class, object.getPriority());
 
-		dataset = super.unbind(object, "title", "code", "abstractText", "cost", "link", "draftMode");
+		dataset = super.unbind(object, "title", "description", "estimatedCost", "priority", "link", "acceptanceCriteria", "draftMode");
+		dataset.put("priorities", choices);
 
 		super.getResponse().addData(dataset);
 	}

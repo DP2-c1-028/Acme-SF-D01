@@ -66,8 +66,21 @@ public class ClientContractUpdateService extends AbstractService<Client, Contrac
 	public void validate(final Contract contract) {
 		assert contract != null;
 
-		Project referencedProject = contract.getProject();
-		assert referencedProject.getCost() >= contract.getBudget().getAmount();
+		if (!super.getBuffer().getErrors().hasErrors("budget")) {
+			Project referencedProject = contract.getProject();
+
+			super.state(this.repository.currencyTransformerUsd(referencedProject.getCost()) >= this.repository.currencyTransformerUsd(contract.getBudget()), "budget", "client.contract.form.error.budget");
+
+		}
+
+		if (!super.getBuffer().getErrors().hasErrors("code")) {
+
+			Contract contractWithCode = this.repository.findContractByCode(contract.getCode());
+
+			if (contractWithCode != null)
+				super.state(contractWithCode.getId() == contract.getId(), "code", "client.contract.form.error.code");
+		}
+
 	}
 
 	@Override
@@ -82,16 +95,16 @@ public class ClientContractUpdateService extends AbstractService<Client, Contrac
 		assert contract != null;
 
 		Dataset dataset;
-		String projectName = this.repository.findProjectById(contract.getProject().getId()).getTitle();
+		String projectCode = this.repository.findProjectById(contract.getProject().getId()).getCode();
 
 		Collection<Project> projects = this.repository.findlAllProjects();
 		SelectChoices options;
 
-		options = SelectChoices.from(projects, "title", this.repository.findProjectById(contract.getProject().getId()));
+		options = SelectChoices.from(projects, "code", this.repository.findProjectById(contract.getProject().getId()));
 
 		dataset = super.unbind(contract, "code", "project", "providerName", "customerName", "instantiationMoment", "budget", "goals");
 
-		dataset.put("project", projectName);
+		dataset.put("project", projectCode);
 		dataset.put("projects", options);
 
 		super.getResponse().addData(dataset);
