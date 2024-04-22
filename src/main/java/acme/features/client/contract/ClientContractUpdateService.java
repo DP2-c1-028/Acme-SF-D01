@@ -67,7 +67,7 @@ public class ClientContractUpdateService extends AbstractService<Client, Contrac
 	public void validate(final Contract contract) {
 		assert contract != null;
 
-		if (!super.getBuffer().getErrors().hasErrors("budget")) {
+		if (!super.getBuffer().getErrors().hasErrors("budget") && contract.getProject() != null) {
 			Project referencedProject = contract.getProject();
 
 			super.state(this.currencyTransformerUsd(referencedProject.getCost()) >= this.currencyTransformerUsd(contract.getBudget()), "budget", "client.contract.form.error.budget");
@@ -81,6 +81,9 @@ public class ClientContractUpdateService extends AbstractService<Client, Contrac
 			if (contractWithCode != null)
 				super.state(contractWithCode.getId() == contract.getId(), "code", "client.contract.form.error.code");
 		}
+
+		if (!super.getBuffer().getErrors().hasErrors("budget"))
+			super.state(contract.getBudget().getAmount() >= 0, "budget", "client.contract.form.error.budget-negative");
 
 	}
 
@@ -111,12 +114,17 @@ public class ClientContractUpdateService extends AbstractService<Client, Contrac
 		assert contract != null;
 
 		Dataset dataset;
-		String projectCode = this.repository.findProjectById(contract.getProject().getId()).getCode();
+		String projectCode;
+
+		projectCode = contract.getProject() != null ? contract.getProject().getCode() : null;
 
 		Collection<Project> projects = this.repository.findlAllProjects();
+
 		SelectChoices options;
 
-		options = SelectChoices.from(projects, "code", this.repository.findProjectById(contract.getProject().getId()));
+		Project project = contract.getProject() != null ? contract.getProject() : (Project) projects.toArray()[0];
+
+		options = SelectChoices.from(projects, "code", project);
 
 		dataset = super.unbind(contract, "code", "project", "providerName", "customerName", "instantiationMoment", "budget", "goals", "draftMode");
 
