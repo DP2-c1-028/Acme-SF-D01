@@ -1,19 +1,16 @@
 
 package acme.features.client.progressLog;
 
-import java.util.Collection;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
-import acme.entities.contracts.Contract;
 import acme.entities.progress_logs.ProgressLog;
 import acme.roles.Client;
 
 @Service
-public class ClientProgressLogListService extends AbstractService<Client, ProgressLog> {
+public class ClientProgressLogShowService extends AbstractService<Client, ProgressLog> {
 
 	// Internal state ---------------------------------------------------------
 
@@ -25,31 +22,30 @@ public class ClientProgressLogListService extends AbstractService<Client, Progre
 
 	@Override
 	public void authorise() {
-		int contractId;
-		Contract contract;
+		int progressLogId;
+		ProgressLog progressLog;
 		int clientId;
 		boolean isValid;
 
-		contractId = super.getRequest().getData("contractId", int.class);
-		contract = this.repository.findContractById(contractId);
+		progressLogId = super.getRequest().getData("id", int.class);
+		progressLog = this.repository.findProgressLogById(progressLogId);
 		clientId = super.getRequest().getPrincipal().getActiveRoleId();
 
-		isValid = clientId == contract.getClient().getId() && contract != null;
+		isValid = progressLog != null && clientId == progressLog.getClient().getId();
 
 		super.getResponse().setAuthorised(isValid);
-
 	}
 
 	@Override
 	public void load() {
 
-		Collection<ProgressLog> progressLogs;
-		int contractId;
+		ProgressLog progressLog;
+		int progressLogId;
 
-		contractId = super.getRequest().getData("contractId", int.class);
-		progressLogs = this.repository.findProgressLogsByContractId(contractId);
+		progressLogId = super.getRequest().getData("id", int.class);
+		progressLog = this.repository.findProgressLogById(progressLogId);
 
-		super.getBuffer().addData(progressLogs);
+		super.getBuffer().addData(progressLog);
 	}
 
 	@Override
@@ -61,16 +57,5 @@ public class ClientProgressLogListService extends AbstractService<Client, Progre
 		dataset = super.unbind(progressLog, "recordId", "draftMode", "completeness", "comment", "registrationMoment", "responsiblePerson");
 
 		super.getResponse().addData(dataset);
-	}
-
-	@Override
-	public void unbind(final Collection<ProgressLog> progressLogs) {
-		assert progressLogs != null;
-
-		int contractId;
-
-		contractId = super.getRequest().getData("contractId", int.class);
-
-		super.getResponse().addGlobal("contractId", contractId);
 	}
 }

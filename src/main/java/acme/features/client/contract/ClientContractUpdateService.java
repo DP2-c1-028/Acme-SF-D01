@@ -6,6 +6,7 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import acme.client.data.datatypes.Money;
 import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
 import acme.client.views.SelectChoices;
@@ -69,7 +70,7 @@ public class ClientContractUpdateService extends AbstractService<Client, Contrac
 		if (!super.getBuffer().getErrors().hasErrors("budget")) {
 			Project referencedProject = contract.getProject();
 
-			super.state(this.repository.currencyTransformerUsd(referencedProject.getCost()) >= this.repository.currencyTransformerUsd(contract.getBudget()), "budget", "client.contract.form.error.budget");
+			super.state(this.currencyTransformerUsd(referencedProject.getCost()) >= this.currencyTransformerUsd(contract.getBudget()), "budget", "client.contract.form.error.budget");
 
 		}
 
@@ -81,6 +82,21 @@ public class ClientContractUpdateService extends AbstractService<Client, Contrac
 				super.state(contractWithCode.getId() == contract.getId(), "code", "client.contract.form.error.code");
 		}
 
+	}
+
+	private double currencyTransformerUsd(final Money initial) {
+		double res = initial.getAmount();
+
+		if (initial.getCurrency().equals("USD"))
+			res = initial.getAmount();
+
+		else if (initial.getCurrency().equals("EUR"))
+			res = initial.getAmount() * 1.07;
+
+		else
+			res = initial.getAmount() * 1.25;
+
+		return res;
 	}
 
 	@Override
@@ -102,7 +118,7 @@ public class ClientContractUpdateService extends AbstractService<Client, Contrac
 
 		options = SelectChoices.from(projects, "code", this.repository.findProjectById(contract.getProject().getId()));
 
-		dataset = super.unbind(contract, "code", "project", "providerName", "customerName", "instantiationMoment", "budget", "goals");
+		dataset = super.unbind(contract, "code", "project", "providerName", "customerName", "instantiationMoment", "budget", "goals", "draftMode");
 
 		dataset.put("project", projectCode);
 		dataset.put("projects", options);
