@@ -22,6 +22,7 @@ import org.hibernate.validator.constraints.URL;
 import acme.client.data.AbstractEntity;
 import acme.client.data.datatypes.Money;
 import acme.entities.sponsorships.Sponsorship;
+import acme.roles.Sponsor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -59,6 +60,8 @@ public class Invoice extends AbstractEntity {
 	@URL
 	private String				link;
 
+	private boolean				draftMode;
+
 	// Derived Attributes -------------------------------------------------------------
 
 
@@ -71,5 +74,10 @@ public class Invoice extends AbstractEntity {
 	@ManyToOne(optional = false)
 	@NotNull
 	@Valid
-	private Sponsorship sponsorship;
+	private Sponsorship	sponsorship;
+
+	@ManyToOne(optional = false)
+	@NotNull
+	@Valid
+	private Sponsor		sponsor;
 }

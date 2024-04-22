@@ -1,0 +1,26 @@
+sponsor.invoice.list.title = Your invoices
+sponsor.invoice.list.label.code = Code
+sponsor.invoice.list.label.registrationTime = Registration time
+sponsor.invoice.list.label.dueDate = Due date
+sponsor.invoice.list.label.quantity = Quantity
+sponsor.invoice.list.label.tax = Tax
+sponsor.invoice.list.label.link = Link
+sponsor.inovice.list.label.totalAmount= Total amount
+sponsor.invoice.list.button.create = Create
+
+sponsor.invoice.form.label.code = Code
+sponsor.invoice.form.label.registrationTime = Registration time
+sponsor.invoice.form.label.dueDate = Due date
+sponsor.invoice.form.label.quantity = Quantity
+sponsor.invoice.form.label.tax = Tax
+sponsor.invoice.form.label.link = Link
+
+sponsor.invoice.form.button.update = Update
+sponsor.invoice.form.button.delete = Delete
+sponsor.invoice.form.button.create = Create
+sponsor.invoice.form.button.publish = Publish
+sponsor.invoice.form.title = Your invoice data
+
+sponsor.invoice.form.error.code =  The code must be unique, try another
+sponsor.invoice.form.error.dueDate = The due date must be after the registration time and there must also be at least one month difference between both of them
+sponsor.invoice.form.error.quantity = Quantity must be positive
