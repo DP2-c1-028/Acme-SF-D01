@@ -1,5 +1,5 @@
 
-package acme.features.sponsor.sponsorship;
+package acme.features.sponsor.invoice;
 
 import javax.annotation.PostConstruct;
 
@@ -7,30 +7,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import acme.client.controllers.AbstractController;
-import acme.entities.sponsorships.Sponsorship;
+import acme.entities.invoices.Invoice;
 import acme.roles.Sponsor;
 
 @Controller
-public class SponsorSponsorshipController extends AbstractController<Sponsor, Sponsorship> {
+public class SponsorInvoiceController extends AbstractController<Sponsor, Invoice> {
 
 	// Internal state ---------------------------------------------------------
 	@Autowired
-	private SponsorSponsorshipListService		listService;
+	private SponsorInvoiceListService		listService;
 
 	@Autowired
-	private SponsorSponsorshipShowService		showService;
+	private SponsorInvoiceShowService		showService;
 
 	@Autowired
-	private SponsorSponsorshipCreateService		createService;
+	private SponsorInvoiceCreateService		createService;
 
 	@Autowired
-	private SponsorSponsorshipUpdateService		updateService;
+	private SponsorInvoiceUpdateService		updateService;
 
 	@Autowired
-	private SponsorSponsorshipDeleteService		deleteService;
+	private SponsorInvoiceDeleteService		deleteService;
 
 	@Autowired
-	private SponsorSponsorshipPublishService	publishService;
+	private SponsorInvoicePublishService	publishService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -41,6 +41,7 @@ public class SponsorSponsorshipController extends AbstractController<Sponsor, Sp
 		super.addBasicCommand("create", this.createService);
 		super.addBasicCommand("update", this.updateService);
 		super.addBasicCommand("delete", this.deleteService);
+
 		super.addCustomCommand("publish", "update", this.publishService);
 	}
 

@@ -16,9 +16,15 @@ public class SponsorDashboard extends AbstractForm {
 
 	int							totalNumberOfInvoices;
 	int							totalNumberOfSponsorshipsWithLink;
+
+	Double						sponsorshipsAverageAmount;
+	Double						sponsorshipsDeviationAmount;
+	Double						sponsorshipsMinimumAmount;
+	Double						sponsorshipsMaximumAmount;
+
 	Double						invoicesAverageQuantity;
 	Double						invoicesDeviationQuantity;
-	int							invoicesMinimumQuantity;
-	int							invoicesMaximumQuantity;
+	Double						invoicesMinimumQuantity;
+	Double						invoicesMaximumQuantity;
 
 }

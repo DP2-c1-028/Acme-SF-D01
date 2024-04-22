@@ -7,8 +7,9 @@ sponsor.sponsorship.list.label.amount = Amount
 sponsor.sponsorship.list.label.type = Sponsorship type
 sponsor.sponsorship.list.label.email = Email
 sponsor.sponsorship.list.label.link = Link
-sponsor.sponsorship.list.label.project = Projects
+sponsor.sponsorship.list.label.project = Project
 sponsor.sponsorship.list.button.create = Create
+sponsor.sponsorship.form.button.invoices= Invoices
 
 sponsor.sponsorship.form.label.code = Code
 sponsor.sponsorship.form.label.moment = Moment
@@ -18,9 +19,18 @@ sponsor.sponsorship.form.label.amount = Amount
 sponsor.sponsorship.form.label.type = Sponsorship type
 sponsor.sponsorship.form.label.email = Email
 sponsor.sponsorship.form.label.link = Link
-sponsor.sponsorship.form.label.project = Projects
+sponsor.sponsorship.form.label.project = Project
+sponsor.sponsorship.form.button.publish = Publish
 
 sponsor.sponsorship.form.button.update = Update
 sponsor.sponsorship.form.button.delete = Delete
 sponsor.sponsorship.form.button.create = Create
 sponsor.sponsorship.form.title = Your sponsorship data
+
+
+sponsor.sponsorship.form.error.code = The code must be unique, try another
+sponsor.sponsorship.form.error.invalidTotalAmount = La suma de la cantidad total de las facturas debe ser igual a la cantidad del patrocinio
+sponsor.sponsorship.form.error.durationStartTime = The start date must be after the moment
+sponsor.sponsorship.form.error.durationEndTime = The end date must be after the moment and there must also be at least one month difference between both of them
+sponsor.sponsorship.form.error.amount  = Amount must be positive
+sponsor.sponsorship.form.error.acceptedCurrency= Currency is not accepted by the system

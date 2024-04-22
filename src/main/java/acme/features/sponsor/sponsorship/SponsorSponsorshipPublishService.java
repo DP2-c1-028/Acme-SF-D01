@@ -13,6 +13,7 @@ import acme.client.data.models.Dataset;
 import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractService;
 import acme.client.views.SelectChoices;
+import acme.entities.invoices.Invoice;
 import acme.entities.projects.Project;
 import acme.entities.sponsorships.Sponsorship;
 import acme.entities.sponsorships.SponsorshipType;
@@ -20,7 +21,7 @@ import acme.entities.systemConfiguration.SystemConfiguration;
 import acme.roles.Sponsor;
 
 @Service
-public class SponsorSponsorshipUpdateService extends AbstractService<Sponsor, Sponsorship> {
+public class SponsorSponsorshipPublishService extends AbstractService<Sponsor, Sponsorship> {
 
 	// Internal state ---------------------------------------------------------
 
@@ -50,11 +51,10 @@ public class SponsorSponsorshipUpdateService extends AbstractService<Sponsor, Sp
 	@Override
 	public void load() {
 		Sponsorship object;
-		int sponsorId;
+		int id;
 
-		sponsorId = super.getRequest().getData("id", int.class);
-
-		object = this.repository.findOneSponsorshipById(sponsorId);
+		id = super.getRequest().getData("id", int.class);
+		object = this.repository.findOneSponsorshipById(id);
 
 		super.getBuffer().addData(object);
 	}
@@ -70,12 +70,11 @@ public class SponsorSponsorshipUpdateService extends AbstractService<Sponsor, Sp
 	public void validate(final Sponsorship object) {
 		assert object != null;
 
-		if (!super.getBuffer().getErrors().hasErrors("code")) {
+		if (!super.getBuffer().getErrors().hasErrors("totalAmount")) {
+			Collection<Invoice> invoices = this.repository.findInvoicesOfASponsorship(object.getId());
 
-			Sponsorship projectSameCode = this.repository.findOneSponsorshipByCode(object.getCode());
-
-			if (projectSameCode != null)
-				super.state(projectSameCode.getId() == object.getId(), "code", "sponsor.sponsorship.form.error.code");
+			double invoiceTotAmount = invoices.stream().mapToDouble(i -> this.currencyTransformerUsd(i.getQuantity(), i.totalAmount()).getAmount()).sum();
+			super.state(invoiceTotAmount == this.currencyTransformerUsd(object.getAmount(), object.getAmount().getAmount()).getAmount(), "*", "sponsor.sponsorship.form.error.invalidTotalAmount");
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("durationStartTime")) {
@@ -102,6 +101,7 @@ public class SponsorSponsorshipUpdateService extends AbstractService<Sponsor, Sp
 
 		if (!super.getBuffer().getErrors().hasErrors("amount"))
 			super.state(this.isCurrencyAccepted(object.getAmount()), "amount", "sponsor.sponsorship.form.error.acceptedCurrency");
+
 	}
 
 	public boolean isCurrencyAccepted(final Money moneda) {
@@ -116,10 +116,27 @@ public class SponsorSponsorshipUpdateService extends AbstractService<Sponsor, Sp
 		return false;
 	}
 
+	private Money currencyTransformerUsd(final Money currency, final Double amount) {
+		Money res = new Money();
+		res.setCurrency("USD");
+
+		if (currency.getCurrency().equals("USD"))
+			res.setAmount(amount);
+
+		else if (currency.getCurrency().equals("EUR"))
+			res.setAmount(amount * 1.07);
+
+		else
+			res.setAmount(amount * 1.25);
+
+		return res;
+	}
+
 	@Override
 	public void perform(final Sponsorship object) {
 		assert object != null;
 
+		object.setDraftMode(false);
 		this.repository.save(object);
 	}
 
