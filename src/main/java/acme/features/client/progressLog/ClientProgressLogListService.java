@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
+import acme.entities.contracts.Contract;
 import acme.entities.progress_logs.ProgressLog;
 import acme.roles.Client;
 
@@ -24,7 +25,19 @@ public class ClientProgressLogListService extends AbstractService<Client, Progre
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
+		int contractId;
+		Contract contract;
+		int clientId;
+		boolean isValid;
+
+		contractId = super.getRequest().getData("contractId", int.class);
+		contract = this.repository.findContractById(contractId);
+		clientId = super.getRequest().getPrincipal().getActiveRoleId();
+
+		isValid = clientId == contract.getClient().getId() && contract != null;
+
+		super.getResponse().setAuthorised(isValid);
+
 	}
 
 	@Override
@@ -45,8 +58,19 @@ public class ClientProgressLogListService extends AbstractService<Client, Progre
 		assert progressLog != null;
 		Dataset dataset;
 
-		dataset = super.unbind(progressLog, "recordId", "completeness", "comment", "registrationMoment", "responsiblePerson");
+		dataset = super.unbind(progressLog, "recordId", "draftMode", "completeness", "comment", "registrationMoment", "responsiblePerson");
 
 		super.getResponse().addData(dataset);
+	}
+
+	@Override
+	public void unbind(final Collection<ProgressLog> progressLogs) {
+		assert progressLogs != null;
+
+		int contractId;
+
+		contractId = super.getRequest().getData("contractId", int.class);
+
+		super.getResponse().addGlobal("contractId", contractId);
 	}
 }

@@ -1,5 +1,6 @@
 client.progress-log.list.title = Progress Logs
 client.progress-log.list.label.recordId= record Id
+client.progress-log.list.label.draftMode = is in draft mode?
 client.progress-log.list.label.completeness = Completeness
 client.progress-log.list.label.comment = Comment
 client.progress-log.list.label.registrationMoment = Registration moment
@@ -7,6 +8,7 @@ client.progress-log.list.label.responsiblePerson = Responsible person
 
 client.progress-log.form.title = Progress logs data
 client.progress-log.form.label.recordId = record Id
+client.progress-log.form.label.draftMode = is in draft mode?
 client.progress-log.form.label.completeness = Completeness
 client.progress-log.form.label.comment = Comment
 client.progress-log.form.label.registrationMoment = Moment of registration
@@ -14,5 +16,11 @@ client.progress-log.form.label.responsiblePerson = Responsible person
 client.progress-log.form.button.update = Update
 client.progress-log.form.button.delete = Delete
 client.progress-log.form.button.create = Create
+client.progress-log.form.button.progressLogs = Progress Logs
+
+client.progress-log.form.button.publish = publish
+
+client.progress-log.form.error.invalidContract = you are trying to create a progress log related to no contract
+client.progress-log.form.error.recordId = this record id is already in use
 
 

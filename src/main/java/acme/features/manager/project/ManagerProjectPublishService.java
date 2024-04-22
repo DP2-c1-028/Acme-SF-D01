@@ -68,8 +68,11 @@ public class ManagerProjectPublishService extends AbstractService<Manager, Proje
 			Collection<UserStory> userStories = this.repository.findUserStoryByProjectId(object.getId());
 			super.state(!userStories.isEmpty(), "*", "manager.project.form.error.atLeastOneUserStory");
 			boolean userStoriesPublished = userStories.stream().allMatch(u -> !u.isDraftMode());
-			super.state(!userStoriesPublished, "*", "manager.project.form.error.userStoriesPublished");
+			super.state(userStoriesPublished, "*", "manager.project.form.error.userStoriesPublished");
 		}
+
+		if (!super.getBuffer().getErrors().hasErrors("cost"))
+			super.state(object.getCost().getAmount() >= 0, "cost", "manager.project.form.error.cost-negative");
 	}
 
 	@Override
@@ -86,7 +89,7 @@ public class ManagerProjectPublishService extends AbstractService<Manager, Proje
 
 		Dataset dataset;
 
-		dataset = super.unbind(object, "title", "code", "abstractText", "cost", "link");
+		dataset = super.unbind(object, "title", "code", "abstractText", "cost", "link", "draftMode");
 
 		super.getResponse().addData(dataset);
 	}

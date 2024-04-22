@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
+import acme.client.views.SelectChoices;
+import acme.entities.userStories.Priority;
 import acme.entities.userStories.UserStory;
 import acme.roles.Manager;
 
@@ -53,8 +55,12 @@ public class ManagerUserStoryShowService extends AbstractService<Manager, UserSt
 		assert object != null;
 
 		Dataset dataset;
+		SelectChoices choices;
 
-		dataset = super.unbind(object, "title", "description", "estimatedCost", "priority", "link", "acceptanceCriteria");
+		choices = SelectChoices.from(Priority.class, object.getPriority());
+
+		dataset = super.unbind(object, "title", "description", "estimatedCost", "priority", "link", "acceptanceCriteria", "draftMode");
+		dataset.put("priorities", choices);
 
 		super.getResponse().addData(dataset);
 	}

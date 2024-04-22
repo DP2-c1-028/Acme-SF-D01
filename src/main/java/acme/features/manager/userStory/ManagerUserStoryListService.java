@@ -10,7 +10,6 @@ import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
 import acme.entities.projects.Project;
 import acme.entities.userStories.UserStory;
-import acme.features.manager.project.ManagerProjectRepository;
 import acme.roles.Manager;
 
 @Service
@@ -18,10 +17,7 @@ public class ManagerUserStoryListService extends AbstractService<Manager, UserSt
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	private ManagerUserStoryRepository	repository;
-
-	@Autowired
-	private ManagerProjectRepository	projectRepository;
+	private ManagerUserStoryRepository repository;
 
 	// AbstractService interface ----------------------------------------------
 
@@ -34,13 +30,11 @@ public class ManagerUserStoryListService extends AbstractService<Manager, UserSt
 		Project project;
 
 		projectId = super.getRequest().getData("projectId", int.class);
-		project = this.projectRepository.findOneProjectById(projectId);
+		project = this.repository.findOneProjectById(projectId);
 
 		managerId = super.getRequest().getPrincipal().getActiveRoleId();
 
 		status = managerId == project.getManager().getId();
-
-		System.out.println("Status:" + status);
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -63,8 +57,24 @@ public class ManagerUserStoryListService extends AbstractService<Manager, UserSt
 
 		Dataset dataset;
 
+		int projectId;
+
+		projectId = super.getRequest().getData("projectId", int.class);
+
 		dataset = super.unbind(object, "title", "description", "estimatedCost", "priority", "link", "acceptanceCriteria");
 
 		super.getResponse().addData(dataset);
 	}
+
+	@Override
+	public void unbind(final Collection<UserStory> objects) {
+		assert objects != null;
+
+		int projectId;
+
+		projectId = super.getRequest().getData("projectId", int.class);
+
+		super.getResponse().addGlobal("projectId", projectId);
+	}
+
 }

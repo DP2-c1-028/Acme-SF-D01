@@ -1,0 +1,11 @@
+manager.user-story-project.list.title = Proyectos/Historias de usuario
+manager.user-story-project.list.label.project = Código del proyecto
+manager.user-story-project.list.label.user-story = Título de la historia del usuario
+
+manager.user-story-project.form.title = Datos de Proyecto/Historia de Usuario
+manager.user-story-project.form.label.project = Proyecto
+manager.user-story-project.form.label.user-story = Historia de Usuario
+manager.user-story-project.form.button.update = Actualizar
+manager.user-story-project.form.button.delete = Borrar
+manager.user-story-project.form.button.create = Crear
+manager.user-story-project.form.error.same = Ya existe una relación con estos datos

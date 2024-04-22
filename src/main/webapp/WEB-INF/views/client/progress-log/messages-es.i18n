@@ -1,5 +1,6 @@
 client.progress-log.list.title = Registros de progreso
 client.progress-log.list.label.recordId= Identificador
+client.progress-log.list.label.draftMode = Esta en modo borrador?
 client.progress-log.list.label.completeness = Porcentaje de completitud
 client.progress-log.list.label.comment = Comentario
 client.progress-log.list.label.registrationMoment = Momento del registro
@@ -7,6 +8,7 @@ client.progress-log.list.label.responsiblePerson = Responsable
 
 client.progress-log.form.title = Datos del Registro de progreso
 client.progress-log.form.label.recordId = Identificador
+client.progress-log.form.label.draftMode = Esta en modo borrador?
 client.progress-log.form.label.completeness = Porcentaje de completitud
 client.progress-log.form.label.comment = Comentario
 client.progress-log.form.label.registrationMoment = Momento del registro
@@ -15,3 +17,8 @@ client.progress-log.form.button.update = Actualizar
 client.progress-log.form.button.delete = Borrar
 client.progress-log.form.button.create = Crear
 client.progress-log.form.button.progressLogs = Registros de progreso
+
+client.progress-log.form.button.publish = publicar
+
+client.progress-log.form.error.invalidContract = estas intentando crear un resgistro de progreso no asociado a ningun contrato
+client.progress-log.form.error.recordId = este identificador de registro ya esta en uso

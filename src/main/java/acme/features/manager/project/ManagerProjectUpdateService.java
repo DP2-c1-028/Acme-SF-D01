@@ -69,6 +69,9 @@ public class ManagerProjectUpdateService extends AbstractService<Manager, Projec
 				super.state(projectSameCode.getId() == object.getId(), "code", "manager.project.form.error.code");
 		}
 
+		if (!super.getBuffer().getErrors().hasErrors("cost"))
+			super.state(object.getCost().getAmount() >= 0, "cost", "manager.project.form.error.cost-negative");
+
 	}
 
 	@Override
@@ -84,7 +87,7 @@ public class ManagerProjectUpdateService extends AbstractService<Manager, Projec
 
 		Dataset dataset;
 
-		dataset = super.unbind(object, "title", "code", "abstractText", "cost", "link");
+		dataset = super.unbind(object, "title", "code", "abstractText", "cost", "link", "draftMode");
 
 		super.getResponse().addData(dataset);
 	}

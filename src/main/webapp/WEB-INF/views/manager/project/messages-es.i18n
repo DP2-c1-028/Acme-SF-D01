@@ -20,3 +20,4 @@ manager.project.form.error.hasFatalError = El proyecto tiene errores fatales y n
 manager.project.form.error.atLeastOneUserStory = El proyecto tiene que tener al menos una historia de usuario
 manager.project.form.error.userStoriesPublished = Las historias de usuario del proyecto deben de estar publicadas
 manager.project.form.error.code = Este código está en uso
+manager.project.form.error.cost-negative = El coste no puede ser negativo
