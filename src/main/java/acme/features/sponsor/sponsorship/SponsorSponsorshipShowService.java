@@ -63,6 +63,7 @@ public class SponsorSponsorshipShowService extends AbstractService<Sponsor, Spon
 		Dataset dataset;
 
 		choices = SelectChoices.from(SponsorshipType.class, object.getType());
+
 		choices2 = SelectChoices.from(projects, "code", (Project) projects.toArray()[0]);
 
 		dataset = super.unbind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link", "draftMode");

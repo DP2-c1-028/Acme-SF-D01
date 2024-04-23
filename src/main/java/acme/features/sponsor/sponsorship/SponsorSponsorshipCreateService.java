@@ -109,6 +109,7 @@ public class SponsorSponsorshipCreateService extends AbstractService<Sponsor, Sp
 	@Override
 	public void perform(final Sponsorship object) {
 		assert object != null;
+
 		this.repository.save(object);
 	}
 

@@ -50,6 +50,7 @@ public class SponsorSponsorshipUpdateService extends AbstractService<Sponsor, Sp
 	@Override
 	public void load() {
 		Sponsorship object;
+
 		int sponsorId;
 
 		sponsorId = super.getRequest().getData("id", int.class);

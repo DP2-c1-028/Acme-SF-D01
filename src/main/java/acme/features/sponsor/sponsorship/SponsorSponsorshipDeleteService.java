@@ -74,7 +74,7 @@ public class SponsorSponsorshipDeleteService extends AbstractService<Sponsor, Sp
 		Collection<Invoice> relations = this.repository.findInvoicesOfASponsorship(object.getId());
 
 		this.repository.deleteAll(relations);
-
+    
 		this.repository.delete(object);
 	}
 
