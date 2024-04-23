@@ -10,3 +10,4 @@
 	<acme:list-column code="manager.project.list.label.cost" path="cost" width="10%"/>
 	<acme:list-column code="manager.project.list.label.link" path="link" width="10%"/>				
 </acme:list>
+<acme:button code="manager.project.form.button.create" action="/manager/project/create"/>

@@ -29,7 +29,19 @@ public class AuditorAuditRecordCreateService extends AbstractService<Auditor, Au
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
+		boolean status;
+		int codeAuditId;
+		int auditorId;
+		CodeAudit codeAudit;
+
+		codeAuditId = super.getRequest().getData("codeAuditId", int.class);
+		codeAudit = this.repository.findOneCodeAuditById(codeAuditId);
+
+		auditorId = super.getRequest().getPrincipal().getActiveRoleId();
+
+		status = auditorId == codeAudit.getAuditor().getId();
+
+		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
@@ -80,6 +92,16 @@ public class AuditorAuditRecordCreateService extends AbstractService<Auditor, Au
 			auditEndTime = object.getAuditEndTime();
 
 			super.state(MomentHelper.isLongEnough(auditStartTime, auditEndTime, 1, ChronoUnit.HOURS) && auditEndTime.after(auditStartTime), "auditEndTime", "auditor.audit-record.form.error.audit-end-time");
+		}
+
+		if (!super.getBuffer().getErrors().hasErrors("publishedCodeAudit")) {
+			Integer codeAuditId;
+			CodeAudit codeAudit;
+
+			codeAuditId = super.getRequest().getData("codeAuditId", int.class);
+			codeAudit = this.repository.findOneCodeAuditById(codeAuditId);
+
+			super.state(codeAudit.isDraftMode(), "*", "auditor.audit-record.form.error.published-code-audit");
 		}
 	}
 

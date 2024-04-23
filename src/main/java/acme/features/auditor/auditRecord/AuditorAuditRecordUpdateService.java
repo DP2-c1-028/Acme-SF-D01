@@ -86,6 +86,9 @@ public class AuditorAuditRecordUpdateService extends AbstractService<Auditor, Au
 
 			super.state(MomentHelper.isLongEnough(auditStartTime, auditEndTime, 1, ChronoUnit.HOURS) && auditEndTime.after(auditStartTime), "auditEndTime", "auditor.audit-record.form.error.audit-end-time");
 		}
+
+		if (!super.getBuffer().getErrors().hasErrors("publishedCodeAudit"))
+			super.state(object.getCodeAudit().isDraftMode(), "*", "auditor.audit-record.form.error.published-code-audit");
 	}
 
 	@Override
