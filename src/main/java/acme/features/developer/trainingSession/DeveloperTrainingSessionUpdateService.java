@@ -94,6 +94,9 @@ public class DeveloperTrainingSessionUpdateService extends AbstractService<Devel
 
 			super.state(periodEndIsValid, "periodEnd", "developer.training-session.form.error.period-end");
 		}
+
+		if (!super.getBuffer().getErrors().hasErrors("publishedTrainingModule"))
+			super.state(!object.getTrainingModule().isPublished(), "*", "developer.training-session.form.error.published-training-module");
 	}
 
 	@Override

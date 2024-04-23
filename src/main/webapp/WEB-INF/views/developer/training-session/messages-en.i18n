@@ -21,3 +21,4 @@ developer.training-session.form.button.publish = Publish
 developer.training-session.form.error.code = The code is already in use
 developer.training-session.form.error.period-start = The period start must be at least one week ahead the training module creation moment
 developer.training-session.form.error.period-end = The period must be at least one week long and its end must be after the period start
+developer.training-session.form.error.published-training-module = You cannot create, update or delete a training session related to a published training module

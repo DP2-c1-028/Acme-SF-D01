@@ -76,7 +76,8 @@ public class DeveloperTrainingModuleCreateService extends AbstractService<Develo
 			creationMoment = object.getCreationMoment();
 			updateMoment = object.getUpdateMoment();
 
-			super.state(updateMoment.after(creationMoment), "updateMoment", "developer.training-module.form.error.update-moment");
+			if (updateMoment != null)
+				super.state(updateMoment.after(creationMoment), "updateMoment", "developer.training-module.form.error.update-moment");
 		}
 	}
 
