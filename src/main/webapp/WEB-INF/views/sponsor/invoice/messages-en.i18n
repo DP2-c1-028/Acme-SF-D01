@@ -24,3 +24,4 @@ sponsor.invoice.form.title = Your invoice data
 sponsor.invoice.form.error.code =  The code must be unique, try another
 sponsor.invoice.form.error.dueDate = The due date must be after the registration time and there must also be at least one month difference between both of them
 sponsor.invoice.form.error.quantity = Quantity must be positive
+sponsor.invoice.form.error.acceptedCurrency = Currency is not accepted by the system
