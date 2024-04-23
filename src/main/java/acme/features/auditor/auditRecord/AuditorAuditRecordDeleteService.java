@@ -61,6 +61,9 @@ public class AuditorAuditRecordDeleteService extends AbstractService<Auditor, Au
 	@Override
 	public void validate(final AuditRecord object) {
 		assert object != null;
+
+		if (!super.getBuffer().getErrors().hasErrors("publishedCodeAudit"))
+			super.state(object.getCodeAudit().isDraftMode(), "*", "auditor.audit-record.form.error.published-code-audit");
 	}
 
 	@Override
