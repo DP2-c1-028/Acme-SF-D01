@@ -38,8 +38,19 @@ master.menu.administrator.system-configuration = Show system configuration
 # master.menu.manager ###################################################
 master.menu.manager = Manager
 master.menu.manager.project.list = List Your Projects
+master.menu.manager.user-story-project.list = Manage UserStories/Projects
+master.menu.manager.dashboard = Manager Dashboard
 
-# master.menu.manager ###################################################
+# master.menu.client ###################################################
+master.menu.client = Client
+master.menu.client.contract.list = List your contracts
+
+# master.menu.developer ###################################################
+master.menu.developer = Developer
+master.menu.developer.training-module.list = List Your Training Modules
+master.menu.developer.dashboard = Developer Dashboard
+
+# master.menu.sponsor ###################################################
 master.menu.sponsor = Sponsor
 master.menu.sponsor.sponsorship.list = List Your Sponsorships
 master.menu.sponsor.dashboard = Sponsor dashboard
@@ -64,3 +75,5 @@ master.menu.user-account.consumer = Consumer data
 master.menu.user-account.become-consumer = Become a consumer
 master.menu.user-account.sponsor = Sponsor data
 master.menu.user-account.become-sponsor = Become a sponsor
+master.menu.user-account.manager = Manager data
+master.menu.user-account.become-manager = Become a manager
