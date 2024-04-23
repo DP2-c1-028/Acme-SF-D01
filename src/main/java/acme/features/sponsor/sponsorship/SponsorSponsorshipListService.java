@@ -34,11 +34,11 @@ public class SponsorSponsorshipListService extends AbstractService<Sponsor, Spon
 	@Override
 	public void load() {
 		Collection<Sponsorship> objects;
-		int managerId;
+		int sponsorId;
 
-		managerId = super.getRequest().getPrincipal().getActiveRoleId();
+		sponsorId = super.getRequest().getPrincipal().getActiveRoleId();
 
-		objects = this.repository.findSponsorshipBySponsorId(managerId);
+		objects = this.repository.findSponsorshipBySponsorId(sponsorId);
 
 		super.getBuffer().addData(objects);
 	}

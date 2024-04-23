@@ -24,3 +24,5 @@ auditor.code-audit.form.title = Code Audit data
 
 auditor.code-audit.form.error.code = This code is already in use
 auditor.code-audit.form.error.mark = For a code audit to be published, the mark must be, at least, “C”
+auditor.code-audit.form.error.published-audit-records = You cannot delete a code audit with published audit records
+auditor.code-audit.form.error.unpublished-audit-records = All the audit records of the code audit must be published
