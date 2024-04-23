@@ -15,19 +15,22 @@ public class SponsorSponsorshipController extends AbstractController<Sponsor, Sp
 
 	// Internal state ---------------------------------------------------------
 	@Autowired
-	private SponsorSponsorshipListService	listService;
+	private SponsorSponsorshipListService		listService;
 
 	@Autowired
-	private SponsorSponsorshipShowService	showService;
+	private SponsorSponsorshipShowService		showService;
 
 	@Autowired
-	private SponsorSponsorshipCreateService	createService;
+	private SponsorSponsorshipCreateService		createService;
 
 	@Autowired
-	private SponsorSponsorshipUpdateService	updateService;
+	private SponsorSponsorshipUpdateService		updateService;
 
 	@Autowired
-	private SponsorSponsorshipDeleteService	deleteService;
+	private SponsorSponsorshipDeleteService		deleteService;
+
+	@Autowired
+	private SponsorSponsorshipPublishService	publishService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -38,6 +41,7 @@ public class SponsorSponsorshipController extends AbstractController<Sponsor, Sp
 		super.addBasicCommand("create", this.createService);
 		super.addBasicCommand("update", this.updateService);
 		super.addBasicCommand("delete", this.deleteService);
+		super.addCustomCommand("publish", "update", this.publishService);
 	}
 
 }

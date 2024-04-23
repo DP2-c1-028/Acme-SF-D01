@@ -56,6 +56,8 @@ public class CodeAudit extends AbstractEntity {
 	@URL
 	private String				link;
 
+	private boolean				draftMode;
+
 	// Derived atributes ------------------------------------------------------
 
 	@Transient

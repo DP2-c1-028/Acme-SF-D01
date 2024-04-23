@@ -9,6 +9,7 @@ sponsor.sponsorship.list.label.email = Correo
 sponsor.sponsorship.list.label.link = Enlace
 sponsor.sponsorship.list.label.project = Proyecto
 sponsor.sponsorship.list.button.create = Crear
+sponsor.sponsorship.form.button.invoices= Facturas
 
 sponsor.sponsorship.form.label.code = Código
 sponsor.sponsorship.form.label.moment = Momento
@@ -19,8 +20,17 @@ sponsor.sponsorship.form.label.type = Tipo de patrocinio
 sponsor.sponsorship.form.label.email = Correo
 sponsor.sponsorship.form.label.link = Enlace
 sponsor.sponsorship.form.label.project = Proyecto
+sponsor.sponsorship.form.button.publish = Publicar
 
 sponsor.sponsorship.form.button.update = Actualizar
 sponsor.sponsorship.form.button.delete = Borrar
 sponsor.sponsorship.form.button.create = Crear
 sponsor.sponsorship.form.title = Datos de tu patrocinio
+
+
+sponsor.sponsorship.form.error.code = El código debe ser único, pruebe otro
+sponsor.sponsorship.form.error.invalidTotalAmount = La suma de la cantidad total de los invoices debe ser igual a la cantidad del patrocinio
+sponsor.sponsorship.form.error.durationStartTime = La fecha de inicio debe ser posterior al momento
+sponsor.sponsorship.form.error.durationEndTime = La fecha de fin debe ser posterior al momento y además debe haber al menos un mes de diferencia entre las dos
+sponsor.sponsorship.form.error.amount  = La cantidad debe ser positiva
+sponsor.sponsorship.form.error.acceptedCurrency= La moneda no está aceptada por el sistema

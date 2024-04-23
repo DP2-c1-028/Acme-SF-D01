@@ -48,10 +48,9 @@ public class SponsorSponsorshipListService extends AbstractService<Sponsor, Spon
 		assert object != null;
 
 		Dataset dataset;
-		String projectName = this.managerProjectRepository.findOneProjectById(object.getProject().getId()).getTitle();
 
-		dataset = super.unbind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link", "project");
-		dataset.put("project", projectName);
+		dataset = super.unbind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link");
+		dataset.put("project", object.getProject().getCode());
 
 		super.getResponse().addData(dataset);
 	}

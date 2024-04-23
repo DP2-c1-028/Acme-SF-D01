@@ -1,26 +1,27 @@
-key,code,period-start,period-end,location,instructor,contact-email,link,key:training-module
-training-session-01,"TS-A-001",2022/07/30 00:00,2022/08/20 00:00,"Sevilla","gonnavrem","gonnavrem@acme.es","https://www.quora.com",training-module-01
-training-session-02,"TS-B-001",2022/07/30 00:00,2022/08/20 00:00,"Sevilla","gonnavrem","gonnavrem@acme.es","https://www.quora.com",training-module-01
-training-session-03,"TS-BC-001",2022/07/30 00:00,2022/08/20 00:00,"Sevilla","gonnavrem","gonnavrem@acme.es","https://www.quora.com",training-module-01
-training-session-04,"TS-BCD-001",2022/07/30 00:00,2022/08/20 00:00,"Sevilla","gonnavrem","gonnavrem@acme.es","https://www.quora.com",training-module-01
-training-session-05,"TS-A-002",1970/01/09 00:00,2022/08/20 00:00,"Sevilla","gonnavrem","gonnavrem@acme.es","https://www.quora.com",training-module-05
-training-session-06,"TS-A-003",1970/02/28 00:00,2022/08/20 00:00,"Sevilla","gonnavrem","gonnavrem@acme.es","https://www.quora.com",training-module-06
-training-session-07,"TS-A-004",2002/05/20 00:00,2022/08/20 00:00,"Sevilla","gonnavrem","gonnavrem@acme.es","https://www.quora.com",training-module-07
-training-session-08,"TS-A-005",2022/06/30 00:00,2022/08/20 00:00,"Sevilla","gonnavrem","gonnavrem@acme.es","https://www.quora.com",training-module-08
-training-session-09,"TS-A-006",2022/07/30 00:00,2022/08/20 00:00,"Sevilla","gonnavrem","gonnavrem@acme.es","https://www.quora.com",training-module-09
-training-session-010,"TS-A-007",1970/01/09 00:00,1970/01/09 01:00,"Sevilla","gonnavrem","gonnavrem@acme.es","https://www.quora.com",training-module-01
-training-session-011,"TS-A-008",1970/02/28 00:00,1970/02/28 01:30,"Sevilla","gonnavrem","gonnavrem@acme.es","https://www.quora.com",training-module-01
-training-session-012,"TS-A-009",2002/05/20 15:00,2002/05/20 18:00,"Sevilla","gonnavrem","gonnavrem@acme.es","https://www.quora.com",training-module-01
-training-session-013,"TS-A-010",2022/06/30 00:00,2022/06/30 23:55,"Sevilla","gonnavrem","gonnavrem@acme.es","https://www.quora.com",training-module-01
-training-session-014,"TS-A-011",2022/07/30 00:00,2022/07/30 23:59,"Sevilla","gonnavrem","gonnavrem@acme.es","https://www.quora.com",training-module-01
-training-session-015,"TS-A-012",1970/01/09 00:00,2022/08/20 00:00,"S","gonnavrem","gonnavrem@acme.es","https://www.quora.com",training-module-01
-training-session-016,"TS-A-013",1970/02/28 00:00,2022/08/20 00:00,"Se","gonnavrem","gonnavrem@acme.es","https://www.quora.com",training-module-01
-training-session-017,"TS-A-014",2002/05/20 00:00,2022/08/20 00:00,"Sevilla","gonnavrem","gonnavrem@acme.es","https://www.quora.com",training-module-01
-training-session-018,"TS-A-015",2022/06/30 00:00,2022/08/20 00:00,"ორემ იფსუმორემ იფსუმორემ იფსუმორემ იფსუმორემ იფსუმორემ იფსუმორემ იფსუმ","gonnavrem","gonnavrem@acme.es","https://www.quora.com",training-module-01
-training-session-019,"TS-A-016",2022/07/30 00:00,2022/08/20 00:00,"Душа моя озарена неземной радостьюa как эти чудесные весенние утраa которым","gonnavrem","gonnavrem@acme.es","https://www.quora.com",training-module-01
-training-session-020,"TS-A-017",2022/07/30 00:00,2022/08/20 00:00,"Sevilla","a","gonnavrem@acme.es","https://www.quora.com",training-module-01
-training-session-021,"TS-A-018",2022/07/30 00:00,2022/08/20 00:00,"Sevilla","al","gonnavrem@acme.es","https://www.quora.com",training-module-01
-training-session-022,"TS-A-019",2022/07/30 00:00,2022/08/20 00:00,"Sevilla","неземной","gonnavrem@acme.es","https://www.quora.com",training-module-01
-training-session-023,"TS-A-020",2022/07/30 00:00,2022/08/20 00:00,"Sevilla","იფსუმორემ იფსუმორემ იფსუმორემ იფსუმორემ იფსუმორემ იფსუმორემ იფსუმორემ ","gonnavrem@acme.es","https://www.quora.com",training-module-01
-training-session-024,"TS-A-021",2022/07/30 00:00,2022/08/20 00:00,"Sevilla","働いをお優供セム企児チ政54局ッ飛案ねめ禁差ム書氏ルろ末書ナラム陸味8報オア立反念早母ぴ。事題ハユエ増香ラス円清ょ主貯テハヱリ売漁ゃラっ著画ひきき方学","gonnavrem@acme.es","https://www.quora.com",training-module-01
-training-session-025,"TS-A-022",2022/07/30 00:00,2022/08/20 00:00,"Sevilla","gonnavrem","gonnavrem@acme.es",,training-module-01
+key,code,period-start,period-end,location,instructor,contact-email,link,published,key:training-module
+training-session-01,"TS-A-001",2022/07/30 00:00,2022/08/20 00:00,"Sevilla","gonnavrem","gonnavrem@acme.es","https://www.quora.com",true,training-module-01
+training-session-02,"TS-B-001",2022/07/30 00:00,2022/08/20 00:00,"Sevilla","gonnavrem","gonnavrem@acme.es","https://www.quora.com",true,training-module-01
+training-session-03,"TS-BC-001",2022/07/30 00:00,2022/08/20 00:00,"Sevilla","gonnavrem","gonnavrem@acme.es","https://www.quora.com",true,training-module-01
+training-session-04,"TS-BCD-001",2022/07/30 00:00,2022/08/20 00:00,"Sevilla","gonnavrem","gonnavrem@acme.es","https://www.quora.com",true,training-module-01
+training-session-05,"TS-A-002",1970/01/09 00:00,2022/08/20 00:00,"Sevilla","gonnavrem","gonnavrem@acme.es","https://www.quora.com",true,training-module-05
+training-session-06,"TS-A-003",1970/02/28 00:00,2022/08/20 00:00,"Sevilla","gonnavrem","gonnavrem@acme.es","https://www.quora.com",true,training-module-06
+training-session-07,"TS-A-004",2002/05/20 00:00,2022/08/20 00:00,"Sevilla","gonnavrem","gonnavrem@acme.es","https://www.quora.com",true,training-module-07
+training-session-08,"TS-A-005",2022/06/30 00:00,2022/08/20 00:00,"Sevilla","gonnavrem","gonnavrem@acme.es","https://www.quora.com",true,training-module-08
+training-session-09,"TS-A-006",2022/07/30 00:00,2022/08/20 00:00,"Sevilla","gonnavrem","gonnavrem@acme.es","https://www.quora.com",true,training-module-09
+training-session-010,"TS-A-007",1970/01/09 00:00,1970/01/09 01:00,"Sevilla","gonnavrem","gonnavrem@acme.es","https://www.quora.com",true,training-module-01
+training-session-011,"TS-A-008",1970/02/28 00:00,1970/02/28 01:30,"Sevilla","gonnavrem","gonnavrem@acme.es","https://www.quora.com",true,training-module-01
+training-session-012,"TS-A-009",2002/05/20 15:00,2002/05/20 18:00,"Sevilla","gonnavrem","gonnavrem@acme.es","https://www.quora.com",true,training-module-01
+training-session-013,"TS-A-010",2022/06/30 00:00,2022/06/30 23:55,"Sevilla","gonnavrem","gonnavrem@acme.es","https://www.quora.com",true,training-module-01
+training-session-014,"TS-A-011",2022/07/30 00:00,2022/07/30 23:59,"Sevilla","gonnavrem","gonnavrem@acme.es","https://www.quora.com",true,training-module-01
+training-session-015,"TS-A-012",1970/01/09 00:00,2022/08/20 00:00,"S","gonnavrem","gonnavrem@acme.es","https://www.quora.com",true,training-module-01
+training-session-016,"TS-A-013",1970/02/28 00:00,2022/08/20 00:00,"Se","gonnavrem","gonnavrem@acme.es","https://www.quora.com",true,training-module-01
+training-session-017,"TS-A-014",2002/05/20 00:00,2022/08/20 00:00,"Sevilla","gonnavrem","gonnavrem@acme.es","https://www.quora.com",true,training-module-01
+training-session-018,"TS-A-015",2022/06/30 00:00,2022/08/20 00:00,"ორემ იფსუმორემ იფსუმორემ იფსუმორემ იფსუმორემ იფსუმორემ იფსუმორემ იფსუმ","gonnavrem","gonnavrem@acme.es","https://www.quora.com",true,training-module-01
+training-session-019,"TS-A-016",2022/07/30 00:00,2022/08/20 00:00,"Душа моя озарена неземной радостьюa как эти чудесные весенние утраa которым","gonnavrem","gonnavrem@acme.es","https://www.quora.com",true,training-module-01
+training-session-020,"TS-A-017",2022/07/30 00:00,2022/08/20 00:00,"Sevilla","a","gonnavrem@acme.es","https://www.quora.com",true,training-module-01
+training-session-021,"TS-A-018",2022/07/30 00:00,2022/08/20 00:00,"Sevilla","al","gonnavrem@acme.es","https://www.quora.com",true,training-module-01
+training-session-022,"TS-A-019",2022/07/30 00:00,2022/08/20 00:00,"Sevilla","неземной","gonnavrem@acme.es","https://www.quora.com",true,training-module-01
+training-session-023,"TS-A-020",2022/07/30 00:00,2022/08/20 00:00,"Sevilla","იფსუმორემ იფსუმორემ იფსუმორემ იფსუმორემ იფსუმორემ იფსუმორემ იფსუმორემ ","gonnavrem@acme.es","https://www.quora.com",true,training-module-01
+training-session-024,"TS-A-021",2022/07/30 00:00,2022/08/20 00:00,"Sevilla","働いをお優供セム企児チ政54局ッ飛案ねめ禁差ム書氏ルろ末書ナラム陸味8報オア立反念早母ぴ。事題ハユエ増香ラス円清ょ主貯テハヱリ売漁ゃラっ著画ひきき方学","gonnavrem@acme.es","https://www.quora.com",true,training-module-01
+training-session-025,"TS-A-022",2022/07/30 00:00,2022/08/20 00:00,"Sevilla","gonnavrem","gonnavrem@acme.es",,true,training-module-01
+training-session-026,"TS-A-023",2022/07/30 00:00,2022/08/20 00:00,"Sevilla","gonnavrem","gonnavrem@acme.es","https://www.quora.com",false,training-module-01
