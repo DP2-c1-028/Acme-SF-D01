@@ -21,8 +21,8 @@
 	
 	<jstl:choose>
 		<jstl:when test="${_command == 'create'}">
-				<acme:input-checkbox code="any.claim.form.label.confirmation" 
-				 path="confirmation"/>
+				<acme:input-checkbox code="any.claim.form.label.confirmed" 
+				 path="confirmed"/>
 				<acme:submit code="any.claim.list.button.create"
 				 action="/any/claim/create"/>
 			</jstl:when>

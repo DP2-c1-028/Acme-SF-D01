@@ -57,18 +57,18 @@ public class AnyClaimCreateService extends AbstractService<Any, Claim> {
 	public void validate(final Claim object) {
 		assert object != null;
 
-		//TODO no funciona, ver porqué
 		if (!super.getBuffer().getErrors().hasErrors("code")) {
-			Claim uniqueCode;
-			uniqueCode = this.repository.findOneClaimByCode(object.getCode());
-			super.state(uniqueCode == null, "code", "validation.claim.code.duplicate");
+
+			Claim claimSameCode = this.repository.findOneClaimByCode(object.getCode());
+
+			if (claimSameCode != null)
+				super.state(claimSameCode.getId() == object.getId(), "code", "any.claim.error.code.duplicated-code");
 		}
 
-		if (!super.getBuffer().getErrors().hasErrors("confirmation")) {
-			boolean confirmation;
-			confirmation = super.getRequest().getData("confirmation", boolean.class);
-			super.state(confirmation, "confirmation", "validation.claim.publish.message");
-		}
+		Boolean isConfirmed;
+
+		isConfirmed = this.getRequest().getData("confirmed", boolean.class);
+		super.state(isConfirmed, "confirmed", "any.claim.error.confirmed.must-confirm");
 	}
 
 	@Override
@@ -85,8 +85,7 @@ public class AnyClaimCreateService extends AbstractService<Any, Claim> {
 		Dataset dataset;
 
 		dataset = super.unbind(object, "code", "heading", "description", "department", "email", "link");
-		dataset.put("confirmation", false);
-
+		dataset.put("confirmed", "false");
 		super.getResponse().addData(dataset);
 	}
 
