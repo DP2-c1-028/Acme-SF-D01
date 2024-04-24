@@ -94,5 +94,5 @@ master.menu.user-account.manager = Datos de gerente
 master.menu.user-account.become-manager = Hazte gerente
 master.menu.user-account.client = Datos del cliente
 master.menu.user-account.become-client = Hazte cliente
-master.menu.user-account.desarrollador = Datos de desarrollador
-master.menu.user-account.become-desarrollador = Hazte desasrrollador
+master.menu.user-account.developer = Datos de desarrollador
+master.menu.user-account.become-developer = Hazte desasrrollador
