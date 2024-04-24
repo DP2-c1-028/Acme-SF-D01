@@ -44,7 +44,6 @@ public class DeveloperTrainingSessionShowService extends AbstractService<Develop
 
 		id = super.getRequest().getData("id", int.class);
 		object = this.repository.findTrainingSessionById(id);
-		System.out.println(object);
 		super.getBuffer().addData(object);
 	}
 
