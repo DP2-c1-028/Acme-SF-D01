@@ -36,7 +36,7 @@ public class ManagerUserStoryProjectDeleteService extends AbstractService<Manage
 
 		managerId = super.getRequest().getPrincipal().getActiveRoleId();
 
-		status = managerId == userStoryProject.getProject().getManager().getId();
+		status = managerId == userStoryProject.getProject().getManager().getId() && userStoryProject.getProject().isDraftMode();
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -92,7 +92,7 @@ public class ManagerUserStoryProjectDeleteService extends AbstractService<Manage
 
 		managerId = super.getRequest().getPrincipal().getActiveRoleId();
 
-		Collection<Project> projectsOwned = this.repository.findAllProjectsOwned(managerId);
+		Collection<Project> projectsOwned = this.repository.findAllProjectsOwnedAndNotPublished(managerId);
 		Collection<UserStory> userStoriesOwned = this.repository.findAllUserStoriesOwned(managerId);
 
 		choicesProject = SelectChoices.from(projectsOwned, "code", object.getProject());

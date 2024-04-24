@@ -20,8 +20,8 @@ public interface ManagerUserStoryProjectRepository extends AbstractRepository {
 	@Query("select usp from UserStoryProject usp where usp.id=:id")
 	UserStoryProject findOneUserStoryProjectById(int id);
 
-	@Query("select p from Project p where p.manager.id=:managerId")
-	Collection<Project> findAllProjectsOwned(int managerId);
+	@Query("select p from Project p where p.manager.id=:managerId and p.draftMode=true")
+	Collection<Project> findAllProjectsOwnedAndNotPublished(int managerId);
 
 	@Query("select us from UserStory us where us.manager.id=:managerId")
 	Collection<UserStory> findAllUserStoriesOwned(int managerId);
