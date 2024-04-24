@@ -24,17 +24,21 @@ public class ManagerUserStoryListService extends AbstractService<Manager, UserSt
 
 	@Override
 	public void authorise() {
-		boolean status;
-		int projectId;
-		int managerId;
-		Project project;
 
-		projectId = super.getRequest().getData("projectId", int.class);
-		project = this.repository.findOneProjectById(projectId);
+		boolean status = true;
 
-		managerId = super.getRequest().getPrincipal().getActiveRoleId();
+		if (super.getRequest().hasData("projectId")) {
+			int projectId;
+			int managerId;
+			Project project;
 
-		status = managerId == project.getManager().getId();
+			projectId = super.getRequest().getData("projectId", int.class);
+			project = this.repository.findOneProjectById(projectId);
+
+			managerId = super.getRequest().getPrincipal().getActiveRoleId();
+
+			status = managerId == project.getManager().getId();
+		}
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -43,10 +47,15 @@ public class ManagerUserStoryListService extends AbstractService<Manager, UserSt
 	public void load() {
 		Collection<UserStory> objects;
 		int projectId;
+		int managerId;
 
-		projectId = super.getRequest().getData("projectId", int.class);
+		managerId = super.getRequest().getPrincipal().getActiveRoleId();
 
-		objects = this.repository.findAllUserStoriesByProjectId(projectId);
+		if (super.getRequest().hasData("projectId")) {
+			projectId = super.getRequest().getData("projectId", int.class);
+			objects = this.repository.findAllUserStoriesByProjectId(projectId);
+		} else
+			objects = this.repository.findAllUserStories(managerId);
 
 		super.getBuffer().addData(objects);
 	}
@@ -57,10 +66,6 @@ public class ManagerUserStoryListService extends AbstractService<Manager, UserSt
 
 		Dataset dataset;
 
-		int projectId;
-
-		projectId = super.getRequest().getData("projectId", int.class);
-
 		dataset = super.unbind(object, "title", "description", "estimatedCost", "priority", "link", "acceptanceCriteria");
 
 		super.getResponse().addData(dataset);
@@ -70,11 +75,13 @@ public class ManagerUserStoryListService extends AbstractService<Manager, UserSt
 	public void unbind(final Collection<UserStory> objects) {
 		assert objects != null;
 
-		int projectId;
+		if (super.getRequest().hasData("projectId")) {
+			int projectId;
 
-		projectId = super.getRequest().getData("projectId", int.class);
+			projectId = super.getRequest().getData("projectId", int.class);
 
-		super.getResponse().addGlobal("projectId", projectId);
+			super.getResponse().addGlobal("projectId", projectId);
+		}
 	}
 
 }
