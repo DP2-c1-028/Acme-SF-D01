@@ -31,31 +31,31 @@ public interface ManagerDashboardRepository extends AbstractRepository {
 	 * @Query("select 1.0 * count(a) / (select count(b) from Application b) from Application a where a.status = acme.entities.jobs.ApplicationStatus.REJECTED")
 	 * Double ratioOfRejectedApplications();
 	 */
-	@Query("select count(us) from UserStory us where us.priority = acme.entities.userStories.Priority.MUST and us.manager.id=:managerId")
+	@Query("select count(us) from UserStory us where us.priority = acme.entities.userStories.Priority.MUST and us.manager.id=:managerId and us.draftMode=false")
 	int totalNumberOfMust(int managerId);
 
-	@Query("select count(us) from UserStory us where us.priority = acme.entities.userStories.Priority.SHOULD and us.manager.id=:managerId")
+	@Query("select count(us) from UserStory us where us.priority = acme.entities.userStories.Priority.SHOULD and us.manager.id=:managerId and us.draftMode=false")
 	int totalNumberOfShould(int managerId);
 
-	@Query("select count(us) from UserStory us where us.priority = acme.entities.userStories.Priority.COULD and us.manager.id=:managerId")
+	@Query("select count(us) from UserStory us where us.priority = acme.entities.userStories.Priority.COULD and us.manager.id=:managerId and us.draftMode=false")
 	int totalNumberOfCould(int managerId);
 
-	@Query("select count(us) from UserStory us where us.priority = acme.entities.userStories.Priority.WONT and us.manager.id=:managerId")
+	@Query("select count(us) from UserStory us where us.priority = acme.entities.userStories.Priority.WONT and us.manager.id=:managerId and us.draftMode=false")
 	int totalNumberOfWont(int managerId);
 
-	@Query("select avg(us.estimatedCost) from UserStory us where us.manager.id=:managerId")
+	@Query("select avg(us.estimatedCost) from UserStory us where us.manager.id=:managerId and us.draftMode=false")
 	Double averageEstimatedCost(int managerId);
 
-	@Query("select max(us.estimatedCost) from UserStory us where us.manager.id=:managerId")
+	@Query("select max(us.estimatedCost) from UserStory us where us.manager.id=:managerId and us.draftMode=false")
 	Double maximumEstimatedCost(int managerId);
 
-	@Query("select min(us.estimatedCost) from UserStory us where us.manager.id=:managerId")
+	@Query("select min(us.estimatedCost) from UserStory us where us.manager.id=:managerId and us.draftMode=false")
 	Double minimumEstimatedCost(int managerId);
 
-	@Query("select p.cost from Project p where p.manager.id=:managerId")
+	@Query("select p.cost from Project p where p.manager.id=:managerId and p.draftMode=false")
 	Collection<Money> projectCosts(int managerId);
 
-	@Query("select us.estimatedCost from UserStory us where us.manager.id=:managerId")
+	@Query("select us.estimatedCost from UserStory us where us.manager.id=:managerId and us.draftMode=false")
 	Collection<Double> userStoriesEstimatedCosts(int managerId);
 
 }
