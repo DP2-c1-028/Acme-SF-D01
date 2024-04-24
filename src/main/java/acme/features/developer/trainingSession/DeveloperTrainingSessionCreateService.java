@@ -50,8 +50,7 @@ public class DeveloperTrainingSessionCreateService extends AbstractService<Devel
 
 		trainingModuleId = super.getRequest().getData("trainingModuleId", int.class);
 		trainingModule = this.repository.findOneTrainingModuleById(trainingModuleId);
-		System.out.println(trainingModuleId);
-		System.out.println(trainingModule);
+
 		object.setTrainingModule(trainingModule);
 
 		super.getBuffer().addData(object);
