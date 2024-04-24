@@ -51,7 +51,7 @@ public class DeveloperTrainingModuleCreateService extends AbstractService<Develo
 		Date creationMoment;
 
 		currentMoment = MomentHelper.getCurrentMoment();
-		creationMoment = new Date(currentMoment.getTime() - 2000); //Substracts one second to ensure the moment is in the past and before the update moment
+		creationMoment = new Date(currentMoment.getTime() - 2000); //Substracts two seconds to ensure the moment is in the past and before the update moment
 		object.setCreationMoment(creationMoment);
 
 		object.setPublished(false);
