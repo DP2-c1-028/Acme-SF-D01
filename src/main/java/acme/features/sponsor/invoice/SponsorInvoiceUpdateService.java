@@ -12,6 +12,7 @@ import acme.client.data.models.Dataset;
 import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractService;
 import acme.entities.invoices.Invoice;
+import acme.entities.sponsorships.Sponsorship;
 import acme.entities.systemConfiguration.SystemConfiguration;
 import acme.roles.Sponsor;
 
@@ -92,6 +93,16 @@ public class SponsorInvoiceUpdateService extends AbstractService<Sponsor, Invoic
 
 		if (!super.getBuffer().getErrors().hasErrors("quantity"))
 			super.state(this.isCurrencyAccepted(object.getQuantity()), "quantity", "sponsor.invoice.form.error.acceptedCurrency");
+
+		if (!super.getBuffer().getErrors().hasErrors("publishedSponsorship")) {
+			Integer sponsorshipId;
+			Sponsorship sponsorship;
+
+			sponsorshipId = super.getRequest().getData("sponsorshipId", int.class);
+			sponsorship = this.repository.findOneSponsorshipById(sponsorshipId);
+
+			super.state(sponsorship.isDraftMode(), "*", "sponsor.invoice.form.error.published-sponsorship");
+		}
 	}
 
 	public boolean isCurrencyAccepted(final Money moneda) {
