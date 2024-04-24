@@ -1,6 +1,7 @@
 
 package acme.features.developer.trainingModule;
 
+import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import acme.client.services.AbstractService;
 import acme.client.views.SelectChoices;
 import acme.entities.training_modules.TrainingModule;
 import acme.entities.training_modules.TrainingModuleDifficulty;
+import acme.entities.training_modules.TrainingSession;
 import acme.roles.Developer;
 
 @Service
@@ -65,7 +67,7 @@ public class DeveloperTrainingModuleUpdateService extends AbstractService<Develo
 		Date updateMoment;
 
 		currentMoment = MomentHelper.getCurrentMoment();
-		updateMoment = new Date(currentMoment.getTime() - 1000); //Substracts one second to ensure the moment is in the past
+		updateMoment = new Date(currentMoment.getTime() - 1000); //Substracts one second to ensure the moment is in the past and after the creation moment
 		object.setUpdateMoment(updateMoment);
 	}
 
@@ -92,6 +94,17 @@ public class DeveloperTrainingModuleUpdateService extends AbstractService<Develo
 				super.state(updateMoment.after(creationMoment), "updateMoment", "developer.training-module.form.error.update-moment");
 		}
 
+		if (!super.getBuffer().getErrors().hasErrors("creationMoment")) {
+			Collection<TrainingSession> conflictingTrainingSessions;
+
+			conflictingTrainingSessions = this.repository.findTrainingSessionsWithPeriodStartBeforeTrainingModuleCreationMoment(object.getId());
+
+			super.state(conflictingTrainingSessions.isEmpty(), "creationMoment", "developer.training-module.form.error.creation-moment");
+		}
+
+		if (!super.getBuffer().getErrors().hasErrors("project"))
+			super.state(!object.getProject().isDraftMode(), "project", "developer.training-module.form.error.project");
+
 	}
 
 	@Override
@@ -109,7 +122,7 @@ public class DeveloperTrainingModuleUpdateService extends AbstractService<Develo
 		SelectChoices projectChoices;
 
 		difficultyChoices = SelectChoices.from(TrainingModuleDifficulty.class, object.getDifficulty());
-		projectChoices = SelectChoices.from(this.repository.findAllProjects(), "title", object.getProject());
+		projectChoices = SelectChoices.from(this.repository.findPublishedProjects(), "title", object.getProject());
 
 		Dataset dataset;
 

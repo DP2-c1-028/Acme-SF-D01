@@ -14,22 +14,7 @@
 		choices="${projects}"/>	
 	
 	<jstl:choose>
-		<jstl:when test="${acme:anyOf(_command, 'update|delete|publish')}">
-			<acme:input-moment code="developer.training-module.form.label.creation-moment" path="creationMoment" readonly="true" />
-			<acme:input-moment code="developer.training-module.form.label.update-moment" path="updateMoment" readonly="true" />
-			<acme:input-checkbox code="developer.training-module.form.label.published" path="published" readonly="true"/>
-			<jstl:choose>
-				<jstl:when test="${published==false}">
-					<acme:submit code="developer.training-module.form.button.update"
-						action="/developer/training-module/update" />
-					<acme:submit code="developer.training-module.form.button.delete"
-						action="/developer/training-module/delete" />
-					<acme:submit code="developer.training-module.form.button.publish"
-						action="/developer/training-module/publish" />
-				</jstl:when>
-			</jstl:choose>
-		</jstl:when>
-		<jstl:when test="${_command == 'show'}">
+		<jstl:when test="${acme:anyOf(_command, 'show|update|delete|publish')}">
 			<acme:input-moment code="developer.training-module.form.label.creation-moment" path="creationMoment" readonly="true" />
 			<acme:input-moment code="developer.training-module.form.label.update-moment" path="updateMoment" readonly="true" />
 			<acme:input-checkbox code="developer.training-module.form.label.published" path="published" readonly="true"/>
