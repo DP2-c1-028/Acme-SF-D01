@@ -6,7 +6,7 @@ administrator.banner.form.label.slogan = Eslogan
 administrator.banner.form.label.link = Enlace
 
 administrator.banner.list.title = Lista de carteles
-administrator.banner.list.label.instantiation-moment = Momento de creación
+administrator.banner.list.label.instantiation-moment = Última actualización
 administrator.banner.list.label.banner-start-time = Fecha de comienzo del cartel
 administrator.banner.list.label.banner-end-time = Fecha de final del cartel
 administrator.banner.list.label.picture = Foto

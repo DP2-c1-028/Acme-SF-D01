@@ -42,8 +42,7 @@ public class Banner extends AbstractEntity {
 	private Date				bannerEndTime;
 
 	@URL
-	@NotNull
-	@Length(max = 255)
+	@NotBlank
 	private String				picture;
 
 	@NotBlank
@@ -51,7 +50,7 @@ public class Banner extends AbstractEntity {
 	private String				slogan;
 
 	@URL
-	@NotNull
+	@NotBlank
 	private String				link;
 
 	// Relationships ----------------------------------------------------------
