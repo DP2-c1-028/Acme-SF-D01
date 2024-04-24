@@ -39,8 +39,8 @@ public class AuditorDashboardShowService extends AbstractService<Auditor, Audito
 		int totalCodeAuditsDynamic;
 		Double auditRecordsAverage;
 		Double auditRecordsDeviation;
-		int auditRecordsMinimum;
-		int auditRecordsMaximum;
+		Integer auditRecordsMinimum;
+		Integer auditRecordsMaximum;
 		Double periodAverageTime;
 		Double periodDeviationTime;
 		Double periodMinimumTime;
@@ -50,8 +50,8 @@ public class AuditorDashboardShowService extends AbstractService<Auditor, Audito
 		totalCodeAuditsDynamic = this.repository.totalCodeAuditsDynamic(auditorId);
 		auditRecordsAverage = this.repository.auditRecordsAverage(auditorId);
 		auditRecordsDeviation = this.deviation(auditRecordsPerAudit);
-		auditRecordsMinimum = this.repository.auditRecordsMinimum(auditorId) != null ? this.repository.auditRecordsMinimum(auditorId) : 0;
-		auditRecordsMaximum = this.repository.auditRecordsMaximum(auditorId) != null ? this.repository.auditRecordsMaximum(auditorId) : 0;
+		auditRecordsMinimum = this.repository.auditRecordsMinimum(auditorId);
+		auditRecordsMaximum = this.repository.auditRecordsMaximum(auditorId);
 		periodAverageTime = this.repository.periodAverageTime(auditorId);
 		periodDeviationTime = this.repository.periodDeviationTime(auditorId);
 		periodMinimumTime = this.repository.periodMinimumTime(auditorId);
@@ -88,6 +88,9 @@ public class AuditorDashboardShowService extends AbstractService<Auditor, Audito
 		Double res;
 		Double aux;
 		res = 0.0;
+		if (values.isEmpty())
+			return null;
+
 		if (!values.isEmpty()) {
 			Double average = this.average(values);
 			aux = 0.0;
