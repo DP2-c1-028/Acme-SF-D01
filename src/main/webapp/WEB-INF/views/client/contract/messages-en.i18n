@@ -8,7 +8,7 @@ client.contract.list.label.instantiationMoment = Instantiation moment
 client.contract.list.label.budget = Budget
 client.contract.list.label.goals = Goals
 
-client.contract.form.title = Project data
+client.contract.form.title = Contract data
 client.contract.form.label.code = Code
 client.contract.form.label.draftMode = Is in draft mode?
 client.contract.form.label.project = Project name
@@ -17,14 +17,15 @@ client.contract.form.label.customerName = Customer name
 client.contract.form.label.instantiationMoment = Instantiation moment
 client.contract.form.label.budget = Budget
 client.contract.form.label.goals = Goals
+
 client.contract.form.button.update = Update
 client.contract.form.button.delete = Delete
 client.contract.form.button.create = Create
 client.contract.form.button.progress-logs = Progress Logs
+client.contract.form.button.publish = Publish
 
-client.contract.form.button.publish = publish
-
-client.contract.form.error.code = the code assigned is already in use
-client.contract.form.error.budget= cannot assign a budget higher than the associated project cost
-client.contract.form.error.publishError = cannot publish a contract if the total budget for that project is superior to the project cost
-client.contract.form.error.budget-negative = budget cannot be negative
+client.contract.form.error.code = The code assigned is already in use
+client.contract.form.error.budget= Cannot assign a budget higher than the associated project cost
+client.contract.form.error.publishError = Cannot publish a contract if the total budget for that project is superior to the project cost
+client.contract.form.error.budget-negative = Budget cannot be negative
+client.contract.form.error.publishError-progressLog = You cannot publish a contract if their progress logs aren´t published

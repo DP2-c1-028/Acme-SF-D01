@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
+import acme.entities.contracts.Contract;
 import acme.entities.progress_logs.ProgressLog;
 import acme.roles.Client;
 
@@ -65,6 +66,32 @@ public class ClientProgressLogUpdateService extends AbstractService<Client, Prog
 
 			if (progressLogWithCode != null)
 				super.state(progressLogWithCode.getId() == progressLog.getId(), "recordId", "client.progress-log.form.error.recordId");
+		}
+
+		if (!super.getBuffer().getErrors().hasErrors("registrationMoment")) {
+
+			Boolean isAfter = progressLog.getRegistrationMoment().after(progressLog.getContract().getInstantiationMoment());
+			super.state(isAfter == true, "registrationMoment", "client.progress-log.form.error.registrationMoment");
+		}
+
+		//validacion de modo borrador
+
+		if (!super.getBuffer().getErrors().hasErrors("publishedContract")) {
+			Integer contractId;
+			Contract contract;
+
+			contractId = progressLog.getContract().getId();
+			contract = this.repository.findContractById(contractId);
+
+			super.state(contract.isDraftMode(), "*", "client.progress-log.form.error.published-contract");
+		}
+
+		if (!super.getBuffer().getErrors().hasErrors("completeness")) {
+
+			double maxCompleteness = this.repository.findContractProgressLogWithMaxCompleteness(progressLog.getContract().getId());
+
+			super.state(maxCompleteness < progressLog.getCompleteness(), "completeness", "client.progress-log.form.error.completeness");
+
 		}
 
 	}

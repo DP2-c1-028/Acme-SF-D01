@@ -30,6 +30,9 @@ public interface ClientContractRepository extends AbstractRepository {
 	@Query("select p from Project p")
 	Collection<Project> findlAllProjects();
 
+	@Query("select p from Project p where p.draftMode = false")
+	Collection<Project> findlAllPublishedProjects();
+
 	@Query("select p from Project p where p.id = :id")
 	Project findProjectById(int id);
 
@@ -38,5 +41,8 @@ public interface ClientContractRepository extends AbstractRepository {
 
 	@Query("select p from ProgressLog p where p.contract.id = :id")
 	Collection<ProgressLog> findProgressLogsByContractId(int id);
+
+	@Query("select p from ProgressLog p where p.contract.id = :id and p.draftMode = true")
+	Collection<ProgressLog> findUnpublishedProgressLogsByContractId(int id);
 
 }

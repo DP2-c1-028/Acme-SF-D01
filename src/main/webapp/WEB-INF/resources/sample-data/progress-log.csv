@@ -1,26 +1,26 @@
 key,record-id,completeness,comment,registration-moment,responsible-person,draft-mode,key:contract,key:client
-project-logs-01,PG-BC-7890,0.43,espero que vaya bien,2008/01/31 5:23,Fernado Gutierrez,true,contract-01,client-01
-project-logs-02,PG-ZZ-9998,0.43,espero que vaya bien,2008/01/31 5:23,Fernado Gutierrez,true,contract-01,client-01
-project-logs-03,PG-A-0001,0.43,espero que vaya bien,2008/01/31 5:23,Fernado Gutierrez,true,contract-01,client-01
-project-logs-04,PG-OO-5555,0.43,espero que vaya bien,2008/01/31 5:23,Fernado Gutierrez,true,contract-01,client-01
-project-logs-05,PG-SE-2000,0.43,espero que vaya bien,2008/01/31 5:23,Fernado Gutierrez,true,contract-01,client-01
-project-logs-06,PG-A-0002,0.70,espero que vaya bien,2008/01/31 5:23,Fernado Gutierrez,true,contract-01,client-01
-project-logs-07,PG-A-0003,0.99,espero que vaya bien,2008/01/31 5:23,Fernado Gutierrez,true,contract-01,client-01
-project-logs-08,PG-A-0004,0.01,espero que vaya bien,2008/01/31 5:23,Fernado Gutierrez,true,contract-01,client-01
-project-logs-09,PG-A-0005,0.55,espero que vaya bien,2008/01/31 5:23,Fernado Gutierrez,true,contract-01,client-01
-project-logs-10,PG-A-0006,0.43,espero que vaya bien,2008/01/31 5:23,Fernado Gutierrez,true,contract-15,client-01
-project-logs-11,PG-A-0007,0.43,´太 La luna brilla en el cielo nocturno iluminando´´´´ el camino oscuro y silencioso บคบคบ..........,2008/01/31 5:23,Fernado Gutierrez,true,contract-17,client-02
-project-logs-12,PG-A-0008,0.43,.,2008/01/31 5:23,Fernado Gutierrez,true,contract-28,client-04
-project-logs-13,PG-A-0009,0.43,esto es un comentario de caracteres,2008/01/31 5:23,Fernado Gutierrez,true,contract-02,client-01
-project-logs-14,PG-A-0010,0.43,espero que vaya bien,2008/01/31 5:23,Fernado Gutierrez,true,contract-02,client-01
-project-logs-15,PG-A-0011,0.43,esto es una descripcion de 50 caracteres no se que,2008/01/31 5:23,Fernado Gutierrez,true,contract-02,client-01
-project-logs-16,PG-A-0012,0.43,espero que vaya bien,2008/01/31 5:23,Fernado Gutierrez,true,contract-02,client-01
-project-logs-17,PG-A-0013,0.43,espero que vaya bien,2011/01/07 12:22,Fernado Gutierrez,true,contract-30,client-02
-project-logs-18,PG-A-0014,0.43,espero que vaya bien,2000/01/02 0:59,Fernado Gutierrez,true,contract-02,client-01
-project-logs-19,PG-A-0015,0.43,espero que vaya bien,2022/06/30 23:59,Fernado Gutierrez,true,contract-17,client-02
-project-logs-20,PG-A-0016,0.43,espero que vaya bien,2015/06/30 23:59,Fernado Gutierrez,true,contract-17,client-02
-project-logs-21,PG-A-0017,0.43,espero que vaya bien,2008/01/31 5:23,Fernado Gutierrez,true,contract-01,client-01
-project-logs-22,PG-A-0018,0.43,espero que vaya bien,2008/01/31 5:23,William Ramírez,true,contract-01,client-01
-project-logs-23,PG-A-0019,0.43,espero que vaya bien,2008/01/31 5:23,DELIRIOS PERSECUTORIOS DELIRIOS PERSECUTORIOS DELIRIOS PERSECUTORIOS ESTRES,true,contract-01,client-01
-project-logs-24,PG-A-0020,0.43,espero que vaya bien,2008/01/31 5:23,V,true,contract-01,client-01
-project-logs-25,PG-A-0021,0.43,espero que vaya bien,2008/01/31 5:23,Esto es un comentario de 40 caracteres:),true,contract-28,client-04
+project-logs-01,PG-BC-7890,20.1,espero que vaya bien,2008/01/10 5:23,Fernado Gutierrez,true,contract-01,client-01
+project-logs-02,PG-ZZ-9998,20.2,espero que vaya bien,2008/01/11 5:23,Fernado Gutierrez,true,contract-01,client-01
+project-logs-03,PG-A-0001,20.3,espero que vaya bien,2008/01/12 5:23,Fernado Gutierrez,true,contract-01,client-01
+project-logs-04,PG-OO-5555,20.4,espero que vaya bien,2008/01/13 5:23,Fernado Gutierrez,true,contract-01,client-01
+project-logs-05,PG-SE-2000,67.8,espero que vaya bien,2008/05/22 5:23,Fernado Gutierrez,true,contract-01,client-01
+project-logs-06,PG-A-0002,43.5,espero que vaya bien,2008/04/14 5:23,Fernado Gutierrez,true,contract-01,client-01
+project-logs-07,PG-A-0003,99.9,espero que vaya bien,2009/01/31 5:23,Fernado Gutierrez,true,contract-01,client-01
+project-logs-08,PG-A-0004,0.1,espero que vaya bien,2007/11/20 5:23,Fernado Gutierrez,true,contract-01,client-01
+project-logs-09,PG-A-0005,50.0,espero que vaya bien,2008/06/15 5:23,Fernado Gutierrez,true,contract-01,client-01
+project-logs-10,PG-A-0006,10.0,espero que vaya bien,2008/01/31 5:23,Fernado Gutierrez,true,contract-15,client-01
+project-logs-11,PG-A-0007,2.1,jajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajja,2008/01/31 5:23,Fernado Gutierrez,true,contract-17,client-02
+project-logs-12,PG-A-0008,56.88,.,2008/01/31 5:23,Fernado Gutierrez,true,contract-28,client-04
+project-logs-13,PG-A-0009,12.1,esto es un comentario de caracteres,2008/01/31 5:23,Fernado Gutierrez,true,contract-02,client-01
+project-logs-14,PG-A-0010,12.2,espero que vaya bien,2008/02/21 5:23,Fernado Gutierrez,true,contract-02,client-01
+project-logs-15,PG-A-0011,12.3,esto es una descripcion de 50 caracteres no se que,2008/03/31 5:23,Fernado Gutierrez,true,contract-02,client-01
+project-logs-16,PG-A-0012,12.5,espero que vaya bien,2008/04/28 5:23,Fernado Gutierrez,true,contract-02,client-01
+project-logs-17,PG-A-0013,77.8,espero que vaya bien,2011/01/07 12:22,Fernado Gutierrez,true,contract-30,client-02
+project-logs-18,PG-A-0014,2.23,espero que vaya bien,2000/01/02 0:59,Fernado Gutierrez,true,contract-02,client-01
+project-logs-19,PG-A-0015,80.7,espero que vaya bien,2022/06/27 23:59,Fernado Gutierrez,true,contract-17,client-02
+project-logs-20,PG-A-0016,13.2,espero que vaya bien,2015/06/27 23:59,Fernado Gutierrez,true,contract-17,client-02
+project-logs-21,PG-A-0017,32.1,espero que vaya bien,2008/03/01 5:23,Fernado Gutierrez,true,contract-01,client-01
+project-logs-22,PG-A-0018,32.2,espero que vaya bien,2008/03/02 5:23,William Ramírez,true,contract-01,client-01
+project-logs-23,PG-A-0019,32.3,espero que vaya bien,2008/03/03 5:23,DELIRIOS PERSECUTORIOS DELIRIOS PERSECUTORIOS DELIRIOS PERSECUTORIOS ESTRES,true,contract-01,client-01
+project-logs-24,PG-A-0020,32.4,espero que vaya bien,2008/03/04 5:23,V,true,contract-01,client-01
+project-logs-25,PG-A-0021,79.0,espero que vaya bien,2009/01/31 5:23,Esto es un comentario de 40 caracteres:),true,contract-28,client-04
