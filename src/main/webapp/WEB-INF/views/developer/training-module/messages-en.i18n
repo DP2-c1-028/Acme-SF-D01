@@ -28,3 +28,5 @@ developer.training-module.form.error.unpublishable = For a training module to be
 developer.training-module.form.error.update-moment = The update moment must be after the creation moment
 developer.training-module.form.error.unpublished-sessions = All the training sessions of the training module must be published
 developer.training-module.form.error.published-sessions = You cannot delete a training module with published training sessions
+developer.training-module.form.error.creation-moment = The creation moment must not be after the period start of one of its training sessions
+developer.training-module.form.error.project = The project must be published

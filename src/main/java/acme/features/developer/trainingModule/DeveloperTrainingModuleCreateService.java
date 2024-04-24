@@ -51,7 +51,7 @@ public class DeveloperTrainingModuleCreateService extends AbstractService<Develo
 		Date creationMoment;
 
 		currentMoment = MomentHelper.getCurrentMoment();
-		creationMoment = new Date(currentMoment.getTime() - 500); //Substracts half a second to ensure the moment is in the past and before the update moment
+		creationMoment = new Date(currentMoment.getTime() - 2000); //Substracts one second to ensure the moment is in the past and before the update moment
 		object.setCreationMoment(creationMoment);
 
 		object.setPublished(false);
@@ -79,6 +79,9 @@ public class DeveloperTrainingModuleCreateService extends AbstractService<Develo
 			if (updateMoment != null)
 				super.state(updateMoment.after(creationMoment), "updateMoment", "developer.training-module.form.error.update-moment");
 		}
+
+		if (!super.getBuffer().getErrors().hasErrors("project"))
+			super.state(!object.getProject().isDraftMode(), "project", "developer.training-module.form.error.project");
 	}
 
 	@Override
@@ -96,7 +99,7 @@ public class DeveloperTrainingModuleCreateService extends AbstractService<Develo
 		SelectChoices projectChoices;
 
 		difficultyChoices = SelectChoices.from(TrainingModuleDifficulty.class, object.getDifficulty());
-		projectChoices = SelectChoices.from(this.repository.findAllProjects(), "title", null);
+		projectChoices = SelectChoices.from(this.repository.findPublishedProjects(), "title", null);
 
 		Dataset dataset;
 

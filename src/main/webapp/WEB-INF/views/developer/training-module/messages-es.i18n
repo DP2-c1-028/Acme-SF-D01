@@ -28,3 +28,5 @@ developer.training-module.form.error.unpublishable = Para que un módulo de entr
 developer.training-module.form.error.update-moment = El momento de actualización debe ser posterior al momento de creación
 developer.training-module.form.error.unpublished-sessions = Todas las sesiones de entrenamiento del módulo de entrenamiento deben estar publicadas
 developer.training-module.form.error.published-sessions = No puedes borrar un módulo de entrenamiento con sesiones de entrenamiento publicadas
+developer.training-module.form.error.creation-moment = El momento de creación no debe ser posterior al comienzo del periodo de una de sus sesiones de entrenamiento
+developer.training-module.form.error.project = The project must be published
