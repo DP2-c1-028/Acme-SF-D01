@@ -1,5 +1,4 @@
 administrator.banner.form.title = Datos de tu cartel
-administrator.banner.form.label.instantiation-moment = Momento de creación
 administrator.banner.form.label.banner-start-time = Fecha de comienzo del cartel
 administrator.banner.form.label.banner-end-time = Fecha de final del cartel
 administrator.banner.form.label.picture = Foto

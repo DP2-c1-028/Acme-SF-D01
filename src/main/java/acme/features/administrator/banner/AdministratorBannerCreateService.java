@@ -78,7 +78,10 @@ public class AdministratorBannerCreateService extends AbstractService<Administra
 		assert object != null;
 
 		Date instantiationMoment;
-		instantiationMoment = MomentHelper.getCurrentMoment();
+		Date currentMoment;
+
+		currentMoment = MomentHelper.getCurrentMoment();
+		instantiationMoment = new Date(currentMoment.getTime() - 1000);
 		object.setInstantiationMoment(instantiationMoment);
 
 		this.repository.save(object);

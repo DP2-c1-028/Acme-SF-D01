@@ -1,5 +1,4 @@
 administrator.banner.form.title = Banner Form
-administrator.banner.form.label.instantiation-moment = Instantiation moment
 administrator.banner.form.label.banner-start-time = Banner start date
 administrator.banner.form.label.banner-end-time = Banner end date
 administrator.banner.form.label.picture = Picture
