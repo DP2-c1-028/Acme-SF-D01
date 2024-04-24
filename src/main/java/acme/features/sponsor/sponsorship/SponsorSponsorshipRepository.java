@@ -43,4 +43,10 @@ public interface SponsorSponsorshipRepository extends AbstractRepository {
 	@Query("select sc from SystemConfiguration sc")
 	SystemConfiguration findSystemConfiguration();
 
+	@Query("select i from Invoice i where (i.sponsorship.id = :id and i.draftMode = true)")
+	Collection<Invoice> findUnpublishedInvoicesBySponsorshipId(int id);
+
+	@Query("select i from Invoice i where (i.sponsorship.id = :id and i.draftMode = false)")
+	Collection<Invoice> findPublishedInvoicesBySponsorshipId(int id);
+
 }

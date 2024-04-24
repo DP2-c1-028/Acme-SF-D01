@@ -25,3 +25,5 @@ sponsor.invoice.form.error.code =  The code must be unique, try another
 sponsor.invoice.form.error.dueDate = The due date must be after the registration time and there must also be at least one month difference between both of them
 sponsor.invoice.form.error.quantity = Quantity must be positive
 sponsor.invoice.form.error.acceptedCurrency = Currency is not accepted by the system
+sponsor.invoice.form.error.published-sponsorship = You cannot create, update or delete an invoice whose sponsorship is already published
+sponsor.invoice.form.error.published-sponsorship = No se puede crear, actualizar o borrar una factura si su patrocinio está ya publicado

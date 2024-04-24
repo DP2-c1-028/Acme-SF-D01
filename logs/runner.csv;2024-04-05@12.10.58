@@ -1,9 +1,0 @@
-2024-04-05 12:10:49.064078400 INFO  acme.Launcher@main Starting Launcher using Java 20.0.2 on LAPTOP-ACCTUT7Q with PID 12156 (C:\Users\TESTER\Desktop\UNI\programas\0000-TERCER AÑO\dp2\Workspace-24\Frameworks\Acme-Framework-24.1.0\target\classes started by Pablo in C:\Users\TESTER\Desktop\UNI\programas\0000-TERCER AÑO\dp2\Workspace-24\Projects\Acme-SF-D03) 
-2024-04-05 12:10:49.065078800 DEBUG acme.Launcher@main Running with Spring Boot v2.7.15, Spring v5.3.29 
-2024-04-05 12:10:49.067616700 INFO  acme.Launcher@main The following 2 profiles are active: "development", "runner" 
-2024-04-05 12:10:55.527545800 INFO  acme.Launcher@main Started Launcher in 7.005 seconds (JVM running for 7.514) 
-2024-04-05 12:10:55.613546400 DEBUG acme.internals.components.clocks.AbstractClock@main Changing base moment to 'Fri Apr 05 12:10:55 CEST 2024'. 
-2024-04-05 12:10:55.615593600 DEBUG acme.internals.components.clocks.AbstractClock@main Changing base moment to 'Sat Jul 30 00:00:00 CEST 2022'. 
-2024-04-05 12:10:55.615593600 DEBUG acme.internals.components.clocks.SimulatedClock@main Changing current moment to 'Sat Jul 30 00:00:00 CEST 2022'. 
-2024-04-05 12:10:55.619376700 INFO  acme.Launcher@main Launching runner in your development platform. 
-2024-04-05 12:10:58.122718200 INFO  acme.Launcher@main Application /acme-sf-d03 is now running. 

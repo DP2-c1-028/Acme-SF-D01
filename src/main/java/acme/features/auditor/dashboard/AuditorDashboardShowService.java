@@ -50,8 +50,8 @@ public class AuditorDashboardShowService extends AbstractService<Auditor, Audito
 		totalCodeAuditsDynamic = this.repository.totalCodeAuditsDynamic(auditorId);
 		auditRecordsAverage = this.repository.auditRecordsAverage(auditorId);
 		auditRecordsDeviation = this.deviation(auditRecordsPerAudit);
-		auditRecordsMinimum = this.repository.auditRecordsMinimum(auditorId);
-		auditRecordsMaximum = this.repository.auditRecordsMaximum(auditorId);
+		auditRecordsMinimum = this.repository.auditRecordsMinimum(auditorId) != null ? this.repository.auditRecordsMinimum(auditorId) : 0;
+		auditRecordsMaximum = this.repository.auditRecordsMaximum(auditorId) != null ? this.repository.auditRecordsMaximum(auditorId) : 0;
 		periodAverageTime = this.repository.periodAverageTime(auditorId);
 		periodDeviationTime = this.repository.periodDeviationTime(auditorId);
 		periodMinimumTime = this.repository.periodMinimumTime(auditorId);
