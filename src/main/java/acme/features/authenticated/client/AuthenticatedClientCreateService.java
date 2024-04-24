@@ -62,7 +62,7 @@ public class AuthenticatedClientCreateService extends AbstractService<Authentica
 
 			Client clientWithCode = this.repository.findClientByIdentification(client.getIdentification());
 
-			super.state(clientWithCode == null, "identification", "client.contract.form.error.code");
+			super.state(clientWithCode == null, "identification", "authenticated.client.form.error.identification");
 		}
 	}
 
