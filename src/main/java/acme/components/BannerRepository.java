@@ -1,6 +1,7 @@
 
 package acme.components;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.domain.PageRequest;
@@ -17,11 +18,14 @@ import acme.entities.banners.Banner;
 @Repository
 public interface BannerRepository extends AbstractRepository {
 
-	@Query("select count(a) from Banner a")
-	int countBanners();
+	@Query("select count(a) from Banner a where a.bannerEndTime > :date and a.bannerStartTime < :date")
+	int countValidBanners(Date date);
 
 	@Query("select a from Banner a")
 	List<Banner> findAllBanners(PageRequest pageRequest);
+
+	@Query("select a from Banner a where a.bannerEndTime > :date and a.bannerStartTime < :date")
+	List<Banner> findAllValidBannersByDate(PageRequest pageRequest, Date date);
 
 	default Banner findRandomBanner() {
 		Banner result;
@@ -30,7 +34,7 @@ public interface BannerRepository extends AbstractRepository {
 		PageRequest page;
 		List<Banner> list;
 
-		count = this.countBanners();
+		count = this.countValidBanners(MomentHelper.getCurrentMoment());
 		if (count == 0)
 			result = null;
 		else {
@@ -38,7 +42,7 @@ public interface BannerRepository extends AbstractRepository {
 			index = RandomHelper.nextInt(0, count);
 
 			page = PageRequest.of(index, 1, Sort.by(Direction.ASC, "id"));
-			list = this.findAllBanners(page).stream().filter(b -> b.getBannerEndTime().after(MomentHelper.getCurrentMoment())).toList();
+			list = this.findAllValidBannersByDate(page, MomentHelper.getCurrentMoment());
 			result = list.isEmpty() ? null : list.get(0);
 		}
 
