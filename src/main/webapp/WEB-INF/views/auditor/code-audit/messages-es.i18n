@@ -24,3 +24,5 @@ auditor.code-audit.form.title = Datos de tu auditoría de código
 
 auditor.code-audit.form.error.code = Este código está en uso
 auditor.code-audit.form.error.mark = Para que se publique una auditoría de código, la nota debe ser, al menos, “C”
+auditor.code-audit.form.error.published-audit-records = No puede eliminar una auditoría de código con registros de auditoría publicados
+auditor.code-audit.form.error.unpublished-audit-records = Todos los registros de auditoría de la auditoría de código deben publicarse.

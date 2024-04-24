@@ -1,12 +1,17 @@
 
 package acme.features.developer.trainingModule;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
+import acme.client.views.SelectChoices;
 import acme.entities.training_modules.TrainingModule;
+import acme.entities.training_modules.TrainingModuleDifficulty;
+import acme.entities.training_modules.TrainingSession;
 import acme.roles.Developer;
 
 @Service
@@ -58,11 +63,20 @@ public class DeveloperTrainingModuleDeleteService extends AbstractService<Develo
 	@Override
 	public void validate(final TrainingModule object) {
 		assert object != null;
+
+		Collection<TrainingSession> publishedSessions;
+
+		publishedSessions = this.repository.findPublishedTrainingSessionsByTrainingModuleId(object.getId());
+		super.state(publishedSessions.isEmpty(), "*", "developer.training-module.form.error.published-sessions");
 	}
 
 	@Override
 	public void perform(final TrainingModule object) {
 		assert object != null;
+
+		Collection<TrainingSession> trainingSessions = this.repository.findTrainingSessionsByTrainingModuleId(object.getId());
+
+		this.repository.deleteAll(trainingSessions);
 
 		this.repository.delete(object);
 	}
@@ -71,9 +85,17 @@ public class DeveloperTrainingModuleDeleteService extends AbstractService<Develo
 	public void unbind(final TrainingModule object) {
 		assert object != null;
 
+		SelectChoices difficultyChoices;
+		SelectChoices projectChoices;
+
+		difficultyChoices = SelectChoices.from(TrainingModuleDifficulty.class, object.getDifficulty());
+		projectChoices = SelectChoices.from(this.repository.findAllProjects(), "title", object.getProject());
+
 		Dataset dataset;
 
 		dataset = super.unbind(object, "code", "creationMoment", "updateMoment", "difficulty", "details", "totalTime", "link", "published", "project");
+		dataset.put("difficulties", difficultyChoices);
+		dataset.put("projects", projectChoices);
 
 		super.getResponse().addData(dataset);
 	}

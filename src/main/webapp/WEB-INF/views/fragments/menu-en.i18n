@@ -25,6 +25,11 @@ master.menu.anonymous.pabcascom = 30268012: Castellanos Compaña, Pablo Jesus
 master.menu.anonymous.mighersan1 = 49111638: Hernández Sánchez, Miguel
 master.menu.anonymous.gonnavrem = 29516545: Navas Remmers, Gonzalo
 
+# master.menu.any #######################################################
+
+master.menu.any = Any
+master.menu.anonymous.claims = Claim list
+
 # master.menu.administrator ###################################################
 
 master.menu.administrator = Administrator
@@ -34,6 +39,7 @@ master.menu.administrator.populate-initial = Populate DB (initial)
 master.menu.administrator.populate-sample = Populate DB (samples)
 master.menu.administrator.shut-down = Shut down
 master.menu.administrator.system-configuration = Show system configuration
+master.menu.administrator.banner.list = List of banners
 
 # master.menu.manager ###################################################
 master.menu.manager = Manager
@@ -87,3 +93,5 @@ master.menu.user-account.manager = Manager data
 master.menu.user-account.become-manager = Become a manager
 master.menu.user-account.client = Client data
 master.menu.user-account.become-client = Become a client
+master.menu.user-account.developer = Developer data
+master.menu.user-account.become-developer = Become a developer

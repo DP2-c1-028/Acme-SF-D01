@@ -1,6 +1,9 @@
 
 package acme.features.developer.trainingModule;
 
+import java.util.Collection;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +12,7 @@ import acme.client.services.AbstractService;
 import acme.client.views.SelectChoices;
 import acme.entities.training_modules.TrainingModule;
 import acme.entities.training_modules.TrainingModuleDifficulty;
+import acme.entities.training_modules.TrainingSession;
 import acme.roles.Developer;
 
 @Service
@@ -71,6 +75,17 @@ public class DeveloperTrainingModulePublishService extends AbstractService<Devel
 				super.state(trainingModuleSameCode.getId() == object.getId(), "code", "developer.training-module.form.error.code");
 		}
 
+		if (!super.getBuffer().getErrors().hasErrors("updateMoment")) {
+			Date creationMoment;
+			Date updateMoment;
+
+			creationMoment = object.getCreationMoment();
+			updateMoment = object.getUpdateMoment();
+
+			if (updateMoment != null)
+				super.state(updateMoment.after(creationMoment), "updateMoment", "developer.training-module.form.error.update-moment");
+		}
+
 		if (!super.getBuffer().getErrors().hasErrors("unpublishable")) {
 
 			boolean publishable;
@@ -78,6 +93,15 @@ public class DeveloperTrainingModulePublishService extends AbstractService<Devel
 			publishable = !this.repository.findTrainingSessionsByTrainingModuleId(object.getId()).isEmpty();
 
 			super.state(publishable, "*", "developer.training-module.form.error.unpublishable");
+		}
+
+		if (!super.getBuffer().getErrors().hasErrors("unpublishedSessions")) {
+
+			Collection<TrainingSession> unpublishedSessions;
+
+			unpublishedSessions = this.repository.findUnpublishedTrainingSessionsByTrainingModuleId(object.getId());
+
+			super.state(unpublishedSessions.isEmpty(), "*", "developer.training-module.form.error.unpublished-sessions");
 		}
 
 	}

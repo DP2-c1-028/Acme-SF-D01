@@ -1,0 +1,19 @@
+2024-04-07 17:49:54.412405600 INFO  acme.Launcher@main Starting Launcher using Java 20.0.2 on LAPTOP-ACCTUT7Q with PID 17588 (C:\Users\TESTER\Desktop\UNI\programas\0000-TERCER AÑO\dp2\Workspace-24\Frameworks\Acme-Framework-24.1.0\target\classes started by Pablo in C:\Users\TESTER\Desktop\UNI\programas\0000-TERCER AÑO\dp2\Workspace-24\Projects\Acme-SF-D03) 
+2024-04-07 17:49:54.413275600 DEBUG acme.Launcher@main Running with Spring Boot v2.7.15, Spring v5.3.29 
+2024-04-07 17:49:54.414310300 INFO  acme.Launcher@main The following 2 profiles are active: "development", "runner" 
+2024-04-07 17:50:00.714834600 INFO  acme.Launcher@main Starting Launcher using Java 20.0.2 on LAPTOP-ACCTUT7Q with PID 7824 (C:\Users\TESTER\Desktop\UNI\programas\0000-TERCER AÑO\dp2\Workspace-24\Frameworks\Acme-Framework-24.1.0\target\classes started by Pablo in C:\Users\TESTER\Desktop\UNI\programas\0000-TERCER AÑO\dp2\Workspace-24\Projects\Acme-SF-D03) 
+2024-04-07 17:50:00.716301300 DEBUG acme.Launcher@main Running with Spring Boot v2.7.15, Spring v5.3.29 
+2024-04-07 17:50:00.717569400 INFO  acme.Launcher@main The following 2 profiles are active: "development", "runner" 
+2024-04-07 17:50:02.825521600 INFO  acme.Launcher@main Started Launcher in 8.965 seconds (JVM running for 9.44) 
+2024-04-07 17:50:02.933516400 DEBUG acme.internals.components.clocks.AbstractClock@main Changing base moment to 'Sun Apr 07 17:50:02 CEST 2024'. 
+2024-04-07 17:50:02.934998 DEBUG acme.internals.components.clocks.AbstractClock@main Changing base moment to 'Sat Jul 30 00:00:00 CEST 2022'. 
+2024-04-07 17:50:02.934998 DEBUG acme.internals.components.clocks.SimulatedClock@main Changing current moment to 'Sat Jul 30 00:00:00 CEST 2022'. 
+2024-04-07 17:50:02.936705900 INFO  acme.Launcher@main Launching runner in your development platform. 
+2024-04-07 17:50:05.437604800 INFO  acme.Launcher@main Application /acme-sf-d03 is now running. 
+2024-04-07 17:50:08.089943700 WARN  org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@main Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'; nested exception is org.springframework.boot.web.server.PortInUseException: Port 8080 is already in use 
+2024-04-07 17:50:08.093286500 INFO  acme.internals.configuration.ShutdownConfiguration@main The system is shutting down... 
+2024-04-07 17:50:08.135630100 ERROR org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter@main ***************************\nAPPLICATION FAILED TO START\n***************************\nDescription:\nWeb server failed to start. Port 8080 was already in use.\nAction:\nIdentify and stop the process that's listening on port 8080 or configure this application to listen on another port. 
+2024-04-07 17:50:08.138620200 ERROR acme.Launcher@main org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:182): Failed to start bean 'webServerStartStop'; nested exception is org.springframework.boot.web.server.PortInUseException: Port 8080 is already in use\norg.springframework.boot.web.server.PortInUseException.lambda$throwIfPortBindingException$0(PortInUseException.java:70): Port 8080 is already in use\norg.apache.catalina.core.StandardService.addConnector(StandardService.java:235): standardService.connector.startFailed\norg.apache.catalina.connector.Connector.startInternal(Connector.java:1042): Protocol handler start failed\njava.base/sun.nio.ch.Net.bind0(Native Method): Address already in use: bind 
+2024-04-07 17:50:08.139225100 DEBUG acme.Launcher@main The log might provide further details. 
+2024-04-07 17:50:08.143564500 INFO  acme.Launcher@main Exiting application with status 1. 
+2024-04-07 17:50:08.144058500 INFO  acme.Launcher@main The log might provide further details. 

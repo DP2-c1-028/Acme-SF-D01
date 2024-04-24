@@ -51,7 +51,7 @@ public class DeveloperTrainingModuleCreateService extends AbstractService<Develo
 		Date creationMoment;
 
 		currentMoment = MomentHelper.getCurrentMoment();
-		creationMoment = new Date(currentMoment.getTime() - 1000); //Substracts one second to ensure the moment is in the past
+		creationMoment = new Date(currentMoment.getTime() - 500); //Substracts half a second to ensure the moment is in the past and before the update moment
 		object.setCreationMoment(creationMoment);
 
 		object.setPublished(false);
@@ -67,6 +67,17 @@ public class DeveloperTrainingModuleCreateService extends AbstractService<Develo
 
 			if (trainingModuleSameCode != null)
 				super.state(trainingModuleSameCode.getId() == object.getId(), "code", "developer.training-module.form.error.code");
+		}
+
+		if (!super.getBuffer().getErrors().hasErrors("updateMoment")) {
+			Date creationMoment;
+			Date updateMoment;
+
+			creationMoment = object.getCreationMoment();
+			updateMoment = object.getUpdateMoment();
+
+			if (updateMoment != null)
+				super.state(updateMoment.after(creationMoment), "updateMoment", "developer.training-module.form.error.update-moment");
 		}
 	}
 

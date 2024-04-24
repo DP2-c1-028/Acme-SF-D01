@@ -100,6 +100,16 @@ public class DeveloperTrainingSessionCreateService extends AbstractService<Devel
 			super.state(periodEndIsValid, "periodEnd", "developer.training-session.form.error.period-end");
 		}
 
+		if (!super.getBuffer().getErrors().hasErrors("publishedTrainingModule")) {
+			Integer trainingModuleId;
+			TrainingModule trainingModule;
+
+			trainingModuleId = super.getRequest().getData("trainingModuleId", int.class);
+			trainingModule = this.repository.findOneTrainingModuleById(trainingModuleId);
+
+			super.state(!trainingModule.isPublished(), "*", "developer.training-session.form.error.published-training-module");
+		}
+
 	}
 
 	@Override

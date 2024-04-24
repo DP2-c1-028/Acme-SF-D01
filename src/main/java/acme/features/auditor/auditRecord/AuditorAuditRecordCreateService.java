@@ -93,6 +93,16 @@ public class AuditorAuditRecordCreateService extends AbstractService<Auditor, Au
 
 			super.state(MomentHelper.isLongEnough(auditStartTime, auditEndTime, 1, ChronoUnit.HOURS) && auditEndTime.after(auditStartTime), "auditEndTime", "auditor.audit-record.form.error.audit-end-time");
 		}
+
+		if (!super.getBuffer().getErrors().hasErrors("publishedCodeAudit")) {
+			Integer codeAuditId;
+			CodeAudit codeAudit;
+
+			codeAuditId = super.getRequest().getData("codeAuditId", int.class);
+			codeAudit = this.repository.findOneCodeAuditById(codeAuditId);
+
+			super.state(codeAudit.isDraftMode(), "*", "auditor.audit-record.form.error.published-code-audit");
+		}
 	}
 
 	@Override

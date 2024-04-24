@@ -81,6 +81,17 @@ public class DeveloperTrainingModuleUpdateService extends AbstractService<Develo
 				super.state(trainingModuleSameCode.getId() == object.getId(), "code", "developer.training-module.form.error.code");
 		}
 
+		if (!super.getBuffer().getErrors().hasErrors("updateMoment")) {
+			Date creationMoment;
+			Date updateMoment;
+
+			creationMoment = object.getCreationMoment();
+			updateMoment = object.getUpdateMoment();
+
+			if (updateMoment != null)
+				super.state(updateMoment.after(creationMoment), "updateMoment", "developer.training-module.form.error.update-moment");
+		}
+
 	}
 
 	@Override
