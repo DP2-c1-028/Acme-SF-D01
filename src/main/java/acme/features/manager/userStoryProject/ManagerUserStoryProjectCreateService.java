@@ -47,13 +47,23 @@ public class ManagerUserStoryProjectCreateService extends AbstractService<Manage
 	@Override
 	public void validate(final UserStoryProject object) {
 		assert object != null;
+		int managerId;
 
-		if (!super.getBuffer().getErrors().hasErrors("userStoryProject")) {
+		managerId = super.getRequest().getPrincipal().getActiveRoleId();
+
+		if (!super.getBuffer().getErrors().hasErrors("userStoryProject") && object.getProject() != null && object.getUserStory() != null) {
 
 			UserStoryProject uspSameData = this.repository.findOneUserStoryProjectByProjectAndUserStory(object.getProject().getId(), object.getUserStory().getId());
 
 			super.state(uspSameData == null, "*", "manager.user-story-project.form.error.same");
 		}
+
+		if (!super.getBuffer().getErrors().hasErrors("project") && object.getProject() != null)
+			super.state(object.getProject().getManager().getId() == managerId, "*", "manager.user-story-project.form.error.project-owned");
+
+		if (!super.getBuffer().getErrors().hasErrors("userStory") && object.getUserStory() != null)
+			super.state(object.getUserStory().getManager().getId() == managerId, "*", "manager.user-story-project.form.error.user-story-owned");
+
 	}
 
 	@Override

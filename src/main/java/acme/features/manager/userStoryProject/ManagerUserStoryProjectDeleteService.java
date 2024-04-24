@@ -62,6 +62,15 @@ public class ManagerUserStoryProjectDeleteService extends AbstractService<Manage
 	@Override
 	public void validate(final UserStoryProject object) {
 		assert object != null;
+		int managerId;
+
+		managerId = super.getRequest().getPrincipal().getActiveRoleId();
+
+		if (!super.getBuffer().getErrors().hasErrors("project") && object.getProject() != null)
+			super.state(object.getProject().getManager().getId() == managerId, "*", "manager.user-story-project.form.error.project-owned");
+
+		if (!super.getBuffer().getErrors().hasErrors("userStory") && object.getUserStory() != null)
+			super.state(object.getUserStory().getManager().getId() == managerId, "*", "manager.user-story-project.form.error.user-story-owned");
 
 	}
 

@@ -16,7 +16,7 @@
 		path="link" />
 	
 	<jstl:choose>
-		<jstl:when test="${acme:anyOf(_command, 'show|update|delete') && draftMode==true}">
+		<jstl:when test="${acme:anyOf(_command, 'show|update|delete|publish') && draftMode==true}">
 			<acme:submit code="manager.project.form.button.update"
 				action="/manager/project/update" />
 			<acme:submit code="manager.project.form.button.delete"
@@ -34,6 +34,7 @@
 		</jstl:when>
 	</jstl:choose>
 </acme:form>
+
 
 
 

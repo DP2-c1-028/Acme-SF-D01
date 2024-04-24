@@ -12,20 +12,23 @@
 
 package acme.features.manager.dashboard;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.stream.DoubleStream;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import acme.client.data.accounts.Administrator;
 import acme.client.data.datatypes.Money;
 import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
 import acme.forms.ManagerDashboard;
+import acme.roles.Manager;
 
 @Service
-public class ManagerDashboardShowService extends AbstractService<Administrator, ManagerDashboard> {
+public class ManagerDashboardShowService extends AbstractService<Manager, ManagerDashboard> {
 
 	// Internal state ---------------------------------------------------------
 
@@ -51,21 +54,29 @@ public class ManagerDashboardShowService extends AbstractService<Administrator, 
 		Double deviationEstimatedCost;
 		double minimumEstimatedCost;
 		double maximumEstimatedCost;
+		double minimumCost;
+		double maximumCost;
+		Double averageCost;
+		Double deviationCost;
+
 		int managerId;
 
 		managerId = super.getRequest().getPrincipal().getActiveRoleId();
+
+		dashboard = new ManagerDashboard();
+
+		// User Stories
+		List<Double> estimatedCosts = this.repository.userStoriesEstimatedCosts(managerId).stream().toList();
 
 		totalNumberOfMust = this.repository.totalNumberOfMust(managerId);
 		totalNumberOfShould = this.repository.totalNumberOfShould(managerId);
 		totalNumberOfCould = this.repository.totalNumberOfCould(managerId);
 		totalNumberOfWont = this.repository.totalNumberOfWont(managerId);
 		averageEstimatedCost = this.repository.averageEstimatedCost(managerId);
-		deviationEstimatedCost = 0.;
-		minimumEstimatedCost = this.repository.minimumEstimatedCost(managerId);
-		maximumEstimatedCost = this.repository.maximumEstimatedCost(managerId);
+		deviationEstimatedCost = this.deviation(estimatedCosts);
+		minimumEstimatedCost = this.repository.minimumEstimatedCost(managerId) != null ? this.repository.minimumEstimatedCost(managerId) : 0.;
+		maximumEstimatedCost = this.repository.maximumEstimatedCost(managerId) != null ? this.repository.maximumEstimatedCost(managerId) : 0.;
 
-		dashboard = new ManagerDashboard();
-		// User Stories
 		dashboard.setTotalNumberOfMust(totalNumberOfMust);
 		dashboard.setTotalNumberOfShould(totalNumberOfShould);
 		dashboard.setTotalNumberOfCould(totalNumberOfCould);
@@ -76,15 +87,53 @@ public class ManagerDashboardShowService extends AbstractService<Administrator, 
 		dashboard.setMaximumEstimatedCost(maximumEstimatedCost);
 
 		//Projects
-		Collection<Money> projectCosts = this.repository.projectCosts(managerId);
-		DoubleStream projectCostsAumount = projectCosts.stream().mapToDouble(Money::getAmount);
+		Collection<Money> projectCosts = this.repository.projectCosts(managerId).stream().map(this::currencyTransformerUsd).collect(Collectors.toCollection(ArrayList<Money>::new));
 
-		dashboard.setAverageCost(projectCostsAumount.average().getAsDouble());
-		dashboard.setDeviationCost(0.);
-		dashboard.setMinimumCost(projectCostsAumount.min().getAsDouble());
-		dashboard.setMaximumCost(projectCostsAumount.max().getAsDouble());
+		minimumCost = projectCosts.stream().mapToDouble(Money::getAmount).min().orElse(0.);
+		maximumCost = projectCosts.stream().mapToDouble(Money::getAmount).max().orElse(0.);
+		averageCost = projectCosts.stream().mapToDouble(Money::getAmount).average().orElse(0.);
+		deviationCost = this.deviation(projectCosts.stream().mapToDouble(Money::getAmount).boxed().toList());
+
+		dashboard.setAverageCost(averageCost);
+		dashboard.setDeviationCost(deviationCost);
+		dashboard.setMinimumCost(minimumCost);
+		dashboard.setMaximumCost(maximumCost);
 
 		super.getBuffer().addData(dashboard);
+	}
+
+	private Double deviation(final List<Double> values) {
+
+		Stream<Double> valuesStream = values.stream();
+
+		// Calcular la media de los números
+		double average = valuesStream.collect(Collectors.averagingDouble(Double::doubleValue));
+
+		// Crear un nuevo Stream<Double> con los cuadrados de la diferencia entre cada número y la media
+		valuesStream = values.stream();
+		Stream<Double> squaredDifferencesStream = valuesStream.map(num -> Math.pow(num - average, 2));
+
+		// Calcular la suma de los cuadrados de las diferencias
+		double sumOfSquaredDifferences = squaredDifferencesStream.reduce(0.0, Double::sum);
+
+		// Calcular la desviación estándar
+		return Math.sqrt(sumOfSquaredDifferences / values.size());
+	}
+
+	private Money currencyTransformerUsd(final Money initial) {
+		Money res = new Money();
+		res.setCurrency("USD");
+
+		if (initial.getCurrency().equals("USD"))
+			res.setAmount(initial.getAmount());
+
+		else if (initial.getCurrency().equals("EUR"))
+			res.setAmount(initial.getAmount() * 1.07);
+
+		else
+			res.setAmount(initial.getAmount() * 1.25);
+
+		return res;
 	}
 
 	@Override
@@ -94,7 +143,9 @@ public class ManagerDashboardShowService extends AbstractService<Administrator, 
 		dataset = super.unbind(object, //
 			"totalNumberOfMust", "totalNumberOfShould", // 
 			"totalNumberOfCould", "totalNumberOfWont", //
-			"averageEstimatedCost", "deviationEstimatedCost");
+			"averageEstimatedCost", "deviationEstimatedCost", //
+			"minimumEstimatedCost", "maximumEstimatedCost", //
+			"minimumCost", "maximumCost", "averageCost", "deviationCost");
 
 		super.getResponse().addData(dataset);
 	}

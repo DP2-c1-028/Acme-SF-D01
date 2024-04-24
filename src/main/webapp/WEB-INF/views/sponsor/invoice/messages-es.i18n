@@ -1,0 +1,28 @@
+sponsor.invoice.list.title = Tus facturas
+sponsor.invoice.list.label.code = Código
+sponsor.invoice.list.label.registrationTime = Fecha de registro
+sponsor.invoice.list.label.dueDate = Fecha de vencimiento
+sponsor.invoice.list.label.quantity = Cantidad
+sponsor.invoice.list.label.tax = Impuesto
+sponsor.invoice.list.label.link = Enlace
+sponsor.inovice.list.label.totalAmount= Cantidad total
+sponsor.invoice.list.button.create = Crear
+
+sponsor.invoice.form.label.code = Código
+sponsor.invoice.form.label.registrationTime = Fecha de registro
+sponsor.invoice.form.label.dueDate = Fecha de vencimiento
+sponsor.invoice.form.label.quantity = Cantidad
+sponsor.invoice.form.label.tax = Impuesto
+sponsor.invoice.form.label.link = Enlace
+
+sponsor.invoice.form.button.update = Actualizar
+sponsor.invoice.form.button.delete = Borrar
+sponsor.invoice.form.button.create = Crear
+sponsor.invoice.form.button.publish = Publicar
+sponsor.invoice.form.title = Datos de tu facturas
+
+sponsor.invoice.form.error.code =  El código debe ser único, pruebe otro
+sponsor.invoice.form.error.dueDate = La fecha de vencimiento debe ser posterior al fecha de registro y además debe haber al menos un mes de diferencia entre las dos
+sponsor.invoice.form.error.quantity = La cantidad debe ser positiva
+sponsor.invoice.form.error.acceptedCurrency = La divisa no está aceptada por el sistema
+sponsor.invoice.form.error.published-sponsorship = No se puede crear, actualizar o borrar una factura si su patrocinio está ya publicado

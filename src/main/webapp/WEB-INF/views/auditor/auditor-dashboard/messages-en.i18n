@@ -1,0 +1,16 @@
+auditor.auditor-dashboard.form.title = Auditor dashboard
+
+auditor.dashboard.form.title.code-audits-indicators = Code audit's general indicators
+auditor.dashboard.form.title.audit-records-indicators = Audit record's general indicators
+
+auditor.dashboard.form.label.total-code-audits-static = Total number of code audits with type static
+auditor.dashboard.form.label.total-code-audits-dynamic = Total number of code audits with type dynamic
+
+auditor.dashboard.form.label.audit-records-average = Average number of audit records in their audits
+auditor.dashboard.form.label.audit-records-deviation = Deviation of the number of audit records in their audits
+auditor.dashboard.form.label.audit-records-minimum = Maximum number of audit records in their audits
+auditor.dashboard.form.label.audit-records-maximum = Minimum number of audit records in their audits
+auditor.dashboard.form.label.period-average-time = Average time of the period lengths in their audit records (hours)
+auditor.dashboard.form.label.period-deviation-time = Deviation of the time of the period lengths in their audit records (hours)
+auditor.dashboard.form.label.period-minimum-time = Minimum time of the period lengths in their audit records (hours)
+auditor.dashboard.form.label.period-maximum-time = Maximum time of the period lengths in their audit records (hours)

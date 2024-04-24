@@ -69,6 +69,9 @@ public class ManagerProjectUpdateService extends AbstractService<Manager, Projec
 				super.state(projectSameCode.getId() == object.getId(), "code", "manager.project.form.error.code");
 		}
 
+		if (!super.getBuffer().getErrors().hasErrors("cost"))
+			super.state(object.getCost().getAmount() >= 0, "cost", "manager.project.form.error.cost-negative");
+
 	}
 
 	@Override
