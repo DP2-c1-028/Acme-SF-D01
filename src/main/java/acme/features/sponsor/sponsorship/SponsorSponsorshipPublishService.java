@@ -102,6 +102,15 @@ public class SponsorSponsorshipPublishService extends AbstractService<Sponsor, S
 		if (!super.getBuffer().getErrors().hasErrors("amount"))
 			super.state(this.isCurrencyAccepted(object.getAmount()), "amount", "sponsor.sponsorship.form.error.acceptedCurrency");
 
+		if (!super.getBuffer().getErrors().hasErrors("unpublishedInvoices")) {
+
+			Collection<Invoice> unpublishedInvoices;
+
+			unpublishedInvoices = this.repository.findUnpublishedInvoicesBySponsorshipId(object.getId());
+
+			super.state(unpublishedInvoices.isEmpty(), "*", "sponsor.sponsorship.form.error.unpublished-invoices");
+		}
+
 	}
 
 	public boolean isCurrencyAccepted(final Money moneda) {
