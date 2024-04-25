@@ -73,7 +73,7 @@ public class SponsorSponsorshipPublishService extends AbstractService<Sponsor, S
 		if (!super.getBuffer().getErrors().hasErrors("totalAmount")) {
 			Collection<Invoice> invoices = this.repository.findInvoicesOfASponsorship(object.getId());
 
-			double invoiceTotAmount = invoices.stream().mapToDouble(i -> this.currencyTransformerUsd(i.getQuantity(), i.totalAmount()).getAmount()).sum();
+			double invoiceTotAmount = invoices.stream().mapToDouble(i -> this.currencyTransformerUsd(i.getQuantity(), i.totalAmount().getAmount()).getAmount()).sum();
 			super.state(invoiceTotAmount == this.currencyTransformerUsd(object.getAmount(), object.getAmount().getAmount()).getAmount(), "*", "sponsor.sponsorship.form.error.invalidTotalAmount");
 		}
 
@@ -110,6 +110,9 @@ public class SponsorSponsorshipPublishService extends AbstractService<Sponsor, S
 
 			super.state(unpublishedInvoices.isEmpty(), "*", "sponsor.sponsorship.form.error.unpublished-invoices");
 		}
+
+		if (!super.getBuffer().getErrors().hasErrors("project"))
+			super.state(!object.getProject().isDraftMode(), "project", "sponsor.sponsorship.form.error.project-not-published");
 
 	}
 

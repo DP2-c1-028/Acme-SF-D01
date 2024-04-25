@@ -27,8 +27,6 @@ public class SponsorDashboardShowService extends AbstractService<Sponsor, Sponso
 
 	@Override
 	public void authorise() {
-
-		//TODO comprobar si esta metido como sponsor? no solo authorised
 		super.getResponse().setAuthorised(true);
 	}
 
@@ -86,6 +84,10 @@ public class SponsorDashboardShowService extends AbstractService<Sponsor, Sponso
 	private Money sponsorshipsAverageAmount(final Collection<Money> amounts) {
 		Money dinero = new Money();
 		dinero.setCurrency("USD");
+		if (amounts.isEmpty()) {
+			dinero.setAmount(null);
+			return dinero;
+		}
 		dinero.setAmount(amounts.stream().map(x -> x.getAmount()).mapToDouble(Double::doubleValue).average().orElse(0.0));
 		return dinero;
 	}
@@ -93,6 +95,10 @@ public class SponsorDashboardShowService extends AbstractService<Sponsor, Sponso
 	private Money sponsorshipsMaximumAmount(final Collection<Money> amounts) {
 		Money dinero = new Money();
 		dinero.setCurrency("USD");
+		if (amounts.isEmpty()) {
+			dinero.setAmount(null);
+			return dinero;
+		}
 		dinero.setAmount(amounts.stream().map(x -> x.getAmount()).mapToDouble(Double::doubleValue).max().orElse(0.0));
 		return dinero;
 	}
@@ -100,13 +106,22 @@ public class SponsorDashboardShowService extends AbstractService<Sponsor, Sponso
 	private Money sponsorshipsMinimumAmount(final Collection<Money> amounts) {
 		Money dinero = new Money();
 		dinero.setCurrency("USD");
+		if (amounts.isEmpty()) {
+			dinero.setAmount(null);
+			return dinero;
+		}
 		dinero.setAmount(amounts.stream().map(x -> x.getAmount()).mapToDouble(Double::doubleValue).min().orElse(0.0));
 		return dinero;
 	}
 
 	private Money sponsorshipDeviationAmount(final Collection<Money> amounts) {
-		Money deviation = new Money();
-		deviation.setCurrency("USD");
+		Money dinero = new Money();
+		dinero.setCurrency("USD");
+
+		if (amounts.isEmpty()) {
+			dinero.setAmount(null);
+			return dinero;
+		}
 
 		double average = amounts.stream().mapToDouble(Money::getAmount).average().orElse(0.0);
 
@@ -116,9 +131,9 @@ public class SponsorDashboardShowService extends AbstractService<Sponsor, Sponso
 
 		double dev = Math.sqrt(vari);
 
-		deviation.setAmount(dev);
+		dinero.setAmount(dev);
 
-		return deviation;
+		return dinero;
 	}
 
 	// Metodos de invoice
@@ -126,6 +141,10 @@ public class SponsorDashboardShowService extends AbstractService<Sponsor, Sponso
 	private Money invoicesAverageQuantity(final Collection<Money> quantites) {
 		Money dinero = new Money();
 		dinero.setCurrency("USD");
+		if (quantites.isEmpty()) {
+			dinero.setAmount(null);
+			return dinero;
+		}
 		dinero.setAmount(quantites.stream().map(x -> x.getAmount()).mapToDouble(Double::doubleValue).average().orElse(0.0));
 		return dinero;
 	}
@@ -133,6 +152,10 @@ public class SponsorDashboardShowService extends AbstractService<Sponsor, Sponso
 	private Money invoicesMaximumQuantity(final Collection<Money> quantites) {
 		Money dinero = new Money();
 		dinero.setCurrency("USD");
+		if (quantites.isEmpty()) {
+			dinero.setAmount(null);
+			return dinero;
+		}
 		dinero.setAmount(quantites.stream().map(x -> x.getAmount()).mapToDouble(Double::doubleValue).max().orElse(0.0));
 		return dinero;
 	}
@@ -140,13 +163,22 @@ public class SponsorDashboardShowService extends AbstractService<Sponsor, Sponso
 	private Money invoicesMinimumQuantity(final Collection<Money> quantites) {
 		Money dinero = new Money();
 		dinero.setCurrency("USD");
+		if (quantites.isEmpty()) {
+			dinero.setAmount(null);
+			return dinero;
+		}
 		dinero.setAmount(quantites.stream().map(x -> x.getAmount()).mapToDouble(Double::doubleValue).min().orElse(0.0));
 		return dinero;
 	}
 
 	private Money invoicesDeviationQuantity(final Collection<Money> quantites) {
-		Money deviation = new Money();
-		deviation.setCurrency("USD");
+		Money dinero = new Money();
+		dinero.setCurrency("USD");
+
+		if (quantites.isEmpty()) {
+			dinero.setAmount(null);
+			return dinero;
+		}
 
 		double average = quantites.stream().mapToDouble(Money::getAmount).average().orElse(0.0);
 
@@ -156,9 +188,9 @@ public class SponsorDashboardShowService extends AbstractService<Sponsor, Sponso
 
 		double dev = Math.sqrt(vari);
 
-		deviation.setAmount(dev);
+		dinero.setAmount(dev);
 
-		return deviation;
+		return dinero;
 	}
 
 	private Money currencyTransformerUsd(final Money initial) {

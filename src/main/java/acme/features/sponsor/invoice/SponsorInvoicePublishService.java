@@ -88,6 +88,7 @@ public class SponsorInvoicePublishService extends AbstractService<Sponsor, Invoi
 
 		if (!super.getBuffer().getErrors().hasErrors("quantity"))
 			super.state(this.isCurrencyAccepted(object.getQuantity()), "quantity", "sponsor.invoice.form.error.acceptedCurrency");
+
 	}
 
 	public boolean isCurrencyAccepted(final Money moneda) {
@@ -105,6 +106,9 @@ public class SponsorInvoicePublishService extends AbstractService<Sponsor, Invoi
 	@Override
 	public void perform(final Invoice object) {
 		assert object != null;
+
+		if (object.getTax() == null)
+			object.setTax(0.0);
 
 		object.setDraftMode(false);
 		this.repository.save(object);
