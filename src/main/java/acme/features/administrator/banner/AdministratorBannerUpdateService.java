@@ -50,7 +50,10 @@ public class AdministratorBannerUpdateService extends AbstractService<Administra
 
 		super.bind(object, "bannerStartTime", "bannerEndTime", "picture", "slogan", "link");
 		Date instantiationMoment;
-		instantiationMoment = MomentHelper.getCurrentMoment();
+		Date currentMoment;
+
+		currentMoment = MomentHelper.getCurrentMoment();
+		instantiationMoment = new Date(currentMoment.getTime() - 1000);
 		object.setInstantiationMoment(instantiationMoment);
 	}
 
@@ -64,7 +67,8 @@ public class AdministratorBannerUpdateService extends AbstractService<Administra
 			bannerStartTime = object.getBannerStartTime();
 			instantiationMoment = object.getInstantiationMoment();
 
-			super.state(bannerStartTime.after(instantiationMoment), "bannerStartTime", "administrator.banner.form.error.banner-start-time");
+			if (bannerStartTime != null && instantiationMoment != null)
+				super.state(bannerStartTime.after(instantiationMoment), "bannerStartTime", "administrator.banner.form.error.banner-start-time");
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("bannerEndTime")) {
@@ -74,7 +78,8 @@ public class AdministratorBannerUpdateService extends AbstractService<Administra
 			bannerStartTime = object.getBannerStartTime();
 			bannerEndTime = object.getBannerEndTime();
 
-			super.state(MomentHelper.isLongEnough(bannerStartTime, bannerEndTime, 1, ChronoUnit.WEEKS) && bannerEndTime.after(bannerStartTime), "bannerEndTime", "administrator.banner.form.error.banner-end-time");
+			if (bannerStartTime != null && bannerEndTime != null)
+				super.state(MomentHelper.isLongEnough(bannerStartTime, bannerEndTime, 1, ChronoUnit.WEEKS) && bannerEndTime.after(bannerStartTime), "bannerEndTime", "administrator.banner.form.error.banner-end-time");
 		}
 	}
 

@@ -37,10 +37,15 @@ public class ClientDashboardShowService extends AbstractService<Client, ClientDa
 		int totalLogsWithCompletenessAbove75;
 		int clientId;
 
+		Double AverageBudgetOfContracts;
+		Double DeviationOfContractBudgets;
+		Double MinimunBudgetOfContracts;
+		Double MaximunBudgetOfContracts;
+
 		clientId = super.getRequest().getPrincipal().getActiveRoleId();
-		float percentaje25 = 25.0f;
-		float percentaje50 = 50.0f;
-		float percentaje75 = 75.0f;
+		double percentaje25 = 25.0;
+		double percentaje50 = 50.0;
+		double percentaje75 = 75.0;
 
 		totalLogsWithCompletenessBelow25 = this.repository.logsBelowCompletenessValue(clientId, percentaje25);
 		totalLogsWithCompletenessBetween25And50 = this.repository.logsBetweenCompletenessValuesForClient(clientId, percentaje25, percentaje50);
@@ -60,6 +65,7 @@ public class ClientDashboardShowService extends AbstractService<Client, ClientDa
 
 		dashboard.setAverageBudgetOfContracts(contractBudgets.stream().mapToDouble(u -> this.repository.currencyTransformerUsd(u)).average().orElse(0.));
 		dashboard.setDeviationOfContractBudgets(this.invoicesDeviationQuantity(contractBudgets));
+
 		dashboard.setMinimunBudgetOfContracts(contractBudgets.stream().mapToDouble(u -> this.repository.currencyTransformerUsd(u)).min().orElse(0.));
 		dashboard.setMaximunBudgetOfContracts(contractBudgets.stream().mapToDouble(u -> this.repository.currencyTransformerUsd(u)).max().orElse(0.));
 

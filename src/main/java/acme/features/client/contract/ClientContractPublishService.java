@@ -55,9 +55,6 @@ public class ClientContractPublishService extends AbstractService<Client, Contra
 
 		int projectId = contract.getProject().getId();
 
-		Collection<ProgressLog> ProgressLogs = this.repository.findProgressLogsByContractId(contract.getId());
-		Boolean logsPublished = ProgressLogs.stream().allMatch(pl -> !pl.isDraftMode());
-
 		//validacion de publish
 		if (!super.getBuffer().getErrors().hasErrors("budget")) {
 			Collection<Contract> contracts = this.repository.findContractsByProjectId(projectId);
@@ -68,8 +65,14 @@ public class ClientContractPublishService extends AbstractService<Client, Contra
 			super.state(totalBudgetUsd <= projectCostUsd, "*", "client.contract.form.error.publishError");
 		}
 
-		if (logsPublished == false)
-			super.state(logsPublished == true, "*", "client.contract.form.error.publishError-progressLog");
+		if (!super.getBuffer().getErrors().hasErrors("unpublishedProgressLogs")) {
+
+			Collection<ProgressLog> unpublishedProgressLogs;
+
+			unpublishedProgressLogs = this.repository.findUnpublishedProgressLogsByContractId(contract.getId());
+
+			super.state(unpublishedProgressLogs.isEmpty(), "*", "client.contract.form.error.publishError-progressLog");
+		}
 
 		//validaciones de actualización
 		if (!super.getBuffer().getErrors().hasErrors("budget")) {

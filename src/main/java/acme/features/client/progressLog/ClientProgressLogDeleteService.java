@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
+import acme.entities.contracts.Contract;
 import acme.entities.progress_logs.ProgressLog;
 import acme.roles.Client;
 
@@ -62,6 +63,16 @@ public class ClientProgressLogDeleteService extends AbstractService<Client, Prog
 	@Override
 	public void validate(final ProgressLog progressLog) {
 		assert progressLog != null;
+
+		if (!super.getBuffer().getErrors().hasErrors("publishedContract")) {
+			Integer contractId;
+			Contract contract;
+
+			contractId = super.getRequest().getData("contractId", int.class);
+			contract = this.repository.findContractById(contractId);
+
+			super.state(contract.isDraftMode(), "*", "client.progress-log.form.error.published-contract");
+		}
 	}
 
 	@Override
