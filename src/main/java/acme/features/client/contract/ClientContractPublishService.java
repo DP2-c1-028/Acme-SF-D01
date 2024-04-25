@@ -55,9 +55,6 @@ public class ClientContractPublishService extends AbstractService<Client, Contra
 
 		int projectId = contract.getProject().getId();
 
-		Collection<ProgressLog> ProgressLogs = this.repository.findProgressLogsByContractId(contract.getId());
-		Boolean logsPublished = ProgressLogs.stream().allMatch(pl -> !pl.isDraftMode());
-
 		//validacion de publish
 		if (!super.getBuffer().getErrors().hasErrors("budget")) {
 			Collection<Contract> contracts = this.repository.findContractsByProjectId(projectId);
@@ -68,8 +65,14 @@ public class ClientContractPublishService extends AbstractService<Client, Contra
 			super.state(totalBudgetUsd <= projectCostUsd, "*", "client.contract.form.error.publishError");
 		}
 
-		if (logsPublished == false)
-			super.state(logsPublished == true, "*", "client.contract.form.error.publishError-progressLog");
+		if (!super.getBuffer().getErrors().hasErrors("unpublishedProgressLogs")) {
+
+			Collection<ProgressLog> unpublishedProgressLogs;
+
+			unpublishedProgressLogs = this.repository.findUnpublishedProgressLogsByContractId(contract.getId());
+
+			super.state(unpublishedProgressLogs.isEmpty(), "*", "client.contract.form.error.publishError-progressLog");
+		}
 
 		//validaciones de actualización
 		if (!super.getBuffer().getErrors().hasErrors("budget")) {
@@ -85,6 +88,9 @@ public class ClientContractPublishService extends AbstractService<Client, Contra
 			if (contractWithCode != null)
 				super.state(contractWithCode.getId() == contract.getId(), "code", "client.contract.form.error.code");
 		}
+
+		if (!super.getBuffer().getErrors().hasErrors("project"))
+			super.state(!contract.getProject().isDraftMode(), "project", "client.contract.form.error.project");
 
 		if (!super.getBuffer().getErrors().hasErrors("budget"))
 			super.state(contract.getBudget().getAmount() >= 0, "budget", "client.contract.form.error.budget");
@@ -134,7 +140,7 @@ public class ClientContractPublishService extends AbstractService<Client, Contra
 
 		projectCode = contract.getProject() != null ? contract.getProject().getCode() : null;
 
-		Collection<Project> projects = this.repository.findlAllProjects();
+		Collection<Project> projects = this.repository.findlAllPublishedProjects();
 
 		SelectChoices options;
 

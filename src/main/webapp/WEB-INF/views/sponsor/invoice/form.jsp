@@ -19,7 +19,7 @@
 	
 	<jstl:choose>
 		<jstl:when test="${acme:anyOf(_command, 'show|update|delete|publish') && draftMode==true}">
-		<acme:input-double code="sponsor.inovice.list.label.totalAmount"
+		<acme:input-money code="sponsor.inovice.list.label.totalAmount"
 				path="totalAmount" readonly="true" />
 			<acme:submit code="sponsor.invoice.form.button.update"
 				action="/sponsor/invoice/update" />
@@ -27,6 +27,11 @@
 				action="/sponsor/invoice/delete" />
 				<acme:submit code="sponsor.invoice.form.button.publish"
 				action="/sponsor/invoice/publish" />
+		</jstl:when>
+		
+		<jstl:when test="${acme:anyOf(_command, 'show|update|delete|publish') && draftMode==false}">
+		<acme:input-money code="sponsor.inovice.list.label.totalAmount"
+				path="totalAmount" readonly="true" />
 		</jstl:when>
 		<jstl:when test="${_command == 'create'}">
 			<acme:submit code="sponsor.invoice.form.button.create"

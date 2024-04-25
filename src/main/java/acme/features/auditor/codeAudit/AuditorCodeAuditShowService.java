@@ -61,19 +61,25 @@ public class AuditorCodeAuditShowService extends AbstractService<Auditor, CodeAu
 
 		Dataset dataset;
 		SelectChoices choices;
-		Collection<Project> projects = this.repository.findProjects();
+		Collection<Project> projects = this.repository.findPublishedProjects();
 		SelectChoices choices2;
 		List<Mark> marks;
+		String projectCode;
+
+		projectCode = object.getProject() != null ? object.getProject().getCode() : null;
+
+		Project project = object.getProject() != null ? object.getProject() : (Project) projects.toArray()[0];
 
 		marks = this.repository.findMarksByCodeAuditId(object.getId()).stream().toList();
 
 		choices = SelectChoices.from(CodeAuditType.class, object.getType());
-		choices2 = SelectChoices.from(projects, "code", (Project) projects.toArray()[0]);
+		choices2 = SelectChoices.from(projects, "code", project);
 
 		dataset = super.unbind(object, "code", "execution", "type", "proposedCorrectiveActions", "link", "project", "draftMode");
 		dataset.put("mark", this.repository.averageMark(marks));
 		dataset.put("types", choices);
 		dataset.put("projects", choices2);
+		dataset.put("project", projectCode);
 
 		super.getResponse().addData(dataset);
 	}

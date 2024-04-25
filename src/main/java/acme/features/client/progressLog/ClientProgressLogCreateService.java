@@ -1,10 +1,13 @@
 
 package acme.features.client.progressLog;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.client.data.models.Dataset;
+import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractService;
 import acme.entities.contracts.Contract;
 import acme.entities.progress_logs.ProgressLog;
@@ -59,6 +62,14 @@ public class ClientProgressLogCreateService extends AbstractService<Client, Prog
 		assert progressLog != null;
 
 		super.bind(progressLog, "recordId", "completeness", "comment", "registrationMoment", "responsiblePerson");
+
+		Date currentMoment;
+		Date registrationMoment;
+
+		currentMoment = MomentHelper.getCurrentMoment();
+		registrationMoment = new Date(currentMoment.getTime() - 1000); //1 segundo para que no haya problemas con la fecha de creacion de contract
+		progressLog.setRegistrationMoment(registrationMoment);
+
 	}
 
 	@Override
@@ -72,11 +83,30 @@ public class ClientProgressLogCreateService extends AbstractService<Client, Prog
 			super.state(progressLogWithCode == null, "recordId", "client.progress-log.form.error.recordId");
 		}
 
-		if (progressLog.getContract().isDraftMode() == false) {
+		if (!super.getBuffer().getErrors().hasErrors("registrationMoment")) {
 
-			Boolean isDraftMode = progressLog.getContract().isDraftMode();
+			Boolean isAfter = progressLog.getRegistrationMoment().after(progressLog.getContract().getInstantiationMoment());
+			super.state(isAfter == true, "registrationMoment", "client.progress-log.form.error.registrationMoment");
+		}
 
-			super.state(isDraftMode == false, "*", "client.progress-log.form.error.cantCreate");
+		//validacion de modo borrador
+		if (!super.getBuffer().getErrors().hasErrors("publishedContract")) {
+			Integer contractId;
+			Contract contract;
+
+			contractId = super.getRequest().getData("contractId", int.class);
+			contract = this.repository.findContractById(contractId);
+
+			super.state(contract.isDraftMode(), "*", "client.progress-log.form.error.published-contract");
+		}
+
+		if (!super.getBuffer().getErrors().hasErrors("completeness")) {
+
+			Double maxCompleteness = this.repository.findContractProgressLogWithMaxCompleteness(progressLog.getContract().getId());
+
+			if (maxCompleteness != null)
+				super.state(maxCompleteness < progressLog.getCompleteness(), "completeness", "client.progress-log.form.error.completeness");
+
 		}
 
 	}

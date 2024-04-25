@@ -24,8 +24,8 @@ public interface DeveloperTrainingModuleRepository extends AbstractRepository {
 	@Query("SELECT dev FROM Developer dev WHERE dev.id = :id")
 	Developer findOneDeveloperById(int id);
 
-	@Query("SELECT p FROM Project p")
-	Collection<Project> findAllProjects();
+	@Query("SELECT p FROM Project p WHERE p.draftMode = false")
+	Collection<Project> findPublishedProjects();
 
 	@Query("SELECT tm FROM TrainingModule tm WHERE tm.code = :code")
 	TrainingModule findOneTrainingModuleByCode(String code);
@@ -38,5 +38,8 @@ public interface DeveloperTrainingModuleRepository extends AbstractRepository {
 
 	@Query("SELECT ts FROM TrainingSession ts WHERE (ts.trainingModule.id = :id AND ts.published = true)")
 	Collection<TrainingSession> findPublishedTrainingSessionsByTrainingModuleId(int id);
+
+	@Query("SELECT ts FROM TrainingSession ts WHERE ts.trainingModule.id = :id AND ts.periodStart = (SELECT MIN(ts2.periodStart) FROM TrainingSession ts2 WHERE ts2.trainingModule.id = :id)")
+	TrainingSession findTrainingSessionWithEarliestDateByTrainingModuleId(int id);
 
 }

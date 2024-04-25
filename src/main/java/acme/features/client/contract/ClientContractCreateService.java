@@ -2,12 +2,14 @@
 package acme.features.client.contract;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.client.data.datatypes.Money;
 import acme.client.data.models.Dataset;
+import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractService;
 import acme.client.views.SelectChoices;
 import acme.entities.contracts.Contract;
@@ -34,10 +36,9 @@ public class ClientContractCreateService extends AbstractService<Client, Contrac
 		contract = new Contract();
 		Integer clientId = super.getRequest().getPrincipal().getActiveRoleId();
 		Client client = this.repository.findClientById(clientId);
+
 		contract.setClient(client);
-
 		contract.setDraftMode(true);
-
 		super.getBuffer().addData(contract);
 
 	}
@@ -47,6 +48,14 @@ public class ClientContractCreateService extends AbstractService<Client, Contrac
 		assert contract != null;
 
 		super.bind(contract, "code", "instantiationMoment", "providerName", "customerName", "goals", "budget", "project");
+
+		Date currentMoment;
+		Date instantiationMoment;
+
+		currentMoment = MomentHelper.getCurrentMoment();
+		instantiationMoment = new Date(currentMoment.getTime() - 10000); //2 segundos para que no haya problemas al crear logs
+		contract.setInstantiationMoment(instantiationMoment);
+
 	}
 
 	@Override
@@ -67,6 +76,9 @@ public class ClientContractCreateService extends AbstractService<Client, Contrac
 
 			super.state(contractWithCode == null, "code", "client.contract.form.error.code");
 		}
+
+		if (!super.getBuffer().getErrors().hasErrors("project"))
+			super.state(!contract.getProject().isDraftMode(), "project", "client.contract.form.error.project");
 
 		if (!super.getBuffer().getErrors().hasErrors("budget"))
 			super.state(contract.getBudget().getAmount() >= 0, "budget", "client.contract.form.error.budget-negative");
@@ -103,7 +115,7 @@ public class ClientContractCreateService extends AbstractService<Client, Contrac
 
 		projectCode = contract.getProject() != null ? contract.getProject().getCode() : null;
 
-		Collection<Project> projects = this.repository.findlAllProjects();
+		Collection<Project> projects = this.repository.findlAllPublishedProjects();
 
 		SelectChoices options;
 

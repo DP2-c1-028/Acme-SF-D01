@@ -1,6 +1,7 @@
 
 package acme.features.developer.trainingModule;
 
+import java.time.temporal.ChronoUnit;
 import java.util.Collection;
 import java.util.Date;
 
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.client.data.models.Dataset;
+import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractService;
 import acme.client.views.SelectChoices;
 import acme.entities.training_modules.TrainingModule;
@@ -104,6 +106,18 @@ public class DeveloperTrainingModulePublishService extends AbstractService<Devel
 			super.state(unpublishedSessions.isEmpty(), "*", "developer.training-module.form.error.unpublished-sessions");
 		}
 
+		if (!super.getBuffer().getErrors().hasErrors("creationMoment")) {
+			Date trainingSessionEarliestPeriodStart;
+
+			trainingSessionEarliestPeriodStart = this.repository.findTrainingSessionWithEarliestDateByTrainingModuleId(object.getId()).getPeriodStart();
+
+			super.state(object.getCreationMoment().before(trainingSessionEarliestPeriodStart) && MomentHelper.isLongEnough(object.getCreationMoment(), trainingSessionEarliestPeriodStart, 1, ChronoUnit.WEEKS), "creationMoment",
+				"developer.training-module.form.error.creation-moment");
+		}
+
+		if (!super.getBuffer().getErrors().hasErrors("project"))
+			super.state(!object.getProject().isDraftMode(), "project", "developer.training-module.form.error.project");
+
 	}
 
 	@Override
@@ -123,7 +137,7 @@ public class DeveloperTrainingModulePublishService extends AbstractService<Devel
 		SelectChoices projectChoices;
 
 		difficultyChoices = SelectChoices.from(TrainingModuleDifficulty.class, object.getDifficulty());
-		projectChoices = SelectChoices.from(this.repository.findAllProjects(), "title", object.getProject());
+		projectChoices = SelectChoices.from(this.repository.findPublishedProjects(), "title", object.getProject());
 
 		Dataset dataset;
 

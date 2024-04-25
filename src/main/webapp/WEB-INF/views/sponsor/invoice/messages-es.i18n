@@ -26,3 +26,4 @@ sponsor.invoice.form.error.dueDate = La fecha de vencimiento debe ser posterior 
 sponsor.invoice.form.error.quantity = La cantidad debe ser positiva
 sponsor.invoice.form.error.acceptedCurrency = La divisa no está aceptada por el sistema
 sponsor.invoice.form.error.published-sponsorship = No se puede crear, actualizar o borrar una factura si su patrocinio está ya publicado
+sponsor.invoice.form.error.tax-not-null = El impuesto no puede ser nulo
