@@ -25,7 +25,24 @@ public class ManagerUserStoryCreateService extends AbstractService<Manager, User
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
+
+		boolean status = true;
+
+		if (super.getRequest().hasData("projectId")) {
+			Integer projectId;
+			Project project;
+			int managerId;
+
+			projectId = super.getRequest().getData("projectId", int.class);
+			project = this.repository.findOneProjectById(projectId);
+
+			managerId = super.getRequest().getPrincipal().getActiveRoleId();
+
+			status = managerId == project.getManager().getId() && project.isDraftMode();
+
+		}
+
+		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
@@ -53,24 +70,36 @@ public class ManagerUserStoryCreateService extends AbstractService<Manager, User
 	public void validate(final UserStory object) {
 		assert object != null;
 
+		if (super.getRequest().hasData("projectId") && !super.getBuffer().getErrors().hasErrors("published project")) {
+			Integer projectId;
+			Project project;
+
+			projectId = super.getRequest().getData("projectId", int.class);
+			project = this.repository.findOneProjectById(projectId);
+
+			super.state(project.isDraftMode(), "*", "manager.user-story.form.error.project-published");
+		}
+
 	}
 
 	@Override
 	public void perform(final UserStory object) {
 		assert object != null;
 
-		Integer projectId;
-		Project project;
-
-		projectId = super.getRequest().getData("projectId", int.class);
-		project = this.repository.findOneProjectById(projectId);
-
-		UserStoryProject usp = new UserStoryProject();
-		usp.setProject(project);
-		usp.setUserStory(object);
-
 		this.repository.save(object);
-		this.repository.save(usp);
+
+		if (super.getRequest().hasData("projectId")) {
+			Integer projectId;
+			Project project;
+
+			projectId = super.getRequest().getData("projectId", int.class);
+			project = this.repository.findOneProjectById(projectId);
+
+			UserStoryProject usp = new UserStoryProject();
+			usp.setProject(project);
+			usp.setUserStory(object);
+			this.repository.save(usp);
+		}
 
 	}
 
@@ -85,7 +114,9 @@ public class ManagerUserStoryCreateService extends AbstractService<Manager, User
 
 		dataset = super.unbind(object, "title", "description", "estimatedCost", "priority", "link", "acceptanceCriteria", "draftMode");
 		dataset.put("priorities", choices);
-		dataset.put("projectId", super.getRequest().getData("projectId", int.class));
+
+		if (super.getRequest().hasData("projectId"))
+			dataset.put("projectId", super.getRequest().getData("projectId", int.class));
 
 		super.getResponse().addData(dataset);
 	}

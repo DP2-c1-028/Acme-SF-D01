@@ -89,6 +89,9 @@ public class ClientContractPublishService extends AbstractService<Client, Contra
 				super.state(contractWithCode.getId() == contract.getId(), "code", "client.contract.form.error.code");
 		}
 
+		if (!super.getBuffer().getErrors().hasErrors("project"))
+			super.state(!contract.getProject().isDraftMode(), "project", "client.contract.form.error.project");
+
 		if (!super.getBuffer().getErrors().hasErrors("budget"))
 			super.state(contract.getBudget().getAmount() >= 0, "budget", "client.contract.form.error.budget");
 	}
@@ -137,7 +140,7 @@ public class ClientContractPublishService extends AbstractService<Client, Contra
 
 		projectCode = contract.getProject() != null ? contract.getProject().getCode() : null;
 
-		Collection<Project> projects = this.repository.findlAllProjects();
+		Collection<Project> projects = this.repository.findlAllPublishedProjects();
 
 		SelectChoices options;
 

@@ -44,6 +44,7 @@ master.menu.administrator.banner.list = Lista de carteles
 # master.menu.manager ###################################################
 master.menu.manager = Gerente
 master.menu.manager.project.list = Listar tus proyectos
+master.menu.manager.user-story.list = Listar tus historias de usuario
 master.menu.manager.user-story-project.list = Gestionar Historias/Proyectos
 master.menu.manager.dashboard = Panel de indicadores de gestor
 

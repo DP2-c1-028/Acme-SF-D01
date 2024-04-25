@@ -44,6 +44,7 @@ master.menu.administrator.banner.list = List of banners
 # master.menu.manager ###################################################
 master.menu.manager = Manager
 master.menu.manager.project.list = List Your Projects
+master.menu.manager.user-story.list = List Your User Stories
 master.menu.manager.user-story-project.list = Manage UserStories/Projects
 master.menu.manager.dashboard = Manager Dashboard
 

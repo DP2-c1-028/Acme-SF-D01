@@ -21,12 +21,12 @@ public class ManagerDashboard extends AbstractForm {
 	int							totalNumberOfWont;
 	Double						averageEstimatedCost;
 	Double						deviationEstimatedCost;
-	double						minimumEstimatedCost;
-	double						maximumEstimatedCost;
+	Double						minimumEstimatedCost;
+	Double						maximumEstimatedCost;
 	Double						averageCost;
 	Double						deviationCost;
-	double						minimumCost;
-	double						maximumCost;
+	Double						minimumCost;
+	Double						maximumCost;
 
 	// Derived attributes -----------------------------------------------------
 

@@ -84,19 +84,23 @@ public class ManagerUserStoryProjectCreateService extends AbstractService<Manage
 
 		managerId = super.getRequest().getPrincipal().getActiveRoleId();
 
-		Collection<Project> projectsOwned = this.repository.findAllProjectsOwned(managerId);
+		Collection<Project> projectsOwned = this.repository.findAllProjectsOwnedAndNotPublished(managerId);
 		Collection<UserStory> userStoriesOwned = this.repository.findAllUserStoriesOwned(managerId);
 
-		Project preselectedProject = (Project) projectsOwned.toArray()[0];
-		UserStory preselectedUserStory = (UserStory) userStoriesOwned.toArray()[0];
+		Project preselectedProject = projectsOwned.stream().toList().isEmpty() ? null : projectsOwned.stream().toList().get(0);
+
+		UserStory preselectedUserStory = userStoriesOwned.stream().toList().isEmpty() ? null : userStoriesOwned.stream().toList().get(0);
 
 		choicesProject = SelectChoices.from(projectsOwned, "code", preselectedProject);
 		choicesUserStory = SelectChoices.from(userStoriesOwned, "title", preselectedUserStory);
 
 		dataset = new Dataset();
 
-		dataset.put("project", preselectedProject.getCode());
-		dataset.put("userStory", preselectedUserStory.getTitle());
+		String projectCode = preselectedProject != null ? preselectedProject.getCode() : null;
+		String userStoryTitle = preselectedUserStory != null ? preselectedUserStory.getTitle() : null;
+
+		dataset.put("project", projectCode);
+		dataset.put("userStory", userStoryTitle);
 		dataset.put("projects", choicesProject);
 		dataset.put("userStories", choicesUserStory);
 		dataset.put("id", object.getId());

@@ -71,8 +71,19 @@ public class ManagerProjectPublishService extends AbstractService<Manager, Proje
 			super.state(userStoriesPublished, "*", "manager.project.form.error.userStoriesPublished");
 		}
 
-		if (!super.getBuffer().getErrors().hasErrors("cost"))
+		if (!super.getBuffer().getErrors().hasErrors("cost") && object.getCost() != null)
 			super.state(object.getCost().getAmount() >= 0, "cost", "manager.project.form.error.cost-negative");
+
+		if (!super.getBuffer().getErrors().hasErrors("code")) {
+
+			Project projectSameCode = this.repository.findOneProjectByCode(object.getCode());
+
+			if (projectSameCode != null)
+				super.state(projectSameCode.getId() == object.getId(), "code", "manager.project.form.error.code");
+		}
+
+		if (!super.getBuffer().getErrors().hasErrors("cost"))
+			super.state(object.getCost() != null, "cost", "manager.project.form.error.cost-null");
 	}
 
 	@Override
