@@ -1,6 +1,8 @@
 
 package acme.features.client.progressLog;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -70,12 +72,15 @@ public class ClientProgressLogUpdateService extends AbstractService<Client, Prog
 
 		if (!super.getBuffer().getErrors().hasErrors("registrationMoment")) {
 
-			Boolean isAfter = progressLog.getRegistrationMoment().after(progressLog.getContract().getInstantiationMoment());
-			super.state(isAfter == true, "registrationMoment", "client.progress-log.form.error.registrationMoment");
+			Date contractDate = progressLog.getContract().getInstantiationMoment();
+			Date plDate = progressLog.getRegistrationMoment();
+
+			Boolean isAfter = plDate.after(contractDate);
+
+			super.state(isAfter, "registrationMoment", "client.progress-log.form.error.registrationMoment");
 		}
 
 		//validacion de modo borrador
-
 		if (!super.getBuffer().getErrors().hasErrors("publishedContract")) {
 			Integer contractId;
 			Contract contract;

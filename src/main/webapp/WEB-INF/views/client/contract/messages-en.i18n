@@ -27,6 +27,8 @@ client.contract.form.button.publish = Publish
 client.contract.form.error.code = The code assigned is already in use
 client.contract.form.error.project = The assigned project cannot be one that is not published
 client.contract.form.error.budget= Cannot assign a budget higher than the associated project cost
-client.contract.form.error.publishError = Cannot publish a contract if the total budget for that project is superior to the project cost
+client.contract.form.error.publishError = Cannot publish a contract if the total budget of the published contracts for that project is superior to the project cost
 client.contract.form.error.budget-negative = Budget cannot be negative
 client.contract.form.error.publishError-progressLog = You cannot publish a contract if their progress logs aren´t published
+
+client.contract.form.error.invalidDate = Cannot set the date to a moment before the creation of a published log
