@@ -10,7 +10,7 @@
 		path="userStory" choices="${userStories}" />
 	
 	<jstl:choose>
-		<jstl:when test="${acme:anyOf(_command, 'show|update|delete')}">
+		<jstl:when test="${acme:anyOf(_command, 'show|update|delete') && draftMode==true}">
 			<acme:submit code="manager.user-story-project.form.button.update"
 				action="/manager/user-story-project/update" />
 			<acme:submit code="manager.user-story.form.button.delete"

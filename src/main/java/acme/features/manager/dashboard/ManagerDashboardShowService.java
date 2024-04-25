@@ -52,10 +52,10 @@ public class ManagerDashboardShowService extends AbstractService<Manager, Manage
 		int totalNumberOfWont;
 		Double averageEstimatedCost;
 		Double deviationEstimatedCost;
-		double minimumEstimatedCost;
-		double maximumEstimatedCost;
-		double minimumCost;
-		double maximumCost;
+		Double minimumEstimatedCost;
+		Double maximumEstimatedCost;
+		Double minimumCost;
+		Double maximumCost;
 		Double averageCost;
 		Double deviationCost;
 
@@ -74,8 +74,8 @@ public class ManagerDashboardShowService extends AbstractService<Manager, Manage
 		totalNumberOfWont = this.repository.totalNumberOfWont(managerId);
 		averageEstimatedCost = this.repository.averageEstimatedCost(managerId);
 		deviationEstimatedCost = this.deviation(estimatedCosts);
-		minimumEstimatedCost = this.repository.minimumEstimatedCost(managerId) != null ? this.repository.minimumEstimatedCost(managerId) : 0.;
-		maximumEstimatedCost = this.repository.maximumEstimatedCost(managerId) != null ? this.repository.maximumEstimatedCost(managerId) : 0.;
+		minimumEstimatedCost = this.repository.minimumEstimatedCost(managerId);
+		maximumEstimatedCost = this.repository.maximumEstimatedCost(managerId);
 
 		dashboard.setTotalNumberOfMust(totalNumberOfMust);
 		dashboard.setTotalNumberOfShould(totalNumberOfShould);
@@ -89,9 +89,9 @@ public class ManagerDashboardShowService extends AbstractService<Manager, Manage
 		//Projects
 		Collection<Money> projectCosts = this.repository.projectCosts(managerId).stream().map(this::currencyTransformerUsd).collect(Collectors.toCollection(ArrayList<Money>::new));
 
-		minimumCost = projectCosts.stream().mapToDouble(Money::getAmount).min().orElse(0.);
-		maximumCost = projectCosts.stream().mapToDouble(Money::getAmount).max().orElse(0.);
-		averageCost = projectCosts.stream().mapToDouble(Money::getAmount).average().orElse(0.);
+		minimumCost = projectCosts.stream().mapToDouble(Money::getAmount).min().orElse(Double.NaN);
+		maximumCost = projectCosts.stream().mapToDouble(Money::getAmount).max().orElse(Double.NaN);
+		averageCost = projectCosts.stream().mapToDouble(Money::getAmount).average().orElse(Double.NaN);
 		deviationCost = this.deviation(projectCosts.stream().mapToDouble(Money::getAmount).boxed().toList());
 
 		dashboard.setAverageCost(averageCost);
@@ -103,6 +103,9 @@ public class ManagerDashboardShowService extends AbstractService<Manager, Manage
 	}
 
 	private Double deviation(final List<Double> values) {
+
+		if (values.isEmpty())
+			return null;
 
 		Stream<Double> valuesStream = values.stream();
 

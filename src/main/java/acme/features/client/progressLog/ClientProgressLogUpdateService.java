@@ -88,9 +88,9 @@ public class ClientProgressLogUpdateService extends AbstractService<Client, Prog
 
 		if (!super.getBuffer().getErrors().hasErrors("completeness")) {
 
-			double maxCompleteness = this.repository.findContractProgressLogWithMaxCompleteness(progressLog.getContract().getId());
-
-			super.state(maxCompleteness < progressLog.getCompleteness(), "completeness", "client.progress-log.form.error.completeness");
+			Double maxCompleteness = this.repository.findContractProgressLogWithMaxCompleteness(progressLog.getContract().getId());
+			if (maxCompleteness != null)
+				super.state(maxCompleteness < progressLog.getCompleteness(), "completeness", "client.progress-log.form.error.completeness");
 
 		}
 

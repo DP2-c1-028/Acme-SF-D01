@@ -38,7 +38,6 @@ public class ClientDashboardShowService extends AbstractService<Client, ClientDa
 		int clientId;
 
 		Double AverageBudgetOfContracts;
-		Double DeviationOfContractBudgets;
 		Double MinimunBudgetOfContracts;
 		Double MaximunBudgetOfContracts;
 
@@ -52,6 +51,19 @@ public class ClientDashboardShowService extends AbstractService<Client, ClientDa
 		totalLogsWithCompletenessBetween50And75 = this.repository.logsBetweenCompletenessValuesForClient(clientId, percentaje50, percentaje75);
 		totalLogsWithCompletenessAbove75 = this.repository.logsAboveCompletenessValue(clientId, percentaje75);
 
+		//Contracts
+		Collection<Money> contractBudgets = this.repository.findAllBudgetsFromClient(clientId);
+
+		if (!contractBudgets.isEmpty()) {
+			AverageBudgetOfContracts = contractBudgets.stream().mapToDouble(u -> this.repository.currencyTransformerUsd(u)).average().orElse(0.0);
+			MinimunBudgetOfContracts = contractBudgets.stream().mapToDouble(u -> this.repository.currencyTransformerUsd(u)).min().orElse(0.0);
+			MaximunBudgetOfContracts = contractBudgets.stream().mapToDouble(u -> this.repository.currencyTransformerUsd(u)).max().orElse(0.0);
+		} else {
+
+			AverageBudgetOfContracts = null;
+			MinimunBudgetOfContracts = null;
+			MaximunBudgetOfContracts = null;
+		}
 		dashboard = new ClientDashboard();
 
 		// Progress Logs
@@ -60,14 +72,10 @@ public class ClientDashboardShowService extends AbstractService<Client, ClientDa
 		dashboard.setTotalLogsWithCompletenessBetween50And75(totalLogsWithCompletenessBetween50And75);
 		dashboard.setTotalLogsWithCompletenessAbove75(totalLogsWithCompletenessAbove75);
 
-		//Contracts
-		Collection<Money> contractBudgets = this.repository.findAllBudgetsFromClient(clientId);
-
-		dashboard.setAverageBudgetOfContracts(contractBudgets.stream().mapToDouble(u -> this.repository.currencyTransformerUsd(u)).average().orElse(0.));
+		dashboard.setAverageBudgetOfContracts(AverageBudgetOfContracts);
+		dashboard.setMinimunBudgetOfContracts(MinimunBudgetOfContracts);
+		dashboard.setMaximunBudgetOfContracts(MaximunBudgetOfContracts);
 		dashboard.setDeviationOfContractBudgets(this.invoicesDeviationQuantity(contractBudgets));
-
-		dashboard.setMinimunBudgetOfContracts(contractBudgets.stream().mapToDouble(u -> this.repository.currencyTransformerUsd(u)).min().orElse(0.));
-		dashboard.setMaximunBudgetOfContracts(contractBudgets.stream().mapToDouble(u -> this.repository.currencyTransformerUsd(u)).max().orElse(0.));
 
 		super.getBuffer().addData(dashboard);
 	}

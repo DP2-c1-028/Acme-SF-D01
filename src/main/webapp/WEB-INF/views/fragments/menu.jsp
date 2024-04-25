@@ -29,6 +29,10 @@
 		
 		<acme:menu-option code="master.menu.any">
 			<acme:menu-suboption code="master.menu.any.claims" action="/any/claim/list"/>
+			<acme:menu-suboption code="master.menu.any.sponsorship" action="/any/sponsorship/list"/>
+			<acme:menu-suboption code="master.menu.any.project" action="/any/project/list"/>
+			
+			<acme:menu-suboption code="master.menu.any.code-audit" action="/any/code-audit/list"/>
 		</acme:menu-option>
 
 		<acme:menu-option code="master.menu.administrator" access="hasRole('Administrator')">
@@ -45,6 +49,7 @@
 		
 		<acme:menu-option code="master.menu.manager" access="hasRole('Manager')">
 			<acme:menu-suboption code="master.menu.manager.project.list" action="/manager/project/list"/>
+			<acme:menu-suboption code="master.menu.manager.user-story.list" action="/manager/user-story/list"/>
 			<acme:menu-suboption code="master.menu.manager.user-story-project.list" action="/manager/user-story-project/list"/>
 			<acme:menu-suboption code="master.menu.manager.dashboard" action="/manager/manager-dashboard/show"/>
 		</acme:menu-option>

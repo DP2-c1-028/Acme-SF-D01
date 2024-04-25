@@ -1,10 +1,13 @@
 
 package acme.features.client.progressLog;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.client.data.models.Dataset;
+import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractService;
 import acme.entities.contracts.Contract;
 import acme.entities.progress_logs.ProgressLog;
@@ -59,6 +62,14 @@ public class ClientProgressLogCreateService extends AbstractService<Client, Prog
 		assert progressLog != null;
 
 		super.bind(progressLog, "recordId", "completeness", "comment", "registrationMoment", "responsiblePerson");
+
+		Date currentMoment;
+		Date registrationMoment;
+
+		currentMoment = MomentHelper.getCurrentMoment();
+		registrationMoment = new Date(currentMoment.getTime() - 1000); //1 segundo para que no haya problemas con la fecha de creacion de contract
+		progressLog.setRegistrationMoment(registrationMoment);
+
 	}
 
 	@Override
@@ -91,9 +102,10 @@ public class ClientProgressLogCreateService extends AbstractService<Client, Prog
 
 		if (!super.getBuffer().getErrors().hasErrors("completeness")) {
 
-			double maxCompleteness = this.repository.findContractProgressLogWithMaxCompleteness(progressLog.getContract().getId());
-			//TODO hay q buscar una forma de que cuando quieras publicar no te permita editar el valor, pero si piublicar si no cambias nada.
-			super.state(maxCompleteness < progressLog.getCompleteness(), "completeness", "client.progress-log.form.error.completeness");
+			Double maxCompleteness = this.repository.findContractProgressLogWithMaxCompleteness(progressLog.getContract().getId());
+
+			if (maxCompleteness != null)
+				super.state(maxCompleteness < progressLog.getCompleteness(), "completeness", "client.progress-log.form.error.completeness");
 
 		}
 

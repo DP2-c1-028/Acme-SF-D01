@@ -29,6 +29,10 @@ master.menu.anonymous.gonnavrem = 29516545: Navas Remmers, Gonzalo
 
 master.menu.any = Any
 master.menu.any.claims = Claim list
+master.menu.any.sponsorship = Sponsorship list
+master.menu.any.project = Project list
+
+master.menu.any.code-audit = Code audit list
 
 # master.menu.administrator ###################################################
 
@@ -44,6 +48,7 @@ master.menu.administrator.banner.list = List of banners
 # master.menu.manager ###################################################
 master.menu.manager = Manager
 master.menu.manager.project.list = List Your Projects
+master.menu.manager.user-story.list = List Your User Stories
 master.menu.manager.user-story-project.list = Manage UserStories/Projects
 master.menu.manager.dashboard = Manager Dashboard
 

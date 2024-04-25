@@ -70,6 +70,14 @@ public class AuditorCodeAuditPublishService extends AbstractService<Auditor, Cod
 		if (!super.getBuffer().getErrors().hasErrors("project"))
 			super.state(!object.getProject().isDraftMode(), "project", "auditor.code-audit.form.error.project");
 
+		if (!super.getBuffer().getErrors().hasErrors("code")) {
+
+			CodeAudit codeAuditSameCode = this.repository.findOneCodeAuditByCode(object.getCode());
+
+			if (codeAuditSameCode != null)
+				super.state(codeAuditSameCode.getId() == object.getId(), "code", "auditor.code-audit.form.error.code");
+		}
+
 		if (!super.getBuffer().getErrors().hasErrors("mark")) {
 			List<Mark> marks;
 

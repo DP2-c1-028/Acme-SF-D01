@@ -25,6 +25,7 @@ client.contract.form.button.progress-logs = Registros de progreso
 client.contract.form.button.publish = Publicar
 
 client.contract.form.error.code = El código asociado esta ya en uso
+client.contract.form.error.project = No se puede asignar un proyecto que no este publicado
 client.contract.form.error.budget = No puedes asignar un presupuesto mayor que el coste asociado al proyecto
 client.contract.form.error.publishError = No se puede publicar un comtrato si el presupuesto total para el projecto es superior al coste de este
 client.contract.form.error.budget-negative = No puedes poner un presupuesto negativo

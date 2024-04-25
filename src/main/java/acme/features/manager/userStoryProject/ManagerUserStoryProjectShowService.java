@@ -1,7 +1,7 @@
 
 package acme.features.manager.userStoryProject;
 
-import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -64,20 +64,30 @@ public class ManagerUserStoryProjectShowService extends AbstractService<Manager,
 
 		managerId = super.getRequest().getPrincipal().getActiveRoleId();
 
-		Collection<Project> projectsOwned = this.repository.findAllProjectsOwned(managerId);
-		Collection<UserStory> userStoriesOwned = this.repository.findAllUserStoriesOwned(managerId);
+		List<Project> projectsOwned = this.repository.findAllProjectsOwnedAndNotPublished(managerId).stream().toList();
+		List<UserStory> userStoriesOwned = this.repository.findAllUserStoriesOwned(managerId).stream().toList();
 
-		choicesProject = SelectChoices.from(projectsOwned, "code", object.getProject());
-		choicesUserStory = SelectChoices.from(userStoriesOwned, "title", object.getUserStory());
+		if (projectsOwned.isEmpty())
+			projectsOwned.add(object.getProject());
+
+		Project preselectedProject = projectsOwned.stream().toList().get(0);
+		UserStory preselectedUserStory = userStoriesOwned.stream().toList().isEmpty() ? null : userStoriesOwned.stream().toList().get(0);
+
+		choicesProject = SelectChoices.from(projectsOwned, "code", preselectedProject);
+		choicesUserStory = SelectChoices.from(userStoriesOwned, "title", preselectedUserStory);
 
 		dataset = new Dataset();
 
-		dataset.put("project", object.getProject().getCode());
-		dataset.put("userStory", object.getUserStory().getTitle());
+		String projectCode = preselectedProject != null ? preselectedProject.getCode() : null;
+		String userStoryTitle = preselectedUserStory != null ? preselectedUserStory.getTitle() : null;
+
+		dataset.put("project", projectCode);
+		dataset.put("userStory", userStoryTitle);
 		dataset.put("projects", choicesProject);
 		dataset.put("userStories", choicesUserStory);
 		dataset.put("id", object.getId());
 		dataset.put("version", object.getVersion());
+		dataset.put("draftMode", object.getProject().isDraftMode());
 
 		super.getResponse().addData(dataset);
 	}
