@@ -30,6 +30,7 @@ master.menu.anonymous.gonnavrem = 29516545: Navas Remmers, Gonzalo
 master.menu.any = Cualquiera
 master.menu.any.claims = Lista de reclamaciones
 master.menu.any.sponsorship = Lista de sponsorships
+master.menu.any.project = Lista de proyectos
 
 # master.menu.administrator ###################################################
 

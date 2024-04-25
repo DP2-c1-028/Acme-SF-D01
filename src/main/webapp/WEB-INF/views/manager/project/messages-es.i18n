@@ -21,3 +21,4 @@ manager.project.form.error.atLeastOneUserStory = El proyecto tiene que tener al 
 manager.project.form.error.userStoriesPublished = Las historias de usuario del proyecto deben de estar publicadas
 manager.project.form.error.code = Este código está en uso
 manager.project.form.error.cost-negative = El coste no puede ser negativo
+manager.project.form.error.not-valid-currency = La divisa no es válida

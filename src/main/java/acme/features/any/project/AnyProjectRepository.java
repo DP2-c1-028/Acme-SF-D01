@@ -1,5 +1,5 @@
 
-package acme.features.manager.project;
+package acme.features.any.project;
 
 import java.util.Collection;
 
@@ -15,10 +15,13 @@ import acme.entities.userStories.UserStoryProject;
 import acme.roles.Manager;
 
 @Repository
-public interface ManagerProjectRepository extends AbstractRepository {
+public interface AnyProjectRepository extends AbstractRepository {
 
 	@Query("select p from Project p where p.manager.id = :id")
 	Collection<Project> findProjectsByManagerId(int id);
+
+	@Query("select p from Project p where p.draftMode = false")
+	Collection<Project> findProjectsPublished();
 
 	@Query("select p from Project p where p.id = :id")
 	Project findOneProjectById(int id);
