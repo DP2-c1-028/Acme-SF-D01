@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import acme.client.repositories.AbstractRepository;
 import acme.entities.projects.Project;
+import acme.entities.systemConfiguration.SystemConfiguration;
 import acme.entities.training_modules.TrainingModule;
 import acme.entities.userStories.UserStory;
 import acme.entities.userStories.UserStoryProject;
@@ -36,4 +37,7 @@ public interface ManagerProjectRepository extends AbstractRepository {
 
 	@Query("select p from Project p where p.code=:code")
 	Project findOneProjectByCode(String code);
+
+	@Query("select sc from SystemConfiguration sc")
+	SystemConfiguration findSystemConfiguration();
 }

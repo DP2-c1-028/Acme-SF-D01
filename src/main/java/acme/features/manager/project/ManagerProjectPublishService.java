@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
 import acme.entities.projects.Project;
+import acme.entities.systemConfiguration.SystemConfiguration;
 import acme.entities.userStories.UserStory;
 import acme.roles.Manager;
 
@@ -84,6 +85,12 @@ public class ManagerProjectPublishService extends AbstractService<Manager, Proje
 
 		if (!super.getBuffer().getErrors().hasErrors("cost"))
 			super.state(object.getCost() != null, "cost", "manager.project.form.error.cost-null");
+
+		if (!super.getBuffer().getErrors().hasErrors("cost") && object.getCost() != null) {
+			SystemConfiguration sc = this.repository.findSystemConfiguration();
+			String acceptedCurrencies = sc.getAcceptedCurrencies();
+			super.state(acceptedCurrencies.contains(object.getCost().getCurrency()), "cost", "manager.project.form.error.not-valid-currency");
+		}
 	}
 
 	@Override
