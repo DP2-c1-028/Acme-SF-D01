@@ -1,5 +1,5 @@
 
-package acme.features.any.claim;
+package acme.features.any.project;
 
 import javax.annotation.PostConstruct;
 
@@ -8,17 +8,17 @@ import org.springframework.stereotype.Controller;
 
 import acme.client.controllers.AbstractController;
 import acme.client.data.accounts.Any;
-import acme.entities.claim.Claim;
+import acme.entities.projects.Project;
 
 @Controller
-public class AnyClaimController extends AbstractController<Any, Claim> {
+public class AnyProjectController extends AbstractController<Any, Project> {
 
 	// Internal state ---------------------------------------------------------
 	@Autowired
-	private AnyClaimListService	listService;
+	private AnyProjectListService	listService;
 
 	@Autowired
-	private AnyClaimShowService	showService;
+	private AnyProjectShowService	showService;
 
 
 	// Constructors -----------------------------------------------------------
