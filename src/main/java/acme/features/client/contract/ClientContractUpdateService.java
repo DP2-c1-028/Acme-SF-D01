@@ -61,6 +61,7 @@ public class ClientContractUpdateService extends AbstractService<Client, Contrac
 
 		contract.setClient(client);
 		super.bind(contract, "code", "project", "providerName", "customerName", "instantiationMoment", "budget", "goals");
+
 	}
 
 	@Override
@@ -81,6 +82,9 @@ public class ClientContractUpdateService extends AbstractService<Client, Contrac
 			if (contractWithCode != null)
 				super.state(contractWithCode.getId() == contract.getId(), "code", "client.contract.form.error.code");
 		}
+
+		if (!super.getBuffer().getErrors().hasErrors("project"))
+			super.state(!contract.getProject().isDraftMode(), "project", "client.contract.form.error.project");
 
 		if (!super.getBuffer().getErrors().hasErrors("budget"))
 			super.state(contract.getBudget().getAmount() >= 0, "budget", "client.contract.form.error.budget-negative");
@@ -118,7 +122,7 @@ public class ClientContractUpdateService extends AbstractService<Client, Contrac
 
 		projectCode = contract.getProject() != null ? contract.getProject().getCode() : null;
 
-		Collection<Project> projects = this.repository.findlAllProjects();
+		Collection<Project> projects = this.repository.findlAllPublishedProjects();
 
 		SelectChoices options;
 

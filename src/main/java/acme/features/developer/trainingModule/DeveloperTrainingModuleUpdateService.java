@@ -1,7 +1,7 @@
 
 package acme.features.developer.trainingModule;
 
-import java.util.Collection;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,6 @@ import acme.client.services.AbstractService;
 import acme.client.views.SelectChoices;
 import acme.entities.training_modules.TrainingModule;
 import acme.entities.training_modules.TrainingModuleDifficulty;
-import acme.entities.training_modules.TrainingSession;
 import acme.roles.Developer;
 
 @Service
@@ -95,11 +94,12 @@ public class DeveloperTrainingModuleUpdateService extends AbstractService<Develo
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("creationMoment")) {
-			Collection<TrainingSession> conflictingTrainingSessions;
+			Date trainingSessionEarliestPeriodStart;
 
-			conflictingTrainingSessions = this.repository.findTrainingSessionsWithPeriodStartBeforeTrainingModuleCreationMoment(object.getId());
+			trainingSessionEarliestPeriodStart = this.repository.findTrainingSessionWithEarliestDateByTrainingModuleId(object.getId()).getPeriodStart();
 
-			super.state(conflictingTrainingSessions.isEmpty(), "creationMoment", "developer.training-module.form.error.creation-moment");
+			super.state(object.getCreationMoment().before(trainingSessionEarliestPeriodStart) && MomentHelper.isLongEnough(object.getCreationMoment(), trainingSessionEarliestPeriodStart, 1, ChronoUnit.WEEKS), "creationMoment",
+				"developer.training-module.form.error.creation-moment");
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("project"))
