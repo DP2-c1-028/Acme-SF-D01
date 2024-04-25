@@ -32,6 +32,8 @@ master.menu.any.claims = Lista de reclamaciones
 master.menu.any.sponsorship = Lista de patrocinios
 master.menu.any.project = Lista de proyectos
 
+master.menu.any.code-audit = Lista de auditorías de código
+
 # master.menu.administrator ###################################################
 
 master.menu.administrator = Administrador
