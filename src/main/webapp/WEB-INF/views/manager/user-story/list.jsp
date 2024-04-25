@@ -17,7 +17,7 @@
 </acme:list>
 
 <jstl:choose>
-	<jstl:when test="${projectId!=null}">
+	<jstl:when test="${projectId!=null && canCreate==true}">
 		<acme:button code="manager.project.form.button.create-of-project" action="/manager/user-story/create?projectId=${projectId}"/>
 	</jstl:when>
 	<jstl:when test="${projectId==null}">

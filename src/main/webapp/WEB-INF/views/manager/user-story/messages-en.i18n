@@ -20,3 +20,4 @@ manager.user-story.form.button.delete = Delete
 manager.user-story.form.button.create = Create
 manager.project.form.button.create-of-project = Create related to the project
 manager.user-story.form.error.project-published = The related project cannot be published
+manager.project.form.error.cost-null = The cost cannot be null

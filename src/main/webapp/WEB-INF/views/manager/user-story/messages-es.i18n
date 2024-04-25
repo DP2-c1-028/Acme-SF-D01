@@ -19,3 +19,4 @@ manager.user-story.form.button.delete = Borrar
 manager.user-story.form.button.create = Crear
 manager.project.form.button.create-of-project = Crear con relación al proyecto
 manager.user-story.form.error.project-published = El project realacionado no puede estar publicado
+manager.project.form.error.cost-null = El coste no puede ser nulo

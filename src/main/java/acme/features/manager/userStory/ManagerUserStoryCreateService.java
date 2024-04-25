@@ -38,7 +38,7 @@ public class ManagerUserStoryCreateService extends AbstractService<Manager, User
 
 			managerId = super.getRequest().getPrincipal().getActiveRoleId();
 
-			status = managerId == project.getManager().getId();
+			status = managerId == project.getManager().getId() && project.isDraftMode();
 
 		}
 

@@ -121,6 +121,7 @@ public class ManagerUserStoryProjectUpdateService extends AbstractService<Manage
 		dataset.put("userStories", choicesUserStory);
 		dataset.put("id", object.getId());
 		dataset.put("version", object.getVersion());
+		dataset.put("draftMode", true);
 
 		super.getResponse().addData(dataset);
 	}
