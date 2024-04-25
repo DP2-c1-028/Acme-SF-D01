@@ -39,8 +39,8 @@ public class AuditorDashboardShowService extends AbstractService<Auditor, Audito
 		int totalCodeAuditsDynamic;
 		Double auditRecordsAverage;
 		Double auditRecordsDeviation;
-		int auditRecordsMinimum;
-		int auditRecordsMaximum;
+		Integer auditRecordsMinimum;
+		Integer auditRecordsMaximum;
 		Double periodAverageTime;
 		Double periodDeviationTime;
 		Double periodMinimumTime;
@@ -88,6 +88,9 @@ public class AuditorDashboardShowService extends AbstractService<Auditor, Audito
 		Double res;
 		Double aux;
 		res = 0.0;
+		if (values.isEmpty())
+			return null;
+
 		if (!values.isEmpty()) {
 			Double average = this.average(values);
 			aux = 0.0;

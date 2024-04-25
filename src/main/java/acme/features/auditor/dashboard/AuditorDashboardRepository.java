@@ -24,10 +24,10 @@ public interface AuditorDashboardRepository extends AbstractRepository {
 	Double auditRecordsAverage(int auditorId);
 
 	@Query("select min(select count(ar) from AuditRecord ar where ar.codeAudit.id = ca.id) from CodeAudit ca where ca.auditor.id = :auditorId")
-	int auditRecordsMinimum(int auditorId);
+	Integer auditRecordsMinimum(int auditorId);
 
 	@Query("select max(select count(ar) from AuditRecord ar where ar.codeAudit.id = ca.id) from CodeAudit ca where ca.auditor.id = :auditorId")
-	int auditRecordsMaximum(int auditorId);
+	Integer auditRecordsMaximum(int auditorId);
 
 	@Query("select avg(time_to_sec(timediff(ar.auditEndTime, ar.auditStartTime)) / 3600) from AuditRecord ar where ar.codeAudit.auditor.id = :auditorId")
 	Double periodAverageTime(int auditorId);

@@ -53,12 +53,12 @@ public class AuthenticatedClientUpdateService extends AbstractService<Authentica
 	public void validate(final Client client) {
 		assert client != null;
 
-		if (!super.getBuffer().getErrors().hasErrors("code")) {
+		if (!super.getBuffer().getErrors().hasErrors("identification")) {
 
 			Client clientWithCode = this.repository.findClientByIdentification(client.getIdentification());
 
 			if (clientWithCode != null)
-				super.state(clientWithCode.getId() == client.getId(), "identification", "authenticathed.client.form.error.identification");
+				super.state(clientWithCode.getId() == client.getId(), "identification", "authenticated.client.form.error.identification");
 		}
 	}
 

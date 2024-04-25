@@ -33,8 +33,10 @@ public class AdministratorBannerCreateService extends AbstractService<Administra
 	public void load() {
 		Banner object;
 		Date instantiationMoment;
+		Date currentMoment;
 
-		instantiationMoment = MomentHelper.getCurrentMoment();
+		currentMoment = MomentHelper.getCurrentMoment();
+		instantiationMoment = new Date(currentMoment.getTime() - 1000);
 
 		object = new Banner();
 		object.setInstantiationMoment(instantiationMoment);
@@ -69,17 +71,14 @@ public class AdministratorBannerCreateService extends AbstractService<Administra
 			bannerStartTime = object.getBannerStartTime();
 			bannerEndTime = object.getBannerEndTime();
 
-			super.state(MomentHelper.isLongEnough(bannerStartTime, bannerEndTime, 1, ChronoUnit.WEEKS) && bannerEndTime.after(bannerStartTime), "bannerEndTime", "administrator.banner.form.error.banner-end-time");
+			if (bannerStartTime != null && bannerEndTime != null)
+				super.state(MomentHelper.isLongEnough(bannerStartTime, bannerEndTime, 1, ChronoUnit.WEEKS) && bannerEndTime.after(bannerStartTime), "bannerEndTime", "administrator.banner.form.error.banner-end-time");
 		}
 	}
 
 	@Override
 	public void perform(final Banner object) {
 		assert object != null;
-
-		Date instantiationMoment;
-		instantiationMoment = MomentHelper.getCurrentMoment();
-		object.setInstantiationMoment(instantiationMoment);
 
 		this.repository.save(object);
 	}
