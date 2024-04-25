@@ -76,9 +76,10 @@ public class ClientProgressLogPublishService extends AbstractService<Client, Pro
 
 		if (!super.getBuffer().getErrors().hasErrors("completeness")) {
 
-			double maxCompleteness = this.repository.findContractProgressLogWithMaxCompleteness(progressLog.getContract().getId());
+			Double maxCompleteness = this.repository.findContractProgressLogWithMaxCompleteness(progressLog.getContract().getId());
 
-			super.state(maxCompleteness < progressLog.getCompleteness(), "completeness", "client.progress-log.form.error.completeness");
+			if (maxCompleteness != null)
+				super.state(maxCompleteness < progressLog.getCompleteness(), "completeness", "client.progress-log.form.error.completeness");
 
 		}
 
