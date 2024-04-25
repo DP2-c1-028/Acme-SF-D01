@@ -20,6 +20,7 @@ import org.hibernate.validator.constraints.Length;
 
 import acme.client.data.AbstractEntity;
 import acme.entities.contracts.Contract;
+import acme.roles.Client;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -41,7 +42,7 @@ public class ProgressLog extends AbstractEntity {
 
 	@DecimalMin(value = "0.00")
 	@DecimalMax(value = "100.00")
-	private float				completeness;
+	private double				completeness;
 
 	@NotBlank
 	@Length(max = 100)
@@ -56,6 +57,8 @@ public class ProgressLog extends AbstractEntity {
 	@Length(max = 75)
 	private String				responsiblePerson;
 
+	private boolean				draftMode;
+
 	// Derived attributes -----------------------------------------------------
 
 	// Relationships ----------------------------------------------------------
@@ -64,4 +67,9 @@ public class ProgressLog extends AbstractEntity {
 	@NotNull
 	@Valid
 	private Contract			contract;
+
+	@ManyToOne(optional = false)
+	@NotNull
+	@Valid
+	private Client				client;
 }

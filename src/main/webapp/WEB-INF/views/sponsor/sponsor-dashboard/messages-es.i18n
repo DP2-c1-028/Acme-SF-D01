@@ -1,0 +1,17 @@
+sponsor.sponsor-dashboard.form.title = Panel de indicadores del patrocinador
+
+sponsor.dashboard.form.title.general-indicators = Indicadores generales de los patrocinios
+sponsor.dashboard.form.title.invoices-indicators = Indicadores generales de las facturas
+
+sponsor.dashboard.form.total-number-of-invoices = Número total de facturas con un impuesto menor al 21%
+sponsor.dashboard.form.label.total-number-of-sponsorships-with-link = Número de patrocinios con enlace	
+
+sponsor.dashboard.form.label.sponsorships-average-amount = Cantidad media en los patrocinios (USD)
+sponsor.dashboard.form.label.sponsorships-deviation-amount = Desviación típica en los patrocinios (USD)
+sponsor.dashboard.form.label.sponsorships-maximum-amount = Cantidad máxima en un patrocinio (USD)
+sponsor.dashboard.form.label.sponsorships-minimum-amount = Cantidad mínima en un patrocinio (USD)
+
+sponsor.dashboard.form.label.invoices-average-quantity = Cantidad media en las facturas (USD)
+sponsor.dashboard.form.label.invoices-deviation-quantity = Desviación típica en las facturas (USD)
+sponsor.dashboard.form.label.invoices-minimum-quantity = Cantidad mínima en una factura (USD)
+sponsor.dashboard.form.label.invoices-maximum-quantity = Cantidad máxima en una factura (USD)

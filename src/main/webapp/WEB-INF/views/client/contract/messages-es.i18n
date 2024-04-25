@@ -1,0 +1,32 @@
+client.contract.list.title = Tus Contratos
+client.contract.list.label.code = Código
+client.contract.list.label.draftMode = Esta en modo borrador ?
+client.contract.list.label.project = Nombre del proyecto
+client.contract.list.label.providerName = Nombre del Proveedor
+client.contract.list.label.customerName = Nombre del cliente
+client.contract.list.label.instantiationMoment = Momento de creación
+client.contract.list.label.budget = Presupuesto
+client.contract.list.label.goals = Objetivos
+
+client.contract.form.title = Datos del contrato
+client.contract.form.label.code = Código
+client.contract.form.label.draftMode = Esta en modo borrador ?
+client.contract.form.label.project = Nombre del proyecto
+client.contract.form.label.providerName = Nombre del Proveedor
+client.contract.form.label.customerName = Nombre del cliente
+client.contract.form.label.instantiationMoment = Momento de creación
+client.contract.form.label.budget = Presupuesto
+client.contract.form.label.goals = Objetivos
+client.contract.form.button.update = Actualizar
+
+client.contract.form.button.delete = Borrar
+client.contract.form.button.create = Crear
+client.contract.form.button.progress-logs = Registros de progreso
+client.contract.form.button.publish = Publicar
+
+client.contract.form.error.code = El código asociado esta ya en uso
+client.contract.form.error.project = No se puede asignar un proyecto que no este publicado
+client.contract.form.error.budget = No puedes asignar un presupuesto mayor que el coste asociado al proyecto
+client.contract.form.error.publishError = No se puede publicar un comtrato si el presupuesto total para el projecto es superior al coste de este
+client.contract.form.error.budget-negative = No puedes poner un presupuesto negativo
+client.contract.form.error.publishError-progressLog = No puedes publicar un contrato si sus registros de progreso no estn publicados

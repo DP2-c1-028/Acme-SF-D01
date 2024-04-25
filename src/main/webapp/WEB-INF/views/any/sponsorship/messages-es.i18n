@@ -1,0 +1,21 @@
+any.sponsorship.list.title = Patrocinios publicados
+any.sponsorship.list.label.code = Código
+any.sponsorship.list.label.moment = Momento
+any.sponsorship.list.label.durationStartTime = Fecha de inicio
+any.sponsorship.list.label.durationEndTime = Fecha de fin
+any.sponsorship.list.label.amount = Cantidad
+any.sponsorship.list.label.type = Tipo de patrocionio
+any.sponsorship.list.label.email = Correo
+any.sponsorship.list.label.link = Enlace
+any.sponsorship.list.label.project = Proyecto
+
+any.sponsorship.form.label.code = Código
+any.sponsorship.form.label.moment = Momento
+any.sponsorship.form.label.durationStartTime = Fecha de inicio
+any.sponsorship.form.label.durationEndTime = Fecha de fin
+any.sponsorship.form.label.amount = Cantidad
+any.sponsorship.form.label.type = Tipo de patrocinio
+any.sponsorship.form.label.email = Correo
+any.sponsorship.form.label.link = Enlace
+any.sponsorship.form.label.project = Proyecto
+any.sponsorship.form.title = Datos de tu patrocinio

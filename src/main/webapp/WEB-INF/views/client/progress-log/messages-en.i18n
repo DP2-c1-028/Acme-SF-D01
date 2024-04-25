@@ -1,0 +1,29 @@
+client.progress-log.list.title = Progress Logs
+client.progress-log.list.label.recordId= Record Id
+client.progress-log.list.label.draftMode = Is in draft mode?
+client.progress-log.list.label.completeness = Completeness
+client.progress-log.list.label.comment = Comment
+client.progress-log.list.label.registrationMoment = Registration moment
+client.progress-log.list.label.responsiblePerson = Responsible person
+
+client.progress-log.form.title = Progress logs data
+client.progress-log.form.label.recordId = Record Id
+client.progress-log.form.label.draftMode = Is in draft mode?
+client.progress-log.form.label.completeness = Completeness
+client.progress-log.form.label.comment = Comment
+client.progress-log.form.label.registrationMoment = Moment of registration
+client.progress-log.form.label.responsiblePerson = Responsible person
+client.progress-log.form.button.update = Update
+client.progress-log.form.button.delete = Delete
+client.progress-log.form.button.create = Create
+client.progress-log.form.button.progressLogs = Progress Logs
+
+client.progress-log.form.button.publish = Publish
+
+client.progress-log.form.error.invalidContract = You are trying to create a progress log related to no contract
+client.progress-log.form.error.recordId = This record id is already in use
+client.progress-log.form.error.completeness = There´s already a progress log with that completeness rate, assign another value
+client.progress-log.form.error.registrationMoment = You cannot set the registration moment of the progress log to a date before the creation of the assigned contract
+
+client.progress-log.form.error.published-contract = You cannot create,update or delete progress logs related to a published contract
+

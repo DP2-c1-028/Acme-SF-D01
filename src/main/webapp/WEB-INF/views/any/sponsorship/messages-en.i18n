@@ -1,0 +1,21 @@
+any.sponsorship.list.title = Published sponsorships
+any.sponsorship.list.label.code = Code
+any.sponsorship.list.label.moment = Moment
+any.sponsorship.list.label.durationStartTime = Start date
+any.sponsorship.list.label.durationEndTime = End date
+any.sponsorship.list.label.amount = Amount
+any.sponsorship.list.label.type = sponsorship type
+any.sponsorship.list.label.email = Email
+any.sponsorship.list.label.link = Link
+any.sponsorship.list.label.project = Project
+
+any.sponsorship.form.label.code = Code
+any.sponsorship.form.label.moment = Moment
+any.sponsorship.form.label.durationStartTime = Start date
+any.sponsorship.form.label.durationEndTime = End date
+any.sponsorship.form.label.amount = Amount
+any.sponsorship.form.label.type = sponsorship type
+any.sponsorship.form.label.email = Email
+any.sponsorship.form.label.link = Link
+any.sponsorship.form.label.project = Project
+any.sponsorship.form.title = Your sponsorship data

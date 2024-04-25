@@ -2,7 +2,6 @@
 package acme.forms;
 
 import acme.client.data.AbstractForm;
-import acme.client.data.datatypes.Money;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,8 +27,8 @@ public class ClientDashboard extends AbstractForm {
 
 	Double						deviationOfContractBudgets;
 
-	Money						minimunBudgetOfContracts;
+	Double						minimunBudgetOfContracts;
 
-	Money						maximunBudgetOfContracts;
+	Double						maximunBudgetOfContracts;
 
 }

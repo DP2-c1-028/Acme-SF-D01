@@ -22,6 +22,7 @@ import org.hibernate.validator.constraints.URL;
 import acme.client.data.AbstractEntity;
 import acme.client.data.datatypes.Money;
 import acme.entities.sponsorships.Sponsorship;
+import acme.roles.Sponsor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -59,17 +60,40 @@ public class Invoice extends AbstractEntity {
 	@URL
 	private String				link;
 
+	private boolean				draftMode;
+
 	// Derived Attributes -------------------------------------------------------------
+
+	/*
+	 * @Transient
+	 * public Double totalAmount() {
+	 * return this.quantity.getAmount() + this.tax * this.quantity.getAmount();
+	 * }
+	 */
 
 
 	@Transient
-	public Double totalAmount() {
-		return this.quantity.getAmount() + this.tax * this.quantity.getAmount();
+	public Money totalAmount() {
+		Double amount;
+		if (this.tax == null)
+			amount = this.quantity.getAmount();
+		else
+			amount = this.quantity.getAmount() + this.tax * this.quantity.getAmount();
+
+		Money value = new Money();
+		value.setAmount(amount);
+		value.setCurrency(this.quantity.getCurrency());
+		return value;
 	}
 
 
 	@ManyToOne(optional = false)
 	@NotNull
 	@Valid
-	private Sponsorship sponsorship;
+	private Sponsorship	sponsorship;
+
+	@ManyToOne(optional = false)
+	@NotNull
+	@Valid
+	private Sponsor		sponsor;
 }

@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 
 import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
-import acme.client.views.SelectChoices;
-import acme.entities.projects.Project;
 import acme.entities.sponsorships.Sponsorship;
 import acme.roles.Sponsor;
 
@@ -32,11 +30,11 @@ public class SponsorSponsorshipListService extends AbstractService<Sponsor, Spon
 	@Override
 	public void load() {
 		Collection<Sponsorship> objects;
-		int managerId;
+		int sponsorId;
 
-		managerId = super.getRequest().getPrincipal().getActiveRoleId();
+		sponsorId = super.getRequest().getPrincipal().getActiveRoleId();
 
-		objects = this.repository.findSponsorshipBySponsorId(managerId);
+		objects = this.repository.findSponsorshipBySponsorId(sponsorId);
 
 		super.getBuffer().addData(objects);
 	}
@@ -46,12 +44,9 @@ public class SponsorSponsorshipListService extends AbstractService<Sponsor, Spon
 		assert object != null;
 
 		Dataset dataset;
-		Collection<Project> projects = this.repository.findProjects();
-		SelectChoices choices2;
-		choices2 = SelectChoices.from(projects, "title", this.repository.findOneProjectById(0));
 
-		dataset = super.unbind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link", "project");
-		dataset.put("projects", choices2);
+		dataset = super.unbind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link");
+		dataset.put("project", object.getProject().getCode());
 
 		super.getResponse().addData(dataset);
 	}

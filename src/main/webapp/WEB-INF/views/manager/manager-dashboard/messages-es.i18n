@@ -1,0 +1,17 @@
+manager.manager-dashboard.form.title = Panel de indicadores de gestor
+
+manager.dashboard.form.title.general-indicators-user-stories = Indicadores generales de las hitorias de usuario
+manager.dashboard.form.title.general-indicators-projects = Indicadores generales de los proyectos
+manager.dashboard.form.title.priorities = Indicadores de prioridad
+
+manager.dashboard.form.label.average-estimated-cost =  Media del coste estimado
+manager.dashboard.form.label.deviation-estimated-cost =  Deviación del coste estimado
+manager.dashboard.form.label.max-estimated-cost = Coste máximo estimado
+manager.dashboard.form.label.min-estimated-cost = Coste mínimo estimado
+
+manager.dashboard.form.label.average-cost = Coste medio (USD)
+manager.dashboard.form.label.deviation-cost = Deviación del coste (USD)
+manager.dashboard.form.label.max-cost = Coste máximo (USD)
+manager.dashboard.form.label.min-cost = Coste mínimo (USD)
+
+

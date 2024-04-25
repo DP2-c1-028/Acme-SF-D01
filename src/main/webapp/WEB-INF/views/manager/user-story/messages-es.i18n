@@ -1,0 +1,22 @@
+manager.user-story.list.title = Historias de usuario
+master.user-story.list.of-project = relacionadas con un proyecto
+manager.user-story.list.label.title = Título
+manager.user-story.list.label.description = Descripción
+manager.user-story.list.label.estimatedCost = Coste estimado
+manager.user-story.list.label.priority = Prioridad
+manager.user-story.list.label.link = Enlace
+manager.user-story.list.label.acceptanceCriteria = Criterios de aceptación
+
+manager.user-story.form.title = Datos de la historia de usuario
+manager.user-story.form.label.title = Título
+manager.user-story.form.label.description = Descripción
+manager.user-story.form.label.estimatedCost = Coste estimado
+manager.user-story.form.label.priority = Prioridad
+manager.user-story.form.label.link = Enlace
+manager.user-story.form.label.acceptanceCriteria = Criterios de aceptación
+manager.user-story.form.button.update = Actualizar
+manager.user-story.form.button.delete = Borrar
+manager.user-story.form.button.create = Crear
+manager.project.form.button.create-of-project = Crear con relación al proyecto
+manager.user-story.form.error.project-published = El project realacionado no puede estar publicado
+manager.project.form.error.cost-null = El coste no puede ser nulo
