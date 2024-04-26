@@ -26,7 +26,11 @@ public class AuthenticatedClientUpdateService extends AbstractService<Authentica
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
+		boolean status;
+
+		status = super.getRequest().getPrincipal().hasRole(Client.class);
+
+		super.getResponse().setAuthorised(status);
 	}
 
 	@Override

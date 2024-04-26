@@ -32,3 +32,4 @@ client.contract.form.error.budget-negative = No puedes poner un presupuesto nega
 client.contract.form.error.publishError-progressLog = No puedes publicar un contrato si sus registros de progreso no estn publicados
 
 client.contract.form.error.invalidDate = No puedees establecer una fecha de creacion previa a la creacion de un registro de progreso publicado.
+client.contract.form.error.cannotDelete = No puedes borrar un contrato si hay registros de progreso publicados

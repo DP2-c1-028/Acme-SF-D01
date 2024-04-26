@@ -45,8 +45,12 @@ public interface ClientContractRepository extends AbstractRepository {
 	@Query("select p from ProgressLog p where p.contract.id = :id")
 	Collection<ProgressLog> findProgressLogsByContractId(int id);
 
+	@Query("select p from ProgressLog p where p.contract.id = :id and p.draftMode = false")
+	Collection<ProgressLog> findPublishedProgressLogsByContractId(int id);
+
 	@Query("select p from ProgressLog p where p.contract.id = :id and p.draftMode = true")
 	Collection<ProgressLog> findUnpublishedProgressLogsByContractId(int id);
+
 	@Query("select p from ProgressLog p where p.contract.id = :id and p.draftMode = false and p.registrationMoment = (select min(p1.registrationMoment) from ProgressLog p1 where p1.contract.id = :id and p1.draftMode = false)")
 	ProgressLog findEarliestPublisehdLogByContractId(int id);
 
