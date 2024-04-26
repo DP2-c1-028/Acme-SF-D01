@@ -68,7 +68,7 @@ public class SponsorSponsorshipDeleteService extends AbstractService<Sponsor, Sp
 
 		Collection<Invoice> publishedInvoices;
 
-		publishedInvoices = this.repository.findUnpublishedInvoicesBySponsorshipId(object.getId());
+		publishedInvoices = this.repository.findPublishedInvoicesBySponsorshipId(object.getId());
 		super.state(publishedInvoices.isEmpty(), "*", "sponsor.sponsorship.form.error.published-invoices");
 	}
 
