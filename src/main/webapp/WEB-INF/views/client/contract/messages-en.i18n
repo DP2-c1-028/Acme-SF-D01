@@ -17,6 +17,7 @@ client.contract.form.label.customerName = Customer name
 client.contract.form.label.instantiationMoment = Instantiation moment
 client.contract.form.label.budget = Budget
 client.contract.form.label.goals = Goals
+client.progress-log.form.button.progressLogs = Progress Logs
 
 client.contract.form.button.update = Update
 client.contract.form.button.delete = Delete

@@ -33,6 +33,7 @@ master.menu.any.sponsorship = Lista de patrocinios
 master.menu.any.project = Lista de proyectos
 
 master.menu.any.code-audit = Lista de auditorías de código
+master.menu.any.contract = Listado de contractos
 
 # master.menu.administrator ###################################################
 
