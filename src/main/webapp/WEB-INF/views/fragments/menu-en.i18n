@@ -33,6 +33,7 @@ master.menu.any.sponsorship = Sponsorship list
 master.menu.any.project = Project list
 
 master.menu.any.code-audit = Code audit list
+master.menu.any.contract = Contract list
 
 # master.menu.administrator ###################################################
 

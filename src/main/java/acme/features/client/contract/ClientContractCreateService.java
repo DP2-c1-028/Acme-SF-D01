@@ -2,14 +2,12 @@
 package acme.features.client.contract;
 
 import java.util.Collection;
-import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.client.data.datatypes.Money;
 import acme.client.data.models.Dataset;
-import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractService;
 import acme.client.views.SelectChoices;
 import acme.entities.contracts.Contract;
@@ -49,13 +47,6 @@ public class ClientContractCreateService extends AbstractService<Client, Contrac
 
 		super.bind(contract, "code", "instantiationMoment", "providerName", "customerName", "goals", "budget", "project");
 
-		Date currentMoment;
-		Date instantiationMoment;
-
-		currentMoment = MomentHelper.getCurrentMoment();
-		instantiationMoment = new Date(currentMoment.getTime() - 10000); //2 segundos para que no haya problemas al crear logs
-		contract.setInstantiationMoment(instantiationMoment);
-
 	}
 
 	@Override
@@ -64,7 +55,7 @@ public class ClientContractCreateService extends AbstractService<Client, Contrac
 		assert contract != null;
 
 		//validacion del D02 budget debe ser menor o igual que coste
-		if (!super.getBuffer().getErrors().hasErrors("budget")) {
+		if (!super.getBuffer().getErrors().hasErrors("budget") && contract.getProject() != null) {
 			Project referencedProject = contract.getProject();
 			super.state(this.currencyTransformerUsd(referencedProject.getCost()) >= this.currencyTransformerUsd(contract.getBudget()), "budget", "client.contract.form.error.budget");
 
@@ -80,8 +71,10 @@ public class ClientContractCreateService extends AbstractService<Client, Contrac
 		if (!super.getBuffer().getErrors().hasErrors("project"))
 			super.state(!contract.getProject().isDraftMode(), "project", "client.contract.form.error.project");
 
-		if (!super.getBuffer().getErrors().hasErrors("budget"))
-			super.state(contract.getBudget().getAmount() >= 0, "budget", "client.contract.form.error.budget-negative");
+		if (!super.getBuffer().getErrors().hasErrors("budget")) {
+			boolean validBudget = contract.getBudget().getAmount() >= 0.;
+			super.state(validBudget, "budget", "client.contract.form.error.budget-negative");
+		}
 	}
 
 	private double currencyTransformerUsd(final Money initial) {

@@ -1,5 +1,5 @@
 
-package acme.features.client.contract;
+package acme.features.any.contract;
 
 import java.util.Collection;
 
@@ -10,13 +10,9 @@ import acme.client.repositories.AbstractRepository;
 import acme.entities.contracts.Contract;
 import acme.entities.progress_logs.ProgressLog;
 import acme.entities.projects.Project;
-import acme.roles.Client;
 
 @Repository
-public interface ClientContractRepository extends AbstractRepository {
-
-	@Query("select c from Contract c where c.client.id = :id")
-	Collection<Contract> findContractsByClientId(int id);
+public interface AnyContractRepository extends AbstractRepository {
 
 	@Query("select c from Contract c where c.id = :id")
 	Contract findContractById(int id);
@@ -30,6 +26,9 @@ public interface ClientContractRepository extends AbstractRepository {
 	@Query("select c from Contract c where c.draftMode = false and c.project.id = :projectId ")
 	Collection<Contract> findPublishedContractsByProjectId(int projectId);
 
+	@Query("select c from Contract c where c.draftMode = false")
+	Collection<Contract> findlAllPublishedContracts();
+
 	@Query("select p from Project p")
 	Collection<Project> findlAllProjects();
 
@@ -38,9 +37,6 @@ public interface ClientContractRepository extends AbstractRepository {
 
 	@Query("select p from Project p where p.id = :id")
 	Project findProjectById(int id);
-
-	@Query("select c from Client c where c.id = :id")
-	Client findClientById(int id);
 
 	@Query("select p from ProgressLog p where p.contract.id = :id")
 	Collection<ProgressLog> findProgressLogsByContractId(int id);

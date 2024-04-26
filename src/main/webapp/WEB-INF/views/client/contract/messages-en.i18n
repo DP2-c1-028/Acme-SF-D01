@@ -17,6 +17,7 @@ client.contract.form.label.customerName = Customer name
 client.contract.form.label.instantiationMoment = Instantiation moment
 client.contract.form.label.budget = Budget
 client.contract.form.label.goals = Goals
+client.progress-log.form.button.progressLogs = Progress Logs
 
 client.contract.form.button.update = Update
 client.contract.form.button.delete = Delete
@@ -27,6 +28,9 @@ client.contract.form.button.publish = Publish
 client.contract.form.error.code = The code assigned is already in use
 client.contract.form.error.project = The assigned project cannot be one that is not published
 client.contract.form.error.budget= Cannot assign a budget higher than the associated project cost
-client.contract.form.error.publishError = Cannot publish a contract if the total budget for that project is superior to the project cost
+client.contract.form.error.publishError = Cannot publish a contract if the total budget of the published contracts for that project is superior to the project cost
 client.contract.form.error.budget-negative = Budget cannot be negative
 client.contract.form.error.publishError-progressLog = You cannot publish a contract if their progress logs aren´t published
+
+client.contract.form.error.invalidDate = Cannot set the date to a moment before the creation of a published log
+client.contract.form.error.cannotDelete= You cannot delete a contract if there are published progress logs

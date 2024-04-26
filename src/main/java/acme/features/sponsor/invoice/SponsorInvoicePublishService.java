@@ -83,7 +83,7 @@ public class SponsorInvoicePublishService extends AbstractService<Sponsor, Invoi
 			super.state(MomentHelper.isLongEnough(registrationTime, dueDate, 1, ChronoUnit.MONTHS) && dueDate.after(registrationTime), "dueDate", "sponsor.invoice.form.error.dueDate");
 		}
 
-		if (!super.getBuffer().getErrors().hasErrors("quantity"))
+		if (!super.getBuffer().getErrors().hasErrors("quantity") && object.getQuantity() != null)
 			super.state(object.getQuantity().getAmount() >= 0, "quantity", "sponsor.invoice.form.error.quantity");
 
 		if (!super.getBuffer().getErrors().hasErrors("quantity"))
@@ -121,6 +121,7 @@ public class SponsorInvoicePublishService extends AbstractService<Sponsor, Invoi
 		Dataset dataset;
 
 		dataset = super.unbind(object, "code", "registrationTime", "dueDate", "quantity", "tax", "link", "draftMode");
+		dataset.put("totalAmount", object.totalAmount());
 
 		super.getResponse().addData(dataset);
 	}
