@@ -64,25 +64,24 @@ public class Invoice extends AbstractEntity {
 
 	// Derived Attributes -------------------------------------------------------------
 
-	/*
-	 * @Transient
-	 * public Double totalAmount() {
-	 * return this.quantity.getAmount() + this.tax * this.quantity.getAmount();
-	 * }
-	 */
-
 
 	@Transient
 	public Money totalAmount() {
 		Double amount;
-		if (this.tax == null)
+		String currency;
+		if (this.quantity == null) {
+			amount = 0.0;
+			currency = "";
+		} else if (this.tax == null) {
 			amount = this.quantity.getAmount();
-		else
+			currency = this.quantity.getCurrency();
+		} else {
 			amount = this.quantity.getAmount() + this.tax * this.quantity.getAmount();
-
+			currency = this.quantity.getCurrency();
+		}
 		Money value = new Money();
 		value.setAmount(amount);
-		value.setCurrency(this.quantity.getCurrency());
+		value.setCurrency(currency);
 		return value;
 	}
 

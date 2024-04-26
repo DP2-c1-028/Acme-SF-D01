@@ -25,3 +25,4 @@ client.progress-log.form.error.recordId = Este identificador de registro ya esta
 client.progress-log.form.error.completeness = Ya existe un registro de progreso publicado con ese porcentaje de completitud, asigna uno mayor
 client.progress-log.form.error.registrationMoment = No puedes establecer la fecha de creacion de un registro de progreso a un momento previo a la creacion del contrato asociado
 client.progress-log.form.error.published-contract = No puedes crear, actualizar o borrar registros de progreso asignados a un contrato ya publicado
+client.progress-log.form.error.sameMoment = No puedes asignar la misma fecha exacta que otro registro de progreso

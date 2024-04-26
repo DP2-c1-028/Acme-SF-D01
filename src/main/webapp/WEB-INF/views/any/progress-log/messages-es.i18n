@@ -1,0 +1,14 @@
+any.progress-log.list.title = Registros de progreso publicados
+any.progress-log.list.label.recordId= Identificador
+any.progress-log.list.label.completeness = Porcentaje de completitud
+any.progress-log.list.label.comment = Comentario
+any.progress-log.list.label.registrationMoment = Momento del registro
+any.progress-log.list.label.responsiblePerson = Responsable
+
+any.progress-log.form.title = Datos del Registro de progreso
+any.progress-log.form.label.recordId = Identificador
+any.progress-log.form.label.completeness = Porcentaje de completitud
+any.progress-log.form.label.comment = Comentario
+any.progress-log.form.label.registrationMoment = Momento del registro
+any.progress-log.form.label.responsiblePerson = Responsable
+any.progress-log.form.button.progress-logs = Registros de progreso
