@@ -1,0 +1,14 @@
+any.progress-log.list.title = Published Progress Logs
+any.progress-log.list.label.recordId= Record Id
+any.progress-log.list.label.completeness = Completeness
+any.progress-log.list.label.comment = Comment
+any.progress-log.list.label.registrationMoment = Registration moment
+any.progress-log.list.label.responsiblePerson = Responsible person
+
+any.progress-log.form.title = Progress logs data
+any.progress-log.form.label.recordId = Record Id
+any.progress-log.form.label.completeness = Completeness
+any.progress-log.form.label.comment = Comment
+any.progress-log.form.label.registrationMoment = Moment of registration
+any.progress-log.form.label.responsiblePerson = Responsible person
+any.progress-log.form.button.progress-logs = Progress Logs

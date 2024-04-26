@@ -1,6 +1,7 @@
 
 package acme.features.client.progressLog;
 
+import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,6 +98,12 @@ public class ClientProgressLogUpdateService extends AbstractService<Client, Prog
 			if (maxCompleteness != null)
 				super.state(maxCompleteness < progressLog.getCompleteness(), "completeness", "client.progress-log.form.error.completeness");
 
+		}
+
+		if (!super.getBuffer().getErrors().hasErrors("registrationMoment")) {
+
+			Collection<ProgressLog> sameDate = this.repository.findContractProgressLogByDate(progressLog.getContract().getId(), progressLog.getId(), progressLog.getRegistrationMoment());
+			super.state(sameDate.isEmpty(), "registrationMoment", "client.progress-log.form.error.sameMoment");
 		}
 
 	}
