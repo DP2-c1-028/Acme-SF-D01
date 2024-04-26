@@ -55,7 +55,7 @@ public class AdministratorBannerCreateService extends AbstractService<Administra
 	public void validate(final Banner object) {
 		assert object != null;
 
-		if (!super.getBuffer().getErrors().hasErrors("bannerStartTime")) {
+		if (!super.getBuffer().getErrors().hasErrors("bannerStartTime") && object.getBannerStartTime() != null) {
 			Date bannerStartTime;
 			Date instantiationMoment;
 			bannerStartTime = object.getBannerStartTime();
@@ -64,7 +64,7 @@ public class AdministratorBannerCreateService extends AbstractService<Administra
 			super.state(bannerStartTime.after(instantiationMoment), "bannerStartTime", "administrator.banner.form.error.banner-start-time");
 		}
 
-		if (!super.getBuffer().getErrors().hasErrors("bannerEndTime")) {
+		if (!super.getBuffer().getErrors().hasErrors("bannerEndTime") && object.getBannerEndTime() != null) {
 			Date bannerStartTime;
 			Date bannerEndTime;
 

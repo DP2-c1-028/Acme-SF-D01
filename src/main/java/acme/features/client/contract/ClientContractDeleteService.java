@@ -66,6 +66,11 @@ public class ClientContractDeleteService extends AbstractService<Client, Contrac
 	@Override
 	public void validate(final Contract contract) {
 		assert contract != null;
+
+		if (!super.getBuffer().getErrors().hasErrors("publishedProgressLog")) {
+			Collection<ProgressLog> pls = this.repository.findPublishedProgressLogsByContractId(contract.getId());
+			super.state(pls.isEmpty(), "*", "client.contract.form.error.cannotDelete");
+		}
 	}
 
 	@Override

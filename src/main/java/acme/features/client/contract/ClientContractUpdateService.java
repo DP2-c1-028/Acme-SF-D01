@@ -11,6 +11,7 @@ import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
 import acme.client.views.SelectChoices;
 import acme.entities.contracts.Contract;
+import acme.entities.progress_logs.ProgressLog;
 import acme.entities.projects.Project;
 import acme.roles.Client;
 
@@ -86,9 +87,17 @@ public class ClientContractUpdateService extends AbstractService<Client, Contrac
 		if (!super.getBuffer().getErrors().hasErrors("project"))
 			super.state(!contract.getProject().isDraftMode(), "project", "client.contract.form.error.project");
 
-		if (!super.getBuffer().getErrors().hasErrors("budget"))
-			super.state(contract.getBudget().getAmount() >= 0, "budget", "client.contract.form.error.budget-negative");
+		if (!super.getBuffer().getErrors().hasErrors("budget")) {
+			boolean validBudget = contract.getBudget().getAmount() >= 0.;
+			super.state(validBudget, "budget", "client.contract.form.error.budget-negative");
+		}
 
+		if (!super.getBuffer().getErrors().hasErrors("instantiationMoment")) {
+
+			ProgressLog earliestPl = this.repository.findEarliestPublisehdLogByContractId(contract.getId());
+			if (earliestPl != null)
+				super.state(earliestPl.getRegistrationMoment().after(contract.getInstantiationMoment()), "instantiationMoment", "client.contract.form.error.invalidDate");
+		}
 	}
 
 	private double currencyTransformerUsd(final Money initial) {
