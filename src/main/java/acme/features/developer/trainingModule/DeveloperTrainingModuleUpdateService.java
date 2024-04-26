@@ -13,6 +13,7 @@ import acme.client.services.AbstractService;
 import acme.client.views.SelectChoices;
 import acme.entities.training_modules.TrainingModule;
 import acme.entities.training_modules.TrainingModuleDifficulty;
+import acme.entities.training_modules.TrainingSession;
 import acme.roles.Developer;
 
 @Service
@@ -60,7 +61,7 @@ public class DeveloperTrainingModuleUpdateService extends AbstractService<Develo
 		Integer developerId = super.getRequest().getPrincipal().getActiveRoleId();
 		Developer developer = this.repository.findOneDeveloperById(developerId);
 		object.setDeveloper(developer);
-		super.bind(object, "code", "creationMoment", "updateMoment", "difficulty", "details", "totalTime", "link", "project");
+		super.bind(object, "code", "difficulty", "details", "totalTime", "link", "project");
 
 		Date currentMoment;
 		Date updateMoment;
@@ -86,20 +87,24 @@ public class DeveloperTrainingModuleUpdateService extends AbstractService<Develo
 			Date creationMoment;
 			Date updateMoment;
 
-			creationMoment = object.getCreationMoment();
-			updateMoment = object.getUpdateMoment();
+			creationMoment = this.repository.findOneTrainingModuleById(object.getId()).getCreationMoment();
+			updateMoment = this.repository.findOneTrainingModuleById(object.getId()).getUpdateMoment();
 
 			if (updateMoment != null)
 				super.state(updateMoment.after(creationMoment), "updateMoment", "developer.training-module.form.error.update-moment");
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("creationMoment")) {
-			Date trainingSessionEarliestPeriodStart;
+			TrainingSession earliestTrainingSession;
+			Boolean validCreationMoment;
+			Date creationMoment = this.repository.findOneTrainingModuleById(object.getId()).getCreationMoment();
 
-			trainingSessionEarliestPeriodStart = this.repository.findTrainingSessionWithEarliestDateByTrainingModuleId(object.getId()).getPeriodStart();
+			earliestTrainingSession = this.repository.findTrainingSessionWithEarliestDateByTrainingModuleId(object.getId());
 
-			super.state(object.getCreationMoment().before(trainingSessionEarliestPeriodStart) && MomentHelper.isLongEnough(object.getCreationMoment(), trainingSessionEarliestPeriodStart, 1, ChronoUnit.WEEKS), "creationMoment",
-				"developer.training-module.form.error.creation-moment");
+			if (earliestTrainingSession != null) {
+				validCreationMoment = creationMoment.before(earliestTrainingSession.getPeriodStart()) && MomentHelper.isLongEnough(creationMoment, earliestTrainingSession.getPeriodStart(), 1, ChronoUnit.WEEKS);
+				super.state(validCreationMoment, "creationMoment", "developer.training-module.form.error.creation-moment");
+			}
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("project"))
