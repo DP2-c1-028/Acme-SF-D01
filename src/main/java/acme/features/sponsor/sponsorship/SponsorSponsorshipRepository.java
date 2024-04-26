@@ -28,7 +28,7 @@ public interface SponsorSponsorshipRepository extends AbstractRepository {
 	@Query("select p from Project p where p.id = :id")
 	Project findOneProjectById(int id);
 
-	@Query("select p from Project p")
+	@Query("select p from Project p where p.draftMode = false")
 	Collection<Project> findProjects();
 
 	@Query("select p from Project p where p.id = :id")
@@ -42,5 +42,11 @@ public interface SponsorSponsorshipRepository extends AbstractRepository {
 
 	@Query("select sc from SystemConfiguration sc")
 	SystemConfiguration findSystemConfiguration();
+
+	@Query("select i from Invoice i where (i.sponsorship.id = :id and i.draftMode = true)")
+	Collection<Invoice> findUnpublishedInvoicesBySponsorshipId(int id);
+
+	@Query("select i from Invoice i where (i.sponsorship.id = :id and i.draftMode = false)")
+	Collection<Invoice> findPublishedInvoicesBySponsorshipId(int id);
 
 }

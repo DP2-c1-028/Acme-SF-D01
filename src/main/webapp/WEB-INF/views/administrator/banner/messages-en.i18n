@@ -1,0 +1,23 @@
+administrator.banner.form.title = Banner Form
+administrator.banner.form.label.banner-start-time = Banner start date
+administrator.banner.form.label.banner-end-time = Banner end date
+administrator.banner.form.label.picture = Picture
+administrator.banner.form.label.slogan = Slogan
+administrator.banner.form.label.link = Link
+
+administrator.banner.list.title = List of banners
+administrator.banner.list.label.instantiation-moment = Last update
+administrator.banner.list.label.banner-start-time = Banner start date
+administrator.banner.list.label.banner-end-time = Banner end date
+administrator.banner.list.label.picture = Picture
+administrator.banner.list.label.slogan = Slogan
+administrator.banner.list.label.link = Link
+
+administrator.banner.list.button.create = Create
+
+administrator.banner.form.button.create = Create
+administrator.banner.form.button.delete = Delete
+administrator.banner.form.button.update = Update
+
+administrator.banner.form.error.banner-start-time = Banner start date must be in the future
+administrator.banner.form.error.banner-end-time = Banner end date must be after banner start date and there must also be at least one week difference between both of them

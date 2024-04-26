@@ -35,8 +35,11 @@ public interface AuditorCodeAuditRepository extends AbstractRepository {
 	@Query("select ad.mark from AuditRecord ad where ad.codeAudit.id=:codeAuditId")
 	Collection<Mark> findMarksByCodeAuditId(int codeAuditId);
 
-	@Query("select p from Project p")
-	Collection<Project> findProjects();
+	@Query("SELECT p FROM Project p WHERE p.draftMode = false")
+	Collection<Project> findPublishedProjects();
+
+	@Query("select p from Project p where p.id = :id")
+	Project findProjectById(int id);
 
 	@Query("select ar from AuditRecord ar where (ar.codeAudit.id = :id and ar.draftMode = true)")
 	Collection<AuditRecord> findUnpublishedAuditRecordsByCodeAuditId(int id);

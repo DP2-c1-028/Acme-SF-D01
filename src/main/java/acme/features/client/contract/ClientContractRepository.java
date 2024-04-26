@@ -27,8 +27,14 @@ public interface ClientContractRepository extends AbstractRepository {
 	@Query("select c from Contract c where c.project.id = :projectId")
 	Collection<Contract> findContractsByProjectId(int projectId);
 
+	@Query("select c from Contract c where c.draftMode = false and c.project.id = :projectId ")
+	Collection<Contract> findPublishedContractsByProjectId(int projectId);
+
 	@Query("select p from Project p")
 	Collection<Project> findlAllProjects();
+
+	@Query("select p from Project p where p.draftMode = false")
+	Collection<Project> findlAllPublishedProjects();
 
 	@Query("select p from Project p where p.id = :id")
 	Project findProjectById(int id);
@@ -38,5 +44,10 @@ public interface ClientContractRepository extends AbstractRepository {
 
 	@Query("select p from ProgressLog p where p.contract.id = :id")
 	Collection<ProgressLog> findProgressLogsByContractId(int id);
+
+	@Query("select p from ProgressLog p where p.contract.id = :id and p.draftMode = true")
+	Collection<ProgressLog> findUnpublishedProgressLogsByContractId(int id);
+	@Query("select p from ProgressLog p where p.contract.id = :id and p.draftMode = false and p.registrationMoment = (select min(p1.registrationMoment) from ProgressLog p1 where p1.contract.id = :id and p1.draftMode = false)")
+	ProgressLog findEarliestPublisehdLogByContractId(int id);
 
 }

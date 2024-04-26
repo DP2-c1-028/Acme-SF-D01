@@ -28,7 +28,11 @@ master.menu.anonymous.gonnavrem = 29516545: Navas Remmers, Gonzalo
 # master.menu.any #######################################################
 
 master.menu.any = Cualquiera
-master.menu.anonymous.claims = Lista de reclamaciones
+master.menu.any.claims = Lista de reclamaciones
+master.menu.any.sponsorship = Lista de patrocinios
+master.menu.any.project = Lista de proyectos
+
+master.menu.any.code-audit = Lista de auditorías de código
 
 # master.menu.administrator ###################################################
 
@@ -39,10 +43,12 @@ master.menu.administrator.populate-initial = Poblar BD (inicial)
 master.menu.administrator.populate-sample = Poblar BD (ejemplos)
 master.menu.administrator.shut-down = Parar el sistema
 master.menu.administrator.system-configuration = Mostrar la configuración del sistema
+master.menu.administrator.banner.list = Lista de carteles
 
 # master.menu.manager ###################################################
 master.menu.manager = Gerente
 master.menu.manager.project.list = Listar tus proyectos
+master.menu.manager.user-story.list = Listar tus historias de usuario
 master.menu.manager.user-story-project.list = Gestionar Historias/Proyectos
 master.menu.manager.dashboard = Panel de indicadores de gestor
 
@@ -60,6 +66,7 @@ master.menu.developer.dashboard = Dashboard de desarrollador
 # master.menu.client ###################################################
 master.menu.client = Cliente
 master.menu.client.contract.list = Listado de contratos
+master.menu.client.dashboard = Tu panel de cliente
 
 # master.menu.auditor ###################################################
 master.menu.auditor = Auditor
@@ -90,3 +97,7 @@ master.menu.user-account.sponsor = Datos de patrocinador
 master.menu.user-account.become-sponsor = Hazte patrocinador
 master.menu.user-account.manager = Datos de gerente
 master.menu.user-account.become-manager = Hazte gerente
+master.menu.user-account.client = Datos del cliente
+master.menu.user-account.become-client = Hazte cliente
+master.menu.user-account.developer = Datos de desarrollador
+master.menu.user-account.become-developer = Hazte desasrrollador

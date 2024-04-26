@@ -89,7 +89,7 @@ public class DeveloperTrainingModuleDeleteService extends AbstractService<Develo
 		SelectChoices projectChoices;
 
 		difficultyChoices = SelectChoices.from(TrainingModuleDifficulty.class, object.getDifficulty());
-		projectChoices = SelectChoices.from(this.repository.findAllProjects(), "title", object.getProject());
+		projectChoices = SelectChoices.from(this.repository.findPublishedProjects(), "title", object.getProject());
 
 		Dataset dataset;
 

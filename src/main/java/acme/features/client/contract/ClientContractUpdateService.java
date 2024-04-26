@@ -11,6 +11,7 @@ import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
 import acme.client.views.SelectChoices;
 import acme.entities.contracts.Contract;
+import acme.entities.progress_logs.ProgressLog;
 import acme.entities.projects.Project;
 import acme.roles.Client;
 
@@ -61,6 +62,7 @@ public class ClientContractUpdateService extends AbstractService<Client, Contrac
 
 		contract.setClient(client);
 		super.bind(contract, "code", "project", "providerName", "customerName", "instantiationMoment", "budget", "goals");
+
 	}
 
 	@Override
@@ -82,9 +84,20 @@ public class ClientContractUpdateService extends AbstractService<Client, Contrac
 				super.state(contractWithCode.getId() == contract.getId(), "code", "client.contract.form.error.code");
 		}
 
-		if (!super.getBuffer().getErrors().hasErrors("budget"))
-			super.state(contract.getBudget().getAmount() >= 0, "budget", "client.contract.form.error.budget-negative");
+		if (!super.getBuffer().getErrors().hasErrors("project"))
+			super.state(!contract.getProject().isDraftMode(), "project", "client.contract.form.error.project");
 
+		if (!super.getBuffer().getErrors().hasErrors("budget")) {
+			boolean validBudget = contract.getBudget().getAmount() >= 0.;
+			super.state(validBudget, "budget", "client.contract.form.error.budget-negative");
+		}
+
+		if (!super.getBuffer().getErrors().hasErrors("instantiationMoment")) {
+
+			ProgressLog earliestPl = this.repository.findEarliestPublisehdLogByContractId(contract.getId());
+			if (earliestPl != null)
+				super.state(earliestPl.getRegistrationMoment().after(contract.getInstantiationMoment()), "instantiationMoment", "client.contract.form.error.invalidDate");
+		}
 	}
 
 	private double currencyTransformerUsd(final Money initial) {
@@ -118,7 +131,7 @@ public class ClientContractUpdateService extends AbstractService<Client, Contrac
 
 		projectCode = contract.getProject() != null ? contract.getProject().getCode() : null;
 
-		Collection<Project> projects = this.repository.findlAllProjects();
+		Collection<Project> projects = this.repository.findlAllPublishedProjects();
 
 		SelectChoices options;
 

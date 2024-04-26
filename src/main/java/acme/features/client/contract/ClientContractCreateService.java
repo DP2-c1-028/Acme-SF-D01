@@ -34,10 +34,9 @@ public class ClientContractCreateService extends AbstractService<Client, Contrac
 		contract = new Contract();
 		Integer clientId = super.getRequest().getPrincipal().getActiveRoleId();
 		Client client = this.repository.findClientById(clientId);
+
 		contract.setClient(client);
-
 		contract.setDraftMode(true);
-
 		super.getBuffer().addData(contract);
 
 	}
@@ -47,6 +46,7 @@ public class ClientContractCreateService extends AbstractService<Client, Contrac
 		assert contract != null;
 
 		super.bind(contract, "code", "instantiationMoment", "providerName", "customerName", "goals", "budget", "project");
+
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class ClientContractCreateService extends AbstractService<Client, Contrac
 		assert contract != null;
 
 		//validacion del D02 budget debe ser menor o igual que coste
-		if (!super.getBuffer().getErrors().hasErrors("budget")) {
+		if (!super.getBuffer().getErrors().hasErrors("budget") && contract.getProject() != null) {
 			Project referencedProject = contract.getProject();
 			super.state(this.currencyTransformerUsd(referencedProject.getCost()) >= this.currencyTransformerUsd(contract.getBudget()), "budget", "client.contract.form.error.budget");
 
@@ -68,8 +68,13 @@ public class ClientContractCreateService extends AbstractService<Client, Contrac
 			super.state(contractWithCode == null, "code", "client.contract.form.error.code");
 		}
 
-		if (!super.getBuffer().getErrors().hasErrors("budget"))
-			super.state(contract.getBudget().getAmount() >= 0, "budget", "client.contract.form.error.budget-negative");
+		if (!super.getBuffer().getErrors().hasErrors("project"))
+			super.state(!contract.getProject().isDraftMode(), "project", "client.contract.form.error.project");
+
+		if (!super.getBuffer().getErrors().hasErrors("budget")) {
+			boolean validBudget = contract.getBudget().getAmount() >= 0.;
+			super.state(validBudget, "budget", "client.contract.form.error.budget-negative");
+		}
 	}
 
 	private double currencyTransformerUsd(final Money initial) {
@@ -103,7 +108,7 @@ public class ClientContractCreateService extends AbstractService<Client, Contrac
 
 		projectCode = contract.getProject() != null ? contract.getProject().getCode() : null;
 
-		Collection<Project> projects = this.repository.findlAllProjects();
+		Collection<Project> projects = this.repository.findlAllPublishedProjects();
 
 		SelectChoices options;
 

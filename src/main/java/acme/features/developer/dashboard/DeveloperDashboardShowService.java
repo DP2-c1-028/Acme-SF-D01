@@ -61,14 +61,21 @@ public class DeveloperDashboardShowService extends AbstractService<Developer, De
 	}
 
 	private Integer trainingModulesMaximumTime(final Collection<Integer> times) {
+		if (times.isEmpty())
+			return null;
 		return times.stream().mapToInt(Integer::intValue).max().orElse(0);
 	}
 
 	private Integer trainingModulesMinimumTime(final Collection<Integer> times) {
+		if (times.isEmpty())
+			return null;
 		return times.stream().mapToInt(Integer::intValue).min().orElse(0);
 	}
 
 	private Double trainingModulesDeviationTime(final Collection<Integer> times) {
+		if (times.isEmpty())
+			return null;
+
 		Double deviation;
 
 		double average = times.stream().mapToInt(Integer::intValue).average().orElse(0.0);
@@ -83,6 +90,9 @@ public class DeveloperDashboardShowService extends AbstractService<Developer, De
 	}
 
 	private Double trainingModulesAverageTime(final Collection<Integer> times) {
+		if (times.isEmpty())
+			return null;
+
 		return times.stream().mapToInt(Integer::intValue).average().orElse(0.0);
 
 	}
@@ -90,12 +100,6 @@ public class DeveloperDashboardShowService extends AbstractService<Developer, De
 	@Override
 	public void unbind(final DeveloperDashboard object) {
 		Dataset dataset;
-		System.out.println(object.getTotalTrainingModulesWithUpdateMoment());
-		System.out.println(object.getTotalTrainingSessionsWithLink());
-		System.out.println(object.getTrainingModulesAverageTime());
-		System.out.println(object.getTrainingModulesDeviationTime());
-		System.out.println(object.getTrainingModulesMaximumTime());
-		System.out.println(object.getTrainingModulesMinimumTime());
 
 		dataset = super.unbind(object, "totalTrainingModulesWithUpdateMoment", "totalTrainingSessionsWithLink", "trainingModulesAverageTime", "trainingModulesDeviationTime", "trainingModulesMinimumTime", "trainingModulesMaximumTime");
 

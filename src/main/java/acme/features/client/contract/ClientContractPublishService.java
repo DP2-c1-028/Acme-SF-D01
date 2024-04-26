@@ -53,26 +53,33 @@ public class ClientContractPublishService extends AbstractService<Client, Contra
 	public void validate(final Contract contract) {
 		assert contract != null;
 
-		int projectId = contract.getProject().getId();
+		//validacion de publish contando solo los contratos publicados + el budget del entrante para valorar
+		if (!super.getBuffer().getErrors().hasErrors("budget") && contract.getProject() != null) {
 
-		Collection<ProgressLog> ProgressLogs = this.repository.findProgressLogsByContractId(contract.getId());
-		Boolean logsPublished = ProgressLogs.stream().allMatch(pl -> !pl.isDraftMode());
+			int projectId = contract.getProject().getId();
+			Collection<Contract> contracts = this.repository.findPublishedContractsByProjectId(projectId);
+			System.out.println(contracts);
+			if (!contracts.isEmpty()) {
 
-		//validacion de publish
-		if (!super.getBuffer().getErrors().hasErrors("budget")) {
-			Collection<Contract> contracts = this.repository.findContractsByProjectId(projectId);
+				Double totalBudgetUsd = contracts.stream().mapToDouble(u -> this.currencyTransformerUsd(u.getBudget())).sum();
+				Double projectCostUsd = this.currencyTransformerUsd(contract.getProject().getCost());
+				double afterPublishingTotalCostUsd = totalBudgetUsd + this.currencyTransformerUsd(contract.getBudget());
 
-			Double totalBudgetUsd = contracts.stream().mapToDouble(u -> this.currencyTransformerUsd(u.getBudget())).sum();
-			Double projectCostUsd = this.currencyTransformerUsd(contract.getProject().getCost());
-
-			super.state(totalBudgetUsd <= projectCostUsd, "*", "client.contract.form.error.publishError");
+				super.state(afterPublishingTotalCostUsd <= projectCostUsd, "*", "client.contract.form.error.publishError");
+			}
 		}
 
-		if (logsPublished == false)
-			super.state(logsPublished == true, "*", "client.contract.form.error.publishError-progressLog");
+		if (!super.getBuffer().getErrors().hasErrors("unpublishedProgressLogs")) {
+
+			Collection<ProgressLog> unpublishedProgressLogs;
+
+			unpublishedProgressLogs = this.repository.findUnpublishedProgressLogsByContractId(contract.getId());
+
+			super.state(unpublishedProgressLogs.isEmpty(), "*", "client.contract.form.error.publishError-progressLog");
+		}
 
 		//validaciones de actualización
-		if (!super.getBuffer().getErrors().hasErrors("budget")) {
+		if (!super.getBuffer().getErrors().hasErrors("budget") && contract.getProject() != null) {
 			Project referencedProject = contract.getProject();
 			super.state(this.currencyTransformerUsd(referencedProject.getCost()) >= this.currencyTransformerUsd(contract.getBudget()), "budget", "client.contract.form.error.budget-negative");
 
@@ -86,8 +93,21 @@ public class ClientContractPublishService extends AbstractService<Client, Contra
 				super.state(contractWithCode.getId() == contract.getId(), "code", "client.contract.form.error.code");
 		}
 
-		if (!super.getBuffer().getErrors().hasErrors("budget"))
-			super.state(contract.getBudget().getAmount() >= 0, "budget", "client.contract.form.error.budget");
+		if (!super.getBuffer().getErrors().hasErrors("project"))
+			super.state(!contract.getProject().isDraftMode(), "project", "client.contract.form.error.project");
+
+		if (!super.getBuffer().getErrors().hasErrors("budget")) {
+			boolean validBudget = contract.getBudget().getAmount() >= 0.;
+			super.state(validBudget, "budget", "client.contract.form.error.budget-negative");
+		}
+
+		if (!super.getBuffer().getErrors().hasErrors("instantiationMoment")) {
+
+			ProgressLog earliestPl = this.repository.findEarliestPublisehdLogByContractId(contract.getId());
+
+			if (earliestPl != null)
+				super.state(earliestPl.getRegistrationMoment().after(contract.getInstantiationMoment()), "instantiationMoment", "client.contract.form.error.invalidDate");
+		}
 	}
 
 	private double currencyTransformerUsd(final Money initial) {
@@ -134,7 +154,7 @@ public class ClientContractPublishService extends AbstractService<Client, Contra
 
 		projectCode = contract.getProject() != null ? contract.getProject().getCode() : null;
 
-		Collection<Project> projects = this.repository.findlAllProjects();
+		Collection<Project> projects = this.repository.findlAllPublishedProjects();
 
 		SelectChoices options;
 

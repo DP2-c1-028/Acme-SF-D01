@@ -8,8 +8,7 @@
 		path="code" />
 	<acme:input-textbox code="claim.form.label.heading"
 		path="heading" />
-	<acme:input-moment code="claim.form.label.instantiationMoment"
-		path="instantiationMoment" readonly="true" />
+
 	<acme:input-textbox code="claim.form.label.description"
 		path="description" />
 	<acme:input-textbox code="claim.form.label.department"
@@ -25,7 +24,11 @@
 				 path="confirmed"/>
 				<acme:submit code="any.claim.list.button.create"
 				 action="/any/claim/create"/>
-			</jstl:when>
-		</jstl:choose>
+		</jstl:when>
+		<jstl:when test="${_command != 'create'}">
+				<acme:input-moment code="claim.form.label.instantiationMoment"
+					path="instantiationMoment" />
+		</jstl:when>
+	</jstl:choose>
 </acme:form>
 
