@@ -39,7 +39,7 @@ public interface DeveloperTrainingModuleRepository extends AbstractRepository {
 	@Query("SELECT ts FROM TrainingSession ts WHERE (ts.trainingModule.id = :id AND ts.published = true)")
 	Collection<TrainingSession> findPublishedTrainingSessionsByTrainingModuleId(int id);
 
-	@Query("SELECT ts FROM TrainingSession ts WHERE ts.trainingModule.id = :id AND ts.periodStart = (SELECT MIN(ts2.periodStart) FROM TrainingSession ts2 WHERE ts2.trainingModule.id = :id)")
+	@Query("SELECT ts FROM TrainingSession ts WHERE ts.trainingModule.id = :id AND ts.id = (SELECT MIN(ts2.id) FROM TrainingSession ts2 WHERE ts2.periodStart = (SELECT MIN(ts3.periodStart) FROM TrainingSession ts3 WHERE ts3.trainingModule.id = :id))")
 	TrainingSession findTrainingSessionWithEarliestDateByTrainingModuleId(int id);
 
 }
