@@ -38,7 +38,12 @@
 		<link>
 			<name>acme-framework</name>
 			<type>2</type>
-			<location>WORKSPACE_LOC/Frameworks/Acme-Framework-24.1.0/target/classes</location>
+			<locationURI>WORKSPACE_LOC/Frameworks/Acme-Framework-24.1.0/target/classes</locationURI>
+		</link>
+		<link>
+			<name>classes</name>
+			<type>2</type>
+			<location>C:/Users/migue/Documents/Universidad/3º/SEGUNTO CUATRIMESTRE/DP2/Workspace-24/Frameworks/Acme-Framework-24.4.0/target/classes</location>
 		</link>
 	</linkedResources>
 </projectDescription>
