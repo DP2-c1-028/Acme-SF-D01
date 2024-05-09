@@ -93,15 +93,15 @@ public class ClientProgressLogCreateService extends AbstractService<Client, Prog
 			super.state(sameDate.isEmpty(), "registrationMoment", "client.progress-log.form.error.sameMoment");
 		}
 
-		//validacion de modo borrador
-		if (!super.getBuffer().getErrors().hasErrors("publishedContract")) {
+		//crear oprogressLogs solo cuando esta el contrato publicado
+		if (!super.getBuffer().getErrors().hasErrors("unpublishedContract")) {
 			Integer contractId;
 			Contract contract;
 
 			contractId = super.getRequest().getData("contractId", int.class);
 			contract = this.repository.findContractById(contractId);
 
-			super.state(contract.isDraftMode(), "*", "client.progress-log.form.error.published-contract");
+			super.state(!contract.isDraftMode(), "*", "client.progress-log.form.error.unpublished-contract");
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("completeness")) {

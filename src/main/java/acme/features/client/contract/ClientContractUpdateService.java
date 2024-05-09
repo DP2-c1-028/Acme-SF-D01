@@ -13,6 +13,7 @@ import acme.client.views.SelectChoices;
 import acme.entities.contracts.Contract;
 import acme.entities.progress_logs.ProgressLog;
 import acme.entities.projects.Project;
+import acme.entities.systemConfiguration.SystemConfiguration;
 import acme.roles.Client;
 
 @Service
@@ -92,12 +93,16 @@ public class ClientContractUpdateService extends AbstractService<Client, Contrac
 			super.state(validBudget, "budget", "client.contract.form.error.budget-negative");
 		}
 
+		//por la nueva retrsiccion de que no puedes crear progressLogs hasta q no este publicado el contrato puede q se tenga q borrar
 		if (!super.getBuffer().getErrors().hasErrors("instantiationMoment")) {
 
 			ProgressLog earliestPl = this.repository.findEarliestPublisehdLogByContractId(contract.getId());
 			if (earliestPl != null)
 				super.state(earliestPl.getRegistrationMoment().after(contract.getInstantiationMoment()), "instantiationMoment", "client.contract.form.error.invalidDate");
 		}
+
+		if (!super.getBuffer().getErrors().hasErrors("budget"))
+			super.state(this.isCurrencyAccepted(contract.getBudget()), "budget", "client.contract.form.error.currency");
 	}
 
 	private double currencyTransformerUsd(final Money initial) {
@@ -113,6 +118,18 @@ public class ClientContractUpdateService extends AbstractService<Client, Contrac
 			res = initial.getAmount() * 1.25;
 
 		return res;
+	}
+
+	public boolean isCurrencyAccepted(final Money moneda) {
+		SystemConfiguration moneys;
+		moneys = this.repository.findSystemConfiguration();
+
+		String[] listaMonedas = moneys.getAcceptedCurrencies().split(",");
+		for (String divisa : listaMonedas)
+			if (moneda.getCurrency().equals(divisa))
+				return true;
+
+		return false;
 	}
 
 	@Override

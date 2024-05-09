@@ -64,14 +64,12 @@ public class ClientProgressLogDeleteService extends AbstractService<Client, Prog
 	public void validate(final ProgressLog progressLog) {
 		assert progressLog != null;
 
-		if (!super.getBuffer().getErrors().hasErrors("publishedContract")) {
-			Integer contractId;
+		if (!super.getBuffer().getErrors().hasErrors("unpublishedContract")) {
 			Contract contract;
 
-			contractId = super.getRequest().getData("contractId", int.class);
-			contract = this.repository.findContractById(contractId);
+			contract = progressLog.getContract();
 
-			super.state(contract.isDraftMode(), "*", "client.progress-log.form.error.published-contract");
+			super.state(!contract.isDraftMode(), "*", "client.progress-log.form.error.unpublished-contract");
 		}
 	}
 

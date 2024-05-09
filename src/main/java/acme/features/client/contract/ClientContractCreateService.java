@@ -12,6 +12,7 @@ import acme.client.services.AbstractService;
 import acme.client.views.SelectChoices;
 import acme.entities.contracts.Contract;
 import acme.entities.projects.Project;
+import acme.entities.systemConfiguration.SystemConfiguration;
 import acme.roles.Client;
 
 @Service
@@ -75,6 +76,9 @@ public class ClientContractCreateService extends AbstractService<Client, Contrac
 			boolean validBudget = contract.getBudget().getAmount() >= 0.;
 			super.state(validBudget, "budget", "client.contract.form.error.budget-negative");
 		}
+
+		if (!super.getBuffer().getErrors().hasErrors("budget"))
+			super.state(this.isCurrencyAccepted(contract.getBudget()), "budget", "client.contract.form.error.currency");
 	}
 
 	private double currencyTransformerUsd(final Money initial) {
@@ -90,6 +94,18 @@ public class ClientContractCreateService extends AbstractService<Client, Contrac
 			res = initial.getAmount() * 1.25;
 
 		return res;
+	}
+
+	public boolean isCurrencyAccepted(final Money moneda) {
+		SystemConfiguration moneys;
+		moneys = this.repository.findSystemConfiguration();
+
+		String[] listaMonedas = moneys.getAcceptedCurrencies().split(",");
+		for (String divisa : listaMonedas)
+			if (moneda.getCurrency().equals(divisa))
+				return true;
+
+		return false;
 	}
 
 	@Override

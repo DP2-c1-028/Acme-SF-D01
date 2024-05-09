@@ -82,14 +82,12 @@ public class ClientProgressLogUpdateService extends AbstractService<Client, Prog
 		}
 
 		//validacion de modo borrador
-		if (!super.getBuffer().getErrors().hasErrors("publishedContract")) {
-			Integer contractId;
+		if (!super.getBuffer().getErrors().hasErrors("unpublishedContract")) {
 			Contract contract;
 
-			contractId = progressLog.getContract().getId();
-			contract = this.repository.findContractById(contractId);
+			contract = progressLog.getContract();
 
-			super.state(contract.isDraftMode(), "*", "client.progress-log.form.error.published-contract");
+			super.state(!contract.isDraftMode(), "*", "client.progress-log.form.error.unpublished-contract");
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("completeness")) {
