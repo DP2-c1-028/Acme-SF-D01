@@ -72,6 +72,7 @@ public class ClientProgressLogCreateService extends AbstractService<Client, Prog
 	public void validate(final ProgressLog progressLog) {
 		assert progressLog != null;
 
+		//duplicas de codigo
 		if (!super.getBuffer().getErrors().hasErrors("recordId")) {
 
 			ProgressLog progressLogWithCode = this.repository.findProgressLogByRecordId(progressLog.getRecordId());
@@ -79,6 +80,7 @@ public class ClientProgressLogCreateService extends AbstractService<Client, Prog
 			super.state(progressLogWithCode == null, "recordId", "client.progress-log.form.error.recordId");
 		}
 
+		//fecha pl despues de contrato
 		if (!super.getBuffer().getErrors().hasErrors("registrationMoment")) {
 			Date contractDate = progressLog.getContract().getInstantiationMoment();
 			Date plDate = progressLog.getRegistrationMoment();
@@ -87,13 +89,14 @@ public class ClientProgressLogCreateService extends AbstractService<Client, Prog
 			super.state(isAfter, "registrationMoment", "client.progress-log.form.error.registrationMoment");
 		}
 
+		//no haya 2 pl creados a la misma vez
 		if (!super.getBuffer().getErrors().hasErrors("registrationMoment")) {
 
 			Collection<ProgressLog> sameDate = this.repository.findContractProgressLogByDate(progressLog.getContract().getId(), progressLog.getId(), progressLog.getRegistrationMoment());
 			super.state(sameDate.isEmpty(), "registrationMoment", "client.progress-log.form.error.sameMoment");
 		}
 
-		//crear oprogressLogs solo cuando esta el contrato publicado
+		//crear progressLogs solo cuando esta el contrato publicado
 		if (!super.getBuffer().getErrors().hasErrors("unpublishedContract")) {
 			Integer contractId;
 			Contract contract;
@@ -104,6 +107,7 @@ public class ClientProgressLogCreateService extends AbstractService<Client, Prog
 			super.state(!contract.isDraftMode(), "*", "client.progress-log.form.error.unpublished-contract");
 		}
 
+		//la completitud debe ir en aumento conforme se crean pl
 		if (!super.getBuffer().getErrors().hasErrors("completeness")) {
 
 			Double maxCompleteness = this.repository.findContractProgressLogWithMaxCompleteness(progressLog.getContract().getId());

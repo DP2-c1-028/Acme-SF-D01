@@ -11,7 +11,6 @@ import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
 import acme.client.views.SelectChoices;
 import acme.entities.contracts.Contract;
-import acme.entities.progress_logs.ProgressLog;
 import acme.entities.projects.Project;
 import acme.entities.systemConfiguration.SystemConfiguration;
 import acme.roles.Client;
@@ -54,7 +53,10 @@ public class ClientContractPublishService extends AbstractService<Client, Contra
 	public void validate(final Contract contract) {
 		assert contract != null;
 
-		//validacion de publish contando solo los contratos publicados + el budget del entrante para valorar
+		//feedback 08/05/24: no se podra crear progress logs si el contrato a asociar no esta publicado
+		//no hay q comprobar nada de pl en esta seccion debido a esto
+
+		//validacion de publish  contratos publicados + el budget del entrante para valorar no debe superar el coste del proyecto asociado
 		if (!super.getBuffer().getErrors().hasErrors("budget") && contract.getProject() != null) {
 
 			int projectId = contract.getProject().getId();
@@ -70,22 +72,16 @@ public class ClientContractPublishService extends AbstractService<Client, Contra
 			}
 		}
 
-		if (!super.getBuffer().getErrors().hasErrors("unpublishedProgressLogs")) {
+		//VALIDACIONES DE ACTUALIZACION
 
-			Collection<ProgressLog> unpublishedProgressLogs;
-
-			unpublishedProgressLogs = this.repository.findUnpublishedProgressLogsByContractId(contract.getId());
-
-			super.state(unpublishedProgressLogs.isEmpty(), "*", "client.contract.form.error.publishError-progressLog");
-		}
-
-		//validaciones de actualización
+		//validacion del D02 budget debe ser menor o igual que coste
 		if (!super.getBuffer().getErrors().hasErrors("budget") && contract.getProject() != null) {
 			Project referencedProject = contract.getProject();
 			super.state(this.currencyTransformerUsd(referencedProject.getCost()) >= this.currencyTransformerUsd(contract.getBudget()), "budget", "client.contract.form.error.budget-negative");
 
 		}
 
+		//ccodigo del cr no duplicado
 		if (!super.getBuffer().getErrors().hasErrors("code")) {
 
 			Contract contractWithCode = this.repository.findContractByCode(contract.getCode());
@@ -94,23 +90,17 @@ public class ClientContractPublishService extends AbstractService<Client, Contra
 				super.state(contractWithCode.getId() == contract.getId(), "code", "client.contract.form.error.code");
 		}
 
+		//cr linkeado a proyecto publicado
 		if (!super.getBuffer().getErrors().hasErrors("project"))
 			super.state(!contract.getProject().isDraftMode(), "project", "client.contract.form.error.project");
 
+		//budget positivo o 0
 		if (!super.getBuffer().getErrors().hasErrors("budget")) {
 			boolean validBudget = contract.getBudget().getAmount() >= 0.;
 			super.state(validBudget, "budget", "client.contract.form.error.budget-negative");
 		}
 
-		//por la nueva retrsiccion de que no puedes crear progressLogs hasta q no este publicado el contrato puede q se tenga q borrar
-		if (!super.getBuffer().getErrors().hasErrors("instantiationMoment")) {
-
-			ProgressLog earliestPl = this.repository.findEarliestPublisehdLogByContractId(contract.getId());
-
-			if (earliestPl != null)
-				super.state(earliestPl.getRegistrationMoment().after(contract.getInstantiationMoment()), "instantiationMoment", "client.contract.form.error.invalidDate");
-		}
-
+		//budget no tenga divisa invalida
 		if (!super.getBuffer().getErrors().hasErrors("budget"))
 			super.state(this.isCurrencyAccepted(contract.getBudget()), "budget", "client.contract.form.error.currency");
 

@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
-import acme.entities.contracts.Contract;
 import acme.entities.progress_logs.ProgressLog;
 import acme.roles.Client;
 
@@ -64,13 +63,7 @@ public class ClientProgressLogDeleteService extends AbstractService<Client, Prog
 	public void validate(final ProgressLog progressLog) {
 		assert progressLog != null;
 
-		if (!super.getBuffer().getErrors().hasErrors("unpublishedContract")) {
-			Contract contract;
-
-			contract = progressLog.getContract();
-
-			super.state(!contract.isDraftMode(), "*", "client.progress-log.form.error.unpublished-contract");
-		}
+		// no es necesario meter validaciones de borrado debido al feedback recibido
 	}
 
 	@Override
