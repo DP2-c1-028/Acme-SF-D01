@@ -10,7 +10,6 @@ import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
 import acme.client.views.SelectChoices;
 import acme.entities.contracts.Contract;
-import acme.entities.progress_logs.ProgressLog;
 import acme.entities.projects.Project;
 import acme.roles.Client;
 
@@ -66,19 +65,16 @@ public class ClientContractDeleteService extends AbstractService<Client, Contrac
 	@Override
 	public void validate(final Contract contract) {
 		assert contract != null;
+		//feedback 08/05/24: no se podra crear progress logs si el contrato a asociar no esta publicado
+		//no hay q comprobar nada de pl en esta seccion debido a esto
 
-		if (!super.getBuffer().getErrors().hasErrors("publishedProgressLog")) {
-			Collection<ProgressLog> pls = this.repository.findPublishedProgressLogsByContractId(contract.getId());
-			super.state(pls.isEmpty(), "*", "client.contract.form.error.cannotDelete");
-		}
 	}
 
 	@Override
 	public void perform(final Contract contract) {
 		assert contract != null;
-
-		Collection<ProgressLog> relatedProgressLogs = this.repository.findProgressLogsByContractId(contract.getId());
-		this.repository.deleteAll(relatedProgressLogs);
+		//feedback 08/05/24: no se podra crear progress logs si el contrato a asociar no esta publicado
+		//no hay q comprobar nada de pl en esta seccion debido a esto
 
 		this.repository.delete(contract);
 	}

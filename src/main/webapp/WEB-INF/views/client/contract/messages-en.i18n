@@ -34,3 +34,4 @@ client.contract.form.error.publishError-progressLog = You cannot publish a contr
 
 client.contract.form.error.invalidDate = Cannot set the date to a moment before the creation of a published log
 client.contract.form.error.cannotDelete= You cannot delete a contract if there are published progress logs
+client.contract.form.error.currency = This currency is not accepted

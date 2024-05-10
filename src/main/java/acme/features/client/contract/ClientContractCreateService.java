@@ -12,6 +12,7 @@ import acme.client.services.AbstractService;
 import acme.client.views.SelectChoices;
 import acme.entities.contracts.Contract;
 import acme.entities.projects.Project;
+import acme.entities.systemConfiguration.SystemConfiguration;
 import acme.roles.Client;
 
 @Service
@@ -58,23 +59,27 @@ public class ClientContractCreateService extends AbstractService<Client, Contrac
 		if (!super.getBuffer().getErrors().hasErrors("budget") && contract.getProject() != null) {
 			Project referencedProject = contract.getProject();
 			super.state(this.currencyTransformerUsd(referencedProject.getCost()) >= this.currencyTransformerUsd(contract.getBudget()), "budget", "client.contract.form.error.budget");
-
 		}
 
+		//ccodigo del cr no duplicado
 		if (!super.getBuffer().getErrors().hasErrors("code")) {
-
 			Contract contractWithCode = this.repository.findContractByCode(contract.getCode());
-
 			super.state(contractWithCode == null, "code", "client.contract.form.error.code");
 		}
 
+		//cr linkeado a proyecto publicado
 		if (!super.getBuffer().getErrors().hasErrors("project"))
 			super.state(!contract.getProject().isDraftMode(), "project", "client.contract.form.error.project");
 
+		//budget positivo o 0
 		if (!super.getBuffer().getErrors().hasErrors("budget")) {
 			boolean validBudget = contract.getBudget().getAmount() >= 0.;
 			super.state(validBudget, "budget", "client.contract.form.error.budget-negative");
 		}
+
+		//budget no tenga divisa invalida
+		if (!super.getBuffer().getErrors().hasErrors("budget"))
+			super.state(this.isCurrencyAccepted(contract.getBudget()), "budget", "client.contract.form.error.currency");
 	}
 
 	private double currencyTransformerUsd(final Money initial) {
@@ -90,6 +95,18 @@ public class ClientContractCreateService extends AbstractService<Client, Contrac
 			res = initial.getAmount() * 1.25;
 
 		return res;
+	}
+
+	public boolean isCurrencyAccepted(final Money moneda) {
+		SystemConfiguration moneys;
+		moneys = this.repository.findSystemConfiguration();
+
+		String[] listaMonedas = moneys.getAcceptedCurrencies().split(",");
+		for (String divisa : listaMonedas)
+			if (moneda.getCurrency().equals(divisa))
+				return true;
+
+		return false;
 	}
 
 	@Override
@@ -112,7 +129,10 @@ public class ClientContractCreateService extends AbstractService<Client, Contrac
 
 		SelectChoices options;
 
-		Project project = contract.getProject() != null ? contract.getProject() : (Project) projects.toArray()[0];
+		//ERROR salta cuando se crea cr sin que eexistan proyectos publicados
+		//SOLUCION si no detecta ningun proyecto para la creacion te establece a nulo el campo
+
+		Project project = contract.getProject() != null ? contract.getProject() : null;
 
 		options = SelectChoices.from(projects, "code", project);
 

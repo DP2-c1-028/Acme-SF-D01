@@ -33,3 +33,4 @@ client.contract.form.error.publishError-progressLog = No puedes publicar un cont
 
 client.contract.form.error.invalidDate = No puedees establecer una fecha de creacion previa a la creacion de un registro de progreso publicado.
 client.contract.form.error.cannotDelete = No puedes borrar un contrato si hay registros de progreso publicados
+client.contract.form.error.currency = Esta divisa no esta aceptada por el sistema

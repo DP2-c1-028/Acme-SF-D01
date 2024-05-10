@@ -10,6 +10,7 @@ import acme.client.repositories.AbstractRepository;
 import acme.entities.contracts.Contract;
 import acme.entities.progress_logs.ProgressLog;
 import acme.entities.projects.Project;
+import acme.entities.systemConfiguration.SystemConfiguration;
 import acme.roles.Client;
 
 @Repository
@@ -53,5 +54,8 @@ public interface ClientContractRepository extends AbstractRepository {
 
 	@Query("select p from ProgressLog p where p.contract.id = :id and p.draftMode = false and p.registrationMoment = (select min(p1.registrationMoment) from ProgressLog p1 where p1.contract.id = :id and p1.draftMode = false)")
 	ProgressLog findEarliestPublisehdLogByContractId(int id);
+
+	@Query("select sc from SystemConfiguration sc")
+	SystemConfiguration findSystemConfiguration();
 
 }
