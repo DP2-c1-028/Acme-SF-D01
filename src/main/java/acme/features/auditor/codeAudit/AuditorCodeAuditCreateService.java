@@ -88,7 +88,7 @@ public class AuditorCodeAuditCreateService extends AbstractService<Auditor, Code
 
 		projectCode = object.getProject() != null ? object.getProject().getCode() : null;
 
-		Project project = object.getProject() != null ? object.getProject() : (Project) projects.toArray()[0];
+		Project project = projects.stream().toList().isEmpty() ? null : projects.stream().toList().get(0);
 
 		marks = this.repository.findMarksByCodeAuditId(object.getId()).stream().toList();
 
