@@ -19,4 +19,7 @@ public interface AdministratorCurrencyRepository extends AbstractRepository {
 	@Query("select c from Currency c")
 	Collection<Currency> findCurrencies();
 
+	@Query("select c from Currency c where c.id=:id")
+	Currency findCurrencyById(int id);
+
 }

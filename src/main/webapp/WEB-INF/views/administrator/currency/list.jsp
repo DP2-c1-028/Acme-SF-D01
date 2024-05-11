@@ -8,4 +8,4 @@
 	<acme:list-column code="administrator.currency.list.label.value-against-dollar" path="valueAgainstDollar" width="10%"/>
 </acme:list>
 
-<acme:button code="administrator.currency.button.create" action="/administrator/system-configuration/create"/>
+<acme:button code="administrator.currency.button.create" action="/administrator/currency/create"/>

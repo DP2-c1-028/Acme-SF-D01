@@ -16,13 +16,25 @@ public class AdministratorCurrencyController extends AbstractController<Administ
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	protected AdministradorCurrencyListService listService;
+	protected AdministradorCurrencyListService		listService;
+
+	@Autowired
+	protected AdministratorCurrencyShowService		showService;
+
+	@Autowired
+	protected AdministratorCurrencyCreateService	createService;
+
+	@Autowired
+	protected AdministratorCurrencyUpdateService	updateService;
 
 
 	// Constructors -----------------------------------------------------------
 	@PostConstruct
 	protected void initialise() {
 		super.addBasicCommand("list", this.listService);
+		super.addBasicCommand("show", this.showService);
+		super.addBasicCommand("create", this.createService);
+		super.addBasicCommand("update", this.updateService);
 	}
 
 }
