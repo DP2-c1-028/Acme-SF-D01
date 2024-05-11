@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 import acme.client.data.datatypes.Money;
 import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
+import acme.components.SystemConfigurationRepository;
 import acme.forms.ManagerDashboard;
 import acme.roles.Manager;
 
@@ -33,7 +34,10 @@ public class ManagerDashboardShowService extends AbstractService<Manager, Manage
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	private ManagerDashboardRepository repository;
+	private ManagerDashboardRepository		repository;
+
+	@Autowired
+	private SystemConfigurationRepository	systemConfigurationRepository;
 
 	// AbstractService interface ----------------------------------------------
 
@@ -87,7 +91,7 @@ public class ManagerDashboardShowService extends AbstractService<Manager, Manage
 		dashboard.setMaximumEstimatedCost(maximumEstimatedCost);
 
 		//Projects
-		Collection<Money> projectCosts = this.repository.projectCosts(managerId).stream().map(this::currencyTransformerUsd).collect(Collectors.toCollection(ArrayList<Money>::new));
+		Collection<Money> projectCosts = this.repository.projectCosts(managerId).stream().map(m -> this.systemConfigurationRepository.convertToUsd(m)).collect(Collectors.toCollection(ArrayList<Money>::new));
 
 		minimumCost = projectCosts.stream().mapToDouble(Money::getAmount).min().orElse(Double.NaN);
 		maximumCost = projectCosts.stream().mapToDouble(Money::getAmount).max().orElse(Double.NaN);

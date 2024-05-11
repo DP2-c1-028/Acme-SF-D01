@@ -1,0 +1,5 @@
+administrator.currency.list.title = Currencies
+administrator.currency.list.label.symbol = Symbol
+administrator.currency.list.label.value-against-dollar = Value against USD
+
+administrator.currency.button.create = Create

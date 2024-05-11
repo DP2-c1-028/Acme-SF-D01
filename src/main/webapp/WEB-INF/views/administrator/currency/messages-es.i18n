@@ -1,0 +1,5 @@
+administrator.currency.list.title = Divisas
+administrator.currency.list.label.symbol = Símbolo
+administrator.currency.list.label.value-against-dollar = Valor frente al USD
+
+administrator.currency.button.create = Crear

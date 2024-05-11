@@ -57,5 +57,4 @@ public interface ManagerDashboardRepository extends AbstractRepository {
 
 	@Query("select us.estimatedCost from UserStory us where us.manager.id=:managerId and us.draftMode=false")
 	Collection<Double> userStoriesEstimatedCosts(int managerId);
-
 }

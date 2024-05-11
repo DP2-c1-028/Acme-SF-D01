@@ -9,7 +9,6 @@
 
 	<jstl:choose>
 		<jstl:when test="${acme:anyOf(_command, 'show|update')}">
-			<acme:button code="administrator.system-configuration.form.button.currencies" action="/administrator/currency/list"/>
 			<acme:submit code="administrator.system-configuration.form.button.update" action="/administrator/system-configuration/update"/>
 		</jstl:when>
 	</jstl:choose>
