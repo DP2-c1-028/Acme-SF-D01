@@ -19,4 +19,7 @@ public interface AdministratorSystemConfigurationRepository extends AbstractRepo
 	@Query("select c from Currency c")
 	Collection<Currency> findCurrencies();
 
+	@Query("select c.symbol from Currency c")
+	Collection<String> findCurrencySymbols();
+
 }

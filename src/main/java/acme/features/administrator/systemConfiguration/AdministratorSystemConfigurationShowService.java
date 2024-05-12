@@ -1,6 +1,9 @@
 
 package acme.features.administrator.systemConfiguration;
 
+import java.util.Collection;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +32,13 @@ public class AdministratorSystemConfigurationShowService extends AbstractService
 	public void load() {
 		SystemConfiguration object;
 
-		object = this.repository.findSystemConfiguration();
+		Collection<String> symbols = this.repository.findCurrencySymbols();
+
+		String allSymbols = symbols.stream().collect(Collectors.joining(","));
+
+		object = new SystemConfiguration();
+
+		object.setAcceptedCurrencies(allSymbols);
 
 		super.getBuffer().addData(object);
 	}
@@ -40,7 +49,7 @@ public class AdministratorSystemConfigurationShowService extends AbstractService
 
 		Dataset dataset;
 
-		dataset = super.unbind(object, "systemCurrency", "acceptedCurrencies");
+		dataset = super.unbind(object, "acceptedCurrencies");
 
 		super.getResponse().addData(dataset);
 	}
