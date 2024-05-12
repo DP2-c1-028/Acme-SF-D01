@@ -42,4 +42,9 @@ public interface SystemConfigurationRepository extends AbstractRepository {
 		return res;
 	}
 
+	default boolean existsCurrency(final String symbol) {
+		Currency c = this.findCurrencyByName(symbol);
+		return c != null;
+	}
+
 }

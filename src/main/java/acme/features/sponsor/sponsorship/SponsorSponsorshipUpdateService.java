@@ -13,6 +13,7 @@ import acme.client.data.models.Dataset;
 import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractService;
 import acme.client.views.SelectChoices;
+import acme.components.SystemConfigurationRepository;
 import acme.entities.projects.Project;
 import acme.entities.sponsorships.Sponsorship;
 import acme.entities.sponsorships.SponsorshipType;
@@ -25,7 +26,10 @@ public class SponsorSponsorshipUpdateService extends AbstractService<Sponsor, Sp
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	private SponsorSponsorshipRepository repository;
+	private SponsorSponsorshipRepository	repository;
+
+	@Autowired
+	private SystemConfigurationRepository	systemConfigurationRepository;
 
 	// AbstractService interface ----------------------------------------------
 
@@ -101,8 +105,11 @@ public class SponsorSponsorshipUpdateService extends AbstractService<Sponsor, Sp
 		if (!super.getBuffer().getErrors().hasErrors("amount"))
 			super.state(object.getAmount().getAmount() >= 0, "amount", "sponsor.sponsorship.form.error.amount");
 
-		if (!super.getBuffer().getErrors().hasErrors("amount"))
-			super.state(this.isCurrencyAccepted(object.getAmount()), "amount", "sponsor.sponsorship.form.error.acceptedCurrency");
+		if (!super.getBuffer().getErrors().hasErrors("amount")) {
+			String symbol = object.getAmount().getCurrency();
+			boolean existsCurrency = this.systemConfigurationRepository.existsCurrency(symbol);
+			super.state(existsCurrency, "amount", "sponsor.sponsorship.form.error.acceptedCurrency");
+		}
 
 		if (!super.getBuffer().getErrors().hasErrors("project"))
 			super.state(!object.getProject().isDraftMode(), "project", "sponsor.sponsorship.form.error.project-not-published");
