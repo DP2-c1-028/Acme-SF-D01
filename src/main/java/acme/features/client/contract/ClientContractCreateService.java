@@ -6,20 +6,22 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import acme.client.data.datatypes.Money;
 import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
 import acme.client.views.SelectChoices;
+import acme.components.SystemConfigurationRepository;
 import acme.entities.contracts.Contract;
 import acme.entities.projects.Project;
-import acme.entities.systemConfiguration.SystemConfiguration;
 import acme.roles.Client;
 
 @Service
 public class ClientContractCreateService extends AbstractService<Client, Contract> {
 
 	@Autowired
-	private ClientContractRepository repository;
+	private ClientContractRepository		repository;
+
+	@Autowired
+	private SystemConfigurationRepository	sysConfigRepository;
 
 
 	@Override
@@ -56,9 +58,12 @@ public class ClientContractCreateService extends AbstractService<Client, Contrac
 		assert contract != null;
 
 		//validacion del D02 budget debe ser menor o igual que coste
-		if (!super.getBuffer().getErrors().hasErrors("budget") && contract.getProject() != null) {
+		if (!super.getBuffer().getErrors().hasErrors("budget") && contract.getProject() != null && this.sysConfigRepository.existsCurrency(contract.getBudget().getCurrency())) {
 			Project referencedProject = contract.getProject();
-			super.state(this.currencyTransformerUsd(referencedProject.getCost()) >= this.currencyTransformerUsd(contract.getBudget()), "budget", "client.contract.form.error.budget");
+			Double projectCost = this.sysConfigRepository.convertToUsd(referencedProject.getCost()).getAmount();
+			Double budgetUSD = this.sysConfigRepository.convertToUsd(contract.getBudget()).getAmount();
+
+			super.state(projectCost >= budgetUSD, "budget", "client.contract.form.error.budget");
 		}
 
 		//ccodigo del cr no duplicado
@@ -72,47 +77,22 @@ public class ClientContractCreateService extends AbstractService<Client, Contrac
 			super.state(!contract.getProject().isDraftMode(), "project", "client.contract.form.error.project");
 
 		//budget positivo o 0
-		if (!super.getBuffer().getErrors().hasErrors("budget")) {
+		if (!super.getBuffer().getErrors().hasErrors("budget") && contract.getBudget() != null) {
 			boolean validBudget = contract.getBudget().getAmount() >= 0.;
 			super.state(validBudget, "budget", "client.contract.form.error.budget-negative");
 		}
 
 		//budget no tenga divisa invalida
-		if (!super.getBuffer().getErrors().hasErrors("budget"))
-			super.state(this.isCurrencyAccepted(contract.getBudget()), "budget", "client.contract.form.error.currency");
-	}
-
-	private double currencyTransformerUsd(final Money initial) {
-		double res = initial.getAmount();
-
-		if (initial.getCurrency().equals("USD"))
-			res = initial.getAmount();
-
-		else if (initial.getCurrency().equals("EUR"))
-			res = initial.getAmount() * 1.07;
-
-		else
-			res = initial.getAmount() * 1.25;
-
-		return res;
-	}
-
-	public boolean isCurrencyAccepted(final Money moneda) {
-		SystemConfiguration moneys;
-		moneys = this.repository.findSystemConfiguration();
-
-		String[] listaMonedas = moneys.getAcceptedCurrencies().split(",");
-		for (String divisa : listaMonedas)
-			if (moneda.getCurrency().equals(divisa))
-				return true;
-
-		return false;
+		if (!super.getBuffer().getErrors().hasErrors("budget") && contract.getBudget() != null) {
+			String currency = contract.getBudget().getCurrency();
+			boolean existsCurrency = this.sysConfigRepository.existsCurrency(currency);
+			super.state(existsCurrency, "budget", "client.contract.form.error.currency");
+		}
 	}
 
 	@Override
 	public void perform(final Contract contract) {
 		assert contract != null;
-		System.out.println(contract);
 		this.repository.save(contract);
 	}
 
