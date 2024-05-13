@@ -1,0 +1,11 @@
+administrator.currency.list.title = Divisas
+administrator.currency.list.label.symbol = Símbolo
+administrator.currency.list.label.value-against-dollar = Valor frente al USD
+
+administrator.currency.button.create = Crear
+
+administrator.currency.form.title = Datos de la divisa
+administrator.currency.form.label.symbol = Símbolo
+administrator.currency.form.label.value-against-dollar = Valor frente al USD
+administrator.currency.form.button.update = Actualizar
+administrator.currency.form.button.create = Crear

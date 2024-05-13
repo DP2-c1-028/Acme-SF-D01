@@ -7,39 +7,51 @@
 	<acme:message code="manager.dashboard.form.title.general-indicators-projects"/>
 </h2>
 
+<jstl:if test="${moneyStatistics.isEmpty()}">
+	<acme:message code="manager.dashboard.error.no-money-statistics"/>
+</jstl:if>
+
 <table class="table table-sm">
-	<tr>
+	<jstl:forEach var="par" items="${moneyStatistics}">
+		<tr>
+			<th>
+				<acme:print value="(${par.key})"/>
+			</th>
+		</tr>
+		<tr>
 		<th scope="row">
 			<acme:message code="manager.dashboard.form.label.average-cost"/>
 		</th>
 		<td>
-			<acme:print value="${averageCost}"/>
+			<acme:print value="${String.format('%.2f', par.value.averageCost)} (${par.key})"/>
 		</td>
-	</tr>
-	<tr>
-		<th scope="row">
-			<acme:message code="manager.dashboard.form.label.deviation-cost"/>
-		</th>
-		<td>
-			<acme:print value="${deviationCost}"/>
-		</td>
-	</tr>
-	<tr>
-		<th scope="row">
-			<acme:message code="manager.dashboard.form.label.max-cost"/>
-		</th>
-		<td>
-			<acme:print value="${maximumCost}"/>
-		</td>
-	</tr>
-	<tr>
-		<th scope="row">
-			<acme:message code="manager.dashboard.form.label.min-cost"/>
-		</th>
-		<td>
-			<acme:print value="${minimumCost}"/>
-		</td>
-	</tr>
+		</tr>
+		<tr>
+			<th scope="row">
+				<acme:message code="manager.dashboard.form.label.deviation-cost"/>
+			</th>
+			<td>
+				<acme:print value="${String.format('%.2f', par.value.deviationCost)} (${par.key})"/>
+			</td>
+		</tr>
+		<tr>
+			<th scope="row">
+				<acme:message code="manager.dashboard.form.label.max-cost"/>
+			</th>
+			<td>
+				<acme:print value="${String.format('%.2f', par.value.maximumCost)} (${par.key})"/>
+			</td>
+		</tr>
+		<tr>
+			<th scope="row">
+				<acme:message code="manager.dashboard.form.label.min-cost"/>
+			</th>
+			<td>
+				<acme:print value="${String.format('%.2f', par.value.minimumCost)} (${par.key})"/>
+			</td>
+		</tr>
+	</jstl:forEach>
+	
 </table>
 
 <h2>

@@ -13,6 +13,7 @@ import acme.client.data.models.Dataset;
 import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractService;
 import acme.client.views.SelectChoices;
+import acme.components.SystemConfigurationRepository;
 import acme.entities.projects.Project;
 import acme.entities.sponsorships.Sponsorship;
 import acme.entities.sponsorships.SponsorshipType;
@@ -25,7 +26,10 @@ public class SponsorSponsorshipCreateService extends AbstractService<Sponsor, Sp
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	private SponsorSponsorshipRepository repository;
+	private SponsorSponsorshipRepository	repository;
+
+	@Autowired
+	private SystemConfigurationRepository	systemConfigurationRepository;
 
 	// AbstractService interface ----------------------------------------------
 
@@ -89,8 +93,11 @@ public class SponsorSponsorshipCreateService extends AbstractService<Sponsor, Sp
 		if (!super.getBuffer().getErrors().hasErrors("amount"))
 			super.state(object.getAmount().getAmount() >= 0, "amount", "sponsor.sponsorship.form.error.amount");
 
-		if (!super.getBuffer().getErrors().hasErrors("amount"))
-			super.state(this.isCurrencyAccepted(object.getAmount()), "amount", "sponsor.sponsorship.form.error.acceptedCurrency");
+		if (!super.getBuffer().getErrors().hasErrors("amount")) {
+			String symbol = object.getAmount().getCurrency();
+			boolean existsCurrency = this.systemConfigurationRepository.existsCurrency(symbol);
+			super.state(existsCurrency, "amount", "sponsor.sponsorship.form.error.acceptedCurrency");
+		}
 
 		if (!super.getBuffer().getErrors().hasErrors("project"))
 			super.state(!object.getProject().isDraftMode(), "project", "sponsor.sponsorship.form.error.project-not-published");
@@ -125,13 +132,17 @@ public class SponsorSponsorshipCreateService extends AbstractService<Sponsor, Sp
 		Collection<Project> projects = this.repository.findProjects();
 		SelectChoices choices2;
 		Dataset dataset;
+		String projectCode;
+
+		projectCode = object.getProject() != null ? object.getProject().getCode() : null;
 
 		choices = SelectChoices.from(SponsorshipType.class, object.getType());
-		choices2 = SelectChoices.from(projects, "code", (Project) projects.toArray()[0]);
+		choices2 = SelectChoices.from(projects, "code", null);
 
 		dataset = super.unbind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link", "project", "draftMode");
 		dataset.put("types", choices);
 		dataset.put("projects", choices2);
+		dataset.put("project", projectCode);
 
 		super.getResponse().addData(dataset);
 	}

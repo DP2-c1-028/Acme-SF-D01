@@ -25,5 +25,5 @@ client.progress-log.form.error.recordId = This record id is already in use
 client.progress-log.form.error.completeness = There´s already a published progress log with that completeness rate, assign a higher value
 client.progress-log.form.error.registrationMoment = You cannot set the registration moment of the progress log to a date before the creation of the assigned contract
 
-client.progress-log.form.error.published-contract = You cannot create,update or delete progress logs related to a published contract
+client.progress-log.form.error.unpublished-contract = Cannot create a progress log for an unpublished contract
 client.progress-log.form.error.sameMoment = Cannot assign the same registration moment of another progress log

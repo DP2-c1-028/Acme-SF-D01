@@ -14,7 +14,9 @@ package acme.features.manager.dashboard;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -24,6 +26,7 @@ import org.springframework.stereotype.Service;
 import acme.client.data.datatypes.Money;
 import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
+import acme.components.SystemConfigurationRepository;
 import acme.forms.ManagerDashboard;
 import acme.roles.Manager;
 
@@ -33,7 +36,10 @@ public class ManagerDashboardShowService extends AbstractService<Manager, Manage
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	private ManagerDashboardRepository repository;
+	private ManagerDashboardRepository		repository;
+
+	@Autowired
+	private SystemConfigurationRepository	systemConfigurationRepository;
 
 	// AbstractService interface ----------------------------------------------
 
@@ -87,17 +93,25 @@ public class ManagerDashboardShowService extends AbstractService<Manager, Manage
 		dashboard.setMaximumEstimatedCost(maximumEstimatedCost);
 
 		//Projects
-		Collection<Money> projectCosts = this.repository.projectCosts(managerId).stream().map(this::currencyTransformerUsd).collect(Collectors.toCollection(ArrayList<Money>::new));
 
-		minimumCost = projectCosts.stream().mapToDouble(Money::getAmount).min().orElse(Double.NaN);
-		maximumCost = projectCosts.stream().mapToDouble(Money::getAmount).max().orElse(Double.NaN);
-		averageCost = projectCosts.stream().mapToDouble(Money::getAmount).average().orElse(Double.NaN);
-		deviationCost = this.deviation(projectCosts.stream().mapToDouble(Money::getAmount).boxed().toList());
+		Collection<String> allCurrenciesInPusblishedProjects = this.repository.allCurrenciesInPublishedProjects(managerId);
 
-		dashboard.setAverageCost(averageCost);
-		dashboard.setDeviationCost(deviationCost);
-		dashboard.setMinimumCost(minimumCost);
-		dashboard.setMaximumCost(maximumCost);
+		Map<String, MoneyStatistics> moneyStatistics = new HashMap<>();
+
+		for (String currency : allCurrenciesInPusblishedProjects) {
+			Collection<Money> projectCosts = this.repository.projectCosts(managerId).stream().map(m -> this.systemConfigurationRepository.convertFromCurrencyToAnother(m, currency)).collect(Collectors.toCollection(ArrayList<Money>::new));
+
+			minimumCost = projectCosts.stream().mapToDouble(Money::getAmount).min().orElse(Double.NaN);
+			maximumCost = projectCosts.stream().mapToDouble(Money::getAmount).max().orElse(Double.NaN);
+			averageCost = projectCosts.stream().mapToDouble(Money::getAmount).average().orElse(Double.NaN);
+			deviationCost = this.deviation(projectCosts.stream().mapToDouble(Money::getAmount).boxed().toList());
+
+			MoneyStatistics ms = new MoneyStatistics(minimumCost, maximumCost, averageCost, deviationCost);
+
+			moneyStatistics.put(currency, ms);
+		}
+
+		dashboard.setMoneyStatistics(moneyStatistics);
 
 		super.getBuffer().addData(dashboard);
 	}
@@ -148,7 +162,7 @@ public class ManagerDashboardShowService extends AbstractService<Manager, Manage
 			"totalNumberOfCould", "totalNumberOfWont", //
 			"averageEstimatedCost", "deviationEstimatedCost", //
 			"minimumEstimatedCost", "maximumEstimatedCost", //
-			"minimumCost", "maximumCost", "averageCost", "deviationCost");
+			"moneyStatistics");
 
 		super.getResponse().addData(dataset);
 	}

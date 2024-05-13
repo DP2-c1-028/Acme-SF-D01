@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import acme.client.data.datatypes.Money;
 import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
+import acme.components.SystemConfigurationRepository;
 import acme.forms.SponsorDashboard;
 import acme.roles.Sponsor;
 
@@ -20,7 +21,10 @@ public class SponsorDashboardShowService extends AbstractService<Sponsor, Sponso
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	private SponsorDashboardRepository repository;
+	private SponsorDashboardRepository		repository;
+
+	@Autowired
+	private SystemConfigurationRepository	systemConfigurationRepository;
 
 	// AbstractService interface ----------------------------------------------
 
@@ -48,8 +52,8 @@ public class SponsorDashboardShowService extends AbstractService<Sponsor, Sponso
 		Money invoicesMaximumQuantity;
 
 		sponsorId = super.getRequest().getPrincipal().getActiveRoleId();
-		Collection<Money> amounts = this.repository.sponsorshipAmounts(sponsorId).stream().map(this::currencyTransformerUsd).collect(Collectors.toCollection(ArrayList<Money>::new));
-		Collection<Money> quantities = this.repository.invoiceQuantity(sponsorId).stream().map(this::currencyTransformerUsd).collect(Collectors.toCollection(ArrayList<Money>::new));
+		Collection<Money> amounts = this.repository.sponsorshipAmounts(sponsorId).stream().map(m -> this.systemConfigurationRepository.convertToUsd(m)).collect(Collectors.toCollection(ArrayList<Money>::new));
+		Collection<Money> quantities = this.repository.invoiceQuantity(sponsorId).stream().map(m -> this.systemConfigurationRepository.convertToUsd(m)).collect(Collectors.toCollection(ArrayList<Money>::new));
 
 		totalNumberOfInvoices = this.repository.totalNumberOfInvoices(sponsorId);
 		totalNumberOfSponsorshipsWithLink = this.repository.totalNumberOfSponsorshipsWithLink(sponsorId);

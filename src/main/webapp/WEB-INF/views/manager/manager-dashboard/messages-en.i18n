@@ -9,7 +9,9 @@ manager.dashboard.form.label.deviation-estimated-cost =  Deviation estimated cos
 manager.dashboard.form.label.max-estimated-cost = Max estimated cost
 manager.dashboard.form.label.min-estimated-cost = Min estimated cost
 
-manager.dashboard.form.label.average-cost = Average cost (USD)
-manager.dashboard.form.label.deviation-cost = Deviation cost (USD)
-manager.dashboard.form.label.max-cost = Max cost (USD)
-manager.dashboard.form.label.min-cost = Min cost (USD)
+manager.dashboard.form.label.average-cost = Average cost
+manager.dashboard.form.label.deviation-cost = Deviation cost
+manager.dashboard.form.label.max-cost = Max cost
+manager.dashboard.form.label.min-cost = Min cost
+
+manager.dashboard.error.no-money-statistics = There are no projects published by you and therefore no statistics can be made.

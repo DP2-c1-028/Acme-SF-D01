@@ -58,4 +58,6 @@ public interface ManagerDashboardRepository extends AbstractRepository {
 	@Query("select us.estimatedCost from UserStory us where us.manager.id=:managerId and us.draftMode=false")
 	Collection<Double> userStoriesEstimatedCosts(int managerId);
 
+	@Query("select p.cost.currency from Project p where p.manager.id=:managerId and p.draftMode=false")
+	Collection<String> allCurrenciesInPublishedProjects(int managerId);
 }

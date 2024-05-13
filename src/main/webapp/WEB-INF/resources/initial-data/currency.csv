@@ -1,0 +1,4 @@
+key,symbol,valueAgainstDollar,key:system-configuration
+currency-01,"USD",1,system-configuration-01
+currency-02,"EUR",1.08,system-configuration-01
+currency-03,"GBP",0.86,system-configuration-01

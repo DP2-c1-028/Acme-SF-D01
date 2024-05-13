@@ -1,5 +1,5 @@
 
-package acme.features.administrator.systemConfiguration;
+package acme.features.administrator.currency;
 
 import java.util.Collection;
 
@@ -11,7 +11,7 @@ import acme.entities.currency.Currency;
 import acme.entities.systemConfiguration.SystemConfiguration;
 
 @Repository
-public interface AdministratorSystemConfigurationRepository extends AbstractRepository {
+public interface AdministratorCurrencyRepository extends AbstractRepository {
 
 	@Query("select sc from SystemConfiguration sc")
 	SystemConfiguration findSystemConfiguration();
@@ -19,7 +19,7 @@ public interface AdministratorSystemConfigurationRepository extends AbstractRepo
 	@Query("select c from Currency c")
 	Collection<Currency> findCurrencies();
 
-	@Query("select c.symbol from Currency c")
-	Collection<String> findCurrencySymbols();
+	@Query("select c from Currency c where c.id=:id")
+	Currency findCurrencyById(int id);
 
 }
