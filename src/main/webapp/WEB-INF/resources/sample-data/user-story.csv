@@ -22,3 +22,4 @@ user-story-20,"Title","Description",0.0,MUST,"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 user-story-21,"Title","Description",0.0,MUST,"Acceptance Criteria","",false,manager-02
 user-story-22,"Title","Description",0.0,COULD,"Acceptance Criteria","https://optional.link",false,manager-02
 user-story-23,"Title","Description",0.0,WONT,"Acceptance Criteria","https://optional.link",false,manager-02
+user-story-24,"In Draft mode","Description",0.0,WONT,"Acceptance Criteria","https://optional.link",true,manager-01
