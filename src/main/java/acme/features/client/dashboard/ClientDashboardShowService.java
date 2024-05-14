@@ -16,7 +16,6 @@ import acme.client.data.datatypes.Money;
 import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
 import acme.components.SystemConfigurationRepository;
-import acme.features.manager.dashboard.MoneyStatistics;
 import acme.forms.ClientDashboard;
 import acme.roles.Client;
 
@@ -48,10 +47,10 @@ public class ClientDashboardShowService extends AbstractService<Client, ClientDa
 		int totalLogsWithCompletenessAbove75;
 		int clientId;
 
-		Double AverageBudgetOfContracts;
-		Double MinimunBudgetOfContracts;
-		Double MaximunBudgetOfContracts;
-		Double BudgetDeviation = null;
+		Double averageBudget;
+		Double minimunBudget;
+		Double maximunBudget;
+		Double budgetDeviation = null;
 
 		clientId = super.getRequest().getPrincipal().getActiveRoleId();
 		double percentaje25 = 25.0;
@@ -67,47 +66,32 @@ public class ClientDashboardShowService extends AbstractService<Client, ClientDa
 		//OPERACIONES CON CONTRACTS
 
 		Collection<String> contractCurrencies = this.repository.allCurrenciesInPublishedContracts(clientId);
-		Collection<Money> contractBudgets = this.repository.findAllBudgetsFromClient(clientId);
 
-		if (!contractBudgets.isEmpty()) {
-			AverageBudgetOfContracts = contractBudgets.stream().mapToDouble(u -> this.repository.currencyTransformerUsd(u)).average().orElse(0.0);
-			MinimunBudgetOfContracts = contractBudgets.stream().mapToDouble(u -> this.repository.currencyTransformerUsd(u)).min().orElse(0.0);
-			MaximunBudgetOfContracts = contractBudgets.stream().mapToDouble(u -> this.repository.currencyTransformerUsd(u)).max().orElse(0.0);
-		} else {
+		Map<String, ClientMoneyStatistics> moneyStatistics = new HashMap<>();
 
-			AverageBudgetOfContracts = null;
-			MinimunBudgetOfContracts = null;
-			MaximunBudgetOfContracts = null;
-		}
 		dashboard = new ClientDashboard();
 
-		Map<String, MoneyStatistics> moneyStatistics = new HashMap<>();
-
 		for (String currency : contractCurrencies) {
-			Collection<Money> projectCosts = this.repository.findAllBudgetsFromClient(clientId).stream().map(m -> this.sysConfigRepository.convertFromCurrencyToAnother(m, currency)).collect(Collectors.toCollection(ArrayList<Money>::new));
 
-			MinimunBudgetOfContracts = projectCosts.stream().mapToDouble(Money::getAmount).min().orElse(Double.NaN);
-			MaximunBudgetOfContracts = projectCosts.stream().mapToDouble(Money::getAmount).max().orElse(Double.NaN);
-			AverageBudgetOfContracts = projectCosts.stream().mapToDouble(Money::getAmount).average().orElse(Double.NaN);
-			BudgetDeviation = this.contractsDeviationQuantity(projectCosts.stream().mapToDouble(Money::getAmount).boxed().toList());
+			Collection<Money> contractBudgets = this.repository.findAllBudgetsFromClient(clientId).stream().map(m -> this.sysConfigRepository.convertFromCurrencyToAnother(m, currency)).collect(Collectors.toCollection(ArrayList<Money>::new));
 
-			MoneyStatistics ms = new MoneyStatistics(MinimunBudgetOfContracts, MaximunBudgetOfContracts, AverageBudgetOfContracts, BudgetDeviation);
+			minimunBudget = contractBudgets.stream().mapToDouble(Money::getAmount).min().orElse(Double.NaN);
+			maximunBudget = contractBudgets.stream().mapToDouble(Money::getAmount).max().orElse(Double.NaN);
+			averageBudget = contractBudgets.stream().mapToDouble(Money::getAmount).average().orElse(Double.NaN);
+			budgetDeviation = this.contractsDeviationQuantity(contractBudgets.stream().mapToDouble(Money::getAmount).boxed().toList());
+
+			ClientMoneyStatistics ms = new ClientMoneyStatistics(minimunBudget, maximunBudget, averageBudget, budgetDeviation);
 
 			moneyStatistics.put(currency, ms);
 		}
 
-		//dashboard.setMoneyStatistics(moneyStatistics);
+		dashboard.setMoneyStatistics(moneyStatistics);
 
 		//PONER INFO EN EL DASHBOARD
 		dashboard.setTotalLogsWithCompletenessBelow25(totalLogsWithCompletenessBelow25);
 		dashboard.setTotalLogsWithCompletenessBetween25And50(totalLogsWithCompletenessBetween25And50);
 		dashboard.setTotalLogsWithCompletenessBetween50And75(totalLogsWithCompletenessBetween50And75);
 		dashboard.setTotalLogsWithCompletenessAbove75(totalLogsWithCompletenessAbove75);
-
-		dashboard.setAverageBudgetOfContracts(AverageBudgetOfContracts);
-		dashboard.setMinimunBudgetOfContracts(MinimunBudgetOfContracts);
-		dashboard.setMaximunBudgetOfContracts(MaximunBudgetOfContracts);
-		dashboard.setDeviationOfContractBudgets(BudgetDeviation);
 
 		super.getBuffer().addData(dashboard);
 	}
@@ -135,8 +119,7 @@ public class ClientDashboardShowService extends AbstractService<Client, ClientDa
 		dataset = super.unbind(clientDashboard, //
 			"totalLogsWithCompletenessBelow25", "totalLogsWithCompletenessBetween25And50", // 
 			"totalLogsWithCompletenessBetween50And75", "totalLogsWithCompletenessAbove75", //
-			"averageBudgetOfContracts", "deviationOfContractBudgets",//
-			"minimunBudgetOfContracts", "maximunBudgetOfContracts");
+			"moneyStatistics");
 
 		super.getResponse().addData(dataset);
 	}
