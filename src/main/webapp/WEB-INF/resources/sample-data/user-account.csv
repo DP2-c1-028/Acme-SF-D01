@@ -16,5 +16,6 @@ user-account-auditor-01,true,"UserIdentity{name:'auditorfirst',surname:'first',e
 user-account-auditor-02,true,"UserIdentity{name:'auditorsecond',surname:'second',email:'auditor2@acme.com'}",auditor2,auditor2
 user-account-sponsor-01,true,"UserIdentity{name:'Pedrito',surname:'Ramirez',email:'pedrito@acme.com'}",sponsor1,sponsor1
 user-account-sponsor-02,true,"UserIdentity{name:'Oliver',surname:'Queen',email:'kapyushon@acme.com'}",sponsor2,sponsor2
+user-account-sponsor-03,true,"UserIdentity{name:'Jesús',surname:'Navas',email:'duende@acme.com'}",sponsor3,sponsor3
 user-account-administrator-02,true,"UserIdentity{name:'Maria',surname:'Unpa',email:'marunpa@acme.com'}",administrator1,administrator1
 user-account-administrator-03,true,"UserIdentity{name:'Pedro',surname:'Picapiedras',email:'pedrostone@acme.com'}",administrator2,administrator2
