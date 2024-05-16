@@ -7,40 +7,52 @@
 	<acme:message code="client.dashboard.form.title.budget-factors"/>
 </h2>
 
+<jstl:if test="${moneyStatistics.isEmpty()}">
+	<acme:message code="client.dashboard.error.no-money-statistics"/>
+</jstl:if>
+
 <table class="table table-sm">
-	<tr>
-		<th scope="row">
-			<acme:message code="client.dashboard.form.label.min-budget"/>
-		</th>
-		<td>
-			<acme:print value="${minimunBudgetOfContracts}"/>
-		</td>
-	</tr>
-	<tr>
-		<th scope="row">
-			<acme:message code="client.dashboard.form.label.max-budget"/>
-		</th>
-		<td>
-			<acme:print value="${maximunBudgetOfContracts}"/>
-		</td>
-	</tr>
-	
-	<tr>
-		<th scope="row">
-			<acme:message code="client.dashboard.form.label.average"/>
-		</th>
-		<td>
-			<acme:print value="${averageBudgetOfContracts}"/>
-		</td>
-	</tr>
-	<tr>
-		<th scope="row">
-			<acme:message code="client.dashboard.form.label.deviation"/>
-		</th>
-		<td>
-			<acme:print value="${deviationOfContractBudgets}"/>
-		</td>
-	</tr>
+
+	<jstl:forEach var="par" items="${moneyStatistics}">
+		<tr>
+			<th>
+				<acme:print value="(${par.key})"/>
+			</th>
+		</tr>
+		<tr>
+			<th scope="row">
+				<acme:message code="client.dashboard.form.label.min-budget"/>
+			</th>
+			<td>
+				<acme:print value="${String.format('%.2f', par.value.minimunBudget)} (${par.key})"/>
+			</td>
+		</tr>
+		<tr>
+			<th scope="row">
+				<acme:message code="client.dashboard.form.label.max-budget"/>
+			</th>
+			<td>
+				<acme:print value="${String.format('%.2f', par.value.maximunBudget)} (${par.key})"/>
+			</td>
+		</tr>
+		
+		<tr>
+			<th scope="row">
+				<acme:message code="client.dashboard.form.label.average"/>
+			</th>
+			<td>
+				<acme:print value="${String.format('%.2f', par.value.averageBudget)} (${par.key})"/>
+			</td>
+		</tr>
+		<tr>
+			<th scope="row">
+				<acme:message code="client.dashboard.form.label.deviation"/>
+			</th>
+			<td>
+				<acme:print value="${String.format('%.2f', par.value.budgetDeviation)} (${par.key})"/>
+			</td>
+		</tr>
+	</jstl:forEach>
 </table>
 
 <h2>
@@ -55,7 +67,7 @@
 	$(document).ready(function() {
 		var data = {
 			labels : [
-					"BELOW 25%", "BETWEEN 25% AND 50%", "BETWEEN 50% AND 75%", "ABOVE 75%"
+					" [0:25) %", "[25:50) %", "[50:75) %", "[75:100) %"
 			],
 			datasets : [
 				{

@@ -24,6 +24,9 @@ public interface ClientDashboardRepository extends AbstractRepository {
 	@Query("select c.budget from Contract c where c.draftMode = false and  c.client.id = :id")
 	Collection<Money> findAllBudgetsFromClient(int id);
 
+	@Query("select c.budget.currency from Contract c where c.client.id= :clientId and c.draftMode=false")
+	Collection<String> allCurrenciesInPublishedContracts(int clientId);
+
 	default double currencyTransformerUsd(final Money initial) {
 		double res = initial.getAmount();
 
