@@ -41,7 +41,7 @@ public class ClientContractPublishService extends AbstractService<Client, Contra
 		contract = this.repository.findContractById(contractId);
 		clientId = super.getRequest().getPrincipal().getActiveRoleId();
 
-		isValid = clientId == contract.getClient().getId() && contract.getProject() != null && contract.isDraftMode();
+		isValid = clientId == contract.getClient().getId() && contract.isDraftMode();
 
 		super.getResponse().setAuthorised(isValid);
 	}

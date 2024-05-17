@@ -97,7 +97,7 @@ public class ClientProgressLogCreateService extends AbstractService<Client, Prog
 		}
 
 		//crear progressLogs solo cuando esta el contrato publicado
-		if (!super.getBuffer().getErrors().hasErrors("unpublishedContract")) {
+		if (!super.getBuffer().getErrors().hasErrors("contract")) {
 			Integer contractId;
 			Contract contract;
 

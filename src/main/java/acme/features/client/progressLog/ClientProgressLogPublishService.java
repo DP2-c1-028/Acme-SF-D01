@@ -72,7 +72,7 @@ public class ClientProgressLogPublishService extends AbstractService<Client, Pro
 		}
 
 		//validacion de modo borrador
-		if (!super.getBuffer().getErrors().hasErrors("unpublishedContract")) {
+		if (!super.getBuffer().getErrors().hasErrors("contract")) {
 			Contract contract;
 
 			contract = progressLog.getContract();
