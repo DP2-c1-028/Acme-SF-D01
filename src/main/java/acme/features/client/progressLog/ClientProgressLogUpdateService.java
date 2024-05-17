@@ -35,7 +35,7 @@ public class ClientProgressLogUpdateService extends AbstractService<Client, Prog
 		progressLog = this.repository.findProgressLogById(progressLogId);
 		clientId = super.getRequest().getPrincipal().getActiveRoleId();
 
-		isValid = clientId == progressLog.getClient().getId() && progressLog.isDraftMode() == true;
+		isValid = clientId == progressLog.getClient().getId() && progressLog.isDraftMode();
 
 		super.getResponse().setAuthorised(isValid);
 	}
