@@ -22,3 +22,6 @@ developer.training-session.form.error.code = The code is already in use
 developer.training-session.form.error.period-start = The period start must be at least one week ahead the training module creation moment
 developer.training-session.form.error.period-end = The period must be at least one week long and its end must be after the period start
 developer.training-session.form.error.published-training-module = You cannot create, update or delete a training session related to a published training module
+developer.training-session.form.error.before-min-date = The date is before the minimum possible date
+developer.training-session.form.error.after-max-date = The date is after the maximum possible date
+developer.training-session.form.error.no-room-for-min-period-duration = This date forces the other to be off limits for minimum period duration

@@ -100,6 +100,31 @@ public class DeveloperTrainingSessionUpdateService extends AbstractService<Devel
 
 		if (!super.getBuffer().getErrors().hasErrors("publishedTrainingModule"))
 			super.state(!object.getTrainingModule().isPublished(), "*", "developer.training-session.form.error.published-training-module");
+
+		Date MIN_DATE;
+		Date MAX_DATE;
+
+		MIN_DATE = MomentHelper.parse("1970-01-01 00:00", "yyyy-MM-dd HH:mm");
+		MAX_DATE = MomentHelper.parse("2100-12-31 23:59", "yyyy-MM-dd HH:mm");
+
+		if (!super.getBuffer().getErrors().hasErrors("periodStart"))
+			super.state(MomentHelper.isAfterOrEqual(object.getPeriodStart(), MIN_DATE), "periodStart", "developer.training-session.form.error.before-min-date");
+
+		if (!super.getBuffer().getErrors().hasErrors("periodStart"))
+			super.state(MomentHelper.isBeforeOrEqual(object.getPeriodStart(), MAX_DATE), "periodStart", "developer.training-session.form.error.after-max-date");
+
+		if (!super.getBuffer().getErrors().hasErrors("periodStart"))
+			super.state(MomentHelper.isBeforeOrEqual(object.getPeriodStart(), MomentHelper.deltaFromMoment(MAX_DATE, -7, ChronoUnit.DAYS)), "periodStart", "developer.training-session.form.error.no-room-for-min-period-duration");
+
+		if (!super.getBuffer().getErrors().hasErrors("periodEnd"))
+			super.state(MomentHelper.isAfterOrEqual(object.getPeriodEnd(), MIN_DATE), "periodEnd", "developer.training-session.form.error.before-min-date");
+
+		if (!super.getBuffer().getErrors().hasErrors("periodEnd"))
+			super.state(MomentHelper.isBeforeOrEqual(object.getPeriodEnd(), MAX_DATE), "periodEnd", "developer.training-session.form.error.after-max-date");
+
+		if (!super.getBuffer().getErrors().hasErrors("periodEnd"))
+			super.state(MomentHelper.isAfterOrEqual(object.getPeriodEnd(), MomentHelper.deltaFromMoment(MIN_DATE, 7, ChronoUnit.DAYS)), "periodEnd", "developer.training-session.form.error.no-time-for-min-period-duration");
+
 	}
 
 	@Override
