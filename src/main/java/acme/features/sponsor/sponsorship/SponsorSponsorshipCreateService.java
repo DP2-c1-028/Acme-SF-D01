@@ -71,6 +71,15 @@ public class SponsorSponsorshipCreateService extends AbstractService<Sponsor, Sp
 			super.state(projectSameCode == null, "code", "sponsor.sponsorship.form.error.code");
 		}
 
+		if (!super.getBuffer().getErrors().hasErrors("moment")) {
+
+			Date sponsorshipDate = object.getMoment();
+			Date minimumDate = MomentHelper.parse("1969-12-31 0:00", "yyyy-MM-dd HH:mm");
+
+			Boolean isAfter = sponsorshipDate.after(minimumDate);
+			super.state(isAfter, "moment", "sponsor.sponsorship.form.error.moment");
+		}
+
 		if (!super.getBuffer().getErrors().hasErrors("durationStartTime")) {
 			Date durationStartTime;
 			Date moment;
@@ -90,8 +99,8 @@ public class SponsorSponsorshipCreateService extends AbstractService<Sponsor, Sp
 			super.state(MomentHelper.isLongEnough(durationStartTime, durationEndTime, 1, ChronoUnit.MONTHS) && durationEndTime.after(durationStartTime), "durationEndTime", "sponsor.sponsorship.form.error.durationEndTime");
 		}
 
-		if (!super.getBuffer().getErrors().hasErrors("amount"))
-			super.state(object.getAmount().getAmount() >= 0, "amount", "sponsor.sponsorship.form.error.amount");
+		if (!super.getBuffer().getErrors().hasErrors("amount") && this.systemConfigurationRepository.existsCurrency(object.getAmount().getCurrency()))
+			super.state(object.getAmount().getAmount() >= 0 && this.systemConfigurationRepository.convertToUsd(object.getAmount()).getAmount() <= 1000000, "amount", "sponsor.sponsorship.form.error.amount");
 
 		if (!super.getBuffer().getErrors().hasErrors("amount")) {
 			String symbol = object.getAmount().getCurrency();
@@ -137,7 +146,7 @@ public class SponsorSponsorshipCreateService extends AbstractService<Sponsor, Sp
 		projectCode = object.getProject() != null ? object.getProject().getCode() : null;
 
 		choices = SelectChoices.from(SponsorshipType.class, object.getType());
-		choices2 = SelectChoices.from(projects, "code", null);
+		choices2 = SelectChoices.from(projects, "code", object.getProject());
 
 		dataset = super.unbind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link", "project", "draftMode");
 		dataset.put("types", choices);

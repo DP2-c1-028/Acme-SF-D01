@@ -81,6 +81,15 @@ public class SponsorSponsorshipPublishService extends AbstractService<Sponsor, S
 			super.state(invoiceTotAmount == this.currencyTransformerUsd(object.getAmount(), object.getAmount().getAmount()).getAmount(), "*", "sponsor.sponsorship.form.error.invalidTotalAmount");
 		}
 
+		if (!super.getBuffer().getErrors().hasErrors("moment")) {
+
+			Date sponsorshipDate = object.getMoment();
+			Date minimumDate = MomentHelper.parse("1969-12-31 0:00", "yyyy-MM-dd HH:mm");
+
+			Boolean isAfter = sponsorshipDate.after(minimumDate);
+			super.state(isAfter, "moment", "sponsor.sponsorship.form.error.moment");
+		}
+
 		if (!super.getBuffer().getErrors().hasErrors("durationStartTime")) {
 			Date durationStartTime;
 			Date moment;
@@ -100,8 +109,8 @@ public class SponsorSponsorshipPublishService extends AbstractService<Sponsor, S
 			super.state(MomentHelper.isLongEnough(durationStartTime, durationEndTime, 1, ChronoUnit.MONTHS) && durationEndTime.after(durationStartTime), "durationEndTime", "sponsor.sponsorship.form.error.durationEndTime");
 		}
 
-		if (!super.getBuffer().getErrors().hasErrors("amount"))
-			super.state(object.getAmount().getAmount() >= 0, "amount", "sponsor.sponsorship.form.error.amount");
+		if (!super.getBuffer().getErrors().hasErrors("amount") && this.systemConfigurationRepository.existsCurrency(object.getAmount().getCurrency()))
+			super.state(object.getAmount().getAmount() >= 0 && this.systemConfigurationRepository.convertToUsd(object.getAmount()).getAmount() <= 1000000, "amount", "sponsor.sponsorship.form.error.amount");
 
 		if (!super.getBuffer().getErrors().hasErrors("amount")) {
 			String symbol = object.getAmount().getCurrency();
@@ -168,13 +177,22 @@ public class SponsorSponsorshipPublishService extends AbstractService<Sponsor, S
 		Collection<Project> projects = this.repository.findProjects();
 		SelectChoices choices2;
 		Dataset dataset;
+		String projectCode;
+		int sponsorId;
+
+		sponsorId = super.getRequest().getData("id", int.class);
+
+		Sponsorship s = this.repository.findOneSponsorshipById(sponsorId);
+
+		projectCode = s.getProject() != null ? s.getProject().getCode() : null;
 
 		choices = SelectChoices.from(SponsorshipType.class, object.getType());
-		choices2 = SelectChoices.from(projects, "code", (Project) projects.toArray()[0]);
+		choices2 = SelectChoices.from(projects, "code", s.getProject());
 
 		dataset = super.unbind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link", "project", "draftMode");
 		dataset.put("types", choices);
 		dataset.put("projects", choices2);
+		dataset.put("project", projectCode);
 
 		super.getResponse().addData(dataset);
 	}

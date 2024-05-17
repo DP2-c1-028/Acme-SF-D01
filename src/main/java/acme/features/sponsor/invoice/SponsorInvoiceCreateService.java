@@ -11,6 +11,7 @@ import acme.client.data.datatypes.Money;
 import acme.client.data.models.Dataset;
 import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractService;
+import acme.components.SystemConfigurationRepository;
 import acme.entities.invoices.Invoice;
 import acme.entities.sponsorships.Sponsorship;
 import acme.entities.systemConfiguration.SystemConfiguration;
@@ -22,7 +23,10 @@ public class SponsorInvoiceCreateService extends AbstractService<Sponsor, Invoic
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	private SponsorInvoiceRepository repository;
+	private SponsorInvoiceRepository		repository;
+
+	@Autowired
+	private SystemConfigurationRepository	systemConfigurationRepository;
 
 	// AbstractService interface ----------------------------------------------
 
@@ -84,6 +88,15 @@ public class SponsorInvoiceCreateService extends AbstractService<Sponsor, Invoic
 				super.state(projectSameCode.getId() == object.getId(), "code", "sponsor.invoice.form.error.code");
 		}
 
+		if (!super.getBuffer().getErrors().hasErrors("registrationTime")) {
+
+			Date invoiceDate = object.getRegistrationTime();
+			Date minimumDate = MomentHelper.parse("1969-12-31 0:00", "yyyy-MM-dd HH:mm");
+
+			Boolean isAfter = invoiceDate.after(minimumDate);
+			super.state(isAfter, "registrationTime", "sponsor.invoice.form.error.registration-time");
+		}
+
 		if (!super.getBuffer().getErrors().hasErrors("dueDate")) {
 			Date registrationTime;
 			Date dueDate;
@@ -94,11 +107,14 @@ public class SponsorInvoiceCreateService extends AbstractService<Sponsor, Invoic
 			super.state(MomentHelper.isLongEnough(registrationTime, dueDate, 1, ChronoUnit.MONTHS) && dueDate.after(registrationTime), "dueDate", "sponsor.invoice.form.error.dueDate");
 		}
 
-		if (!super.getBuffer().getErrors().hasErrors("quantity"))
-			super.state(object.getQuantity().getAmount() >= 0, "quantity", "sponsor.invoice.form.error.quantity");
+		if (!super.getBuffer().getErrors().hasErrors("quantity") && this.systemConfigurationRepository.existsCurrency(object.getQuantity().getCurrency()))
+			super.state(object.getQuantity().getAmount() >= 0 && this.systemConfigurationRepository.convertToUsd(object.getQuantity()).getAmount() <= 1000000, "quantity", "sponsor.invoice.form.error.quantity");
 
-		if (!super.getBuffer().getErrors().hasErrors("quantity"))
-			super.state(this.isCurrencyAccepted(object.getQuantity()), "quantity", "sponsor.invoice.form.error.acceptedCurrency");
+		if (!super.getBuffer().getErrors().hasErrors("quantity")) {
+			String symbol = object.getQuantity().getCurrency();
+			boolean existsCurrency = this.systemConfigurationRepository.existsCurrency(symbol);
+			super.state(existsCurrency, "quantity", "sponsor.invoice.form.error.acceptedCurrency");
+		}
 
 		if (!super.getBuffer().getErrors().hasErrors("publishedSponsorship")) {
 			Integer sponsorshipId;

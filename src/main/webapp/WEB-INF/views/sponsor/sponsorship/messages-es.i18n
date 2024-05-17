@@ -35,4 +35,5 @@ sponsor.sponsorship.form.error.durationEndTime = La fecha de fin debe ser poster
 sponsor.sponsorship.form.error.amount  = La cantidad debe ser positiva
 sponsor.sponsorship.form.error.acceptedCurrency= La moneda no está aceptada por el sistema
 sponsor.sponsorship.form.error.published-invoices = No se puede borrar un patrocinio que tenga facturas publicadas
-sponsor.sponsorship.form.error.unpublished-invoices = Para publicar un patrocinio todas sus facturas deben estar publicadas previamente 
+sponsor.sponsorship.form.error.unpublished-invoices = Para publicar un patrocinio todas sus facturas deben estar publicadas previamente
+sponsor.sponsorship.form.error.moment = La fecha debe ser posterior a 01-01-1970 00:00 
