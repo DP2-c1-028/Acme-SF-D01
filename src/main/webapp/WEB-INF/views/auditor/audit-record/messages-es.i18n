@@ -20,3 +20,4 @@ auditor.audit-record.form.title = Datos de registros de auditoría
 auditor.audit-record.form.error.code = Este código está en uso 
 auditor.audit-record.form.error.audit-end-time = La fecha de inicio debe ser inferior a la fecha de fin y tiene que haber, al menos, una hora de diferencia entre ellas dos
 auditor.audit-record.form.error.published-code-audit = No puede crear, actualizar, eliminar o publicar un registro de auditoría relacionado con una auditoría de código publicada.
+auditor.audit-record.form.error.auditStartTime = La fecha de comiezo de registro de auditoría debe ser superior a 31-12-1969 00:00
