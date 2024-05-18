@@ -1,20 +1,22 @@
 key,code,title,abstractText,hasFatalError,cost,link,draftMode,key:manager
-project-01,"AAA-1111","A","A",0,USD 200000.00,"",false,manager-01
-project-02,"BBB-2222","AAA","A",0,GBP 500000.00,"",false,manager-01
-project-03,"CCC-3333","AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","AAA",0,EUR 500000.00,"",false,manager-01
-project-04,"DDD-4444","AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","AAA",0,EUR 500000.00,"",false,manager-01
-project-05,"EEE-5555","AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","AAA",0,EUR 500000.00,"",false,manager-01
-project-06,"FFF-6666","A","AAA",0,USD 500000.00,"",false,manager-01
-project-07,"GGG-7777","A","AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",0,EUR 500000.00,"",false,manager-01
-project-08,"HHH-8888","A","AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",0,EUR 500000.00,"",false,manager-01
-project-09,"III-9999","A","AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",0,EUR 500000.00,"",false,manager-02
-project-10,"JJJ-1222","A","A",1,GBP 450000.00,"",false,manager-02
-project-11,"KKK-1333","A","A",0,EUR 500000.00,"",false,manager-02
-project-12,"KKK-1444","A","A",0,USD 300000.00,"",false,manager-02
-project-13,"LLL-1555","A","A",0,GBP 200000.00,"http://optional.link",false,manager-02
-project-14,"ABC-1234","A","A",0,EUR 500000.00,"http://optional.link",false,manager-02
-project-15,"EDF-5476","A","A",0,GBP 500000.00,"http://optional.link",false,manager-02
-project-16,"ZZZ-9999","A","A",0,EUR 500000.00,"http://optional.link",false,manager-02
-project-17,"EEE-9999","A","A",0,EUR 500000.00,"http://optionalASDFASDFASDFASDFASFSADFADFS.link",false,manager-02
-project-18,"GGG-9999","A","A",0,USD 500000.00,"http://optional.linkaaaaaaaaaaaasssssssssssssssssssssssssddddddddddd",false,manager-02
-project-19,"GGG-9998","In DraftMode","A",0,USD 500000.00,"http://optional.link",true,manager-01
+project-01,AAA-1111,A,A,0,USD 200000.00,,false,manager-01
+project-02,BBB-2222,AAA,A,0,GBP 500000.00,,false,manager-01
+project-03,CCC-3333,AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,AAA,0,EUR 500000.00,,false,manager-01
+project-04,DDD-4444,AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,AAA,0,EUR 500000.00,,false,manager-01
+project-05,EEE-5555,AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,AAA,0,EUR 500000.00,,false,manager-01
+project-06,FFF-6666,A,AAA,0,USD 500000.00,,false,manager-01
+project-07,GGG-7777,A,AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,0,EUR 500000.00,,false,manager-01
+project-08,HHH-8888,A,AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,0,EUR 500000.00,,false,manager-01
+project-09,III-9999,A,AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,0,EUR 500000.00,,false,manager-02
+project-10,JJJ-1222,A,A,1,GBP 450000.00,,false,manager-02
+project-11,KKK-1333,A,A,0,EUR 500000.00,,false,manager-02
+project-12,KKK-1444,A,A,0,USD 300000.00,,false,manager-02
+project-13,LLL-1555,A,A,0,GBP 200000.00,http://optional.link,false,manager-02
+project-14,ABC-1234,A,A,0,EUR 500000.00,http://optional.link,false,manager-02
+project-15,EDF-5476,A,A,0,GBP 500000.00,http://optional.link,false,manager-02
+project-16,ZZZ-9999,A,A,0,EUR 500000.00,http://optional.link,false,manager-02
+project-17,EEE-9999,A,A,0,EUR 500000.00,http://optionalASDFASDFASDFASDFASFSADFADFS.link,false,manager-02
+project-18,GGG-9999,A,A,0,USD 500000.00,http://optional.linkaaaaaaaaaaaasssssssssssssssssssssssssddddddddddd,false,manager-02
+project-19,TGH-7777,In DraftMode not to publish 1,A,0,USD 500000.00,http://optional.link,true,manager-01
+project-20,TGI-7777,In DraftMode not to publish 2,A,0,USD 500000.00,http://optional.link,true,manager-01
+project-21,TGT-7777,In DraftMode can publish 1,A,0,USD 500000.00,http://optional.link,true,manager-01

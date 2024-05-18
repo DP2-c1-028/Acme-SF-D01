@@ -72,6 +72,11 @@ public class ManagerProjectCreateService extends AbstractService<Manager, Projec
 			super.state(existsCurrency, "cost", "manager.project.form.error.not-valid-currency");
 		}
 
+		if (!super.getBuffer().getErrors().hasErrors("cost") && object.getCost() != null) {
+			double maxDouble = Double.MAX_VALUE;
+			super.state(object.getCost().getAmount() < maxDouble, "cost", "manager.project.form.error.not-valid-currency");
+		}
+
 	}
 
 	@Override

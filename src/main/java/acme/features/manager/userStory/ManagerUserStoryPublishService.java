@@ -57,6 +57,11 @@ public class ManagerUserStoryPublishService extends AbstractService<Manager, Use
 	@Override
 	public void validate(final UserStory object) {
 		assert object != null;
+
+		if (!super.getBuffer().getErrors().hasErrors("estimatedCost")) {
+			double maxDouble = Double.MAX_VALUE;
+			super.state(object.getEstimatedCost() < maxDouble, "cost", "manager.project.form.error.not-valid-currency");
+		}
 	}
 
 	@Override
