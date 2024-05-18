@@ -44,10 +44,10 @@ public class DeveloperDashboardShowService extends AbstractService<Developer, De
 
 		totalTrainingModulesWithUpdateMoment = this.repository.countTrainingModulesWithUpdateMomentByDeveloperId(developerId);
 		totalTrainingSessionsWithLink = this.repository.countTrainingSessionsWithLinkByDeveloperId(developerId);
-		trainingModulesAverageTime = this.trainingModulesAverageTime(times);
+		trainingModulesAverageTime = this.repository.averageTimesByDeveloperId(developerId);
 		trainingModulesDeviationTime = this.trainingModulesDeviationTime(times);
-		trainingModulesMinimumTime = this.trainingModulesMinimumTime(times);
-		trainingModulesMaximumTime = this.trainingModulesMaximumTime(times);
+		trainingModulesMinimumTime = this.repository.minimumTimeByDeveloperId(developerId);
+		trainingModulesMaximumTime = this.repository.maximumTimeByDeveloperId(developerId);
 
 		dashboard = new DeveloperDashboard();
 		dashboard.setTotalTrainingModulesWithUpdateMoment(totalTrainingModulesWithUpdateMoment);
@@ -58,18 +58,6 @@ public class DeveloperDashboardShowService extends AbstractService<Developer, De
 		dashboard.setTrainingModulesMaximumTime(trainingModulesMaximumTime);
 
 		super.getBuffer().addData(dashboard);
-	}
-
-	private Integer trainingModulesMaximumTime(final Collection<Integer> times) {
-		if (times.isEmpty())
-			return null;
-		return times.stream().mapToInt(Integer::intValue).max().orElse(0);
-	}
-
-	private Integer trainingModulesMinimumTime(final Collection<Integer> times) {
-		if (times.isEmpty())
-			return null;
-		return times.stream().mapToInt(Integer::intValue).min().orElse(0);
 	}
 
 	private Double trainingModulesDeviationTime(final Collection<Integer> times) {
@@ -87,14 +75,6 @@ public class DeveloperDashboardShowService extends AbstractService<Developer, De
 		deviation = Math.sqrt(vari);
 
 		return deviation;
-	}
-
-	private Double trainingModulesAverageTime(final Collection<Integer> times) {
-		if (times.isEmpty())
-			return null;
-
-		return times.stream().mapToInt(Integer::intValue).average().orElse(0.0);
-
 	}
 
 	@Override
