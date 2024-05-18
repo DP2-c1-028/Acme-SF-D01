@@ -1,7 +1,6 @@
 
 package acme.features.client.progressLog;
 
-import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,13 +88,6 @@ public class ClientProgressLogCreateService extends AbstractService<Client, Prog
 			super.state(isAfter, "registrationMoment", "client.progress-log.form.error.registrationMoment");
 		}
 
-		//no haya 2 pl creados a la misma vez
-		if (!super.getBuffer().getErrors().hasErrors("registrationMoment")) {
-
-			Collection<ProgressLog> sameDate = this.repository.findContractProgressLogByDate(progressLog.getContract().getId(), progressLog.getId(), progressLog.getRegistrationMoment());
-			super.state(sameDate.isEmpty(), "registrationMoment", "client.progress-log.form.error.sameMoment");
-		}
-
 		//crear progressLogs solo cuando esta el contrato publicado
 		if (!super.getBuffer().getErrors().hasErrors("contract")) {
 			Integer contractId;
@@ -106,17 +98,6 @@ public class ClientProgressLogCreateService extends AbstractService<Client, Prog
 
 			super.state(!contract.isDraftMode(), "*", "client.progress-log.form.error.unpublished-contract");
 		}
-
-		//la completitud debe ir en aumento conforme se crean pl
-		if (!super.getBuffer().getErrors().hasErrors("completeness")) {
-
-			Double maxCompleteness = this.repository.findContractProgressLogWithMaxCompleteness(progressLog.getContract().getId());
-
-			if (maxCompleteness != null)
-				super.state(maxCompleteness < progressLog.getCompleteness(), "completeness", "client.progress-log.form.error.completeness");
-
-		}
-
 	}
 
 	@Override

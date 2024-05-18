@@ -1,7 +1,6 @@
 
 package acme.features.client.progressLog;
 
-import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,21 +79,23 @@ public class ClientProgressLogPublishService extends AbstractService<Client, Pro
 			super.state(!contract.isDraftMode(), "*", "client.progress-log.form.error.unpublished-contract");
 		}
 
-		//la completitud debe ir en aumento conforme se crean pl
+		//la completitud debe ir en aumento conforme se publican pl
 		if (!super.getBuffer().getErrors().hasErrors("completeness")) {
 
-			Double maxCompleteness = this.repository.findContractProgressLogWithMaxCompleteness(progressLog.getContract().getId());
+			ProgressLog log = this.repository.findContractProgressLogWithMaxCompleteness(progressLog.getContract().getId());
 
-			if (maxCompleteness != null)
-				super.state(maxCompleteness < progressLog.getCompleteness(), "completeness", "client.progress-log.form.error.completeness");
+			if (log != null)
+				super.state(log.getCompleteness() < progressLog.getCompleteness(), "completeness", "client.progress-log.form.error.completeness");
 
 		}
 
-		//no haya 2 pl creados a la misma vez
+		//no se publique un pl con fecha anterior o igual al pl con la completitud mas ata ( el mas reciente)
 		if (!super.getBuffer().getErrors().hasErrors("registrationMoment")) {
 
-			Collection<ProgressLog> sameDate = this.repository.findContractProgressLogByDate(progressLog.getContract().getId(), progressLog.getId(), progressLog.getRegistrationMoment());
-			super.state(sameDate.isEmpty(), "registrationMoment", "client.progress-log.form.error.sameMoment");
+			ProgressLog log = this.repository.findContractProgressLogWithMaxCompleteness(progressLog.getContract().getId());
+
+			if (log != null)
+				super.state(log.getRegistrationMoment().before(progressLog.getRegistrationMoment()), "registrationMoment", "client.progress-log.form.error.sameMoment");
 		}
 
 	}
