@@ -80,9 +80,10 @@ public class DeveloperTrainingSessionPublishService extends AbstractService<Deve
 			periodStart = object.getPeriodStart();
 			trainingModuleCreationMoment = object.getTrainingModule().getCreationMoment();
 
-			periodStartIsValid = MomentHelper.isLongEnough(trainingModuleCreationMoment, periodStart, 1, ChronoUnit.WEEKS) && periodStart.after(trainingModuleCreationMoment);
-
-			super.state(periodStartIsValid, "periodStart", "developer.training-session.form.error.period-start");
+			if (periodStart != null) {
+				periodStartIsValid = MomentHelper.isLongEnough(trainingModuleCreationMoment, periodStart, 1, ChronoUnit.WEEKS) && periodStart.after(trainingModuleCreationMoment);
+				super.state(periodStartIsValid, "periodStart", "developer.training-session.form.error.period-start");
+			}
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("periodEnd")) {
@@ -93,9 +94,10 @@ public class DeveloperTrainingSessionPublishService extends AbstractService<Deve
 			periodStart = object.getPeriodStart();
 			periodEnd = object.getPeriodEnd();
 
-			periodEndIsValid = MomentHelper.isLongEnough(periodStart, periodEnd, 1, ChronoUnit.WEEKS) && periodEnd.after(periodStart);
-
-			super.state(periodEndIsValid, "periodEnd", "developer.training-session.form.error.period-end");
+			if (periodStart != null) {
+				periodEndIsValid = MomentHelper.isLongEnough(periodStart, periodEnd, 1, ChronoUnit.WEEKS) && periodEnd.after(periodStart);
+				super.state(periodEndIsValid, "periodEnd", "developer.training-session.form.error.period-end");
+			}
 		}
 
 		Date MIN_DATE;
