@@ -22,7 +22,7 @@ client.progress-log.form.button.publish = Publicar
 
 client.progress-log.form.error.invalidContract = Estas intentando crear un resgistro de progreso no asociado a ningun contrato
 client.progress-log.form.error.recordId = Este identificador de registro ya esta en uso
-client.progress-log.form.error.completeness = Ya existe un registro de progreso publicado con ese porcentaje de completitud, asigna uno mayor
+client.progress-log.form.error.completeness = Ya existe un registro de progreso publicado con un porcentaje de completitud mayor o igual, asigna uno mayor
 client.progress-log.form.error.registrationMoment = No puedes establecer la fecha de creacion de un registro de progreso a un momento previo a la creacion del contrato asociado
 client.progress-log.form.error.unpublished-contract = No puedes crear un resgitro de progreso relacionado a un contrato no publicado
-client.progress-log.form.error.sameMoment = No puedes asignar la misma fecha exacta que otro registro de progreso
+client.progress-log.form.error.sameMoment = No puedes asignar la misma fecha exacta que otro registro de progreso ya publicado

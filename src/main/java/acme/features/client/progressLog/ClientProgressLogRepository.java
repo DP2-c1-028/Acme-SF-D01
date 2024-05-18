@@ -33,7 +33,7 @@ public interface ClientProgressLogRepository extends AbstractRepository {
 	@Query("select c from Contract c where c.id = :id")
 	Contract findContractById(int id);
 
-	@Query("select p from ProgressLog p where p.contract.id = :id and p.registrationMoment = :moment and p.id != :thisId")
+	@Query("select p from ProgressLog p where p.draftMode = false and p.contract.id = :id and p.registrationMoment = :moment and p.id != :thisId")
 	Collection<ProgressLog> findContractProgressLogByDate(int id, int thisId, Date moment);
 
 }
