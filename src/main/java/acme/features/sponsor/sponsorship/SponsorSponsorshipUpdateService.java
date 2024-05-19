@@ -88,8 +88,10 @@ public class SponsorSponsorshipUpdateService extends AbstractService<Sponsor, Sp
 			Date sponsorshipDate = object.getMoment();
 			Date minimumDate = MomentHelper.parse("1969-12-31 0:00", "yyyy-MM-dd HH:mm");
 
-			Boolean isAfter = sponsorshipDate.after(minimumDate);
-			super.state(isAfter, "moment", "sponsor.sponsorship.form.error.moment");
+			if (sponsorshipDate != null) {
+				Boolean isAfter = sponsorshipDate.after(minimumDate);
+				super.state(isAfter, "moment", "sponsor.sponsorship.form.error.moment");
+			}
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("durationStartTime")) {
@@ -98,7 +100,8 @@ public class SponsorSponsorshipUpdateService extends AbstractService<Sponsor, Sp
 			durationStartTime = object.getDurationStartTime();
 			moment = object.getMoment();
 
-			super.state(durationStartTime.after(moment), "durationStartTime", "sponsor.sponsorship.form.error.durationStartTime");
+			if (moment != null)
+				super.state(durationStartTime.after(moment), "durationStartTime", "sponsor.sponsorship.form.error.durationStartTime");
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("durationEndTime")) {
@@ -108,7 +111,8 @@ public class SponsorSponsorshipUpdateService extends AbstractService<Sponsor, Sp
 			durationStartTime = object.getDurationStartTime();
 			durationEndTime = object.getDurationEndTime();
 
-			super.state(MomentHelper.isLongEnough(durationStartTime, durationEndTime, 1, ChronoUnit.MONTHS) && durationEndTime.after(durationStartTime), "durationEndTime", "sponsor.sponsorship.form.error.durationEndTime");
+			if (durationStartTime != null && durationEndTime != null)
+				super.state(MomentHelper.isLongEnough(durationStartTime, durationEndTime, 1, ChronoUnit.MONTHS) && durationEndTime.after(durationStartTime), "durationEndTime", "sponsor.sponsorship.form.error.durationEndTime");
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("amount") && this.systemConfigurationRepository.existsCurrency(object.getAmount().getCurrency()))

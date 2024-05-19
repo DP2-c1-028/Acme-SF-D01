@@ -25,4 +25,8 @@ sponsorship-23,ABC-142,2021/07/20 0:00,2021/07/30 13:00,2021/09/30 13:00,EUR 200
 sponsorship-24,ABC-143,2021/07/20 0:00,2021/07/30 13:00,2021/09/30 13:00,EUR 20000.4,FINANCIAL,sponsor24@acme.com,https://www.example.com/j85G0iFVn28zmlPzPij7KPTy4Y9QuOuivR2oFZ2,false,project-11,sponsor-02
 sponsorship-25,ABC-144,2021/07/20 0:00,2021/07/30 13:00,2021/09/30 13:00,EUR 20000.4,FINANCIAL,sponsor25@acme.com,,false,project-12,sponsor-01
 sponsorship-26,ABC-145,2021/07/20 0:00,2021/07/30 13:00,2021/09/30 13:00,EUR 20000.4,FINANCIAL,sponsor26@acme.com,https://snap.fan/,false,project-13,sponsor-02
-sponsorship-27,ABC-146,2021/07/20 0:00,2021/07/30 13:00,2021/09/30 13:00,EUR 20000.4,FINANCIAL,sponsor27@acme.com,https://snap.fan/,false,project-14,sponsor-02
+sponsorship-27,TST-146,2021/07/20 0:00,2021/07/30 13:00,2021/09/30 13:00,EUR 20000.4,FINANCIAL,sponsor27@acme.com,https://snap.fan/,true,project-14,sponsor-01
+sponsorship-28,TST-147,2021/07/20 0:00,2021/07/30 13:00,2021/09/30 13:00,EUR 20000.4,FINANCIAL,sponsor28@acme.com,https://snap.fan/,true,project-14,sponsor-01
+sponsorship-29,TST-148,2021/07/20 0:00,2021/07/30 13:00,2021/09/30 13:00,EUR 20000.4,FINANCIAL,sponsor29@acme.com,https://snap.fan/,true,project-14,sponsor-01
+sponsorship-30,TST-149,2021/07/20 0:00,2021/07/30 13:00,2021/09/30 13:00,EUR 20000.4,FINANCIAL,sponsor30@acme.com,https://snap.fan/,true,project-14,sponsor-01
+sponsorship-31,TST-150,2021/07/20 0:00,2021/07/30 13:00,2021/09/30 13:00,EUR 20000.4,FINANCIAL,sponsor31@acme.com,https://snap.fan/,true,project-14,sponsor-01

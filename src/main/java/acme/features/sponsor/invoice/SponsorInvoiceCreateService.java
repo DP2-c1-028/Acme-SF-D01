@@ -93,8 +93,10 @@ public class SponsorInvoiceCreateService extends AbstractService<Sponsor, Invoic
 			Date invoiceDate = object.getRegistrationTime();
 			Date minimumDate = MomentHelper.parse("1969-12-31 0:00", "yyyy-MM-dd HH:mm");
 
-			Boolean isAfter = invoiceDate.after(minimumDate);
-			super.state(isAfter, "registrationTime", "sponsor.invoice.form.error.registration-time");
+			if (invoiceDate != null) {
+				Boolean isAfter = invoiceDate.after(minimumDate);
+				super.state(isAfter, "registrationTime", "sponsor.invoice.form.error.registration-time");
+			}
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("dueDate")) {
@@ -104,7 +106,8 @@ public class SponsorInvoiceCreateService extends AbstractService<Sponsor, Invoic
 			registrationTime = object.getRegistrationTime();
 			dueDate = object.getDueDate();
 
-			super.state(MomentHelper.isLongEnough(registrationTime, dueDate, 1, ChronoUnit.MONTHS) && dueDate.after(registrationTime), "dueDate", "sponsor.invoice.form.error.dueDate");
+			if (registrationTime != null && dueDate != null)
+				super.state(MomentHelper.isLongEnough(registrationTime, dueDate, 1, ChronoUnit.MONTHS) && dueDate.after(registrationTime), "dueDate", "sponsor.invoice.form.error.dueDate");
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("quantity") && this.systemConfigurationRepository.existsCurrency(object.getQuantity().getCurrency()))
