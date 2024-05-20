@@ -23,3 +23,10 @@ user-story-21,"Title","Description",0.0,MUST,"Acceptance Criteria","",false,mana
 user-story-22,"Title","Description",0.0,COULD,"Acceptance Criteria","https://optional.link",false,manager-02
 user-story-23,"Title","Description",0.0,WONT,"Acceptance Criteria","https://optional.link",false,manager-02
 user-story-24,"In Draft mode","Description",0.0,WONT,"Acceptance Criteria","https://optional.link",true,manager-01
+user-story-25,"국민경제의 발전을","Description",0.0,WONT,"Acceptance Criteria","https://optional.link",true,manager-01
+user-story-26,"العظمى واعتلاء","Description",0.0,WONT,"Acceptance Criteria","https://optional.link",true,manager-01
+user-story-27,"Coreano","국민경제의 발전을",0.0,WONT,"Acceptance Criteria","https://optional.link",true,manager-01
+user-story-28,"Acceptance Critera en coreano","A",0.0,WONT,"국민경제의 발전을","https://optional.link",true,manager-01
+user-story-29,"Url mínimo","A",0.0,WONT,"A","ftp://",true,manager-01
+user-story-30,"Url casi al mínimo","A",0.0,WONT,"A","ftp://a",true,manager-01
+user-story-31,"Url","A",0.0,WONT,"A","ftp://a.b",true,manager-01
