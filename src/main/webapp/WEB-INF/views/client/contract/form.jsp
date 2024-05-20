@@ -18,8 +18,6 @@
 			<acme:submit code="client.contract.form.button.update" action="/client/contract/update" />
 			<acme:submit code="client.contract.form.button.delete" action="/client/contract/delete" />
 			<acme:submit code="client.contract.form.button.publish" action="/client/contract/publish" />
-			
-			<acme:button code="client.contract.form.button.progress-logs" action="/client/progress-log/list?contractId=${id}"/>
 		</jstl:when>
 		<jstl:when test="${_command == 'create'}">
 		<acme:input-select code="client.contract.form.label.project" path="project" choices="${projects}" />
