@@ -36,4 +36,4 @@ client.contract.form.error.invalidDate = Cannot set the date to a moment before 
 client.contract.form.error.cannotDelete= You cannot delete a contract if there are published progress logs
 client.contract.form.error.currency = This currency is not accepted
 
-client.contract.form.error.instantiationMoment = Cannot create the contract previous to this date  2000/01/01 00:00
+client.contract.form.error.instantiationMoment = Date must be after 2000/01/01 00:00

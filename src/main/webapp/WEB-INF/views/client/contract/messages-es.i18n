@@ -35,4 +35,4 @@ client.contract.form.error.invalidDate = No puedees establecer una fecha de crea
 client.contract.form.error.cannotDelete = No puedes borrar un contrato si hay registros de progreso publicados
 client.contract.form.error.currency = Esta divisa no esta aceptada por el sistema
 
-client.contract.form.error.instantiationMoment = No puedes crear un contrato previo a la siguiente fecha:  01/01/2000 00:00
+client.contract.form.error.instantiationMoment = La fecha asociada debe ser posterior al  01/01/2000 00:00
