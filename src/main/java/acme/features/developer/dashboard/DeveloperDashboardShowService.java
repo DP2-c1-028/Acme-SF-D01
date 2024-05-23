@@ -64,9 +64,12 @@ public class DeveloperDashboardShowService extends AbstractService<Developer, De
 		if (times.isEmpty())
 			return null;
 
+		int developerId;
+		developerId = super.getRequest().getPrincipal().getActiveRoleId();
+
 		Double deviation;
 
-		double average = times.stream().mapToInt(Integer::intValue).average().orElse(0.0);
+		double average = this.repository.averageTimesByDeveloperId(developerId);
 
 		double sumOfSquares = times.stream().mapToDouble(time -> Math.pow(time - average, 2)).sum();
 
