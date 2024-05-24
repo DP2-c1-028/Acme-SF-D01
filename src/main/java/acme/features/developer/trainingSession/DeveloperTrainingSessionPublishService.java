@@ -103,8 +103,8 @@ public class DeveloperTrainingSessionPublishService extends AbstractService<Deve
 		Date MIN_DATE;
 		Date MAX_DATE;
 
-		MIN_DATE = MomentHelper.parse("1970-01-01 00:00", "yyyy-MM-dd HH:mm");
-		MAX_DATE = MomentHelper.parse("2100-12-31 23:59", "yyyy-MM-dd HH:mm");
+		MIN_DATE = MomentHelper.parse("2000-01-01 00:00", "yyyy-MM-dd HH:mm");
+		MAX_DATE = MomentHelper.parse("2200-12-31 23:59", "yyyy-MM-dd HH:mm");
 
 		if (!super.getBuffer().getErrors().hasErrors("periodStart"))
 			super.state(MomentHelper.isAfterOrEqual(object.getPeriodStart(), MIN_DATE), "periodStart", "developer.training-session.form.error.before-min-date");
