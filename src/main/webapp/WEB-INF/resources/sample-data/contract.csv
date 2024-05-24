@@ -4,28 +4,51 @@ contract-02,ZZZ-999,2000/07/09 0:00,SUN,luis,mejorar,EUR 1000.00,false,project-0
 contract-03,LLL-499,2000/07/09 0:00,SUN,luis,mejorar,EUR 1000.00,true,project-01,client-01
 contract-04,GH-369,2000/07/09 0:00,SUN,luis,mejorar,USD 1000.00,true,project-01,client-01
 contract-05,XYZ-050,2000/07/09 0:00,SUN,luis,mejorar,EUR 1000.00,true,project-01,client-01
-contract-06,A-002,2022/07/29 23:59,SUN,luis,mejorar,EUR 1000.00,true,project-01,client-01
+contract-06,A-002,2022/07/30 0:00,SUN,luis,mejorar,EUR 1000.00,true,project-01,client-01
 contract-07,A-003,2011/01/07 12:22,SUN,luis,mejorar,EUR 1000.00,true,project-01,client-01
 contract-08,A-004,2021/05/10 18:12,SUN,luis,mejorar,GBP 1000.00,true,project-01,client-01
 contract-09,A-005,2005/01/31 22:57,SUN,luis,mejorar,EUR 1000.00,true,project-01,client-01
 contract-10,A-006,2000/01/01 0:01,SUN,luis,mejorar,EUR 1000.00,true,project-01,client-01
-contract-11,A-007,2000/07/14 0:00,SUN<3,luis,mejorar,EUR 1000.00,true,project-01,client-01
-contract-12,A-008,2000/07/15 0:00,department of space defense and technological development of super earth,luis,mejorar,GBP 1000.00,true,project-01,client-01
+contract-11,A-007,2000/07/14 0:00,.,luis,mejorar,EUR 1000.00,true,project-01,client-01
+contract-12,A-008,2000/07/15 0:00,department of space defense and technological development of super earthlll,luis,mejorar,GBP 1000.00,true,project-01,client-01
 contract-13,A-009,2000/07/16 0:00,Central Intelligence Agency of the USA,luis,mejorar,EUR 1000.00,true,project-01,client-01
 contract-14,A-010,2000/07/17 0:00,मलाका प्रणालीहरू&¬>,luis,mejorar,USD 1000.00,true,project-01,client-01
 contract-15,A-011,2000/07/18 0:00,órgão gestor da pesca e da caça do governo brasileiro,luis,mejorar,EUR 1000.00,false,project-01,client-01
-contract-16,A-012,2000/07/19 0:00,SUN,lu1s,mejorar,EUR 1000.00,true,project-01,client-01
-contract-17,A-013,2000/07/20 0:00,SUN,"Uvuvwevwevwe Onyetenyevwe Ugwemuhwem Osas ugaarsade jaguar, tamer 999 casid",mejorar,EUR 1000.00,false,project-03,client-02
-contract-18,A-014,2000/07/21 0:00,SUN,asociación española por el deporte y salud mental,mejorar,EUR 1000.00,true,project-03,client-02
-contract-19,A-015,2000/07/22 0:00,SUN,&¬/adaranyakopanishadvivekachudaman@ Erreh,mejorar,EUR 1000.00,true,project-03,client-02
+contract-16,A-012,2000/07/19 0:00,SUN,.,mejorar,EUR 1000.00,true,project-01,client-01
+contract-17,A-013,2000/07/20 0:00,SUN,Uvuvwevwevwe Onyetenyevwe Ugwemuhwem Osas ugaarsade jaguar,mejorar,EUR 1000.00,false,project-03,client-02
+contract-18,A-014,2000/07/21 0:00,SUN,asociación española para deportes agua,mejorar,EUR 1000.00,true,project-03,client-02
+contract-19,A-015,2000/07/22 0:00,SUN,&¬/adaranyakopanishad@ Erreh,mejorar,EUR 1000.00,true,project-03,client-02
 contract-20,A-016,2000/07/23 0:00,SUN,ASOCIACI0N de conducta de entidades del gran banco de españa nuestra nacion,mejorar,EUR 1000.00,true,project-03,client-02
 contract-21,A-017,2000/07/24 0:00,SUN,luis,.,EUR 1000.00,true,project-03,client-02
-contract-22,A-018,2000/07/25 0:00,SUN,luis,"mejorar las ventas, acceder a mejor software, aumentar la calidad en el desarrollo, prosperar.",EUR 1000.00,true,project-03,client-02
+contract-22,A-018,2000/07/25 0:00,SUN,luis,"mejorar las ventas, acceder a mejor software, aumentar la calidad en el desarrollo, prosperarjajajaj",EUR 1000.00,true,project-03,client-02
 contract-23,A-019,2000/07/26 0:00,SUN,luis,"desa>>ollar tecnología necesaria , aumentar v3nt4s",EUR 1000.00,true,project-03,client-03
 contract-24,A-020,2000/07/27 0:00,SUN,luis,<script> alert(hola) </script>,EUR 1000.00,false,project-03,client-02
 contract-25,A-021,2000/07/28 0:00,SUN,luis,"encabezar la competencia tecnológica, contratar más emplead@s.",EUR 1000.00,false,project-17,client-04
-contract-26,A-022,2000/07/29 0:00,SUN,luis,mejorar,EUR  0.01,true,project-03,client-04
+contract-26,A-022,2000/07/29 0:00,SUN,luis,mejorar,EUR  0.00,true,project-03,client-04
 contract-27,A-023,2000/07/30 0:00,SUN,luis,mejorar,USD 1000000.00,true,project-02,client-04
 contract-28,A-024,2000/07/31 0:00,SUN,luis,mejorar,USD 500990.00,true,project-02,client-04
 contract-29,A-025,2000/08/01 0:00,SUN,luis,mejorar,USD 34899.12,true,project-02,client-04
 contract-30,A-026,2000/08/02 0:00,SUN,luis,mejorar,USD 790234.60,true,project-02,client-02
+contract-31,A-027,2000/08/03 0:00,<h1>!</h1>,luis,mejorar,USD 1090,true,project-02,client-02
+contract-32,A-028,2001/09/11 12:43,SUN,<h1>!</h1>,mejorar,GBP 1000,true,project-02,client-02
+contract-33,A-029,2013/08/05 0:55,SUN,luis,<h1>!</h1>,EUR 1000,true,project-02,client-02
+contract-34,A-030,2000/08/06 12:00,SUN,luis,mejorar,GBP 2300,true,project-02,client-02
+contract-35,A-031,2008/08/07 0:00,' or 'A'='A,luis,mejorar,EUR 1500,true,project-02,client-02
+contract-36,A-032,2001/08/08 0:00,SUN,' or 'A'='A,mejorar,EUR 230,true,project-02,client-02
+contract-37,A-033,2011/08/09 0:00,SUN,luis,' or 'A'='A,USD 4500,true,project-02,client-02
+contract-38,A-034,2012/08/10 0:00,SUN,국민경제의 발전을,mejorar,GBP 1000,true,project-02,client-02
+contract-39,A-035,2020/08/11 0:00,SUN,luis,국민경제의 발전을,EUR 566.34,true,project-02,client-02
+contract-40,A-036,2015/08/12 0:00,//&&¬¬€€&&$$$,luis,mejorar,USD 1000,true,project-02,client-02
+contract-41,A-037,2017/08/13 0:00,SUN,//&&¬¬€€&&$$$,mejorar,USD 1000,true,project-02,client-02
+contract-42,LOL-381,2000/01/01 0:01,SUN,luis,//&&¬¬€€&&$$$,GBP 1700,false,project-02,client-02
+contract-43,ZZZ-998,2000/01/01 0:01,SUN,luis,mejorar,USD 1000,true,project-02,client-02
+contract-44,A-039,2000/01/01 0:02,SUN,luis,mejorar,EUR 1000,true,project-01,client-01
+contract-45,EUR-404,2022/07/29 23:59,SUN,luis,mejorar,USD 1000,true,project-02,client-02
+contract-46,CON-046,2012/09/01 23:59,ll,luis,mejorar,USD 1000,true,project-02,client-02
+contract-47,A-042,2012/09/02 23:59,Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod te,luis,mejorar,USD 1000,true,project-01,client-01
+contract-48,UO-290,2012/09/03 23:59,SUN,ll,mejorar,GBP 1000,true,project-02,client-02
+contract-49,Z-978,2012/09/04 23:59,SUN,Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod te,mejorar,USD 1000,true,project-02,client-02
+contract-50,HHH-890,2012/09/05 23:59,SUN,luis,ll,USD 1000,true,project-01,client-01
+contract-51,A-046,2012/09/06 23:59,SUN,luis,"Lorem ipsum dolor sit amet,consectetur adipiscing elit,sed do eiusmod tempor incididunt ut labore",USD 1000,true,project-02,client-02
+contract-52,A-047,2012/09/07 23:59,SUN,luis,mejorar,USD 0.01,true,project-02,client-02
+contract-53,A-048,2012/09/08 23:59,SUN,luis,mejorar,USD 999999.99,true,project-02,client-04
