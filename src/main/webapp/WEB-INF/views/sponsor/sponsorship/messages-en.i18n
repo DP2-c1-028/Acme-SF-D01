@@ -36,3 +36,4 @@ sponsor.sponsorship.form.error.amount  = Amount must be positive
 sponsor.sponsorship.form.error.acceptedCurrency= Currency is not accepted by the system
 sponsor.sponsorship.form.error.published-invoices = You cannot delete a sponsorship that has a published invoice
 sponsor.sponsorship.form.error.unpublished-invoices = To publish a sponsorship all its invoices must be published
+sponsor.sponsorship.form.error.moment = The date must be after 1970-01-01 00:00

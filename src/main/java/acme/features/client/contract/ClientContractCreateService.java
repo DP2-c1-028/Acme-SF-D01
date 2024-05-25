@@ -100,6 +100,7 @@ public class ClientContractCreateService extends AbstractService<Client, Contrac
 			Boolean isAfter = contractDate.after(minimunDate);
 			super.state(isAfter, "instantiationMoment", "client.contract.form.error.instantiationMoment");
 		}
+
 	}
 
 	@Override
