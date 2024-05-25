@@ -32,3 +32,4 @@ developer.training-module.form.error.creation-moment = El momento de creación n
 developer.training-module.form.error.project = The project must be published
 developer.training-module.form.error.before-min-date = La fecha está por debajo del límite del sistema (01-01-2000 00:00)
 developer.training-module.form.error.after-max-date = La fecha está por encima del límite del sistema (31-12-2200 23:59)
+developer.training-module.form.error.no-room-for-period = Esta fecha no deja hueco para que un periodo quede dentro de las fechas límite permitidas por el sistema

@@ -119,16 +119,18 @@ public class DeveloperTrainingModuleUpdateService extends AbstractService<Develo
 		if (!super.getBuffer().getErrors().hasErrors("creationMoment"))
 			super.state(MomentHelper.isAfterOrEqual(object.getCreationMoment(), MIN_DATE), "creationMoment", "developer.training-module.form.error.before-min-date");
 
-		if (!super.getBuffer().getErrors().hasErrors("periodStart"))
+		if (!super.getBuffer().getErrors().hasErrors("creationMoment"))
 			super.state(MomentHelper.isBeforeOrEqual(object.getCreationMoment(), MAX_DATE), "creationMoment", "developer.training-module.form.error.after-max-date");
 
-		if (!super.getBuffer().getErrors().hasErrors("periodEnd"))
+		if (!super.getBuffer().getErrors().hasErrors("creationMoment"))
+			super.state(MomentHelper.isBeforeOrEqual(object.getCreationMoment(), MomentHelper.deltaFromMoment(MAX_DATE, -14, ChronoUnit.DAYS)), "creationMoment", "developer.training-module.form.error.no-room-for-period");
+
+		if (!super.getBuffer().getErrors().hasErrors("updateMoment"))
 			super.state(MomentHelper.isAfterOrEqual(object.getUpdateMoment(), MIN_DATE), "updateMoment", "developer.training-module.form.error.before-min-date");
 
-		if (!super.getBuffer().getErrors().hasErrors("periodEnd"))
+		if (!super.getBuffer().getErrors().hasErrors("updateMoment"))
 			super.state(MomentHelper.isBeforeOrEqual(object.getUpdateMoment(), MAX_DATE), "updateMoment", "developer.training-module.form.error.after-max-date");
 
-		
 	}
 
 	@Override
