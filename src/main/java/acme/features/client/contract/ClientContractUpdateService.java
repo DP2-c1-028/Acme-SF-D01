@@ -2,11 +2,13 @@
 package acme.features.client.contract;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.client.data.models.Dataset;
+import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractService;
 import acme.client.views.SelectChoices;
 import acme.components.SystemConfigurationRepository;
@@ -39,7 +41,7 @@ public class ClientContractUpdateService extends AbstractService<Client, Contrac
 		contract = this.repository.findContractById(contractId);
 		clientId = super.getRequest().getPrincipal().getActiveRoleId();
 
-		isValid = clientId == contract.getClient().getId() && contract.getProject() != null && contract.isDraftMode();
+		isValid = clientId == contract.getClient().getId() && contract.isDraftMode();
 
 		super.getResponse().setAuthorised(isValid);
 	}
@@ -95,9 +97,9 @@ public class ClientContractUpdateService extends AbstractService<Client, Contrac
 		if (!super.getBuffer().getErrors().hasErrors("project"))
 			super.state(!contract.getProject().isDraftMode(), "project", "client.contract.form.error.project");
 
-		//budget positivo o 0
-		if (!super.getBuffer().getErrors().hasErrors("budget")) {
-			boolean validBudget = contract.getBudget().getAmount() >= 0.;
+		//budget positivo o menor a 1000000
+		if (!super.getBuffer().getErrors().hasErrors("budget") && this.sysConfigRepository.existsCurrency(contract.getBudget().getCurrency())) {
+			boolean validBudget = contract.getBudget().getAmount() >= 0. && this.sysConfigRepository.convertToUsd(contract.getBudget()).getAmount() <= 1000000.0;
 			super.state(validBudget, "budget", "client.contract.form.error.budget-negative");
 		}
 
@@ -106,6 +108,16 @@ public class ClientContractUpdateService extends AbstractService<Client, Contrac
 			String currency = contract.getBudget().getCurrency();
 			boolean existsCurrency = this.sysConfigRepository.existsCurrency(currency);
 			super.state(existsCurrency, "budget", "client.contract.form.error.currency");
+		}
+
+		// fecha superior al 2000/01/01 00:00
+		if (!super.getBuffer().getErrors().hasErrors("instantiationMoment")) {
+
+			Date contractDate = contract.getInstantiationMoment();
+			Date minimunDate = MomentHelper.parse("2000-01-01 00:00", "yyyy-MM-dd HH:mm");
+
+			Boolean isAfter = contractDate.after(minimunDate);
+			super.state(isAfter, "instantiationMoment", "client.contract.form.error.instantiationMoment");
 		}
 	}
 
