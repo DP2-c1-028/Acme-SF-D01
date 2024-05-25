@@ -39,10 +39,7 @@ public interface BannerRepository extends AbstractRepository {
 			result = null;
 		else {
 
-			//index = RandomHelper.nextInt(0, count);
-
-			Random r = new Random(23000);
-			index = r.nextInt(0, count);
+			index = RandomHelper.nextInt(0, count);
 
 			page = PageRequest.of(index, 1, Sort.by(Direction.ASC, "id"));
 			list = this.findAllValidBannersByDate(page, MomentHelper.getCurrentMoment());
