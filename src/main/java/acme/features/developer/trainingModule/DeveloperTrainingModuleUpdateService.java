@@ -87,8 +87,9 @@ public class DeveloperTrainingModuleUpdateService extends AbstractService<Develo
 			Date creationMoment;
 			Date updateMoment;
 
+			//Creation moment is retrieved from the db because the data from the frontend omits seconds and misleads the validation to an unwanted trigger
 			creationMoment = this.repository.findOneTrainingModuleById(object.getId()).getCreationMoment();
-			updateMoment = this.repository.findOneTrainingModuleById(object.getId()).getUpdateMoment();
+			updateMoment = object.getUpdateMoment();
 
 			if (updateMoment != null)
 				super.state(updateMoment.after(creationMoment), "updateMoment", "developer.training-module.form.error.update-moment");
