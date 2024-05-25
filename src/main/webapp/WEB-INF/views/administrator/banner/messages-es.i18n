@@ -22,3 +22,4 @@ administrator.banner.form.button.update = Actualizar
 
 administrator.banner.form.error.banner-start-time = Fecha de comienzo del cartel debe estar en el futuro
 administrator.banner.form.error.banner-end-time = Fecha de final del cartel debe estar después de la fecha de final del cartel y tienen que tener al menos una semana de diferencia 
+administrator.banner.form.error.banner-start-time-maximum = Fecha de comienzo del cartel debe ser inferior a 01-01-2100 00:00

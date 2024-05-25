@@ -22,3 +22,4 @@ administrator.banner.form.button.update = Update
 
 administrator.banner.form.error.banner-start-time = Banner start date must be in the future
 administrator.banner.form.error.banner-end-time = Banner end date must be after banner start date and there must also be at least one week difference between both of them
+administrator.banner.form.error.banner-start-time-maximum = Banner start date must be before 2100-01-01 00:00
