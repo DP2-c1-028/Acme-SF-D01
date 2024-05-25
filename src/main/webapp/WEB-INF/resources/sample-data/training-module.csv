@@ -1,34 +1,50 @@
-key,code,creation-moment,difficulty,details,update-moment,link,total-time,published,key:developer,key:project
-training-module-01,"A-001",2021/07/30 00:00,INTERMEDIATE,"Random details",2022/07/30 00:00,"https://twitter.com/Team_AmongUS",2,true,developer-01,project-01
-training-module-02,"A-000",2021/07/30 00:00,INTERMEDIATE,"Random details",2022/07/30 00:00,"https://twitter.com/Team_AmongUS",2,true,developer-01,project-01
-training-module-03,"AB-777",2021/07/30 00:00,INTERMEDIATE,"Random details",2022/07/30 00:00,"https://twitter.com/Team_AmongUS",2,true,developer-01,project-01
-training-module-04,"ABC-420",2021/07/30 00:00,INTERMEDIATE,"Random details",2022/07/30 00:00,"https://twitter.com/Team_AmongUS",2,true,developer-01,project-01
-training-module-05,"A-005",1970/01/01 00:00,INTERMEDIATE,"Random details",2022/07/30 00:00,"https://twitter.com/Team_AmongUS",2,true,developer-01,project-01
-training-module-06,"A-006",1970/02/15 00:00,INTERMEDIATE,"Random details",2022/07/30 00:00,"https://twitter.com/Team_AmongUS",2,true,developer-01,project-01
-training-module-07,"A-007",2000/07/09 00:00,INTERMEDIATE,"Random details",2022/07/30 00:00,"https://twitter.com/Team_AmongUS",2,true,developer-01,project-01
-training-module-08,"A-008",2022/06/22 00:00,INTERMEDIATE,"Random details",2022/07/30 00:00,"https://twitter.com/Team_AmongUS",2,true,developer-01,project-01
-training-module-09,"A-009",2022/07/09 00:00,INTERMEDIATE,"Random details",2022/07/30 00:00,"https://twitter.com/Team_AmongUS",2,true,developer-01,project-01
-training-module-10,"A-010",2021/07/30 00:00,INTERMEDIATE,"A",2022/07/30 00:00,"https://twitter.com/Team_AmongUS",2,true,developer-01,project-01
-training-module-11,"A-011",2021/07/30 00:00,BASIC,"สวัสดีชาวโลก",2022/07/30 00:00,"https://twitter.com/Team_AmongUS",2,true,developer-01,project-01
-training-module-12,"A-012",2021/07/30 00:00,BASIC,"Training module focused on shoulder mobility",2022/07/30 00:00,"https://twitter.com/Team_AmongUS",2,true,developer-01,project-01
-training-module-13,"A-013",2021/07/30 00:00,BASIC,"Lleva la tarara un vestido blanco lleno de cascabeles 我爱你，你爱我",2022/07/30 00:00,"https://twitter.com/Team_AmongUS",2,true,developer-01,project-01
-training-module-14,"A-014",2021/07/30 00:00,BASIC,"AbCdEfGhI一AbCdEfGhI二AbCdEfGhI三AbCdEfGhI四AbCdEfGhI五AbCdEfGhI六AbCdEfGhI七jKlMn",2022/07/30 00:00,"https://twitter.com/Team_AmongUS",2,true,developer-01,project-01
-training-module-15,"A-015",2021/07/30 00:00,BASIC,"Random details",2022/07/30 00:00,"https://twitter.com/Team_AmongUS",2,true,developer-01,project-01
-training-module-16,"A-016",2021/07/30 00:00,BASIC,"Random details",,"https://twitter.com/Team_AmongUS",2,true,developer-01,project-01
-training-module-17,"A-017",1970/01/01 00:00,BASIC,"Random details",1970/01/01 00:01,"https://twitter.com/Team_AmongUS",2,true,developer-01,project-01
-training-module-18,"A-018",1970/02/15 00:00,BASIC,"Random details",1970/02/15 00:01,"https://twitter.com/Team_AmongUS",2,true,developer-01,project-01
-training-module-19,"A-019",2000/07/09 00:00,BASIC,"Random details",2000/07/09 00:01,"https://twitter.com/Team_AmongUS",2,true,developer-01,project-01
-training-module-20,"A-020",2022/06/22 00:00,ADVANCED,"Random details",2022/06/22 00:01,"https://twitter.com/Team_AmongUS",2,true,developer-01,project-01
-training-module-21,"A-021",2022/07/09 00:00,ADVANCED,"Random details",2022/07/09 00:01,"https://twitter.com/Team_AmongUS",2,true,developer-01,project-01
-training-module-22,"A-022",2021/07/30 00:00,ADVANCED,"Random details",2022/07/30 00:00,,2,true,developer-01,project-01
-training-module-23,"A-023",2021/07/30 00:00,ADVANCED,"Random details",2022/07/30 00:00,"https://twitter.com/Team_AmongUS",1,true,developer-01,project-01
-training-module-24,"A-024",2021/07/30 00:00,ADVANCED,"Random details",2022/07/30 00:00,"https://twitter.com/Team_AmongUS",2,true,developer-01,project-01
-training-module-25,"A-025",2021/07/30 00:00,ADVANCED,"Random details",2022/07/30 00:00,"https://twitter.com/Team_AmongUS",4,true,developer-01,project-01
-training-module-26,"A-026",2021/07/30 00:00,ADVANCED,"Random details",2022/07/30 00:00,"https://twitter.com/Team_AmongUS",69,true,developer-01,project-01
-training-module-27,"A-027",2021/07/30 00:00,ADVANCED,"Random details",2022/07/30 00:00,"https://twitter.com/Team_AmongUS",2147483647,true,developer-01,project-01
-training-module-28,"A-028",2021/07/30 00:00,INTERMEDIATE,"Random details",2022/07/30 00:00,"https://twitter.com/Team_AmongUS",2,true,developer-01,project-01
-training-module-29,"A-029",2021/07/30 00:00,INTERMEDIATE,"Random details",2022/07/30 00:00,"https://twitter.com/Team_AmongUS",2,true,developer-01,project-02
-training-module-30,"A-030",2021/07/30 00:00,INTERMEDIATE,"Random details",2022/07/30 00:00,"https://twitter.com/Team_AmongUS",2,true,developer-01,project-10
-training-module-31,"A-031",2021/07/30 00:00,INTERMEDIATE,"Random details",2022/07/30 00:00,"https://twitter.com/Team_AmongUS",2,true,developer-01,project-17
-training-module-32,"A-032",2021/07/30 00:00,INTERMEDIATE,"Random details",2022/07/30 00:00,"https://twitter.com/Team_AmongUS",2,true,developer-01,project-18
-training-module-33,"A-033",2021/07/30 00:00,INTERMEDIATE,"Random details",2022/07/30 00:00,"https://twitter.com/Team_AmongUS",2,false,developer-01,project-01
+key,code,creation-moment,update-moment,difficulty,details,link,total-time,published,key:developer,key:project
+training-module-01,A-001,2015/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"Lorem ipsum","http://www.lorem-ipsum.org",50,false,developer-01,project-01
+training-module-02,A-000,2015/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"Lorem ipsum","http://www.lorem-ipsum.org",50,false,developer-01,project-01
+training-module-03,AA-000,2015/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"Lorem ipsum","http://www.lorem-ipsum.org",50,false,developer-01,project-01
+training-module-04,AAA-000,2015/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"Lorem ipsum","http://www.lorem-ipsum.org",50,false,developer-01,project-01
+training-module-05,ZZZ-999,2015/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"Lorem ipsum","http://www.lorem-ipsum.org",50,false,developer-01,project-01
+training-module-06,ZZ-999,2015/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"Lorem ipsum","http://www.lorem-ipsum.org",50,false,developer-01,project-01
+training-module-07,Z-999,2015/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"Lorem ipsum","http://www.lorem-ipsum.org",50,false,developer-01,project-01
+training-module-08,ABC-555,2015/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"Lorem ipsum","http://www.lorem-ipsum.org",50,false,developer-01,project-01
+training-module-09,A-002,2000/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"Lorem ipsum","http://www.lorem-ipsum.org",50,false,developer-01,project-01
+training-module-10,A-003,2000/01/01 00:01,2016/01/01 00:00,INTERMEDIATE,"Lorem ipsum","http://www.lorem-ipsum.org",50,false,developer-01,project-01
+training-module-11,A-004,2010/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"Lorem ipsum","http://www.lorem-ipsum.org",50,false,developer-01,project-01
+training-module-12,A-005,2022/07/29 23:59,2016/01/01 00:00,INTERMEDIATE,"Lorem ipsum","http://www.lorem-ipsum.org",50,false,developer-01,project-01
+training-module-13,A-006,2022/07/30 00:00,2016/01/01 00:00,INTERMEDIATE,"Lorem ipsum","http://www.lorem-ipsum.org",50,false,developer-01,project-01
+training-module-14,A-007,2000/01/01 00:00,2000/01/01 00:01,INTERMEDIATE,"Lorem ipsum","http://www.lorem-ipsum.org",50,false,developer-01,project-01
+training-module-15,A-008,2000/01/01 00:01,2016/01/01 00:02,INTERMEDIATE,"Lorem ipsum","http://www.lorem-ipsum.org",50,false,developer-01,project-01
+training-module-16,A-009,2015/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"Lorem ipsum","http://www.lorem-ipsum.org",50,false,developer-01,project-01
+training-module-17,A-010,2015/01/01 00:00,2022/07/29 23:59,INTERMEDIATE,"Lorem ipsum","http://www.lorem-ipsum.org",50,false,developer-01,project-01
+training-module-18,A-011,2015/01/01 00:00,2022/07/30 00:00,INTERMEDIATE,"Lorem ipsum","http://www.lorem-ipsum.org",50,false,developer-01,project-01
+training-module-19,A-012,2015/01/01 00:00,2016/01/01 00:00,BASIC,"Lorem ipsum","http://www.lorem-ipsum.org",50,false,developer-01,project-01
+training-module-20,A-013,2015/01/01 00:00,2016/01/01 00:00,ADVANCED,"Lorem ipsum","http://www.lorem-ipsum.org",50,false,developer-01,project-01
+training-module-21,A-014,2015/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"L","http://www.lorem-ipsum.org",50,false,developer-01,project-01
+training-module-22,A-015,2015/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"Lo","http://www.lorem-ipsum.org",50,false,developer-01,project-01
+training-module-23,A-016,2015/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"Lorem ipsum dolor sit amet, consectetur adipiscing elit","http://www.lorem-ipsum.org",50,false,developer-01,project-01
+training-module-24,A-017,2015/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore","http://www.lorem-ipsum.org",50,false,developer-01,project-01
+training-module-25,A-018,2015/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore*","http://www.lorem-ipsum.org",50,false,developer-01,project-01
+training-module-26,A-019,2015/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"<h1>!</h1>","http://www.lorem-ipsum.org",50,false,developer-01,project-01
+training-module-27,A-020,2015/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"' or 'A'='A","http://www.lorem-ipsum.org",50,false,developer-01,project-01
+training-module-28,A-021,2015/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"早上好中国，现在我有冰淇淋","http://www.lorem-ipsum.org",50,false,developer-01,project-01
+training-module-29,A-022,2015/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"العظمى واعتلاء","http://www.lorem-ipsum.org",50,false,developer-01,project-01
+training-module-30,A-023,2015/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"Lorem ipsum","ftp://a",50,false,developer-01,project-01
+training-module-31,A-024,2015/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"Lorem ipsum","ftp://a.b",50,false,developer-01,project-01
+training-module-32,A-025,2015/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"Lorem ipsum","http://example.org?a=1&b=2",50,false,developer-01,project-01
+training-module-33,A-026,2015/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"Lorem ipsum","http://www.lorem-ipsum.org/dolor/sit/amet,/consectetur/adipiscing/elit,/sed/do/eiusmod/tempor/incididunt/ut/labore/et/dolore/magna/aliqua/Ut/enim/ad/minim/veniam/quis/nostrud/exercitation/ullamco/laboris/nisi/ut/aliquip/ex/ea/commodo/consequat/duis/aute/",50,false,developer-01,project-01
+training-module-34,A-027,2015/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"Lorem ipsum","http://www.lorem-ipsum.org/dolor/sit/amet,/consectetur/adipiscing/elit,/sed/do/eiusmod/tempor/incididunt/ut/labore/et/dolore/magna/aliqua/Ut/enim/ad/minim/veniam/quis/nostrud/exercitation/ullamco/laboris/nisi/ut/aliquip/ex/ea/commodo/consequat/duis/aute/X",50,false,developer-01,project-01
+training-module-35,A-028,2015/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"Lorem ipsum",,50,false,developer-01,project-01
+training-module-36,A-029,2015/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"Lorem ipsum","http://www.lorem-ipsum.org",1,false,developer-01,project-01
+training-module-37,A-030,2015/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"Lorem ipsum","http://www.lorem-ipsum.org",2,false,developer-01,project-01
+training-module-38,A-031,2015/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"Lorem ipsum","http://www.lorem-ipsum.org",100,false,developer-01,project-01
+training-module-39,A-032,2015/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"Lorem ipsum","http://www.lorem-ipsum.org",9999,false,developer-01,project-01
+training-module-40,A-033,2015/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"Lorem ipsum","http://www.lorem-ipsum.org",10000,false,developer-01,project-01
+training-module-41,A-034,2015/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"Lorem ipsum","http://www.lorem-ipsum.org",50,true,developer-01,project-01
+training-module-42,A-035,2015/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"Lorem ipsum","http://www.lorem-ipsum.org",50,false,developer-02,project-01
+training-module-43,A-036,2015/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"Lorem ipsum","http://www.lorem-ipsum.org",50,false,developer-01,project-02
+training-module-44,A-037,2015/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"Lorem ipsum","http://www.lorem-ipsum.org",50,false,developer-01,project-08
+training-module-45,A-038,2015/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"Lorem ipsum","http://www.lorem-ipsum.org",50,false,developer-01,project-10
+training-module-46,A-039,2015/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"Lorem ipsum","http://www.lorem-ipsum.org",50,false,developer-01,project-18
+training-module-47,TST-001,2015/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"Lorem ipsum","http://www.lorem-ipsum.org",50,false,developer-01,project-01
+training-module-48,TST-002,2015/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"Lorem ipsum","http://www.lorem-ipsum.org",50,false,developer-01,project-01
+training-module-49,TST-003,2015/01/01 00:00,2016/01/01 00:00,INTERMEDIATE,"Lorem ipsum","http://www.lorem-ipsum.org",50,false,developer-01,project-01

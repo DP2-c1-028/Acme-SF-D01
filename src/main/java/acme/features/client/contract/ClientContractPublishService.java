@@ -6,13 +6,12 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import acme.client.data.datatypes.Money;
 import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
 import acme.client.views.SelectChoices;
+import acme.components.SystemConfigurationRepository;
 import acme.entities.contracts.Contract;
 import acme.entities.projects.Project;
-import acme.entities.systemConfiguration.SystemConfiguration;
 import acme.roles.Client;
 
 @Service
@@ -20,7 +19,10 @@ public class ClientContractPublishService extends AbstractService<Client, Contra
 
 	// Internal state ---------------------------------------------------------
 	@Autowired
-	private ClientContractRepository repository;
+	private ClientContractRepository		repository;
+
+	@Autowired
+	private SystemConfigurationRepository	sysConfigRepository;
 
 	// AbstractService interface ----------------------------------------------
 
@@ -57,28 +59,31 @@ public class ClientContractPublishService extends AbstractService<Client, Contra
 		//no hay q comprobar nada de pl en esta seccion debido a esto
 
 		//validacion de publish  contratos publicados + el budget del entrante para valorar no debe superar el coste del proyecto asociado
-		if (!super.getBuffer().getErrors().hasErrors("budget") && contract.getProject() != null) {
+		if (!super.getBuffer().getErrors().hasErrors("budget") && contract.getProject() != null && this.sysConfigRepository.existsCurrency(contract.getBudget().getCurrency())) {
 
 			int projectId = contract.getProject().getId();
 			Collection<Contract> contracts = this.repository.findPublishedContractsByProjectId(projectId);
-			System.out.println(contracts);
+
+			//si contratos esta vacio es el primer contrato publicado de ese proyecto y solo se tiene que validar las heredadas de actualización
 			if (!contracts.isEmpty()) {
 
-				Double totalBudgetUsd = contracts.stream().mapToDouble(u -> this.currencyTransformerUsd(u.getBudget())).sum();
-				Double projectCostUsd = this.currencyTransformerUsd(contract.getProject().getCost());
-				double afterPublishingTotalCostUsd = totalBudgetUsd + this.currencyTransformerUsd(contract.getBudget());
+				Double totalBudgetUsd = contracts.stream().mapToDouble(u -> this.sysConfigRepository.convertToUsd(u.getBudget()).getAmount()).sum();
+				Double projectCostUsd = this.sysConfigRepository.convertToUsd(contract.getProject().getCost()).getAmount();
+				double afterPublishingTotalCostUsd = totalBudgetUsd + this.sysConfigRepository.convertToUsd(contract.getBudget()).getAmount();
 
 				super.state(afterPublishingTotalCostUsd <= projectCostUsd, "*", "client.contract.form.error.publishError");
 			}
 		}
 
-		//VALIDACIONES DE ACTUALIZACION
+		//VALIDACIONES HEREDADAS DE ACTUALIZACION
 
 		//validacion del D02 budget debe ser menor o igual que coste
-		if (!super.getBuffer().getErrors().hasErrors("budget") && contract.getProject() != null) {
+		if (!super.getBuffer().getErrors().hasErrors("budget") && contract.getProject() != null && this.sysConfigRepository.existsCurrency(contract.getBudget().getCurrency())) {
 			Project referencedProject = contract.getProject();
-			super.state(this.currencyTransformerUsd(referencedProject.getCost()) >= this.currencyTransformerUsd(contract.getBudget()), "budget", "client.contract.form.error.budget-negative");
+			Double projectCost = this.sysConfigRepository.convertToUsd(referencedProject.getCost()).getAmount();
+			Double budgetUSD = this.sysConfigRepository.convertToUsd(contract.getBudget()).getAmount();
 
+			super.state(projectCost >= budgetUSD, "budget", "client.contract.form.error.budget");
 		}
 
 		//ccodigo del cr no duplicado
@@ -101,36 +106,11 @@ public class ClientContractPublishService extends AbstractService<Client, Contra
 		}
 
 		//budget no tenga divisa invalida
-		if (!super.getBuffer().getErrors().hasErrors("budget"))
-			super.state(this.isCurrencyAccepted(contract.getBudget()), "budget", "client.contract.form.error.currency");
-
-	}
-
-	private double currencyTransformerUsd(final Money initial) {
-		double res = initial.getAmount();
-
-		if (initial.getCurrency().equals("USD"))
-			res = initial.getAmount();
-
-		else if (initial.getCurrency().equals("EUR"))
-			res = initial.getAmount() * 1.07;
-
-		else
-			res = initial.getAmount() * 1.25;
-
-		return res;
-	}
-
-	public boolean isCurrencyAccepted(final Money moneda) {
-		SystemConfiguration moneys;
-		moneys = this.repository.findSystemConfiguration();
-
-		String[] listaMonedas = moneys.getAcceptedCurrencies().split(",");
-		for (String divisa : listaMonedas)
-			if (moneda.getCurrency().equals(divisa))
-				return true;
-
-		return false;
+		if (!super.getBuffer().getErrors().hasErrors("budget") && contract.getBudget() != null) {
+			String currency = contract.getBudget().getCurrency();
+			boolean existsCurrency = this.sysConfigRepository.existsCurrency(currency);
+			super.state(existsCurrency, "budget", "client.contract.form.error.currency");
+		}
 	}
 
 	@Override

@@ -1,7 +1,10 @@
 
 package acme.forms;
 
+import java.util.Map;
+
 import acme.client.data.AbstractForm;
+import acme.features.client.dashboard.ClientMoneyStatistics;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,24 +14,18 @@ public class ClientDashboard extends AbstractForm {
 
 	// Serialisation identifier -----------------------------------------------
 
-	private static final long	serialVersionUID	= 1L;
+	private static final long			serialVersionUID	= 1L;
 
 	// Attributes -------------------------------------------------------------
 
-	int							totalLogsWithCompletenessBelow25;
+	int									totalLogsWithCompletenessBelow25;
 
-	int							totalLogsWithCompletenessBetween25And50;
+	int									totalLogsWithCompletenessBetween25And50;
 
-	int							totalLogsWithCompletenessBetween50And75;
+	int									totalLogsWithCompletenessBetween50And75;
 
-	int							totalLogsWithCompletenessAbove75;
+	int									totalLogsWithCompletenessAbove75;
 
-	Double						averageBudgetOfContracts;
-
-	Double						deviationOfContractBudgets;
-
-	Double						minimunBudgetOfContracts;
-
-	Double						maximunBudgetOfContracts;
+	Map<String, ClientMoneyStatistics>	moneyStatistics;
 
 }

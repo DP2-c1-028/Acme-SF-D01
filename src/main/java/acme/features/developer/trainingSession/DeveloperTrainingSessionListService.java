@@ -68,9 +68,12 @@ public class DeveloperTrainingSessionListService extends AbstractService<Develop
 		assert objects != null;
 
 		int trainingModuleId;
+		TrainingModule trainingModule;
 
 		trainingModuleId = super.getRequest().getData("trainingModuleId", int.class);
+		trainingModule = this.repository.findOneTrainingModuleById(trainingModuleId);
 
 		super.getResponse().addGlobal("trainingModuleId", trainingModuleId);
+		super.getResponse().addGlobal("trainingModulePublished", trainingModule.isPublished());
 	}
 }
