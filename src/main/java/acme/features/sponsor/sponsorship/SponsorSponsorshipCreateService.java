@@ -8,7 +8,6 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import acme.client.data.datatypes.Money;
 import acme.client.data.models.Dataset;
 import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractService;
@@ -17,7 +16,6 @@ import acme.components.SystemConfigurationRepository;
 import acme.entities.projects.Project;
 import acme.entities.sponsorships.Sponsorship;
 import acme.entities.sponsorships.SponsorshipType;
-import acme.entities.systemConfiguration.SystemConfiguration;
 import acme.roles.Sponsor;
 
 @Service
@@ -75,9 +73,10 @@ public class SponsorSponsorshipCreateService extends AbstractService<Sponsor, Sp
 
 			Date sponsorshipDate = object.getMoment();
 			Date minimumDate = MomentHelper.parse("1969-12-31 0:00", "yyyy-MM-dd HH:mm");
+			Date maximumDate = MomentHelper.parse("2200-12-31 23:59", "yyyy-MM-dd HH:mm");
 
 			if (sponsorshipDate != null) {
-				Boolean isAfter = sponsorshipDate.after(minimumDate);
+				Boolean isAfter = sponsorshipDate.after(minimumDate) && sponsorshipDate.before(maximumDate);
 				super.state(isAfter, "moment", "sponsor.sponsorship.form.error.moment");
 			}
 		}
@@ -87,9 +86,11 @@ public class SponsorSponsorshipCreateService extends AbstractService<Sponsor, Sp
 			Date moment;
 			durationStartTime = object.getDurationStartTime();
 			moment = object.getMoment();
+			Date minimumDate = MomentHelper.parse("1969-12-31 0:00", "yyyy-MM-dd HH:mm");
+			Date maximumDate = MomentHelper.parse("2200-12-31 23:59", "yyyy-MM-dd HH:mm");
 
 			if (moment != null)
-				super.state(durationStartTime.after(moment), "durationStartTime", "sponsor.sponsorship.form.error.durationStartTime");
+				super.state(durationStartTime.after(moment) && durationStartTime.after(minimumDate) && durationStartTime.before(maximumDate), "durationStartTime", "sponsor.sponsorship.form.error.durationStartTime");
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("durationEndTime")) {
@@ -98,9 +99,11 @@ public class SponsorSponsorshipCreateService extends AbstractService<Sponsor, Sp
 
 			durationStartTime = object.getDurationStartTime();
 			durationEndTime = object.getDurationEndTime();
+			Date maximumDate = MomentHelper.parse("2200-12-31 23:59", "yyyy-MM-dd HH:mm");
 
 			if (durationStartTime != null && durationEndTime != null)
-				super.state(MomentHelper.isLongEnough(durationStartTime, durationEndTime, 1, ChronoUnit.MONTHS) && durationEndTime.after(durationStartTime), "durationEndTime", "sponsor.sponsorship.form.error.durationEndTime");
+				super.state(MomentHelper.isLongEnough(durationStartTime, durationEndTime, 1, ChronoUnit.MONTHS) && durationEndTime.after(durationStartTime) && durationEndTime.before(maximumDate), "durationEndTime",
+					"sponsor.sponsorship.form.error.durationEndTime");
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("amount") && this.systemConfigurationRepository.existsCurrency(object.getAmount().getCurrency()))
@@ -115,18 +118,6 @@ public class SponsorSponsorshipCreateService extends AbstractService<Sponsor, Sp
 		if (!super.getBuffer().getErrors().hasErrors("project"))
 			super.state(!object.getProject().isDraftMode(), "project", "sponsor.sponsorship.form.error.project-not-published");
 
-	}
-
-	public boolean isCurrencyAccepted(final Money moneda) {
-		SystemConfiguration moneys;
-		moneys = this.repository.findSystemConfiguration();
-
-		String[] listaMonedas = moneys.getAcceptedCurrencies().split(",");
-		for (String divisa : listaMonedas)
-			if (moneda.getCurrency().equals(divisa))
-				return true;
-
-		return false;
 	}
 
 	@Override

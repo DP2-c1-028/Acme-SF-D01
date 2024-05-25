@@ -27,4 +27,5 @@ sponsor.invoice.form.error.quantity = Quantity must be positive and minor than o
 sponsor.invoice.form.error.acceptedCurrency = Currency is not accepted by the system
 sponsor.invoice.form.error.published-sponsorship = You cannot create, update or delete an invoice whose sponsorship is already published
 sponsor.invoice.form.error.tax-not-null = The tax cannot be null
-sponsor.invoice.form.error.registration-time = The date must be after 1970-01-01 00:00
+sponsor.invoice.form.error.registration-time = The date must be after 1970-01-01 00:00 and before 2200-12-31 23:59
+sponsor.invoice.form.error.registration-time-bis = The registration date of an invoice must be after the creation date of a sponsorship
