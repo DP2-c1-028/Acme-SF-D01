@@ -11,4 +11,8 @@
 	<acme:list-column code="auditor.audit-record.list.label.link" path="link" width="10%"/>		
 </acme:list>
 
-<acme:button code="auditor.audit-record.list.button.create" action="/auditor/audit-record/create?codeAuditId=${codeAuditId}"/>
+<jstl:choose>
+	<jstl:when test="${canCreate==true}">
+		<acme:button code="auditor.audit-record.list.button.create" action="/auditor/audit-record/create?codeAuditId=${codeAuditId}"/>
+	</jstl:when>
+</jstl:choose>

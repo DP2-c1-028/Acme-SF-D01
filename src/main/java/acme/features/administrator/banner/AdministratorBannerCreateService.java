@@ -74,6 +74,15 @@ public class AdministratorBannerCreateService extends AbstractService<Administra
 			if (bannerStartTime != null && bannerEndTime != null)
 				super.state(MomentHelper.isLongEnough(bannerStartTime, bannerEndTime, 1, ChronoUnit.WEEKS) && bannerEndTime.after(bannerStartTime), "bannerEndTime", "administrator.banner.form.error.banner-end-time");
 		}
+
+		if (!super.getBuffer().getErrors().hasErrors("bannerStartTime")) {
+
+			Date bannerDate = object.getBannerStartTime();
+			Date maximumDate = MomentHelper.parse("2100-01-01 00:00", "yyyy-MM-dd HH:mm");
+
+			Boolean isBefore = bannerDate.before(maximumDate);
+			super.state(isBefore, "bannerStartTime", "administrator.banner.form.error.banner-start-time-maximum");
+		}
 	}
 
 	@Override

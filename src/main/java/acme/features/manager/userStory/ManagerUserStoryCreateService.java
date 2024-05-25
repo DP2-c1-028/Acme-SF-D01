@@ -79,6 +79,10 @@ public class ManagerUserStoryCreateService extends AbstractService<Manager, User
 
 			super.state(project.isDraftMode(), "*", "manager.user-story.form.error.project-published");
 		}
+		if (!super.getBuffer().getErrors().hasErrors("estimatedCost")) {
+			double maxDouble = Double.MAX_VALUE;
+			super.state(object.getEstimatedCost() < maxDouble, "cost", "manager.project.form.error.not-valid-currency");
+		}
 
 	}
 
