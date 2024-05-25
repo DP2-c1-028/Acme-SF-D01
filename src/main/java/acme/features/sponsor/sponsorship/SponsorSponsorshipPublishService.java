@@ -18,7 +18,6 @@ import acme.entities.invoices.Invoice;
 import acme.entities.projects.Project;
 import acme.entities.sponsorships.Sponsorship;
 import acme.entities.sponsorships.SponsorshipType;
-import acme.entities.systemConfiguration.SystemConfiguration;
 import acme.roles.Sponsor;
 
 @Service
@@ -81,13 +80,28 @@ public class SponsorSponsorshipPublishService extends AbstractService<Sponsor, S
 			super.state(invoiceTotAmount == this.currencyTransformerUsd(object.getAmount(), object.getAmount().getAmount()).getAmount(), "*", "sponsor.sponsorship.form.error.invalidTotalAmount");
 		}
 
+		if (!super.getBuffer().getErrors().hasErrors("moment")) {
+
+			Date sponsorshipDate = object.getMoment();
+			Date minimumDate = MomentHelper.parse("1969-12-31 0:00", "yyyy-MM-dd HH:mm");
+			Date maximumDate = MomentHelper.parse("2200-12-31 23:59", "yyyy-MM-dd HH:mm");
+
+			if (sponsorshipDate != null) {
+				Boolean isAfter = sponsorshipDate.after(minimumDate) && sponsorshipDate.before(maximumDate);
+				super.state(isAfter, "moment", "sponsor.sponsorship.form.error.moment");
+			}
+		}
+
 		if (!super.getBuffer().getErrors().hasErrors("durationStartTime")) {
 			Date durationStartTime;
 			Date moment;
 			durationStartTime = object.getDurationStartTime();
 			moment = object.getMoment();
+			Date minimumDate = MomentHelper.parse("1969-12-31 0:00", "yyyy-MM-dd HH:mm");
+			Date maximumDate = MomentHelper.parse("2200-12-31 23:59", "yyyy-MM-dd HH:mm");
 
-			super.state(durationStartTime.after(moment), "durationStartTime", "sponsor.sponsorship.form.error.durationStartTime");
+			if (moment != null)
+				super.state(durationStartTime.after(moment) && durationStartTime.after(minimumDate) && durationStartTime.before(maximumDate), "durationStartTime", "sponsor.sponsorship.form.error.durationStartTime");
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("durationEndTime")) {
@@ -96,12 +110,15 @@ public class SponsorSponsorshipPublishService extends AbstractService<Sponsor, S
 
 			durationStartTime = object.getDurationStartTime();
 			durationEndTime = object.getDurationEndTime();
+			Date maximumDate = MomentHelper.parse("2200-12-31 23:59", "yyyy-MM-dd HH:mm");
 
-			super.state(MomentHelper.isLongEnough(durationStartTime, durationEndTime, 1, ChronoUnit.MONTHS) && durationEndTime.after(durationStartTime), "durationEndTime", "sponsor.sponsorship.form.error.durationEndTime");
+			if (durationStartTime != null && durationEndTime != null)
+				super.state(MomentHelper.isLongEnough(durationStartTime, durationEndTime, 1, ChronoUnit.MONTHS) && durationEndTime.after(durationStartTime) && durationEndTime.before(maximumDate), "durationEndTime",
+					"sponsor.sponsorship.form.error.durationEndTime");
 		}
 
-		if (!super.getBuffer().getErrors().hasErrors("amount"))
-			super.state(object.getAmount().getAmount() >= 0, "amount", "sponsor.sponsorship.form.error.amount");
+		if (!super.getBuffer().getErrors().hasErrors("amount") && this.systemConfigurationRepository.existsCurrency(object.getAmount().getCurrency()))
+			super.state(object.getAmount().getAmount() >= 0 && this.systemConfigurationRepository.convertToUsd(object.getAmount()).getAmount() <= 1000000, "amount", "sponsor.sponsorship.form.error.amount");
 
 		if (!super.getBuffer().getErrors().hasErrors("amount")) {
 			String symbol = object.getAmount().getCurrency();
@@ -121,18 +138,6 @@ public class SponsorSponsorshipPublishService extends AbstractService<Sponsor, S
 		if (!super.getBuffer().getErrors().hasErrors("project"))
 			super.state(!object.getProject().isDraftMode(), "project", "sponsor.sponsorship.form.error.project-not-published");
 
-	}
-
-	public boolean isCurrencyAccepted(final Money moneda) {
-		SystemConfiguration moneys;
-		moneys = this.repository.findSystemConfiguration();
-
-		String[] listaMonedas = moneys.getAcceptedCurrencies().split(",");
-		for (String divisa : listaMonedas)
-			if (moneda.getCurrency().equals(divisa))
-				return true;
-
-		return false;
 	}
 
 	private Money currencyTransformerUsd(final Money currency, final Double amount) {
@@ -168,13 +173,22 @@ public class SponsorSponsorshipPublishService extends AbstractService<Sponsor, S
 		Collection<Project> projects = this.repository.findProjects();
 		SelectChoices choices2;
 		Dataset dataset;
+		String projectCode;
+		int sponsorId;
+
+		sponsorId = super.getRequest().getData("id", int.class);
+
+		Sponsorship s = this.repository.findOneSponsorshipById(sponsorId);
+
+		projectCode = s.getProject() != null ? s.getProject().getCode() : null;
 
 		choices = SelectChoices.from(SponsorshipType.class, object.getType());
-		choices2 = SelectChoices.from(projects, "code", (Project) projects.toArray()[0]);
+		choices2 = SelectChoices.from(projects, "code", s.getProject());
 
 		dataset = super.unbind(object, "code", "moment", "durationStartTime", "durationEndTime", "amount", "type", "email", "link", "project", "draftMode");
 		dataset.put("types", choices);
 		dataset.put("projects", choices2);
+		dataset.put("project", projectCode);
 
 		super.getResponse().addData(dataset);
 	}

@@ -68,10 +68,13 @@ public class SponsorInvoiceListService extends AbstractService<Sponsor, Invoice>
 		assert objects != null;
 
 		int sponsorshipId;
+		Sponsorship sponsorship;
 
 		sponsorshipId = super.getRequest().getData("sponsorshipId", int.class);
+		sponsorship = this.repository.findOneSponsorshipById(sponsorshipId);
 
 		super.getResponse().addGlobal("sponsorshipId", sponsorshipId);
+		super.getResponse().addGlobal("canCreate", sponsorship.isDraftMode());
 	}
 
 }

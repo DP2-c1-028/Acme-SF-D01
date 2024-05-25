@@ -90,6 +90,15 @@ public class AuditorAuditRecordUpdateService extends AbstractService<Auditor, Au
 
 		if (!super.getBuffer().getErrors().hasErrors("publishedCodeAudit"))
 			super.state(object.getCodeAudit().isDraftMode(), "*", "auditor.audit-record.form.error.published-code-audit");
+
+		if (!super.getBuffer().getErrors().hasErrors("auditStartTime")) {
+
+			Date auditRecordDate = object.getAuditStartTime();
+			Date minimumDate = object.getCodeAudit().getExecution();
+
+			Boolean isAfter = auditRecordDate.after(minimumDate);
+			super.state(isAfter, "auditStartTime", "auditor.audit-record.form.error.auditStartTime");
+		}
 	}
 
 	@Override

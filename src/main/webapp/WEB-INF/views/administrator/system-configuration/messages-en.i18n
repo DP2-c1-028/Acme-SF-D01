@@ -6,3 +6,4 @@ administrator.system-configuration.form.error.systemCurrency = The currency intr
 administrator.system-configuration.form.button.currencies = Currencies
 validation.systemConfiguration.systemCurrency = Currencies must have three uppercase letters only
 validation.systemConfiguration.aceptedCurrencies = Accepted currencies must have exactly three uppercase letters and be separated by commas
+administrator.system-configuration.form.button.currencies = Currencies
