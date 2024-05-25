@@ -20,4 +20,13 @@ public interface DeveloperDashboardRepository extends AbstractRepository {
 	@Query("SELECT COUNT(ts) FROM TrainingSession ts WHERE ts.link IS NOT NULL AND ts.trainingModule.developer.id = :developerId AND ts.published = true")
 	int countTrainingSessionsWithLinkByDeveloperId(int developerId);
 
+	@Query("SELECT AVG(tm.totalTime) FROM TrainingModule tm WHERE tm.developer.id = :developerId AND tm.published = true")
+	Double averageTimesByDeveloperId(int developerId);
+
+	@Query("SELECT MAX(tm.totalTime) FROM TrainingModule tm WHERE tm.developer.id = :developerId AND tm.published = true")
+	Integer maximumTimeByDeveloperId(int developerId);
+
+	@Query("SELECT MIN(tm.totalTime) FROM TrainingModule tm WHERE tm.developer.id = :developerId AND tm.published = true")
+	Integer minimumTimeByDeveloperId(int developerId);
+
 }
