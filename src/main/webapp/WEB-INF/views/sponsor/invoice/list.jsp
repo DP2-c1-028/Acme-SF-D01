@@ -13,4 +13,8 @@
 	<acme:list-column code="sponsor.inovice.list.label.totalAmount" path="totalAmount" width="10%"/>
 </acme:list>
 
-<acme:button code="sponsor.invoice.list.button.create" action="/sponsor/invoice/create?sponsorshipId=${sponsorshipId}"/>
+<jstl:choose>
+	<jstl:when test="${canCreate==true}">
+		<acme:button code="sponsor.invoice.list.button.create" action="/sponsor/invoice/create?sponsorshipId=${sponsorshipId}"/>
+	</jstl:when>
+</jstl:choose>
