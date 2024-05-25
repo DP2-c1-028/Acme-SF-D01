@@ -7,12 +7,11 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import acme.client.data.datatypes.Money;
 import acme.client.data.models.Dataset;
 import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractService;
+import acme.components.SystemConfigurationRepository;
 import acme.entities.invoices.Invoice;
-import acme.entities.systemConfiguration.SystemConfiguration;
 import acme.roles.Sponsor;
 
 @Service
@@ -21,7 +20,10 @@ public class SponsorInvoicePublishService extends AbstractService<Sponsor, Invoi
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	private SponsorInvoiceRepository repository;
+	private SponsorInvoiceRepository		repository;
+
+	@Autowired
+	private SystemConfigurationRepository	systemConfigurationRepository;
 
 	// AbstractService interface ----------------------------------------------
 
@@ -73,34 +75,51 @@ public class SponsorInvoicePublishService extends AbstractService<Sponsor, Invoi
 				super.state(projectSameCode.getId() == object.getId(), "code", "sponsor.invoice.form.error.code");
 		}
 
+		if (!super.getBuffer().getErrors().hasErrors("registrationTime")) {
+
+			Date registrationTime = object.getRegistrationTime();
+			Date minimumDate = MomentHelper.parse("1969-12-31 23:59", "yyyy-MM-dd HH:mm");
+			Date maximumDate = MomentHelper.parse("2200-12-31 23:59", "yyyy-MM-dd HH:mm");
+
+			if (registrationTime != null) {
+				Boolean isAfter = registrationTime.after(minimumDate) && registrationTime.before(maximumDate);
+				super.state(isAfter, "registrationTime", "sponsor.invoice.form.error.registration-time");
+			}
+		}
+
+		if (!super.getBuffer().getErrors().hasErrors("registrationTime")) {
+			Date registrationTime;
+			Date moment;
+
+			registrationTime = object.getRegistrationTime();
+			moment = object.getSponsorship().getMoment();
+
+			if (registrationTime != null)
+				super.state(registrationTime.after(moment), "registrationTime", "sponsor.invoice.form.error.registration-time-bis");
+		}
+
 		if (!super.getBuffer().getErrors().hasErrors("dueDate")) {
 			Date registrationTime;
 			Date dueDate;
 
 			registrationTime = object.getRegistrationTime();
 			dueDate = object.getDueDate();
+			Date minimumDate = MomentHelper.parse("1969-12-31 23:59", "yyyy-MM-dd HH:mm");
+			Date maximumDate = MomentHelper.parse("2200-12-31 23:59", "yyyy-MM-dd HH:mm");
 
-			super.state(MomentHelper.isLongEnough(registrationTime, dueDate, 1, ChronoUnit.MONTHS) && dueDate.after(registrationTime), "dueDate", "sponsor.invoice.form.error.dueDate");
+			if (registrationTime != null && dueDate != null)
+				super.state(MomentHelper.isLongEnough(registrationTime, dueDate, 1, ChronoUnit.MONTHS) && dueDate.after(registrationTime) && dueDate.after(minimumDate) && dueDate.before(maximumDate), "dueDate", "sponsor.invoice.form.error.dueDate");
 		}
 
-		if (!super.getBuffer().getErrors().hasErrors("quantity") && object.getQuantity() != null)
-			super.state(object.getQuantity().getAmount() >= 0, "quantity", "sponsor.invoice.form.error.quantity");
+		if (!super.getBuffer().getErrors().hasErrors("quantity") && this.systemConfigurationRepository.existsCurrency(object.getQuantity().getCurrency()))
+			super.state(object.getQuantity().getAmount() >= 0 && this.systemConfigurationRepository.convertToUsd(object.getQuantity()).getAmount() <= 1000000, "quantity", "sponsor.invoice.form.error.quantity");
 
-		if (!super.getBuffer().getErrors().hasErrors("quantity"))
-			super.state(this.isCurrencyAccepted(object.getQuantity()), "quantity", "sponsor.invoice.form.error.acceptedCurrency");
+		if (!super.getBuffer().getErrors().hasErrors("quantity")) {
+			String symbol = object.getQuantity().getCurrency();
+			boolean existsCurrency = this.systemConfigurationRepository.existsCurrency(symbol);
+			super.state(existsCurrency, "quantity", "sponsor.invoice.form.error.acceptedCurrency");
+		}
 
-	}
-
-	public boolean isCurrencyAccepted(final Money moneda) {
-		SystemConfiguration moneys;
-		moneys = this.repository.findSystemConfiguration();
-
-		String[] listaMonedas = moneys.getAcceptedCurrencies().split(",");
-		for (String divisa : listaMonedas)
-			if (moneda.getCurrency().equals(divisa))
-				return true;
-
-		return false;
 	}
 
 	@Override
