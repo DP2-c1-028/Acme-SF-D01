@@ -1,41 +1,41 @@
 key,record-id,completeness,comment,registration-moment,responsible-person,draft-mode,key:contract,key:client
-project-logs-01,PG-BC-7890,43.01,espero que vaya bien,2008/01/31 5:01,Fernado Gutierrez,true,contract-01,client-01
-project-logs-02,PG-ZZ-9999,43.02,espero que vaya bien,2008/01/31 5:02,Fernado Gutierrez,true,contract-01,client-01
-project-logs-03,PG-A-0001,43.03,espero que vaya bien,2008/01/31 5:03,Fernado Gutierrez,true,contract-01,client-01
-project-logs-04,PG-OO-5555,43.04,espero que vaya bien,2008/01/31 5:04,Fernado Gutierrez,true,contract-01,client-01
-project-logs-05,PG-SE-2000,43.05,espero que vaya bien,2008/01/31 5:05,Fernado Gutierrez,true,contract-01,client-01
-project-logs-06,PG-A-0002,70.2,espero que vaya bien,2008/01/31 5:06,Fernado Gutierrez,true,contract-01,client-01
-project-logs-07,PG-A-0003,100.0,espero que vaya bien,2008/01/31 5:07,Fernado Gutierrez,true,contract-01,client-01
-project-logs-08,PG-A-0004,0.00,espero que vaya bien,2008/01/31 5:08,Fernado Gutierrez,false,contract-01,client-01
-project-logs-09,PG-A-0005,50.0,espero que vaya bien,2008/01/31 5:09,Fernado Gutierrez,true,contract-01,client-01
-project-logs-10,PG-A-0006,43.06,espero que vaya bien,2008/01/31 5:10,Fernado Gutierrez,false,contract-25,client-04
-project-logs-11,PG-A-0007,43.07,##ajajajajajajajajajajajajjajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajaj99akk,2008/01/31 5:11,Fernado Gutierrez,false,contract-17,client-02
-project-logs-12,PG-A-0008,43.08,.,2008/01/31 5:12,Fernado Gutierrez,false,contract-25,client-04
-project-logs-13,PG-A-0009,43.09,32T0 es un comentario de caracteres DBERIA VERSE ALGO ASI ///##,2008/01/31 5:13,Fernado Gutierrez,true,contract-02,client-01
-project-logs-14,PG-A-0010,43.1,<script>alert(h)</script>,2008/01/31 5:14,Fernado Gutierrez,true,contract-02,client-01
-project-logs-15,PG-A-0011,43.11,esto es una descripcion de 50 caracteres ?? ¬¬ &&&,2008/01/31 5:15,Fernado Gutierrez,true,contract-02,client-01
-project-logs-16,PG-A-0012,43.12,espero que vaya bien,2008/01/31 5:16,Fernado Gutierrez,true,contract-02,client-01
-project-logs-17,PG-A-0013,43.13,espero que vaya bien,2011/01/07 12:22,Fernado Gutierrez,true,contract-24,client-02
-project-logs-18,PG-A-0014,43.14,espero que vaya bien,2000/01/01 0:02,Fernado Gutierrez,true,contract-42,client-02
-project-logs-19,PG-A-0015,43.15,espero que vaya bien,2022/07/30 00:00,Fernado Gutierrez,true,contract-17,client-02
-project-logs-20,PG-A-0016,43.16,espero que vaya bien,2015/06/30 23:59,Fernado Gutierrez,true,contract-17,client-02
-project-logs-21,PG-A-0017,43.17,espero que vaya bien,2008/01/31 5:17,"or ""matias"" = ""matias""",true,contract-01,client-01
-project-logs-22,PG-A-0018,43.18,espero que vaya bien,2008/01/31 5:18,प्रणा11iam R4míre¬,true,contract-01,client-01
-project-logs-23,PG-A-0019,43.19,espero que vaya bien,2008/01/31 5:19,?3L1R10? PE[^ECUTORIOS DELIRIOS PERSECUTORIOS DELIRIOS PERSECUTORIOS 3ST&E2,true,contract-01,client-01
-project-logs-24,PG-A-0020,43.2,espero que vaya bien,2008/01/31 5:20,V,true,contract-01,client-01
-project-logs-25,PG-A-0021,43.21,espero que vaya bien,2008/01/31 5:23,Est0 es un comentario de 38 carácteres,true,contract-25,client-04
-project-logs-26,PG-A-0022,43.22,국민경제의 발전을,2008/01/31 5:24,Est0 es un comentario de 38 carácteres,true,contract-01,client-01
-project-logs-27,PG-A-0023,43.23,espero que vaya bien,2011/01/31 5:23,국민경제의 발전을,true,contract-01,client-01
-project-logs-28,PG-A-0024,43.24,' or 'A'='A,2011/02/12 5:23,persona valida,true,contract-01,client-01
-project-logs-29,PG-A-0025,43.25,luis,2011/02/13 5:23,' or 'A'='A,true,contract-01,client-01
-project-logs-30,PG-A-0026,43.26,&&&~~$··)()//,2011/02/13 5:24,persona valida,true,contract-01,client-01
-project-logs-31,PG-A-0027,43.27,luis,2011/02/14 5:23,&&&~~$··)()//,true,contract-01,client-01
-project-logs-32,PG-ZZ-9998,43.28,espero que vaya bien,2011/02/15 0:03,Fernado Gutierrez,true,contract-01,client-01
-project-logs-33,PG-A-0028,0.01,espero que vaya bien,2012/03/12 0:03,Fernado Gutierrez,true,contract-01,client-01
-project-logs-34,PG-A-0029,99.99,espero que vaya bien,2012/03/12 0:04,Fernado Gutierrez,true,contract-01,client-01
-project-logs-35,PG-A-0030,43.29,ll,2012/03/12 0:05,Fernado Gutierrez,true,contract-01,client-01
-project-logs-36,PG-A-0031,43.30,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod te",2012/03/16 12:03,Fernado Gutierrez,true,contract-01,client-01
-project-logs-37,PG-A-0032,43.31,espero que vaya bien,2000/01/01 0:03,Fernado Gutierrez,true,contract-42,client-02
-project-logs-38,PG-A-0033,43.32,espero que vaya bien,2022/07/29 23:59,Fernado Gutierrez,true,contract-01,client-01
-project-logs-39,PG-A-0034,43.33,luis,2012/07/12 12:59,ll,true,contract-01,client-01
-project-logs-40,PG-A-0035,43.34,luis,2012/07/13 13:00,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod te",true,contract-01,client-01
+progress-log-01,PG-BC-7890,43.01,espero que vaya bien,2008/01/31 5:01,Fernado Gutierrez,true,contract-01,client-01
+progress-log-02,PG-ZZ-9999,43.02,espero que vaya bien,2008/01/31 5:02,Fernado Gutierrez,true,contract-01,client-01
+progress-log-03,PG-A-0001,43.03,espero que vaya bien,2008/01/31 5:03,Fernado Gutierrez,true,contract-01,client-01
+progress-log-04,PG-OO-5555,43.04,espero que vaya bien,2008/01/31 5:04,Fernado Gutierrez,true,contract-01,client-01
+progress-log-05,PG-SE-2000,43.05,espero que vaya bien,2008/01/31 5:05,Fernado Gutierrez,true,contract-01,client-01
+progress-log-06,PG-A-0002,70.2,espero que vaya bien,2008/01/31 5:06,Fernado Gutierrez,true,contract-01,client-01
+progress-log-07,PG-A-0003,100.0,espero que vaya bien,2008/01/31 5:07,Fernado Gutierrez,true,contract-01,client-01
+progress-log-08,PG-A-0004,0.00,espero que vaya bien,2008/01/31 5:08,Fernado Gutierrez,false,contract-01,client-01
+progress-log-09,PG-A-0005,50.0,espero que vaya bien,2008/01/31 5:09,Fernado Gutierrez,true,contract-01,client-01
+progress-log-10,PG-A-0006,43.06,espero que vaya bien,2008/01/31 5:10,Fernado Gutierrez,false,contract-25,client-04
+progress-log-11,PG-A-0007,43.07,##ajajajajajajajajajajajajjajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajajaj99akk,2008/01/31 5:11,Fernado Gutierrez,false,contract-17,client-02
+progress-log-12,PG-A-0008,43.08,.,2008/01/31 5:12,Fernado Gutierrez,false,contract-25,client-04
+progress-log-13,PG-A-0009,43.09,32T0 es un comentario de caracteres DBERIA VERSE ALGO ASI ///##,2008/01/31 5:13,Fernado Gutierrez,true,contract-02,client-01
+progress-log-14,PG-A-0010,43.1,<script>alert(h)</script>,2008/01/31 5:14,Fernado Gutierrez,true,contract-02,client-01
+progress-log-15,PG-A-0011,43.11,esto es una descripcion de 50 caracteres ?? ¬¬ &&&,2008/01/31 5:15,Fernado Gutierrez,true,contract-02,client-01
+progress-log-16,PG-A-0012,43.12,espero que vaya bien,2008/01/31 5:16,Fernado Gutierrez,true,contract-02,client-01
+progress-log-17,PG-A-0013,43.13,espero que vaya bien,2011/01/07 12:22,Fernado Gutierrez,true,contract-24,client-02
+progress-log-18,PG-A-0014,43.14,espero que vaya bien,2000/01/01 0:02,Fernado Gutierrez,true,contract-42,client-02
+progress-log-19,PG-A-0015,43.15,espero que vaya bien,2022/07/30 00:00,Fernado Gutierrez,true,contract-17,client-02
+progress-log-20,PG-A-0016,43.16,espero que vaya bien,2015/06/30 23:59,Fernado Gutierrez,true,contract-17,client-02
+progress-log-21,PG-A-0017,43.17,espero que vaya bien,2008/01/31 5:17,"or ""matias"" = ""matias""",true,contract-01,client-01
+progress-log-22,PG-A-0018,43.18,espero que vaya bien,2008/01/31 5:18,प्रणा11iam R4míre¬,true,contract-01,client-01
+progress-log-23,PG-A-0019,43.19,espero que vaya bien,2008/01/31 5:19,?3L1R10? PE[^ECUTORIOS DELIRIOS PERSECUTORIOS DELIRIOS PERSECUTORIOS 3ST&E2,true,contract-01,client-01
+progress-log-24,PG-A-0020,43.2,espero que vaya bien,2008/01/31 5:20,V,true,contract-01,client-01
+progress-log-25,PG-A-0021,43.21,espero que vaya bien,2008/01/31 5:23,Est0 es un comentario de 38 carácteres,true,contract-25,client-04
+progress-log-26,PG-A-0022,43.22,국민경제의 발전을,2008/01/31 5:24,Est0 es un comentario de 38 carácteres,true,contract-01,client-01
+progress-log-27,PG-A-0023,43.23,espero que vaya bien,2011/01/31 5:23,국민경제의 발전을,true,contract-01,client-01
+progress-log-28,PG-A-0024,43.24,' or 'A'='A,2011/02/12 5:23,persona valida,true,contract-01,client-01
+progress-log-29,PG-A-0025,43.25,luis,2011/02/13 5:23,' or 'A'='A,true,contract-01,client-01
+progress-log-30,PG-A-0026,43.26,&&&~~$··)()//,2011/02/13 5:24,persona valida,true,contract-01,client-01
+progress-log-31,PG-A-0027,43.27,luis,2011/02/14 5:23,&&&~~$··)()//,true,contract-01,client-01
+progress-log-32,PG-ZZ-9998,43.28,espero que vaya bien,2011/02/15 0:03,Fernado Gutierrez,true,contract-01,client-01
+progress-log-33,PG-A-0028,0.01,espero que vaya bien,2012/03/12 0:03,Fernado Gutierrez,true,contract-01,client-01
+progress-log-34,PG-A-0029,99.99,espero que vaya bien,2012/03/12 0:04,Fernado Gutierrez,true,contract-01,client-01
+progress-log-35,PG-A-0030,43.29,ll,2012/03/12 0:05,Fernado Gutierrez,true,contract-01,client-01
+progress-log-36,PG-A-0031,43.30,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod te",2012/03/16 12:03,Fernado Gutierrez,true,contract-01,client-01
+progress-log-37,PG-A-0032,43.31,espero que vaya bien,2000/01/01 0:03,Fernado Gutierrez,true,contract-42,client-02
+progress-log-38,PG-A-0033,43.32,espero que vaya bien,2022/07/29 23:59,Fernado Gutierrez,true,contract-01,client-01
+progress-log-39,PG-A-0034,43.33,luis,2012/07/12 12:59,ll,true,contract-01,client-01
+progress-log-40,PG-A-0035,43.34,luis,2012/07/13 13:00,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod te",true,contract-01,client-01
