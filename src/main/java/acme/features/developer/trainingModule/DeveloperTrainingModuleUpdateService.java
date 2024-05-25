@@ -100,7 +100,7 @@ public class DeveloperTrainingModuleUpdateService extends AbstractService<Develo
 			Boolean validCreationMoment;
 			Date creationMoment = this.repository.findOneTrainingModuleById(object.getId()).getCreationMoment();
 
-			earliestTrainingSession = this.repository.findTrainingSessionWithEarliestDateByTrainingModuleId(object.getId());
+			earliestTrainingSession = this.repository.findTrainingSessionsWithEarliestDateByTrainingModuleId(object.getId()).stream().findFirst().orElse(null);
 
 			if (earliestTrainingSession != null) {
 				validCreationMoment = creationMoment.before(earliestTrainingSession.getPeriodStart()) && MomentHelper.isLongEnough(creationMoment, earliestTrainingSession.getPeriodStart(), 1, ChronoUnit.WEEKS);
