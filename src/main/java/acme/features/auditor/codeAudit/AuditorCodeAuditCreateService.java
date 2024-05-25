@@ -71,7 +71,7 @@ public class AuditorCodeAuditCreateService extends AbstractService<Auditor, Code
 		if (!super.getBuffer().getErrors().hasErrors("execution")) {
 
 			Date codeAuditDate = object.getExecution();
-			Date minimumDate = MomentHelper.parse("1969-12-31 00:00", "yyyy-MM-dd HH:mm");
+			Date minimumDate = MomentHelper.parse("1999-12-31 23:59", "yyyy-MM-dd HH:mm");
 
 			Boolean isAfter = codeAuditDate.after(minimumDate);
 			super.state(isAfter, "execution", "auditor.code-audit.form.error.execution");

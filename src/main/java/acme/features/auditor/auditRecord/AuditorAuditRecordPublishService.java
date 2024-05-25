@@ -90,7 +90,7 @@ public class AuditorAuditRecordPublishService extends AbstractService<Auditor, A
 		if (!super.getBuffer().getErrors().hasErrors("auditStartTime")) {
 
 			Date auditRecordDate = object.getAuditStartTime();
-			Date minimumDate = MomentHelper.parse("1969-12-31 00:00", "yyyy-MM-dd HH:mm");
+			Date minimumDate = object.getCodeAudit().getExecution();
 
 			Boolean isAfter = auditRecordDate.after(minimumDate);
 			super.state(isAfter, "auditStartTime", "auditor.audit-record.form.error.auditStartTime");

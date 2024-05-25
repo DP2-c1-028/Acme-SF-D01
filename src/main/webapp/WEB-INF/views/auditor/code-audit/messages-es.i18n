@@ -27,4 +27,4 @@ auditor.code-audit.form.error.mark = Para que se publique una auditoría de cód
 auditor.code-audit.form.error.published-audit-records = No puede eliminar una auditoría de código con registros de auditoría publicados
 auditor.code-audit.form.error.unpublished-audit-records = Todos los registros de auditoría de la auditoría de código deben publicarse.
 auditor.code-audit.form.error.project = El proyecto debe estar publicado
-auditor.code-audit.form.error.execution = La fecha de ejecución debe ser superior a 31-12-1969 00:00
+auditor.code-audit.form.error.execution = La fecha de ejecución debe ser superior a 31-12-1999 23:59
