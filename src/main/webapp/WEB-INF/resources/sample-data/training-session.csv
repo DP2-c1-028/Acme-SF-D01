@@ -10,10 +10,10 @@ training-session-08,TS-ABC-555,2022/08/01 00:00,2022/08/08 00:00,Lorem ipsum,Lor
 training-session-09,TS-A-002,2000/01/08 00:00,2022/08/08 00:00,Lorem ipsum,Lorem ipsum,acme@lorem-ipsum.org,http://www.lorem-ipsum.org,false,training-module-09
 training-session-10,TS-A-003,2000/01/08 00:01,2022/08/08 00:00,Lorem ipsum,Lorem ipsum,acme@lorem-ipsum.org,http://www.lorem-ipsum.org,false,training-module-09
 training-session-11,TS-A-004,2022/08/01 00:00,2022/08/08 00:00,Lorem ipsum,Lorem ipsum,acme@lorem-ipsum.org,http://www.lorem-ipsum.org,false,training-module-01
-training-session-12,TS-A-005,2200/12/24 23:58,2022/08/08 00:00,Lorem ipsum,Lorem ipsum,acme@lorem-ipsum.org,http://www.lorem-ipsum.org,false,training-module-01
-training-session-13,TS-A-006,2200/12/24 23:59,2022/08/08 00:00,Lorem ipsum,Lorem ipsum,acme@lorem-ipsum.org,http://www.lorem-ipsum.org,false,training-module-01
-training-session-14,TS-A-007,2022/08/01 00:00,2000/01/15 00:00,Lorem ipsum,Lorem ipsum,acme@lorem-ipsum.org,http://www.lorem-ipsum.org,false,training-module-09
-training-session-15,TS-A-008,2022/08/01 00:00,2000/01/15 00:01,Lorem ipsum,Lorem ipsum,acme@lorem-ipsum.org,http://www.lorem-ipsum.org,false,training-module-09
+training-session-12,TS-A-005,2200/12/24 23:58,2200/12/31 23:58,Lorem ipsum,Lorem ipsum,acme@lorem-ipsum.org,http://www.lorem-ipsum.org,false,training-module-01
+training-session-13,TS-A-006,2200/12/24 23:59,2200/12/31 23:59,Lorem ipsum,Lorem ipsum,acme@lorem-ipsum.org,http://www.lorem-ipsum.org,false,training-module-01
+training-session-14,TS-A-007,2000/01/08 00:00,2000/01/15 00:00,Lorem ipsum,Lorem ipsum,acme@lorem-ipsum.org,http://www.lorem-ipsum.org,false,training-module-09
+training-session-15,TS-A-008,2000/01/08 00:00,2000/01/15 00:01,Lorem ipsum,Lorem ipsum,acme@lorem-ipsum.org,http://www.lorem-ipsum.org,false,training-module-09
 training-session-16,TS-A-009,2022/08/01 00:00,2022/08/08 00:00,Lorem ipsum,Lorem ipsum,acme@lorem-ipsum.org,http://www.lorem-ipsum.org,false,training-module-01
 training-session-17,TS-A-010,2022/08/01 00:00,2200/12/31 23:58,Lorem ipsum,Lorem ipsum,acme@lorem-ipsum.org,http://www.lorem-ipsum.org,false,training-module-01
 training-session-18,TS-A-011,2022/08/01 00:00,2200/12/31 23:59,Lorem ipsum,Lorem ipsum,acme@lorem-ipsum.org,http://www.lorem-ipsum.org,false,training-module-01
