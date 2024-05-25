@@ -41,7 +41,8 @@ public interface BannerRepository extends AbstractRepository {
 
 			page = PageRequest.of(index, 1, Sort.by(Direction.ASC, "id"));
 			list = this.findAllValidBannersByDate(page, MomentHelper.getCurrentMoment());
-			result = list.isEmpty() ? null : list.get(0);
+			//result = list.isEmpty() ? null : list.get(0);
+			result = null;
 		}
 
 		return result;
