@@ -3,7 +3,6 @@ package acme.components;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -12,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import acme.client.helpers.MomentHelper;
+import acme.client.helpers.RandomHelper;
 import acme.client.repositories.AbstractRepository;
 import acme.entities.banners.Banner;
 
@@ -38,16 +38,16 @@ public interface BannerRepository extends AbstractRepository {
 		if (count == 0)
 			result = null;
 		else {
-
-			//index = RandomHelper.nextInt(0, count);
-
-			Random r = new Random(23000);
-			index = r.nextInt(0, count);
-
+			//RandomHelper.reset();
+			index = RandomHelper.nextInt(0, count);
+			/*
+			 * Random r = new Random(23000);
+			 * index = r.nextInt(0, count);
+			 */
 			page = PageRequest.of(index, 1, Sort.by(Direction.ASC, "id"));
 			list = this.findAllValidBannersByDate(page, MomentHelper.getCurrentMoment());
 			result = list.isEmpty() ? null : list.get(0);
-			result = null;
+			//result = null;
 		}
 
 		return result;

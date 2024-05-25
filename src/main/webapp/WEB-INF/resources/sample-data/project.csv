@@ -1,6 +1,6 @@
 key,code,title,abstractText,hasFatalError,cost,link,draftMode,key:manager
 project-01,AAA-1111,A,A,0,USD 200000.00,,false,manager-01
-project-02,BBB-2222,AAA,A,0,GBP 500000.00,,false,manager-01
+project-02,BBB-2222,AAA,A,0,USD 1000000.00,,false,manager-01
 project-03,CCC-3333,AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,AAA,0,EUR 500000.00,,false,manager-01
 project-04,DDD-4444,AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,AAA,0,EUR 500000.00,,false,manager-01
 project-05,EEE-5555,AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,AAA,0,EUR 500000.00,,false,manager-01
@@ -16,7 +16,7 @@ project-14,ABC-1234,A,A,0,EUR 500000.00,http://optional.link,false,manager-02
 project-15,EDF-5476,A,A,0,GBP 500000.00,http://optional.link,false,manager-02
 project-16,ZZZ-9999,A,A,0,EUR 500000.00,http://optional.link,false,manager-02
 project-17,EEE-9999,A,A,0,EUR 500000.00,http://www.lorem-ipsum.org/dolor/sit/amet/consectetur/adipiscing/elit/sed/do/eiusmod/tempor/incididunt/ut/labore/et/dolore/magna/aliqua/Ut/enim/ad/minim/veniam/quis/nostrud/exercitation/ullamco/laboris/nisi/ut/aliquip/ex/ea/commodo/consequat/duis/aute/X,false,manager-02
-project-18,GGG-9999,A,A,0,USD 500000.00,http://optional.linkaaaaaaaaaaaasssssssssssssssssssssssssddddddddddd,false,manager-02
+project-18,GGG-9999,A,A,0,USD 500000.00,http://optional.linkaaaaaaaaaaaasssssssssssssssssssssssssddddddddddd,true,manager-02
 project-19,TGH-7777,In DraftMode not to publish 1,A,0,USD 500000.00,http://optional.link,true,manager-01
 project-20,TGI-7777,In DraftMode not to publish 2,A,0,USD 500000.00,http://optional.link,true,manager-01
 project-21,TGT-7777,In DraftMode can publish 1,A,0,USD 500000.00,http://optional.link,true,manager-01
@@ -30,3 +30,6 @@ project-28,VVV-7776,Coreano,국민경제의 발전을,0,USD 1000000,http://optio
 project-29,VVV-7777,Árabe,العظمى واعتلاء,0,USD 1000000,http://optional.link,true,manager-01
 project-30,VVV-7778,Url al mínimo,A,0,USD 1000000,ftp://,true,manager-01
 project-31,VVV-7779,Url casi al mínimo,A,0,USD 1000000,ftp://a,true,manager-01
+project-32,VVV-7780,Url casi al máximo,A,0,USD 1000000,http://www.lorem-ipsum.org/dolor/sit/amet./consectetur/adipiscing/elit./sed/do/eiusmod/tempor/incididunt/ut/labore/et/dolore/magna/aliqua/Ut/enim/ad/minim/veniam/quis/nostrud/exercitation/ullamco/laboris/nisi/ut/aliquip/ex/ea/commodo/consequat/duis/aute/,true,manager-01
+project-33,VVV-7781,AA,A,0,USD 1000000,ftp://a,true,manager-01
+project-34,VVV-7782,Dos caracteres,AA,0,USD 10,ftp://a,true,manager-01

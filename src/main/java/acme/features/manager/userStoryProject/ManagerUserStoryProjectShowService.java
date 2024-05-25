@@ -1,6 +1,7 @@
 
 package acme.features.manager.userStoryProject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +67,8 @@ public class ManagerUserStoryProjectShowService extends AbstractService<Manager,
 
 		List<Project> projectsOwned = this.repository.findAllProjectsOwnedAndNotPublished(managerId).stream().toList();
 		List<UserStory> userStoriesOwned = this.repository.findAllUserStoriesOwned(managerId).stream().toList();
+
+		projectsOwned = new ArrayList<>(projectsOwned);
 
 		if (projectsOwned.isEmpty())
 			projectsOwned.add(object.getProject());
