@@ -62,7 +62,6 @@ public class ClientProgressLogDeleteService extends AbstractService<Client, Prog
 	public void validate(final ProgressLog progressLog) {
 		assert progressLog != null;
 
-		// no es necesario meter validaciones de borrado debido al feedback recibido
 	}
 
 	@Override
@@ -71,7 +70,5 @@ public class ClientProgressLogDeleteService extends AbstractService<Client, Prog
 
 		this.repository.delete(progressLog);
 	}
-
-	//AL NO HABER POSIBILIDAD DE DEVOLVER EL FORMULARIO DEBIDO A LOS REQUERIMIENTOS, EL UNBID NO ES NECESARIO DESARROLLARLO
 
 }

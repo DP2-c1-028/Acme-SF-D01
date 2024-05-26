@@ -71,7 +71,6 @@ public class ClientProgressLogCreateService extends AbstractService<Client, Prog
 	public void validate(final ProgressLog progressLog) {
 		assert progressLog != null;
 
-		//duplicas de codigo
 		if (!super.getBuffer().getErrors().hasErrors("recordId")) {
 
 			ProgressLog progressLogWithCode = this.repository.findProgressLogByRecordId(progressLog.getRecordId());
@@ -79,7 +78,6 @@ public class ClientProgressLogCreateService extends AbstractService<Client, Prog
 			super.state(progressLogWithCode == null, "recordId", "client.progress-log.form.error.recordId");
 		}
 
-		//fecha pl despues de contrato
 		if (!super.getBuffer().getErrors().hasErrors("registrationMoment")) {
 			Date contractDate = progressLog.getContract().getInstantiationMoment();
 			Date plDate = progressLog.getRegistrationMoment();
@@ -88,7 +86,6 @@ public class ClientProgressLogCreateService extends AbstractService<Client, Prog
 			super.state(isAfter, "registrationMoment", "client.progress-log.form.error.registrationMoment");
 		}
 
-		//crear progressLogs solo cuando esta el contrato publicado
 		if (!super.getBuffer().getErrors().hasErrors("contract")) {
 			Integer contractId;
 			Contract contract;
