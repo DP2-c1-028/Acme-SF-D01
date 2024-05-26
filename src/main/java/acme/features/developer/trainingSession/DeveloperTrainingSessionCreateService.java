@@ -143,6 +143,8 @@ public class DeveloperTrainingSessionCreateService extends AbstractService<Devel
 	@Override
 	public void perform(final TrainingSession object) {
 		assert object != null;
+
+		object.setId(0);
 		this.repository.save(object);
 	}
 
