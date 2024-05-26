@@ -30,7 +30,7 @@ public class ClientProgressLogDeleteService extends AbstractService<Client, Prog
 		progressLog = this.repository.findProgressLogById(progressLogId);
 		clientId = super.getRequest().getPrincipal().getActiveRoleId();
 
-		isValid = progressLog != null && clientId == progressLog.getClient().getId() && progressLog.isDraftMode();
+		isValid = clientId == progressLog.getClient().getId() && progressLog.isDraftMode();
 
 		super.getResponse().setAuthorised(isValid);
 	}

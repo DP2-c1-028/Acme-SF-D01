@@ -34,7 +34,7 @@ public class ClientProgressLogCreateService extends AbstractService<Client, Prog
 		contract = this.repository.findContractById(contractId);
 		clientId = super.getRequest().getPrincipal().getActiveRoleId();
 
-		isValid = clientId == contract.getClient().getId();
+		isValid = clientId == contract.getClient().getId() && !contract.isDraftMode();
 
 		super.getResponse().setAuthorised(isValid);
 
