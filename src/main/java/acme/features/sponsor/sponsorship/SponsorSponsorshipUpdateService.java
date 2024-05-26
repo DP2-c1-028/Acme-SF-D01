@@ -13,6 +13,7 @@ import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractService;
 import acme.client.views.SelectChoices;
 import acme.components.SystemConfigurationRepository;
+import acme.entities.invoices.Invoice;
 import acme.entities.projects.Project;
 import acme.entities.sponsorships.Sponsorship;
 import acme.entities.sponsorships.SponsorshipType;
@@ -93,6 +94,22 @@ public class SponsorSponsorshipUpdateService extends AbstractService<Sponsor, Sp
 			}
 		}
 
+		if (!super.getBuffer().getErrors().hasErrors("moment")) {
+			Invoice earliestInvoice;
+			Boolean validMoment;
+			Date moment = object.getMoment();
+
+			earliestInvoice = this.repository.findInvoiceWithEarliestDateBySponsorshipId(object.getId()).stream().findFirst().orElse(null);
+			//System.out.println(earliestInvoice);
+
+			if (earliestInvoice != null) {
+				//System.out.println(earliestInvoice);
+				validMoment = moment.before(earliestInvoice.getRegistrationTime());
+				//System.out.println(validMoment);
+				super.state(validMoment, "moment", "sponsor.sponsorship.form.error.creation-moment");
+			}
+		}
+
 		if (!super.getBuffer().getErrors().hasErrors("durationStartTime")) {
 			Date durationStartTime;
 			Date moment;
@@ -119,7 +136,7 @@ public class SponsorSponsorshipUpdateService extends AbstractService<Sponsor, Sp
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("amount") && this.systemConfigurationRepository.existsCurrency(object.getAmount().getCurrency()))
-			super.state(object.getAmount().getAmount() >= 0 && this.systemConfigurationRepository.convertToUsd(object.getAmount()).getAmount() <= 1000000, "amount", "sponsor.sponsorship.form.error.amount");
+			super.state(object.getAmount().getAmount() >= 0 && object.getAmount().getAmount() <= 1000000, "amount", "sponsor.sponsorship.form.error.amount");
 
 		if (!super.getBuffer().getErrors().hasErrors("amount")) {
 			String symbol = object.getAmount().getCurrency();

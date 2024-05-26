@@ -30,10 +30,11 @@ sponsor.sponsorship.form.title = Datos de tu patrocinio
 
 sponsor.sponsorship.form.error.code = El código debe ser único, pruebe otro
 sponsor.sponsorship.form.error.invalidTotalAmount = La suma de la cantidad total de los invoices debe ser igual a la cantidad del patrocinio
-sponsor.sponsorship.form.error.durationStartTime = La fecha de inicio debe ser posterior al momento
-sponsor.sponsorship.form.error.durationEndTime = La fecha de fin debe ser posterior al momento y además debe haber al menos un mes de diferencia entre las dos
+sponsor.sponsorship.form.error.durationStartTime = La fecha de inicio debe ser posterior al momento y previa a 31-12-2200 23:59
+sponsor.sponsorship.form.error.durationEndTime = La fecha de fin debe ser posterior al momento y previa a 31-12-2200 23:59, además debe haber al menos un mes de diferencia entre las dos
 sponsor.sponsorship.form.error.amount  = La cantidad debe ser positiva y menor de un millón
 sponsor.sponsorship.form.error.acceptedCurrency= La moneda no está aceptada por el sistema
 sponsor.sponsorship.form.error.published-invoices = No se puede borrar un patrocinio que tenga facturas publicadas
 sponsor.sponsorship.form.error.unpublished-invoices = Para publicar un patrocinio todas sus facturas deben estar publicadas previamente
-sponsor.sponsorship.form.error.moment = La fecha debe ser posterior a 01-01-1970 00:00 
+sponsor.sponsorship.form.error.moment = La fecha debe ser posterior a 01-01-1970 00:00
+sponsor.sponsorship.form.error.creation-moment = El momento debe ser anterior a la hora de registro más temprana de sus facturas 
