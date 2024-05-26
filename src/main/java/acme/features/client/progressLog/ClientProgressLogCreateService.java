@@ -103,7 +103,7 @@ public class ClientProgressLogCreateService extends AbstractService<Client, Prog
 	@Override
 	public void perform(final ProgressLog progressLog) {
 		assert progressLog != null;
-
+		progressLog.setId(0);
 		this.repository.save(progressLog);
 	}
 

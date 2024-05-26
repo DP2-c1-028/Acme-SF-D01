@@ -106,6 +106,7 @@ public class ClientContractCreateService extends AbstractService<Client, Contrac
 	@Override
 	public void perform(final Contract contract) {
 		assert contract != null;
+		contract.setId(0);
 		this.repository.save(contract);
 	}
 
