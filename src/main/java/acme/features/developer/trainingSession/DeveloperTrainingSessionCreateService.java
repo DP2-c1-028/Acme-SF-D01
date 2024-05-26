@@ -136,7 +136,7 @@ public class DeveloperTrainingSessionCreateService extends AbstractService<Devel
 			super.state(MomentHelper.isBeforeOrEqual(object.getPeriodEnd(), MAX_DATE), "periodEnd", "developer.training-session.form.error.after-max-date");
 
 		if (!super.getBuffer().getErrors().hasErrors("periodEnd"))
-			super.state(MomentHelper.isAfterOrEqual(object.getPeriodEnd(), MomentHelper.deltaFromMoment(MIN_DATE, 7, ChronoUnit.DAYS)), "periodEnd", "developer.training-session.form.error.no-time-for-min-period-duration");
+			super.state(MomentHelper.isAfterOrEqual(object.getPeriodEnd(), MomentHelper.deltaFromMoment(MIN_DATE, 7, ChronoUnit.DAYS)), "periodEnd", "developer.training-session.form.error.no-room-for-min-period-duration");
 
 	}
 
