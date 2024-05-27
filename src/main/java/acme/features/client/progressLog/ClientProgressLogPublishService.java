@@ -50,7 +50,6 @@ public class ClientProgressLogPublishService extends AbstractService<Client, Pro
 	public void validate(final ProgressLog progressLog) {
 		assert progressLog != null;
 
-		// duplicas de codigo
 		if (!super.getBuffer().getErrors().hasErrors("recordId")) {
 
 			ProgressLog progressLogWithCode = this.repository.findProgressLogByRecordId(progressLog.getRecordId());
@@ -60,7 +59,6 @@ public class ClientProgressLogPublishService extends AbstractService<Client, Pro
 
 		}
 
-		//fecha pl despues de contrato
 		if (!super.getBuffer().getErrors().hasErrors("registrationMoment")) {
 
 			Date contractDate = progressLog.getContract().getInstantiationMoment();
@@ -70,7 +68,6 @@ public class ClientProgressLogPublishService extends AbstractService<Client, Pro
 			super.state(isAfter, "registrationMoment", "client.progress-log.form.error.registrationMoment");
 		}
 
-		//validacion de modo borrador
 		if (!super.getBuffer().getErrors().hasErrors("contract")) {
 			Contract contract;
 
@@ -79,7 +76,6 @@ public class ClientProgressLogPublishService extends AbstractService<Client, Pro
 			super.state(!contract.isDraftMode(), "*", "client.progress-log.form.error.unpublished-contract");
 		}
 
-		//la completitud debe ir en aumento conforme se publican pl
 		if (!super.getBuffer().getErrors().hasErrors("completeness")) {
 
 			ProgressLog log = this.repository.findContractProgressLogWithMaxCompleteness(progressLog.getContract().getId());
@@ -89,7 +85,6 @@ public class ClientProgressLogPublishService extends AbstractService<Client, Pro
 
 		}
 
-		//no se publique un pl con fecha anterior o igual al pl con la completitud mas ata ( el mas reciente)
 		if (!super.getBuffer().getErrors().hasErrors("registrationMoment")) {
 
 			ProgressLog log = this.repository.findContractProgressLogWithMaxCompleteness(progressLog.getContract().getId());

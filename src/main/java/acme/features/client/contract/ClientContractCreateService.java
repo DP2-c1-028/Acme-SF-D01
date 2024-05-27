@@ -59,7 +59,6 @@ public class ClientContractCreateService extends AbstractService<Client, Contrac
 
 		assert contract != null;
 
-		//validacion del D02 budget debe ser menor o igual que coste
 		if (!super.getBuffer().getErrors().hasErrors("budget") && contract.getProject() != null && this.sysConfigRepository.existsCurrency(contract.getBudget().getCurrency())) {
 			Project referencedProject = contract.getProject();
 			Double projectCost = this.sysConfigRepository.convertToUsd(referencedProject.getCost()).getAmount();
@@ -68,30 +67,25 @@ public class ClientContractCreateService extends AbstractService<Client, Contrac
 			super.state(projectCost >= budgetUSD, "budget", "client.contract.form.error.budget");
 		}
 
-		//ccodigo del cr no duplicado
 		if (!super.getBuffer().getErrors().hasErrors("code")) {
 			Contract contractWithCode = this.repository.findContractByCode(contract.getCode());
 			super.state(contractWithCode == null, "code", "client.contract.form.error.code");
 		}
 
-		//cr linkeado a proyecto publicado
 		if (!super.getBuffer().getErrors().hasErrors("project"))
 			super.state(!contract.getProject().isDraftMode(), "project", "client.contract.form.error.project");
 
-		//budget positivo o menor a 1000000
 		if (!super.getBuffer().getErrors().hasErrors("budget") && this.sysConfigRepository.existsCurrency(contract.getBudget().getCurrency())) {
 			boolean validBudget = contract.getBudget().getAmount() >= 0. && this.sysConfigRepository.convertToUsd(contract.getBudget()).getAmount() <= 1000000.0;
 			super.state(validBudget, "budget", "client.contract.form.error.budget-negative");
 		}
 
-		//budget no tenga divisa invalida
 		if (!super.getBuffer().getErrors().hasErrors("budget") && contract.getBudget() != null) {
 			String currency = contract.getBudget().getCurrency();
 			boolean existsCurrency = this.sysConfigRepository.existsCurrency(currency);
 			super.state(existsCurrency, "budget", "client.contract.form.error.currency");
 		}
 
-		// fecha superior al 2000/01/01 00:00
 		if (!super.getBuffer().getErrors().hasErrors("instantiationMoment")) {
 
 			Date contractDate = contract.getInstantiationMoment();
@@ -106,6 +100,7 @@ public class ClientContractCreateService extends AbstractService<Client, Contrac
 	@Override
 	public void perform(final Contract contract) {
 		assert contract != null;
+		contract.setId(0);
 		this.repository.save(contract);
 	}
 
@@ -121,9 +116,6 @@ public class ClientContractCreateService extends AbstractService<Client, Contrac
 		Collection<Project> projects = this.repository.findlAllPublishedProjects();
 
 		SelectChoices options;
-
-		//ERROR salta cuando se crea cr sin que eexistan proyectos publicados
-		//SOLUCION si no detecta ningun proyecto para la creacion te establece a nulo el campo
 
 		Project project = contract.getProject() != null ? contract.getProject() : null;
 

@@ -31,7 +31,7 @@ public class ClientProgressLogShowService extends AbstractService<Client, Progre
 		progressLog = this.repository.findProgressLogById(progressLogId);
 		clientId = super.getRequest().getPrincipal().getActiveRoleId();
 
-		isValid = progressLog != null && clientId == progressLog.getClient().getId();
+		isValid = clientId == progressLog.getClient().getId();
 
 		super.getResponse().setAuthorised(isValid);
 	}
