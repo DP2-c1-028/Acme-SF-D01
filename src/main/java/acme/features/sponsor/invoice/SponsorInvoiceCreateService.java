@@ -82,8 +82,7 @@ public class SponsorInvoiceCreateService extends AbstractService<Sponsor, Invoic
 
 			Invoice projectSameCode = this.repository.findOneInvoiceByCode(object.getCode());
 
-			if (projectSameCode != null)
-				super.state(projectSameCode.getId() == object.getId(), "code", "sponsor.invoice.form.error.code");
+			super.state(projectSameCode == null, "code", "sponsor.invoice.form.error.code");
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("registrationTime")) {
