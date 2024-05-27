@@ -66,8 +66,7 @@ public class DeveloperTrainingModuleCreateService extends AbstractService<Develo
 
 			TrainingModule trainingModuleSameCode = this.repository.findOneTrainingModuleByCode(object.getCode());
 
-			if (trainingModuleSameCode != null)
-				super.state(trainingModuleSameCode.getId() == object.getId(), "code", "developer.training-module.form.error.code");
+			super.state(trainingModuleSameCode == null, "code", "developer.training-module.form.error.code");
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("updateMoment")) {

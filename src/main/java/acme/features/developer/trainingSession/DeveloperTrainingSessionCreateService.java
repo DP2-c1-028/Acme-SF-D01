@@ -72,8 +72,7 @@ public class DeveloperTrainingSessionCreateService extends AbstractService<Devel
 
 			TrainingSession trainingSessionSameCode = this.repository.findOneTrainingSessionByCode(object.getCode());
 
-			if (trainingSessionSameCode != null)
-				super.state(trainingSessionSameCode.getId() == object.getId(), "code", "developer.training-session.form.error.code");
+			super.state(trainingSessionSameCode == null, "code", "developer.training-session.form.error.code");
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("periodStart")) {
