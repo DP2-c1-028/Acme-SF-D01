@@ -116,7 +116,7 @@ public class SponsorInvoiceUpdateService extends AbstractService<Sponsor, Invoic
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("quantity") && this.systemConfigurationRepository.existsCurrency(object.getQuantity().getCurrency()))
-			super.state(object.getQuantity().getAmount() >= 0 && this.systemConfigurationRepository.convertToUsd(object.getQuantity()).getAmount() <= 1000000, "quantity", "sponsor.invoice.form.error.quantity");
+			super.state(object.getQuantity().getAmount() >= 0 && object.getQuantity().getAmount() <= 1000000, "quantity", "sponsor.invoice.form.error.quantity");
 
 		if (!super.getBuffer().getErrors().hasErrors("quantity")) {
 			String symbol = object.getQuantity().getCurrency();

@@ -73,11 +73,20 @@ public class SponsorSponsorshipPublishService extends AbstractService<Sponsor, S
 	public void validate(final Sponsorship object) {
 		assert object != null;
 
+		if (!super.getBuffer().getErrors().hasErrors("code")) {
+
+			Sponsorship projectSameCode = this.repository.findOneSponsorshipByCode(object.getCode());
+
+			if (projectSameCode != null)
+				super.state(projectSameCode.getId() == object.getId(), "code", "sponsor.sponsorship.form.error.code");
+		}
+
 		if (!super.getBuffer().getErrors().hasErrors("totalAmount")) {
 			Collection<Invoice> invoices = this.repository.findInvoicesOfASponsorship(object.getId());
 
 			double invoiceTotAmount = invoices.stream().mapToDouble(i -> this.currencyTransformerUsd(i.getQuantity(), i.totalAmount().getAmount()).getAmount()).sum();
-			super.state(invoiceTotAmount == this.currencyTransformerUsd(object.getAmount(), object.getAmount().getAmount()).getAmount(), "*", "sponsor.sponsorship.form.error.invalidTotalAmount");
+			if (object.getAmount() != null)
+				super.state(invoiceTotAmount == this.currencyTransformerUsd(object.getAmount(), object.getAmount().getAmount()).getAmount(), "*", "sponsor.sponsorship.form.error.invalidTotalAmount");
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("moment")) {
@@ -89,6 +98,22 @@ public class SponsorSponsorshipPublishService extends AbstractService<Sponsor, S
 			if (sponsorshipDate != null) {
 				Boolean isAfter = sponsorshipDate.after(minimumDate) && sponsorshipDate.before(maximumDate);
 				super.state(isAfter, "moment", "sponsor.sponsorship.form.error.moment");
+			}
+		}
+
+		if (!super.getBuffer().getErrors().hasErrors("moment")) {
+			Invoice earliestInvoice;
+			Boolean validMoment;
+			Date moment = object.getMoment();
+
+			earliestInvoice = this.repository.findInvoiceWithEarliestDateBySponsorshipId(object.getId()).stream().findFirst().orElse(null);
+			//System.out.println(earliestInvoice);
+
+			if (earliestInvoice != null) {
+				//System.out.println(earliestInvoice);
+				validMoment = moment.before(earliestInvoice.getRegistrationTime());
+				//System.out.println(validMoment);
+				super.state(validMoment, "moment", "sponsor.sponsorship.form.error.creation-moment");
 			}
 		}
 
@@ -118,7 +143,7 @@ public class SponsorSponsorshipPublishService extends AbstractService<Sponsor, S
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("amount") && this.systemConfigurationRepository.existsCurrency(object.getAmount().getCurrency()))
-			super.state(object.getAmount().getAmount() >= 0 && this.systemConfigurationRepository.convertToUsd(object.getAmount()).getAmount() <= 1000000, "amount", "sponsor.sponsorship.form.error.amount");
+			super.state(object.getAmount().getAmount() >= 0 && object.getAmount().getAmount() <= 1000000, "amount", "sponsor.sponsorship.form.error.amount");
 
 		if (!super.getBuffer().getErrors().hasErrors("amount")) {
 			String symbol = object.getAmount().getCurrency();
