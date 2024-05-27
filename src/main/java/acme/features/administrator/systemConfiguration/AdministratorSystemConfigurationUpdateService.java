@@ -1,6 +1,8 @@
 
 package acme.features.administrator.systemConfiguration;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +27,7 @@ public class AdministratorSystemConfigurationUpdateService extends AbstractServi
 		boolean status;
 		SystemConfiguration systemConfiguration;
 
-		systemConfiguration = this.repository.findSystemConfiguration();
+		systemConfiguration = this.repository.findSystemConfiguration().stream().toList().get(0);
 		status = systemConfiguration != null && super.getRequest().getPrincipal().hasRole(Administrator.class);
 
 		super.getResponse().setAuthorised(status);
@@ -35,7 +37,7 @@ public class AdministratorSystemConfigurationUpdateService extends AbstractServi
 	public void load() {
 		SystemConfiguration object;
 
-		object = this.repository.findSystemConfiguration();
+		object = this.repository.findSystemConfiguration().stream().toList().get(0);
 
 		super.getBuffer().addData(object);
 	}
@@ -51,8 +53,10 @@ public class AdministratorSystemConfigurationUpdateService extends AbstractServi
 	public void validate(final SystemConfiguration object) {
 		assert object != null;
 
+		Collection<String> symbols = this.repository.findCurrencySymbols();
+
 		if (!super.getBuffer().getErrors().hasErrors("systemCurrency"))
-			super.state(object.getAcceptedCurrencies().contains(object.getSystemCurrency()), "systemCurrency", "administrator.system-configuration.form.error.systemCurrency");
+			super.state(symbols.contains(object.getSystemCurrency()), "systemCurrency", "administrator.system-configuration.form.error.systemCurrency");
 	}
 
 	@Override

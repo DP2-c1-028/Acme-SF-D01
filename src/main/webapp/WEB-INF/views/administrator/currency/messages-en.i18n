@@ -1,0 +1,13 @@
+administrator.currency.list.title = Currencies
+administrator.currency.list.label.symbol = Symbol
+administrator.currency.list.label.value-against-dollar = Value against USD
+
+administrator.currency.button.create = Create
+
+administrator.currency.form.title = Currency Data
+administrator.currency.form.label.symbol = Symbol
+administrator.currency.form.label.value-against-dollar = Value against USD
+administrator.currency.form.button.update = Update
+administrator.currency.form.button.create = Create
+
+administrator.currency.error.same-symbol = This symbol is in used

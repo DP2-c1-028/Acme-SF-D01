@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
+import acme.client.views.SelectChoices;
+import acme.entities.userStories.Priority;
 import acme.entities.userStories.UserStory;
 import acme.roles.Manager;
 
@@ -57,6 +59,11 @@ public class ManagerUserStoryPublishService extends AbstractService<Manager, Use
 	@Override
 	public void validate(final UserStory object) {
 		assert object != null;
+
+		if (!super.getBuffer().getErrors().hasErrors("estimatedCost")) {
+			double maxDouble = Double.MAX_VALUE;
+			super.state(object.getEstimatedCost() < maxDouble, "cost", "manager.project.form.error.not-valid-currency");
+		}
 	}
 
 	@Override
@@ -72,8 +79,11 @@ public class ManagerUserStoryPublishService extends AbstractService<Manager, Use
 		assert object != null;
 
 		Dataset dataset;
+		SelectChoices choices;
+		choices = SelectChoices.from(Priority.class, object.getPriority());
 
 		dataset = super.unbind(object, "title", "description", "estimatedCost", "priority", "link", "acceptanceCriteria", "draftMode");
+		dataset.put("priorities", choices);
 
 		super.getResponse().addData(dataset);
 	}

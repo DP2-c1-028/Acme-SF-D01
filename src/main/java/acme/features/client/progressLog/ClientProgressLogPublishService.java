@@ -1,7 +1,6 @@
 
 package acme.features.client.progressLog;
 
-import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +34,7 @@ public class ClientProgressLogPublishService extends AbstractService<Client, Pro
 		progressLog = this.repository.findProgressLogById(progressLogId);
 		clientId = super.getRequest().getPrincipal().getActiveRoleId();
 
-		isValid = clientId == progressLog.getClient().getId() && progressLog.isDraftMode() == true;
+		isValid = clientId == progressLog.getClient().getId() && progressLog.isDraftMode();
 
 		super.getResponse().setAuthorised(isValid);
 	}
@@ -51,7 +50,6 @@ public class ClientProgressLogPublishService extends AbstractService<Client, Pro
 	public void validate(final ProgressLog progressLog) {
 		assert progressLog != null;
 
-		// duplicas de codigo
 		if (!super.getBuffer().getErrors().hasErrors("recordId")) {
 
 			ProgressLog progressLogWithCode = this.repository.findProgressLogByRecordId(progressLog.getRecordId());
@@ -61,7 +59,6 @@ public class ClientProgressLogPublishService extends AbstractService<Client, Pro
 
 		}
 
-		//fecha pl despues de contrato
 		if (!super.getBuffer().getErrors().hasErrors("registrationMoment")) {
 
 			Date contractDate = progressLog.getContract().getInstantiationMoment();
@@ -71,8 +68,7 @@ public class ClientProgressLogPublishService extends AbstractService<Client, Pro
 			super.state(isAfter, "registrationMoment", "client.progress-log.form.error.registrationMoment");
 		}
 
-		//validacion de modo borrador
-		if (!super.getBuffer().getErrors().hasErrors("unpublishedContract")) {
+		if (!super.getBuffer().getErrors().hasErrors("contract")) {
 			Contract contract;
 
 			contract = progressLog.getContract();
@@ -80,21 +76,21 @@ public class ClientProgressLogPublishService extends AbstractService<Client, Pro
 			super.state(!contract.isDraftMode(), "*", "client.progress-log.form.error.unpublished-contract");
 		}
 
-		//la completitud debe ir en aumento conforme se crean pl
 		if (!super.getBuffer().getErrors().hasErrors("completeness")) {
 
-			Double maxCompleteness = this.repository.findContractProgressLogWithMaxCompleteness(progressLog.getContract().getId());
+			ProgressLog log = this.repository.findContractProgressLogWithMaxCompleteness(progressLog.getContract().getId());
 
-			if (maxCompleteness != null)
-				super.state(maxCompleteness < progressLog.getCompleteness(), "completeness", "client.progress-log.form.error.completeness");
+			if (log != null)
+				super.state(log.getCompleteness() < progressLog.getCompleteness(), "completeness", "client.progress-log.form.error.completeness");
 
 		}
 
-		//no haya 2 pl creados a la misma vez
 		if (!super.getBuffer().getErrors().hasErrors("registrationMoment")) {
 
-			Collection<ProgressLog> sameDate = this.repository.findContractProgressLogByDate(progressLog.getContract().getId(), progressLog.getId(), progressLog.getRegistrationMoment());
-			super.state(sameDate.isEmpty(), "registrationMoment", "client.progress-log.form.error.sameMoment");
+			ProgressLog log = this.repository.findContractProgressLogWithMaxCompleteness(progressLog.getContract().getId());
+
+			if (log != null)
+				super.state(log.getRegistrationMoment().before(progressLog.getRegistrationMoment()), "registrationMoment", "client.progress-log.form.error.sameMoment");
 		}
 
 	}

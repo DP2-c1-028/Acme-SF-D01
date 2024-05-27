@@ -72,8 +72,7 @@ public class DeveloperTrainingSessionCreateService extends AbstractService<Devel
 
 			TrainingSession trainingSessionSameCode = this.repository.findOneTrainingSessionByCode(object.getCode());
 
-			if (trainingSessionSameCode != null)
-				super.state(trainingSessionSameCode.getId() == object.getId(), "code", "developer.training-session.form.error.code");
+			super.state(trainingSessionSameCode == null, "code", "developer.training-session.form.error.code");
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("periodStart")) {
@@ -84,9 +83,10 @@ public class DeveloperTrainingSessionCreateService extends AbstractService<Devel
 			periodStart = object.getPeriodStart();
 			trainingModuleCreationMoment = object.getTrainingModule().getCreationMoment();
 
-			periodStartIsValid = MomentHelper.isLongEnough(trainingModuleCreationMoment, periodStart, 1, ChronoUnit.WEEKS) && periodStart.after(trainingModuleCreationMoment);
-
-			super.state(periodStartIsValid, "periodStart", "developer.training-session.form.error.period-start");
+			if (periodStart != null) {
+				periodStartIsValid = MomentHelper.isLongEnough(trainingModuleCreationMoment, periodStart, 1, ChronoUnit.WEEKS) && periodStart.after(trainingModuleCreationMoment);
+				super.state(periodStartIsValid, "periodStart", "developer.training-session.form.error.period-start");
+			}
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("periodEnd")) {
@@ -97,9 +97,10 @@ public class DeveloperTrainingSessionCreateService extends AbstractService<Devel
 			periodStart = object.getPeriodStart();
 			periodEnd = object.getPeriodEnd();
 
-			periodEndIsValid = MomentHelper.isLongEnough(periodStart, periodEnd, 1, ChronoUnit.WEEKS) && periodEnd.after(periodStart);
-
-			super.state(periodEndIsValid, "periodEnd", "developer.training-session.form.error.period-end");
+			if (periodStart != null) {
+				periodEndIsValid = MomentHelper.isLongEnough(periodStart, periodEnd, 1, ChronoUnit.WEEKS) && periodEnd.after(periodStart);
+				super.state(periodEndIsValid, "periodEnd", "developer.training-session.form.error.period-end");
+			}
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("publishedTrainingModule")) {
@@ -112,11 +113,37 @@ public class DeveloperTrainingSessionCreateService extends AbstractService<Devel
 			super.state(!trainingModule.isPublished(), "*", "developer.training-session.form.error.published-training-module");
 		}
 
+		Date MIN_DATE;
+		Date MAX_DATE;
+
+		MIN_DATE = MomentHelper.parse("2000-01-01 00:00", "yyyy-MM-dd HH:mm");
+		MAX_DATE = MomentHelper.parse("2200-12-31 23:59", "yyyy-MM-dd HH:mm");
+
+		if (!super.getBuffer().getErrors().hasErrors("periodStart"))
+			super.state(MomentHelper.isAfterOrEqual(object.getPeriodStart(), MIN_DATE), "periodStart", "developer.training-session.form.error.before-min-date");
+
+		if (!super.getBuffer().getErrors().hasErrors("periodStart"))
+			super.state(MomentHelper.isBeforeOrEqual(object.getPeriodStart(), MAX_DATE), "periodStart", "developer.training-session.form.error.after-max-date");
+
+		if (!super.getBuffer().getErrors().hasErrors("periodStart"))
+			super.state(MomentHelper.isBeforeOrEqual(object.getPeriodStart(), MomentHelper.deltaFromMoment(MAX_DATE, -7, ChronoUnit.DAYS)), "periodStart", "developer.training-session.form.error.no-room-for-min-period-duration");
+
+		if (!super.getBuffer().getErrors().hasErrors("periodEnd"))
+			super.state(MomentHelper.isAfterOrEqual(object.getPeriodEnd(), MIN_DATE), "periodEnd", "developer.training-session.form.error.before-min-date");
+
+		if (!super.getBuffer().getErrors().hasErrors("periodEnd"))
+			super.state(MomentHelper.isBeforeOrEqual(object.getPeriodEnd(), MAX_DATE), "periodEnd", "developer.training-session.form.error.after-max-date");
+
+		if (!super.getBuffer().getErrors().hasErrors("periodEnd"))
+			super.state(MomentHelper.isAfterOrEqual(object.getPeriodEnd(), MomentHelper.deltaFromMoment(MIN_DATE, 7, ChronoUnit.DAYS)), "periodEnd", "developer.training-session.form.error.no-room-for-min-period-duration");
+
 	}
 
 	@Override
 	public void perform(final TrainingSession object) {
 		assert object != null;
+
+		object.setId(0);
 		this.repository.save(object);
 	}
 

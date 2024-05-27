@@ -87,8 +87,9 @@ public class DeveloperTrainingModuleUpdateService extends AbstractService<Develo
 			Date creationMoment;
 			Date updateMoment;
 
+			//Creation moment is retrieved from the db because the data from the frontend omits seconds and misleads the validation to an unwanted trigger
 			creationMoment = this.repository.findOneTrainingModuleById(object.getId()).getCreationMoment();
-			updateMoment = this.repository.findOneTrainingModuleById(object.getId()).getUpdateMoment();
+			updateMoment = object.getUpdateMoment();
 
 			if (updateMoment != null)
 				super.state(updateMoment.after(creationMoment), "updateMoment", "developer.training-module.form.error.update-moment");
@@ -99,7 +100,7 @@ public class DeveloperTrainingModuleUpdateService extends AbstractService<Develo
 			Boolean validCreationMoment;
 			Date creationMoment = this.repository.findOneTrainingModuleById(object.getId()).getCreationMoment();
 
-			earliestTrainingSession = this.repository.findTrainingSessionWithEarliestDateByTrainingModuleId(object.getId());
+			earliestTrainingSession = this.repository.findTrainingSessionsWithEarliestDateByTrainingModuleId(object.getId()).stream().findFirst().orElse(null);
 
 			if (earliestTrainingSession != null) {
 				validCreationMoment = creationMoment.before(earliestTrainingSession.getPeriodStart()) && MomentHelper.isLongEnough(creationMoment, earliestTrainingSession.getPeriodStart(), 1, ChronoUnit.WEEKS);
@@ -109,6 +110,27 @@ public class DeveloperTrainingModuleUpdateService extends AbstractService<Develo
 
 		if (!super.getBuffer().getErrors().hasErrors("project"))
 			super.state(!object.getProject().isDraftMode(), "project", "developer.training-module.form.error.project");
+
+		Date MIN_DATE;
+		Date MAX_DATE;
+
+		MIN_DATE = MomentHelper.parse("2000-01-01 00:00", "yyyy-MM-dd HH:mm");
+		MAX_DATE = MomentHelper.parse("2200-12-31 23:59", "yyyy-MM-dd HH:mm");
+
+		if (!super.getBuffer().getErrors().hasErrors("creationMoment"))
+			super.state(MomentHelper.isAfterOrEqual(object.getCreationMoment(), MIN_DATE), "creationMoment", "developer.training-module.form.error.before-min-date");
+
+		if (!super.getBuffer().getErrors().hasErrors("creationMoment"))
+			super.state(MomentHelper.isBeforeOrEqual(object.getCreationMoment(), MAX_DATE), "creationMoment", "developer.training-module.form.error.after-max-date");
+
+		if (!super.getBuffer().getErrors().hasErrors("creationMoment"))
+			super.state(MomentHelper.isBeforeOrEqual(object.getCreationMoment(), MomentHelper.deltaFromMoment(MAX_DATE, -14, ChronoUnit.DAYS)), "creationMoment", "developer.training-module.form.error.no-room-for-period");
+
+		if (!super.getBuffer().getErrors().hasErrors("updateMoment"))
+			super.state(MomentHelper.isAfterOrEqual(object.getUpdateMoment(), MIN_DATE), "updateMoment", "developer.training-module.form.error.before-min-date");
+
+		if (!super.getBuffer().getErrors().hasErrors("updateMoment"))
+			super.state(MomentHelper.isBeforeOrEqual(object.getUpdateMoment(), MAX_DATE), "updateMoment", "developer.training-module.form.error.after-max-date");
 
 	}
 

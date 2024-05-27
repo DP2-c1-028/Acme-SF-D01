@@ -49,4 +49,10 @@ public interface SponsorSponsorshipRepository extends AbstractRepository {
 	@Query("select i from Invoice i where (i.sponsorship.id = :id and i.draftMode = false)")
 	Collection<Invoice> findPublishedInvoicesBySponsorshipId(int id);
 
+	// @Query("SELECT i FROM Invoice i WHERE i.sponsorship.id = :id AND i.id = (SELECT MIN(i2.id) FROM Invoice i2 WHERE i2.registrationTime = (SELECT MIN(i3.registrationTime) FROM Invoice i3 WHERE i3.sponsorship.id = :id))")
+	// Invoice findInvoiceWithEarliestDateBySponsorshipId(int id);
+
+	@Query("SELECT i FROM Invoice i WHERE i.registrationTime = (SELECT MIN(i2.registrationTime) FROM Invoice i2 WHERE i2.sponsorship.id = :id)")
+	Collection<Invoice> findInvoiceWithEarliestDateBySponsorshipId(int id);
+
 }

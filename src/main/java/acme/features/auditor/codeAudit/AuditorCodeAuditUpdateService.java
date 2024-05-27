@@ -2,14 +2,17 @@
 package acme.features.auditor.codeAudit;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import acme.client.data.models.Dataset;
+import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractService;
 import acme.client.views.SelectChoices;
+import acme.entities.auditRecords.AuditRecord;
 import acme.entities.auditRecords.Mark;
 import acme.entities.codeAudits.CodeAudit;
 import acme.entities.codeAudits.CodeAuditType;
@@ -79,6 +82,28 @@ public class AuditorCodeAuditUpdateService extends AbstractService<Auditor, Code
 
 		if (!super.getBuffer().getErrors().hasErrors("project"))
 			super.state(!object.getProject().isDraftMode(), "project", "auditor.code-audit.form.error.project");
+
+		if (!super.getBuffer().getErrors().hasErrors("execution")) {
+
+			Date codeAuditDate = object.getExecution();
+			Date minimumDate = MomentHelper.parse("1999-12-31 23:59", "yyyy-MM-dd HH:mm");
+
+			Boolean isAfter = codeAuditDate.after(minimumDate);
+			super.state(isAfter, "execution", "auditor.code-audit.form.error.execution");
+		}
+
+		if (!super.getBuffer().getErrors().hasErrors("execution")) {
+			AuditRecord earliestAuditRecord;
+			Boolean validExecution;
+			Date execution = object.getExecution();
+
+			earliestAuditRecord = this.repository.findAuditRecordWithEarliestDateByCodeAuditId(object.getId()).stream().findFirst().orElse(null);
+
+			if (earliestAuditRecord != null) {
+				validExecution = execution.before(earliestAuditRecord.getAuditStartTime());
+				super.state(validExecution, "execution", "auditor.code-audit.form.error.execution-ar");
+			}
+		}
 	}
 
 	@Override

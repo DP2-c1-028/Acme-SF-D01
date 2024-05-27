@@ -35,7 +35,7 @@ public class ClientContractShowService extends AbstractService<Client, Contract>
 		contract = this.repository.findContractById(contractId);
 		clientId = super.getRequest().getPrincipal().getActiveRoleId();
 
-		isValid = clientId == contract.getClient().getId() && contract.getProject() != null;
+		isValid = clientId == contract.getClient().getId();
 
 		super.getResponse().setAuthorised(isValid);
 	}
@@ -60,7 +60,7 @@ public class ClientContractShowService extends AbstractService<Client, Contract>
 		Dataset dataset;
 		String projectCode = this.repository.findProjectById(contract.getProject().getId()).getTitle();
 
-		Collection<Project> projects = this.repository.findlAllProjects();
+		Collection<Project> projects = this.repository.findlAllPublishedProjects();
 		SelectChoices options;
 
 		options = SelectChoices.from(projects, "code", this.repository.findProjectById(contract.getProject().getId()));

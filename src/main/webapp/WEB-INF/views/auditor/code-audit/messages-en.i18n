@@ -27,3 +27,5 @@ auditor.code-audit.form.error.mark = For a code audit to be published, the mark 
 auditor.code-audit.form.error.published-audit-records = You cannot delete a code audit with published audit records
 auditor.code-audit.form.error.unpublished-audit-records = All the audit records of the code audit must be published
 auditor.code-audit.form.error.project = The project must be published
+auditor.code-audit.form.error.execution = The execution date must be after 1999-12-31 23:59
+auditor.code-audit.form.error.execution-ar = The execution date must be before of the earliest date of their audit records.
