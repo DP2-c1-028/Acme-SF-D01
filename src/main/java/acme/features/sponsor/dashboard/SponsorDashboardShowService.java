@@ -3,7 +3,11 @@ package acme.features.sponsor.dashboard;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,185 +45,95 @@ public class SponsorDashboardShowService extends AbstractService<Sponsor, Sponso
 		int totalNumberOfInvoices;
 		int totalNumberOfSponsorshipsWithLink;
 
-		Money sponsorshipsAverageAmount;
-		Money sponsorshipDeviationAmount;
-		Money sponsorshipsMinimumAmount;
-		Money sponsorshipsMaximumAmount;
+		Double averageAmount;
+		Double deviationAmount;
+		Double minimumAmount;
+		Double maximumAmount;
 
-		Money invoicesAverageQuantity;
-		Money invoicesDeviationQuantity;
-		Money invoicesMinimumQuantity;
-		Money invoicesMaximumQuantity;
+		Double invoicesAverageQuantity;
+		Double invoicesDeviationQuantity;
+		Double invoicesMinimumQuantity;
+		Double invoicesMaximumQuantity;
 
 		sponsorId = super.getRequest().getPrincipal().getActiveRoleId();
-		Collection<Money> amounts = this.repository.sponsorshipAmounts(sponsorId).stream().map(m -> this.systemConfigurationRepository.convertToUsd(m)).collect(Collectors.toCollection(ArrayList<Money>::new));
-		Collection<Money> quantities = this.repository.invoiceQuantity(sponsorId).stream().map(m -> this.systemConfigurationRepository.convertToUsd(m)).collect(Collectors.toCollection(ArrayList<Money>::new));
+		//Collection<Money> amounts = this.repository.sponsorshipAmounts(sponsorId).stream().map(m -> this.systemConfigurationRepository.convertToUsd(m)).collect(Collectors.toCollection(ArrayList<Money>::new));
+		//Collection<Money> quantities = this.repository.invoiceQuantity(sponsorId).stream().map(m -> this.systemConfigurationRepository.convertToUsd(m)).collect(Collectors.toCollection(ArrayList<Money>::new));
+
+		Collection<String> sponsorshipCurrencies = this.repository.allCurrenciesInPublishedSponsorships(sponsorId);
+
+		Map<String, SponsorshipMoneyStatistics> moneyStatistics = new HashMap<>();
+
+		dashboard = new SponsorDashboard();
+
+		for (String currency : sponsorshipCurrencies) {
+
+			Collection<Money> sponsorshipsAmounts = this.repository.findAllAmountsFromSponsor(sponsorId).stream().map(m -> this.systemConfigurationRepository.convertFromCurrencyToAnother(m, currency))
+				.collect(Collectors.toCollection(ArrayList<Money>::new));
+
+			minimumAmount = sponsorshipsAmounts.stream().mapToDouble(Money::getAmount).min().orElse(Double.NaN);
+			maximumAmount = sponsorshipsAmounts.stream().mapToDouble(Money::getAmount).max().orElse(Double.NaN);
+			averageAmount = sponsorshipsAmounts.stream().mapToDouble(Money::getAmount).average().orElse(Double.NaN);
+			deviationAmount = this.deviationQuantity(sponsorshipsAmounts.stream().mapToDouble(Money::getAmount).boxed().toList());
+
+			SponsorshipMoneyStatistics ms = new SponsorshipMoneyStatistics(minimumAmount, maximumAmount, averageAmount, deviationAmount);
+
+			moneyStatistics.put(currency, ms);
+
+		}
+
+		dashboard.setSponsorshipMoneyStatistics(moneyStatistics);
+
+		Collection<String> invoicesCurrencies = this.repository.allCurrenciesInPublishedInvoices(sponsorId);
+
+		Map<String, InvoiceMoneyStatistics> moneyStatistics2 = new HashMap<>();
+
+		for (String currency : invoicesCurrencies) {
+
+			Collection<Money> invoicesAmounts = this.repository.findAllQuantitiesFromSponsor(sponsorId).stream().map(m -> this.systemConfigurationRepository.convertFromCurrencyToAnother(m, currency)).collect(Collectors.toCollection(ArrayList<Money>::new));
+
+			invoicesMinimumQuantity = invoicesAmounts.stream().mapToDouble(Money::getAmount).min().orElse(Double.NaN);
+			invoicesMaximumQuantity = invoicesAmounts.stream().mapToDouble(Money::getAmount).max().orElse(Double.NaN);
+			invoicesAverageQuantity = invoicesAmounts.stream().mapToDouble(Money::getAmount).average().orElse(Double.NaN);
+			invoicesDeviationQuantity = this.deviationQuantity(invoicesAmounts.stream().mapToDouble(Money::getAmount).boxed().toList());
+
+			InvoiceMoneyStatistics ms = new InvoiceMoneyStatistics(invoicesMinimumQuantity, invoicesMaximumQuantity, invoicesAverageQuantity, invoicesDeviationQuantity);
+
+			moneyStatistics2.put(currency, ms);
+		}
+
+		dashboard.setInvoiceMoneyStatistics(moneyStatistics2);
 
 		totalNumberOfInvoices = this.repository.totalNumberOfInvoices(sponsorId);
 		totalNumberOfSponsorshipsWithLink = this.repository.totalNumberOfSponsorshipsWithLink(sponsorId);
-		sponsorshipsAverageAmount = this.sponsorshipsAverageAmount(amounts);
-		sponsorshipDeviationAmount = this.sponsorshipDeviationAmount(amounts);
-		sponsorshipsMinimumAmount = this.sponsorshipsMinimumAmount(amounts);
-		sponsorshipsMaximumAmount = this.sponsorshipsMaximumAmount(amounts);
 
-		invoicesAverageQuantity = this.invoicesAverageQuantity(quantities);
-		invoicesDeviationQuantity = this.invoicesDeviationQuantity(quantities);
-		invoicesMinimumQuantity = this.invoicesMinimumQuantity(quantities);
-		invoicesMaximumQuantity = this.invoicesMaximumQuantity(quantities);
-
-		dashboard = new SponsorDashboard();
 		dashboard.setTotalNumberOfInvoices(totalNumberOfInvoices);
 		dashboard.setTotalNumberOfSponsorshipsWithLink(totalNumberOfSponsorshipsWithLink);
-		dashboard.setSponsorshipsAverageAmount(sponsorshipsAverageAmount.getAmount());
-		dashboard.setSponsorshipsDeviationAmount(sponsorshipDeviationAmount.getAmount());
-		dashboard.setSponsorshipsMinimumAmount(sponsorshipsMinimumAmount.getAmount());
-		dashboard.setSponsorshipsMaximumAmount(sponsorshipsMaximumAmount.getAmount());
-
-		dashboard.setInvoicesAverageQuantity(invoicesAverageQuantity.getAmount());
-		dashboard.setInvoicesDeviationQuantity(invoicesDeviationQuantity.getAmount());
-		dashboard.setInvoicesMinimumQuantity(invoicesMinimumQuantity.getAmount());
-		dashboard.setInvoicesMaximumQuantity(invoicesMaximumQuantity.getAmount());
 
 		super.getBuffer().addData(dashboard);
 	}
 
-	// Metodos de sponsorship
+	private Double deviationQuantity(final List<Double> amounts) {
 
-	private Money sponsorshipsAverageAmount(final Collection<Money> amounts) {
-		Money dinero = new Money();
-		dinero.setCurrency("USD");
-		if (amounts.isEmpty()) {
-			dinero.setAmount(null);
-			return dinero;
-		}
-		dinero.setAmount(amounts.stream().map(x -> x.getAmount()).mapToDouble(Double::doubleValue).average().orElse(0.0));
-		return dinero;
-	}
+		if (amounts.isEmpty())
+			return null;
 
-	private Money sponsorshipsMaximumAmount(final Collection<Money> amounts) {
-		Money dinero = new Money();
-		dinero.setCurrency("USD");
-		if (amounts.isEmpty()) {
-			dinero.setAmount(null);
-			return dinero;
-		}
-		dinero.setAmount(amounts.stream().map(x -> x.getAmount()).mapToDouble(Double::doubleValue).max().orElse(0.0));
-		return dinero;
-	}
+		Stream<Double> valuesStream = amounts.stream();
 
-	private Money sponsorshipsMinimumAmount(final Collection<Money> amounts) {
-		Money dinero = new Money();
-		dinero.setCurrency("USD");
-		if (amounts.isEmpty()) {
-			dinero.setAmount(null);
-			return dinero;
-		}
-		dinero.setAmount(amounts.stream().map(x -> x.getAmount()).mapToDouble(Double::doubleValue).min().orElse(0.0));
-		return dinero;
-	}
+		double average = valuesStream.collect(Collectors.averagingDouble(Double::doubleValue));
+		valuesStream = amounts.stream();
+		Stream<Double> squaredDifferencesStream = valuesStream.map(num -> Math.pow(num - average, 2));
 
-	private Money sponsorshipDeviationAmount(final Collection<Money> amounts) {
-		Money dinero = new Money();
-		dinero.setCurrency("USD");
+		double sumOfSquaredDifferences = squaredDifferencesStream.reduce(0.0, Double::sum);
 
-		if (amounts.isEmpty()) {
-			dinero.setAmount(null);
-			return dinero;
-		}
-
-		double average = amounts.stream().mapToDouble(Money::getAmount).average().orElse(0.0);
-
-		double sumOfSquares = amounts.stream().mapToDouble(x -> Math.pow(x.getAmount() - average, 2)).sum();
-
-		double vari = sumOfSquares / amounts.size();
-
-		double dev = Math.sqrt(vari);
-
-		dinero.setAmount(dev);
-
-		return dinero;
-	}
-
-	// Metodos de invoice
-
-	private Money invoicesAverageQuantity(final Collection<Money> quantites) {
-		Money dinero = new Money();
-		dinero.setCurrency("USD");
-		if (quantites.isEmpty()) {
-			dinero.setAmount(null);
-			return dinero;
-		}
-		dinero.setAmount(quantites.stream().map(x -> x.getAmount()).mapToDouble(Double::doubleValue).average().orElse(0.0));
-		return dinero;
-	}
-
-	private Money invoicesMaximumQuantity(final Collection<Money> quantites) {
-		Money dinero = new Money();
-		dinero.setCurrency("USD");
-		if (quantites.isEmpty()) {
-			dinero.setAmount(null);
-			return dinero;
-		}
-		dinero.setAmount(quantites.stream().map(x -> x.getAmount()).mapToDouble(Double::doubleValue).max().orElse(0.0));
-		return dinero;
-	}
-
-	private Money invoicesMinimumQuantity(final Collection<Money> quantites) {
-		Money dinero = new Money();
-		dinero.setCurrency("USD");
-		if (quantites.isEmpty()) {
-			dinero.setAmount(null);
-			return dinero;
-		}
-		dinero.setAmount(quantites.stream().map(x -> x.getAmount()).mapToDouble(Double::doubleValue).min().orElse(0.0));
-		return dinero;
-	}
-
-	private Money invoicesDeviationQuantity(final Collection<Money> quantites) {
-		Money dinero = new Money();
-		dinero.setCurrency("USD");
-
-		if (quantites.isEmpty()) {
-			dinero.setAmount(null);
-			return dinero;
-		}
-
-		double average = quantites.stream().mapToDouble(Money::getAmount).average().orElse(0.0);
-
-		double sumOfSquares = quantites.stream().mapToDouble(x -> Math.pow(x.getAmount() - average, 2)).sum();
-
-		double vari = sumOfSquares / quantites.size();
-
-		double dev = Math.sqrt(vari);
-
-		dinero.setAmount(dev);
-
-		return dinero;
-	}
-
-	private Money currencyTransformerUsd(final Money initial) {
-		Money res = new Money();
-		res.setCurrency("USD");
-
-		if (initial.getCurrency().equals("USD"))
-			res.setAmount(initial.getAmount());
-
-		else if (initial.getCurrency().equals("EUR"))
-			res.setAmount(initial.getAmount() * 1.07);
-
-		else
-			res.setAmount(initial.getAmount() * 1.25);
-
-		return res;
+		return Math.sqrt(sumOfSquaredDifferences / amounts.size());
 	}
 
 	@Override
 	public void unbind(final SponsorDashboard object) {
 		Dataset dataset;
 
-		dataset = super.unbind(object, "totalNumberOfInvoices", "totalNumberOfSponsorshipsWithLink", "sponsorshipsAverageAmount", "sponsorshipsDeviationAmount", "sponsorshipsMinimumAmount", "sponsorshipsMaximumAmount", "invoicesAverageQuantity",
-			"invoicesDeviationQuantity", "invoicesMinimumQuantity", "invoicesMaximumQuantity");
-
+		dataset = super.unbind(object, "totalNumberOfInvoices", "totalNumberOfSponsorshipsWithLink", "sponsorshipMoneyStatistics", "invoiceMoneyStatistics");
+		System.out.println(object.getSponsorshipMoneyStatistics());
 		super.getResponse().addData(dataset);
 	}
 

@@ -1,7 +1,13 @@
 
 package acme.features.client.dashboard;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +15,7 @@ import org.springframework.stereotype.Service;
 import acme.client.data.datatypes.Money;
 import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
+import acme.components.SystemConfigurationRepository;
 import acme.forms.ClientDashboard;
 import acme.roles.Client;
 
@@ -18,7 +25,10 @@ public class ClientDashboardShowService extends AbstractService<Client, ClientDa
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	private ClientDashboardRepository repository;
+	private ClientDashboardRepository		repository;
+
+	@Autowired
+	private SystemConfigurationRepository	sysConfigRepository;
 
 	// AbstractService interface ----------------------------------------------
 
@@ -37,63 +47,69 @@ public class ClientDashboardShowService extends AbstractService<Client, ClientDa
 		int totalLogsWithCompletenessAbove75;
 		int clientId;
 
-		Double AverageBudgetOfContracts;
-		Double MinimunBudgetOfContracts;
-		Double MaximunBudgetOfContracts;
+		Double averageBudget;
+		Double minimunBudget;
+		Double maximunBudget;
+		Double budgetDeviation = null;
 
 		clientId = super.getRequest().getPrincipal().getActiveRoleId();
 		double percentaje25 = 25.0;
 		double percentaje50 = 50.0;
 		double percentaje75 = 75.0;
 
+		//CALCULO INFO PROGRESS LOGS
 		totalLogsWithCompletenessBelow25 = this.repository.logsBelowCompletenessValue(clientId, percentaje25);
 		totalLogsWithCompletenessBetween25And50 = this.repository.logsBetweenCompletenessValuesForClient(clientId, percentaje25, percentaje50);
 		totalLogsWithCompletenessBetween50And75 = this.repository.logsBetweenCompletenessValuesForClient(clientId, percentaje50, percentaje75);
 		totalLogsWithCompletenessAbove75 = this.repository.logsAboveCompletenessValue(clientId, percentaje75);
 
-		//Contracts
-		Collection<Money> contractBudgets = this.repository.findAllBudgetsFromClient(clientId);
+		//OPERACIONES CON CONTRACTS
 
-		if (!contractBudgets.isEmpty()) {
-			AverageBudgetOfContracts = contractBudgets.stream().mapToDouble(u -> this.repository.currencyTransformerUsd(u)).average().orElse(0.0);
-			MinimunBudgetOfContracts = contractBudgets.stream().mapToDouble(u -> this.repository.currencyTransformerUsd(u)).min().orElse(0.0);
-			MaximunBudgetOfContracts = contractBudgets.stream().mapToDouble(u -> this.repository.currencyTransformerUsd(u)).max().orElse(0.0);
-		} else {
+		Collection<String> contractCurrencies = this.repository.allCurrenciesInPublishedContracts(clientId);
 
-			AverageBudgetOfContracts = null;
-			MinimunBudgetOfContracts = null;
-			MaximunBudgetOfContracts = null;
-		}
+		Map<String, ClientMoneyStatistics> moneyStatistics = new HashMap<>();
+
 		dashboard = new ClientDashboard();
 
-		// Progress Logs
+		for (String currency : contractCurrencies) {
+
+			Collection<Money> contractBudgets = this.repository.findAllBudgetsFromClient(clientId).stream().map(m -> this.sysConfigRepository.convertFromCurrencyToAnother(m, currency)).collect(Collectors.toCollection(ArrayList<Money>::new));
+
+			minimunBudget = contractBudgets.stream().mapToDouble(Money::getAmount).min().orElse(Double.NaN);
+			maximunBudget = contractBudgets.stream().mapToDouble(Money::getAmount).max().orElse(Double.NaN);
+			averageBudget = contractBudgets.stream().mapToDouble(Money::getAmount).average().orElse(Double.NaN);
+			budgetDeviation = this.contractsDeviationQuantity(contractBudgets.stream().mapToDouble(Money::getAmount).boxed().toList());
+
+			ClientMoneyStatistics ms = new ClientMoneyStatistics(minimunBudget, maximunBudget, averageBudget, budgetDeviation);
+
+			moneyStatistics.put(currency, ms);
+		}
+
+		dashboard.setMoneyStatistics(moneyStatistics);
+
+		//PONER INFO EN EL DASHBOARD
 		dashboard.setTotalLogsWithCompletenessBelow25(totalLogsWithCompletenessBelow25);
 		dashboard.setTotalLogsWithCompletenessBetween25And50(totalLogsWithCompletenessBetween25And50);
 		dashboard.setTotalLogsWithCompletenessBetween50And75(totalLogsWithCompletenessBetween50And75);
 		dashboard.setTotalLogsWithCompletenessAbove75(totalLogsWithCompletenessAbove75);
 
-		dashboard.setAverageBudgetOfContracts(AverageBudgetOfContracts);
-		dashboard.setMinimunBudgetOfContracts(MinimunBudgetOfContracts);
-		dashboard.setMaximunBudgetOfContracts(MaximunBudgetOfContracts);
-		dashboard.setDeviationOfContractBudgets(this.invoicesDeviationQuantity(contractBudgets));
-
 		super.getBuffer().addData(dashboard);
 	}
 
-	private double invoicesDeviationQuantity(final Collection<Money> quantites) {
-		double deviation;
+	private Double contractsDeviationQuantity(final List<Double> amounts) {
 
-		double average = quantites.stream().mapToDouble(u -> this.repository.currencyTransformerUsd(u)).average().orElse(0.0);
+		if (amounts.isEmpty())
+			return null;
 
-		double sumOfSquares = quantites.stream().mapToDouble(x -> Math.pow(x.getAmount() - average, 2)).sum();
+		Stream<Double> valuesStream = amounts.stream();
 
-		double vari = sumOfSquares / quantites.size();
+		double average = valuesStream.collect(Collectors.averagingDouble(Double::doubleValue));
+		valuesStream = amounts.stream();
+		Stream<Double> squaredDifferencesStream = valuesStream.map(num -> Math.pow(num - average, 2));
 
-		double dev = Math.sqrt(vari);
+		double sumOfSquaredDifferences = squaredDifferencesStream.reduce(0.0, Double::sum);
 
-		deviation = dev;
-
-		return deviation;
+		return Math.sqrt(sumOfSquaredDifferences / amounts.size());
 	}
 
 	@Override
@@ -103,8 +119,7 @@ public class ClientDashboardShowService extends AbstractService<Client, ClientDa
 		dataset = super.unbind(clientDashboard, //
 			"totalLogsWithCompletenessBelow25", "totalLogsWithCompletenessBetween25And50", // 
 			"totalLogsWithCompletenessBetween50And75", "totalLogsWithCompletenessAbove75", //
-			"averageBudgetOfContracts", "deviationOfContractBudgets",//
-			"minimunBudgetOfContracts", "maximunBudgetOfContracts");
+			"moneyStatistics");
 
 		super.getResponse().addData(dataset);
 	}

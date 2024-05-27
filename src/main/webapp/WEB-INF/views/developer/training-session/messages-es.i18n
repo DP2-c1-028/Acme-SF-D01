@@ -22,3 +22,6 @@ developer.training-session.form.error.code = El código ya está en uso
 developer.training-session.form.error.period-start = El comienzo del periodo debe ser al menos una semana después del momento de creación del módulo de entrenamiento
 developer.training-session.form.error.period-end = El periodo debe ser de al menos una semana y su final debe ser posterior a su comienzo
 developer.training-session.form.error.published-training-module = No puedes crear, actualizar o eliminar una sesión de entrenamiento relacionada a un módulo de entrenamiento publicado
+developer.training-session.form.error.before-min-date = La fecha está por debajo del límite del sistema (01-01-2000 00:00)
+developer.training-session.form.error.after-max-date = La fecha está por encima del límite del sistema (31-12-2200 23:59)
+developer.training-session.form.error.no-room-for-min-period-duration = Está fecha fuerza a la otra a salirse de los límites para cumplir con la mínima duración del periodo

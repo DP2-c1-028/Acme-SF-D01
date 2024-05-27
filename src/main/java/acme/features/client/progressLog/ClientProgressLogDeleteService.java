@@ -4,7 +4,6 @@ package acme.features.client.progressLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
 import acme.entities.progress_logs.ProgressLog;
 import acme.roles.Client;
@@ -31,7 +30,7 @@ public class ClientProgressLogDeleteService extends AbstractService<Client, Prog
 		progressLog = this.repository.findProgressLogById(progressLogId);
 		clientId = super.getRequest().getPrincipal().getActiveRoleId();
 
-		isValid = progressLog != null && clientId == progressLog.getClient().getId();
+		isValid = progressLog != null && clientId == progressLog.getClient().getId() && progressLog.isDraftMode();
 
 		super.getResponse().setAuthorised(isValid);
 	}
@@ -73,15 +72,6 @@ public class ClientProgressLogDeleteService extends AbstractService<Client, Prog
 		this.repository.delete(progressLog);
 	}
 
-	@Override
-	public void unbind(final ProgressLog progressLog) {
-
-		assert progressLog != null;
-		Dataset dataset;
-
-		dataset = super.unbind(progressLog, "recordId", "draftMode", "completeness", "comment", "registrationMoment", "responsiblePerson");
-
-		super.getResponse().addData(dataset);
-	}
+	//AL NO HABER POSIBILIDAD DE DEVOLVER EL FORMULARIO DEBIDO A LOS REQUERIMIENTOS, EL UNBID NO ES NECESARIO DESARROLLARLO
 
 }

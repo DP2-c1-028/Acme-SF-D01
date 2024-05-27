@@ -23,7 +23,9 @@ sponsor.invoice.form.title = Datos de tu facturas
 
 sponsor.invoice.form.error.code =  El código debe ser único, pruebe otro
 sponsor.invoice.form.error.dueDate = La fecha de vencimiento debe ser posterior al fecha de registro y además debe haber al menos un mes de diferencia entre las dos
-sponsor.invoice.form.error.quantity = La cantidad debe ser positiva
+sponsor.invoice.form.error.quantity = La cantidad debe ser positiva y menor que un millón
 sponsor.invoice.form.error.acceptedCurrency = La divisa no está aceptada por el sistema
 sponsor.invoice.form.error.published-sponsorship = No se puede crear, actualizar o borrar una factura si su patrocinio está ya publicado
 sponsor.invoice.form.error.tax-not-null = El impuesto no puede ser nulo
+sponsor.invoice.form.error.registration-time = La fecha debe ser posterior a 01-01-1970 00:00 y previa a 31-12-2200 23:59
+sponsor.invoice.form.error.registration-time-bis = La fecha de registro de una factura debe ser posterior a la fecha de creación de un patrocinio

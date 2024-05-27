@@ -28,9 +28,11 @@ client.contract.form.error.code = El código asociado esta ya en uso
 client.contract.form.error.project = No se puede asignar un proyecto que no este publicado
 client.contract.form.error.budget = No puedes asignar un presupuesto mayor que el coste asociado al proyecto
 client.contract.form.error.publishError = No se puede publicar un comtrato si el presupuesto total de los conytratos publicados para el proyecto es superior al coste de este
-client.contract.form.error.budget-negative = No puedes poner un presupuesto negativo
+client.contract.form.error.budget-negative = No puedes poner un presupuesto mayor que 1.000.000 USD o menor que 0
 client.contract.form.error.publishError-progressLog = No puedes publicar un contrato si sus registros de progreso no estn publicados
 
 client.contract.form.error.invalidDate = No puedees establecer una fecha de creacion previa a la creacion de un registro de progreso publicado.
 client.contract.form.error.cannotDelete = No puedes borrar un contrato si hay registros de progreso publicados
 client.contract.form.error.currency = Esta divisa no esta aceptada por el sistema
+
+client.contract.form.error.instantiationMoment = La fecha asociada debe ser posterior al  01/01/2000 00:00

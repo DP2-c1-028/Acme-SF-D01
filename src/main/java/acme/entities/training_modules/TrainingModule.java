@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -56,9 +57,11 @@ public class TrainingModule extends AbstractEntity {
 	private TrainingModuleDifficulty	difficulty;
 
 	@URL
+	@Length(max = 255)
 	private String						link;
 
 	@Min(1)
+	@Max(10000)
 	private int							totalTime;
 
 	private boolean						published;

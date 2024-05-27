@@ -54,6 +54,7 @@ public class CodeAudit extends AbstractEntity {
 	private String				proposedCorrectiveActions;
 
 	@URL
+	@Length(max = 255)
 	private String				link;
 
 	private boolean				draftMode;

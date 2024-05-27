@@ -12,9 +12,12 @@ user-account-client-04,true,"UserIdentity{name:'client4',surname:'Client',email:
 user-account-client-05,true,"UserIdentity{name:'client5',surname:'Client',email:'client5@acme.com'}",client5,client5
 user-account-developer-01,true,"UserIdentity{name:'我爱很小猫',surname:'但是我最爱狗',email:'maomaogou@acme.com'}",developer1,developer1
 user-account-developer-02,true,"UserIdentity{name:'Frank',surname:'Woods',email:'frankwoods@acme.com'}",developer2,developer2
+user-account-developer-03,true,"UserIdentity{name:'Wonhee',surname:'Lee',email:'leewonhee@illit.com'}",developer3,developer3
 user-account-auditor-01,true,"UserIdentity{name:'auditorfirst',surname:'first',email:'auditor1@acme.com'}",auditor1,auditor1
 user-account-auditor-02,true,"UserIdentity{name:'auditorsecond',surname:'second',email:'auditor2@acme.com'}",auditor2,auditor2
+user-account-auditor-03,true,"UserIdentity{name:'auditorthird',surname:'third',email:'auditor3@acme.com'}",auditor3,auditor3
 user-account-sponsor-01,true,"UserIdentity{name:'Pedrito',surname:'Ramirez',email:'pedrito@acme.com'}",sponsor1,sponsor1
 user-account-sponsor-02,true,"UserIdentity{name:'Oliver',surname:'Queen',email:'kapyushon@acme.com'}",sponsor2,sponsor2
+user-account-sponsor-03,true,"UserIdentity{name:'Jesús',surname:'Navas',email:'duende@acme.com'}",sponsor3,sponsor3
 user-account-administrator-02,true,"UserIdentity{name:'Maria',surname:'Unpa',email:'marunpa@acme.com'}",administrator1,administrator1
 user-account-administrator-03,true,"UserIdentity{name:'Pedro',surname:'Picapiedras',email:'pedrostone@acme.com'}",administrator2,administrator2
