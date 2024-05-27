@@ -4,6 +4,7 @@ package acme.features.client.progressLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import acme.client.data.models.Dataset;
 import acme.client.services.AbstractService;
 import acme.entities.progress_logs.ProgressLog;
 import acme.roles.Client;
@@ -69,6 +70,17 @@ public class ClientProgressLogDeleteService extends AbstractService<Client, Prog
 		assert progressLog != null;
 
 		this.repository.delete(progressLog);
+	}
+
+	@Override
+	public void unbind(final ProgressLog progressLog) {
+
+		assert progressLog != null;
+		Dataset dataset;
+
+		dataset = super.unbind(progressLog, "recordId", "draftMode", "completeness", "comment", "registrationMoment", "responsiblePerson");
+
+		super.getResponse().addData(dataset);
 	}
 
 }
