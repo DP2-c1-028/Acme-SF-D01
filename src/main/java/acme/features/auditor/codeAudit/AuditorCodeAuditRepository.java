@@ -47,9 +47,6 @@ public interface AuditorCodeAuditRepository extends AbstractRepository {
 	@Query("select ar from AuditRecord ar where (ar.codeAudit.id = :id and ar.draftMode = false)")
 	Collection<AuditRecord> findPublishedAuditRecordsByCodeAuditId(int id);
 
-	//	@Query("SELECT ar FROM AuditRecord ar WHERE ar.codeAudit.id = :id AND ar.id = (SELECT MIN(ar2.id) FROM AuditRecord ar2 WHERE ar2.auditStartTime = (SELECT MIN(ar3.auditStartTime) FROM AuditRecord ar3 WHERE ar3.codeAudit.id = :id))")
-	//	AuditRecord findAuditRecordWithEarliestDateByCodeAuditId(int id);
-
 	@Query("SELECT ar FROM AuditRecord ar WHERE ar.auditStartTime = (SELECT MIN(ar2.auditStartTime) FROM AuditRecord ar2 WHERE ar2.codeAudit.id = :id)")
 	Collection<AuditRecord> findAuditRecordWithEarliestDateByCodeAuditId(int id);
 
