@@ -72,8 +72,7 @@ public class DeveloperTrainingSessionCreateService extends AbstractService<Devel
 
 			TrainingSession trainingSessionSameCode = this.repository.findOneTrainingSessionByCode(object.getCode());
 
-			if (trainingSessionSameCode != null)
-				super.state(trainingSessionSameCode.getId() == object.getId(), "code", "developer.training-session.form.error.code");
+			super.state(trainingSessionSameCode == null, "code", "developer.training-session.form.error.code");
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("periodStart")) {
@@ -136,13 +135,15 @@ public class DeveloperTrainingSessionCreateService extends AbstractService<Devel
 			super.state(MomentHelper.isBeforeOrEqual(object.getPeriodEnd(), MAX_DATE), "periodEnd", "developer.training-session.form.error.after-max-date");
 
 		if (!super.getBuffer().getErrors().hasErrors("periodEnd"))
-			super.state(MomentHelper.isAfterOrEqual(object.getPeriodEnd(), MomentHelper.deltaFromMoment(MIN_DATE, 7, ChronoUnit.DAYS)), "periodEnd", "developer.training-session.form.error.no-time-for-min-period-duration");
+			super.state(MomentHelper.isAfterOrEqual(object.getPeriodEnd(), MomentHelper.deltaFromMoment(MIN_DATE, 7, ChronoUnit.DAYS)), "periodEnd", "developer.training-session.form.error.no-room-for-min-period-duration");
 
 	}
 
 	@Override
 	public void perform(final TrainingSession object) {
 		assert object != null;
+
+		object.setId(0);
 		this.repository.save(object);
 	}
 
