@@ -66,8 +66,7 @@ public class DeveloperTrainingModuleCreateService extends AbstractService<Develo
 
 			TrainingModule trainingModuleSameCode = this.repository.findOneTrainingModuleByCode(object.getCode());
 
-			if (trainingModuleSameCode != null)
-				super.state(trainingModuleSameCode.getId() == object.getId(), "code", "developer.training-module.form.error.code");
+			super.state(trainingModuleSameCode == null, "code", "developer.training-module.form.error.code");
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("updateMoment")) {
@@ -84,33 +83,36 @@ public class DeveloperTrainingModuleCreateService extends AbstractService<Develo
 		if (!super.getBuffer().getErrors().hasErrors("project"))
 			super.state(!object.getProject().isDraftMode(), "project", "developer.training-module.form.error.project");
 
-		Date MIN_DATE;
-		Date MAX_DATE;
+		Date minimumDate;
+		Date maximumDate;
 
-		MIN_DATE = MomentHelper.parse("2000-01-01 00:00", "yyyy-MM-dd HH:mm");
-		MAX_DATE = MomentHelper.parse("2200-12-31 23:59", "yyyy-MM-dd HH:mm");
-
-		if (!super.getBuffer().getErrors().hasErrors("creationMoment"))
-			super.state(MomentHelper.isAfterOrEqual(object.getCreationMoment(), MIN_DATE), "creationMoment", "developer.training-module.form.error.before-min-date");
+		minimumDate = MomentHelper.parse("2000-01-01 00:00", "yyyy-MM-dd HH:mm");
+		maximumDate = MomentHelper.parse("2200-12-31 23:59", "yyyy-MM-dd HH:mm");
 
 		if (!super.getBuffer().getErrors().hasErrors("creationMoment"))
-			super.state(MomentHelper.isBeforeOrEqual(object.getCreationMoment(), MAX_DATE), "creationMoment", "developer.training-module.form.error.after-max-date");
+			super.state(MomentHelper.isAfterOrEqual(object.getCreationMoment(), minimumDate), "creationMoment", "developer.training-module.form.error.before-min-date");
 
 		if (!super.getBuffer().getErrors().hasErrors("creationMoment"))
-			super.state(MomentHelper.isBeforeOrEqual(object.getCreationMoment(), MomentHelper.deltaFromMoment(MAX_DATE, -14, ChronoUnit.DAYS)), "creationMoment", "developer.training-module.form.error.no-room-for-period");
+			super.state(MomentHelper.isBeforeOrEqual(object.getCreationMoment(), maximumDate), "creationMoment", "developer.training-module.form.error.after-max-date");
 
-		if (!super.getBuffer().getErrors().hasErrors("updateMoment"))
-			super.state(MomentHelper.isAfterOrEqual(object.getUpdateMoment(), MIN_DATE), "updateMoment", "developer.training-module.form.error.before-min-date");
+		if (!super.getBuffer().getErrors().hasErrors("creationMoment"))
+			super.state(MomentHelper.isBeforeOrEqual(object.getCreationMoment(), MomentHelper.deltaFromMoment(maximumDate, -14, ChronoUnit.DAYS)), "creationMoment", "developer.training-module.form.error.no-room-for-period");
 
-		if (!super.getBuffer().getErrors().hasErrors("updateMoment"))
-			super.state(MomentHelper.isBeforeOrEqual(object.getUpdateMoment(), MAX_DATE), "updateMoment", "developer.training-module.form.error.after-max-date");
+		Date updateMoment = object.getUpdateMoment();
+		if (updateMoment != null) {
+			if (!super.getBuffer().getErrors().hasErrors("updateMoment"))
+				super.state(MomentHelper.isAfterOrEqual(object.getUpdateMoment(), minimumDate), "updateMoment", "developer.training-module.form.error.before-min-date");
 
+			if (!super.getBuffer().getErrors().hasErrors("updateMoment"))
+				super.state(MomentHelper.isBeforeOrEqual(object.getUpdateMoment(), maximumDate), "updateMoment", "developer.training-module.form.error.after-max-date");
+		}
 	}
 
 	@Override
 	public void perform(final TrainingModule object) {
 		assert object != null;
 
+		object.setId(0);
 		this.repository.save(object);
 	}
 
