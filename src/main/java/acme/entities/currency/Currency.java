@@ -1,6 +1,7 @@
 
 package acme.entities.currency;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.validation.Valid;
@@ -27,6 +28,7 @@ public class Currency extends AbstractEntity {
 
 	@Pattern(regexp = "^[A-Z]{3}$")
 	@NotBlank
+	@Column(unique = true)
 	protected String			symbol;
 
 	@NotNull

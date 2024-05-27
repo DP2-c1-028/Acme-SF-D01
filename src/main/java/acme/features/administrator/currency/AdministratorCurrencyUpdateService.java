@@ -52,6 +52,14 @@ public class AdministratorCurrencyUpdateService extends AbstractService<Administ
 	@Override
 	public void validate(final Currency object) {
 		assert object != null;
+
+		if (!super.getBuffer().getErrors().hasErrors("symbol") && object.getSymbol() != null) {
+
+			Currency currency = this.repository.findCurrencyBySymbol(object.getSymbol());
+
+			if (currency != null)
+				super.state(currency.getId() == object.getId(), "symbol", "administrator.currency.error.same-symbol");
+		}
 	}
 
 	@Override

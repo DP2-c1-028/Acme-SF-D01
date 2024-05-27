@@ -9,3 +9,5 @@ administrator.currency.form.label.symbol = Símbolo
 administrator.currency.form.label.value-against-dollar = Valor frente al USD
 administrator.currency.form.button.update = Actualizar
 administrator.currency.form.button.create = Crear
+
+administrator.currency.error.same-symbol = This symbol is in used

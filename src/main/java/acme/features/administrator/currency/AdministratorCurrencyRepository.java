@@ -21,5 +21,8 @@ public interface AdministratorCurrencyRepository extends AbstractRepository {
 
 	@Query("select c from Currency c where c.id=:id")
 	Currency findCurrencyById(int id);
-	
+
+	@Query("select c from Currency c where c.symbol=:symbol")
+	Currency findCurrencyBySymbol(String symbol);
+
 }
