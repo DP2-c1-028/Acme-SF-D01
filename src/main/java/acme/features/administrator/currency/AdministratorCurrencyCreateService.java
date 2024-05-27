@@ -34,7 +34,7 @@ public class AdministratorCurrencyCreateService extends AbstractService<Administ
 		Currency object;
 		SystemConfiguration systemConfiguration;
 
-		systemConfiguration = this.repository.findSystemConfiguration();
+		systemConfiguration = this.repository.findSystemConfiguration().stream().toList().get(0);
 
 		object = new Currency();
 

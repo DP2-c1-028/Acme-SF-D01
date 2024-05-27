@@ -14,7 +14,7 @@ import acme.entities.systemConfiguration.SystemConfiguration;
 public interface AdministratorSystemConfigurationRepository extends AbstractRepository {
 
 	@Query("select sc from SystemConfiguration sc")
-	SystemConfiguration findSystemConfiguration();
+	Collection<SystemConfiguration> findSystemConfiguration();
 
 	@Query("select c from Currency c")
 	Collection<Currency> findCurrencies();

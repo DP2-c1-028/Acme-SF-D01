@@ -3,5 +3,6 @@ administrator.system-configuration.form.label.systemCurrency = Divisa del sistem
 administrator.system-configuration.form.label.acceptedCurrencies = Divisas aceptadas
 administrator.system-configuration.form.button.update = Actualizar
 administrator.system-configuration.form.error.systemCurrency = La divisa introducida no está aceptada por el sistema
+administrator.system-configuration.form.button.currencies = Divisas
 validation.systemConfiguration.systemCurrency = Las divisas deben tener tres letras en mayúsculas solamente
 validation.systemConfiguration.aceptedCurrencies = Las divisas aceptadas deben tener exactamente tres letras en mayúsculas y estar separadas por comas

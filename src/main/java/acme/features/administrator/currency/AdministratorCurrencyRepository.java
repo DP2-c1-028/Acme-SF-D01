@@ -14,12 +14,12 @@ import acme.entities.systemConfiguration.SystemConfiguration;
 public interface AdministratorCurrencyRepository extends AbstractRepository {
 
 	@Query("select sc from SystemConfiguration sc")
-	SystemConfiguration findSystemConfiguration();
+	Collection<SystemConfiguration> findSystemConfiguration();
 
 	@Query("select c from Currency c")
 	Collection<Currency> findCurrencies();
 
 	@Query("select c from Currency c where c.id=:id")
 	Currency findCurrencyById(int id);
-
+	
 }
