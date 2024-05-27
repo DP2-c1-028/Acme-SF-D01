@@ -62,7 +62,6 @@ public class ClientProgressLogUpdateService extends AbstractService<Client, Prog
 	public void validate(final ProgressLog progressLog) {
 		assert progressLog != null;
 
-		// duplicas de codigo
 		if (!super.getBuffer().getErrors().hasErrors("recordId")) {
 
 			ProgressLog progressLogWithCode = this.repository.findProgressLogByRecordId(progressLog.getRecordId());
@@ -71,7 +70,6 @@ public class ClientProgressLogUpdateService extends AbstractService<Client, Prog
 				super.state(progressLogWithCode.getId() == progressLog.getId(), "recordId", "client.progress-log.form.error.recordId");
 		}
 
-		//fecha pl despues de contrato
 		if (!super.getBuffer().getErrors().hasErrors("registrationMoment")) {
 
 			Date contractDate = progressLog.getContract().getInstantiationMoment();
@@ -82,7 +80,6 @@ public class ClientProgressLogUpdateService extends AbstractService<Client, Prog
 			super.state(isAfter, "registrationMoment", "client.progress-log.form.error.registrationMoment");
 		}
 
-		//validacion de modo borrador
 		if (!super.getBuffer().getErrors().hasErrors("contract")) {
 			Contract contract;
 

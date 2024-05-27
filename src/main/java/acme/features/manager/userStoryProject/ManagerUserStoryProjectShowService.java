@@ -61,6 +61,8 @@ public class ManagerUserStoryProjectShowService extends AbstractService<Manager,
 		Dataset dataset;
 		SelectChoices choicesProject;
 		SelectChoices choicesUserStory;
+		Project preselectedProject;
+		UserStory preselectedUserStory;
 		int managerId;
 
 		managerId = super.getRequest().getPrincipal().getActiveRoleId();
@@ -68,21 +70,25 @@ public class ManagerUserStoryProjectShowService extends AbstractService<Manager,
 		List<Project> projectsOwned = this.repository.findAllProjectsOwnedAndNotPublished(managerId).stream().toList();
 		List<UserStory> userStoriesOwned = this.repository.findAllUserStoriesOwned(managerId).stream().toList();
 
-		projectsOwned = new ArrayList<>(projectsOwned);
-
-		if (projectsOwned.isEmpty())
+		if (!object.getProject().isDraftMode()) {
+			projectsOwned = new ArrayList<>();
 			projectsOwned.add(object.getProject());
 
-		Project preselectedProject = projectsOwned.stream().toList().get(0);
-		UserStory preselectedUserStory = userStoriesOwned.stream().toList().isEmpty() ? null : userStoriesOwned.stream().toList().get(0);
+			userStoriesOwned = new ArrayList<>();
+			userStoriesOwned.add(object.getUserStory());
+
+		}
+
+		preselectedProject = object.getProject();
+		preselectedUserStory = object.getUserStory();
 
 		choicesProject = SelectChoices.from(projectsOwned, "code", preselectedProject);
 		choicesUserStory = SelectChoices.from(userStoriesOwned, "title", preselectedUserStory);
 
 		dataset = new Dataset();
 
-		String projectCode = preselectedProject != null ? preselectedProject.getCode() : null;
-		String userStoryTitle = preselectedUserStory != null ? preselectedUserStory.getTitle() : null;
+		String projectCode = preselectedProject.getCode();
+		String userStoryTitle = preselectedUserStory.getTitle();
 
 		dataset.put("project", projectCode);
 		dataset.put("userStory", userStoryTitle);

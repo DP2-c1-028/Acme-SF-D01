@@ -30,7 +30,7 @@ public class ClientContractDeleteService extends AbstractService<Client, Contrac
 		contract = this.repository.findContractById(contractId);
 		clientId = super.getRequest().getPrincipal().getActiveRoleId();
 
-		isValid = clientId == contract.getClient().getId() && contract.getProject() != null && contract.isDraftMode();
+		isValid = clientId == contract.getClient().getId() && contract.isDraftMode();
 
 		super.getResponse().setAuthorised(isValid);
 	}
@@ -60,19 +60,14 @@ public class ClientContractDeleteService extends AbstractService<Client, Contrac
 	@Override
 	public void validate(final Contract contract) {
 		assert contract != null;
-		//feedback 08/05/24: no se podra crear progress logs si el contrato a asociar no esta publicado
-		//no hay q comprobar nada de pl en esta seccion debido a esto
 
 	}
 
 	@Override
 	public void perform(final Contract contract) {
 		assert contract != null;
-		//feedback 08/05/24: no se podra crear progress logs si el contrato a asociar no esta publicado
-		//no hay q comprobar nada de pl en esta seccion debido a esto
 
 		this.repository.delete(contract);
 	}
 
-	//AL NO HABER POSIBILIDAD DE DEVOLVER EL FORMULARIO DEBIDO A LOS REQUERIMIENTOS, EL UNBID NO ES NECESARIO DESARROLLARLO
 }

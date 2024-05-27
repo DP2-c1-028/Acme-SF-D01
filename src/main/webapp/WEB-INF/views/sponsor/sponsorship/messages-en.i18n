@@ -29,11 +29,12 @@ sponsor.sponsorship.form.title = Your sponsorship data
 
 
 sponsor.sponsorship.form.error.code = The code must be unique, try another
-sponsor.sponsorship.form.error.invalidTotalAmount = La suma de la cantidad total de las facturas debe ser igual a la cantidad del patrocinio
-sponsor.sponsorship.form.error.durationStartTime = The start date must be after the moment
-sponsor.sponsorship.form.error.durationEndTime = The end date must be after the moment and there must also be at least one month difference between both of them
+sponsor.sponsorship.form.error.invalidTotalAmount = The sum of the total amount of the invoices must be equal to the sponsorship amount
+sponsor.sponsorship.form.error.durationStartTime = The start date must be after the moment and before 2200-12-31 23:59  
+sponsor.sponsorship.form.error.durationEndTime = The end date must be after the moment and before 2200-12-31 23:59 and there must also be at least one month difference between both of them
 sponsor.sponsorship.form.error.amount  = Amount must be positive and minor than one million
 sponsor.sponsorship.form.error.acceptedCurrency= Currency is not accepted by the system
 sponsor.sponsorship.form.error.published-invoices = You cannot delete a sponsorship that has a published invoice
 sponsor.sponsorship.form.error.unpublished-invoices = To publish a sponsorship all its invoices must be published
 sponsor.sponsorship.form.error.moment = The date must be after 1970-01-01 00:00
+sponsor.sponsorship.form.error.creation-moment = The moment must be before the earliest registration time of its invoices

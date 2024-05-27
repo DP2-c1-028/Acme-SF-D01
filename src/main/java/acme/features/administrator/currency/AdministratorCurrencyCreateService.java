@@ -34,7 +34,7 @@ public class AdministratorCurrencyCreateService extends AbstractService<Administ
 		Currency object;
 		SystemConfiguration systemConfiguration;
 
-		systemConfiguration = this.repository.findSystemConfiguration();
+		systemConfiguration = this.repository.findSystemConfiguration().stream().toList().get(0);
 
 		object = new Currency();
 
@@ -53,6 +53,13 @@ public class AdministratorCurrencyCreateService extends AbstractService<Administ
 	@Override
 	public void validate(final Currency object) {
 		assert object != null;
+
+		if (!super.getBuffer().getErrors().hasErrors("symbol") && object.getSymbol() != null) {
+
+			Currency currency = this.repository.findCurrencyBySymbol(object.getSymbol());
+
+			super.state(currency == null, "symbol", "administrator.currency.error.same-symbol");
+		}
 	}
 
 	@Override

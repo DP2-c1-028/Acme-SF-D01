@@ -33,12 +33,14 @@ public class AdministratorSystemConfigurationShowService extends AbstractService
 		SystemConfiguration object;
 
 		Collection<String> symbols = this.repository.findCurrencySymbols();
+		SystemConfiguration sc = this.repository.findSystemConfiguration().stream().toList().get(0);
 
 		String allSymbols = symbols.stream().collect(Collectors.joining(","));
 
 		object = new SystemConfiguration();
 
 		object.setAcceptedCurrencies(allSymbols);
+		object.setSystemCurrency(sc.getSystemCurrency());
 
 		super.getBuffer().addData(object);
 	}
@@ -49,7 +51,7 @@ public class AdministratorSystemConfigurationShowService extends AbstractService
 
 		Dataset dataset;
 
-		dataset = super.unbind(object, "acceptedCurrencies");
+		dataset = super.unbind(object, "acceptedCurrencies", "systemCurrency");
 
 		super.getResponse().addData(dataset);
 	}
