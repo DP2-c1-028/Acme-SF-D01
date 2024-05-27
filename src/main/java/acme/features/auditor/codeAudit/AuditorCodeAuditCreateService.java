@@ -82,7 +82,7 @@ public class AuditorCodeAuditCreateService extends AbstractService<Auditor, Code
 	@Override
 	public void perform(final CodeAudit object) {
 		assert object != null;
-
+		object.setId(0);
 		this.repository.save(object);
 	}
 

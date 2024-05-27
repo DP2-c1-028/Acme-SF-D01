@@ -106,6 +106,19 @@ public class AuditorCodeAuditPublishService extends AbstractService<Auditor, Cod
 			Boolean isAfter = codeAuditDate.after(minimumDate);
 			super.state(isAfter, "execution", "auditor.code-audit.form.error.execution");
 		}
+
+		if (!super.getBuffer().getErrors().hasErrors("execution")) {
+			AuditRecord earliestAuditRecord;
+			Boolean validExecution;
+			Date execution = object.getExecution();
+
+			earliestAuditRecord = this.repository.findAuditRecordWithEarliestDateByCodeAuditId(object.getId()).stream().findFirst().orElse(null);
+
+			if (earliestAuditRecord != null) {
+				validExecution = execution.before(earliestAuditRecord.getAuditStartTime());
+				super.state(validExecution, "execution", "auditor.code-audit.form.error.execution-ar");
+			}
+		}
 	}
 
 	@Override
