@@ -63,6 +63,13 @@ public class DeveloperTrainingModulePublishService extends AbstractService<Devel
 		Developer developer = this.repository.findOneDeveloperById(developerId);
 		object.setDeveloper(developer);
 		super.bind(object, "code", "difficulty", "details", "totalTime", "link", "project");
+
+		Date currentMoment;
+		Date updateMoment;
+
+		currentMoment = MomentHelper.getCurrentMoment();
+		updateMoment = new Date(currentMoment.getTime() - 1000); //Substracts one second to ensure the moment is in the past and after the creation moment
+		object.setUpdateMoment(updateMoment);
 	}
 
 	@Override
