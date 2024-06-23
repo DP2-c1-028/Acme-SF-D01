@@ -8,7 +8,6 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import acme.client.data.datatypes.Money;
 import acme.client.data.models.Dataset;
 import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractService;
@@ -73,6 +72,10 @@ public class SponsorSponsorshipPublishService extends AbstractService<Sponsor, S
 	public void validate(final Sponsorship object) {
 		assert object != null;
 
+		Collection<Invoice> allInvoices;
+
+		allInvoices = this.repository.findInvoicesOfASponsorship(object.getId());
+
 		if (!super.getBuffer().getErrors().hasErrors("code")) {
 
 			Sponsorship projectSameCode = this.repository.findOneSponsorshipByCode(object.getCode());
@@ -81,12 +84,12 @@ public class SponsorSponsorshipPublishService extends AbstractService<Sponsor, S
 				super.state(projectSameCode.getId() == object.getId(), "code", "sponsor.sponsorship.form.error.code");
 		}
 
-		if (!super.getBuffer().getErrors().hasErrors("totalAmount")) {
+		if (!super.getBuffer().getErrors().hasErrors("totalAmount") && object.getAmount() != null && this.systemConfigurationRepository.existsCurrency(object.getAmount().getCurrency())) {
 			Collection<Invoice> invoices = this.repository.findInvoicesOfASponsorship(object.getId());
 
-			double invoiceTotAmount = invoices.stream().mapToDouble(i -> this.currencyTransformerUsd(i.getQuantity(), i.totalAmount().getAmount()).getAmount()).sum();
-			if (object.getAmount() != null)
-				super.state(invoiceTotAmount == this.currencyTransformerUsd(object.getAmount(), object.getAmount().getAmount()).getAmount(), "*", "sponsor.sponsorship.form.error.invalidTotalAmount");
+			double invoiceTotAmount = invoices.stream().mapToDouble(i -> this.systemConfigurationRepository.convertToUsd(i.getQuantity()).getAmount()).sum();
+			//if (object.getAmount() != null)
+			super.state(invoiceTotAmount == this.systemConfigurationRepository.convertToUsd(object.getAmount()).getAmount(), "*", "sponsor.sponsorship.form.error.invalidTotalAmount");
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("moment")) {
@@ -163,22 +166,15 @@ public class SponsorSponsorshipPublishService extends AbstractService<Sponsor, S
 		if (!super.getBuffer().getErrors().hasErrors("project"))
 			super.state(!object.getProject().isDraftMode(), "project", "sponsor.sponsorship.form.error.project-not-published");
 
-	}
+		if (object.getAmount() != null) {
+			double sumaAmount = 0.0;
+			for (Invoice i : allInvoices)
+				sumaAmount += this.systemConfigurationRepository.convertToUsd(i.totalAmount()).getAmount();
 
-	private Money currencyTransformerUsd(final Money currency, final Double amount) {
-		Money res = new Money();
-		res.setCurrency("USD");
+			if (this.systemConfigurationRepository.existsCurrency(object.getAmount().getCurrency()))
+				super.state(this.systemConfigurationRepository.convertToUsd(object.getAmount()).getAmount() >= sumaAmount, "amount", "sponsor.sponsorship.form.error.amount-less-sum-invoices");
+		}
 
-		if (currency.getCurrency().equals("USD"))
-			res.setAmount(amount);
-
-		else if (currency.getCurrency().equals("EUR"))
-			res.setAmount(amount * 1.07);
-
-		else
-			res.setAmount(amount * 1.25);
-
-		return res;
 	}
 
 	@Override

@@ -2,6 +2,7 @@
 package acme.features.sponsor.invoice;
 
 import java.time.temporal.ChronoUnit;
+import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +68,10 @@ public class SponsorInvoicePublishService extends AbstractService<Sponsor, Invoi
 	public void validate(final Invoice object) {
 		assert object != null;
 
+		Collection<Invoice> allInvoices;
+
+		allInvoices = this.repository.findAllInvoicesBySponsorshipId(object.getSponsorship().getId());
+
 		if (!super.getBuffer().getErrors().hasErrors("code")) {
 
 			Invoice projectSameCode = this.repository.findOneInvoiceByCode(object.getCode());
@@ -118,6 +123,16 @@ public class SponsorInvoicePublishService extends AbstractService<Sponsor, Invoi
 			String symbol = object.getQuantity().getCurrency();
 			boolean existsCurrency = this.systemConfigurationRepository.existsCurrency(symbol);
 			super.state(existsCurrency, "quantity", "sponsor.invoice.form.error.acceptedCurrency");
+		}
+
+		if (!super.getBuffer().getErrors().hasErrors()) {
+			double valorAntiguo = this.systemConfigurationRepository.convertToUsd(this.repository.findOneInvoiceById(object.getId()).totalAmount()).getAmount();
+			double sumaNueva = this.systemConfigurationRepository.convertToUsd(object.totalAmount()).getAmount() - valorAntiguo;
+			for (Invoice i : allInvoices)
+				sumaNueva += this.systemConfigurationRepository.convertToUsd(i.totalAmount()).getAmount();
+
+			if (this.systemConfigurationRepository.existsCurrency(object.getQuantity().getCurrency()))
+				super.state(sumaNueva <= this.systemConfigurationRepository.convertToUsd(object.getSponsorship().getAmount()).getAmount(), "*", "sponsor.invoice.form.error.incorrect-sum");
 		}
 
 	}
