@@ -20,6 +20,7 @@ administrator.banner.form.button.create = Create
 administrator.banner.form.button.delete = Delete
 administrator.banner.form.button.update = Update
 
-administrator.banner.form.error.banner-start-time = Banner start date must be in the future
-administrator.banner.form.error.banner-end-time = Banner end date must be after banner start date and there must also be at least one week difference between both of them
-administrator.banner.form.error.banner-start-time-maximum = Banner start date must be before 2100-01-01 00:00
+administrator.banner.form.error.instantiation-moment = The date must be after 1970-01-01 00:00
+administrator.banner.form.error.banner-start-time = The start date of the banner must be after the instantiation moment and before 2100-01-01 00:00
+administrator.banner.form.error.banner-end-time = The end date of the banner must be after the end date of the banner and before 2100-01-01 00:00, and they must also be at least one week apart 
+administrator.banner.form.error.banner-start-time-maximum = The start date of the banner must be after 1970-01-01 00:00 and before 2100-01-01 00:00
