@@ -37,4 +37,5 @@ sponsor.sponsorship.form.error.acceptedCurrency= La moneda no está aceptada por
 sponsor.sponsorship.form.error.published-invoices = No se puede borrar un patrocinio que tenga facturas publicadas
 sponsor.sponsorship.form.error.unpublished-invoices = Para publicar un patrocinio todas sus facturas deben estar publicadas previamente
 sponsor.sponsorship.form.error.moment = La fecha debe ser posterior a 01-01-1970 00:00
-sponsor.sponsorship.form.error.creation-moment = El momento debe ser anterior a la hora de registro más temprana de sus facturas 
+sponsor.sponsorship.form.error.creation-moment = El momento debe ser anterior a la hora de registro más temprana de sus facturas
+sponsor.sponsorship.form.error.amount-less-sum-invoices = La cantidad no puede ser menor que la suma de las cantidades de las facturas ya creadas de este patrocinio
