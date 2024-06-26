@@ -85,11 +85,13 @@ public class SponsorSponsorshipPublishService extends AbstractService<Sponsor, S
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("totalAmount") && object.getAmount() != null && this.systemConfigurationRepository.existsCurrency(object.getAmount().getCurrency())) {
-			Collection<Invoice> invoices = this.repository.findInvoicesOfASponsorship(object.getId());
+			double sumaAmount = 0.0;
+			for (Invoice i : allInvoices)
+				sumaAmount += this.systemConfigurationRepository.convertToUsd(i.totalAmount()).getAmount();
 
-			double invoiceTotAmount = invoices.stream().mapToDouble(i -> this.systemConfigurationRepository.convertToUsd(i.getQuantity()).getAmount()).sum();
 			//if (object.getAmount() != null)
-			super.state(invoiceTotAmount == this.systemConfigurationRepository.convertToUsd(object.getAmount()).getAmount(), "*", "sponsor.sponsorship.form.error.invalidTotalAmount");
+
+			super.state(sumaAmount == this.systemConfigurationRepository.convertToUsd(object.getAmount()).getAmount(), "*", "sponsor.sponsorship.form.error.invalidTotalAmount");
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("moment")) {
