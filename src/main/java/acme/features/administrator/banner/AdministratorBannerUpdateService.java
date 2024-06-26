@@ -61,14 +61,25 @@ public class AdministratorBannerUpdateService extends AbstractService<Administra
 	public void validate(final Banner object) {
 		assert object != null;
 
+		if (!super.getBuffer().getErrors().hasErrors("instantiationMoment")) {
+
+			Date instantiationMoment = object.getInstantiationMoment();
+			Date maximumDate = MomentHelper.parse("2100-01-01 00:00", "yyyy-MM-dd HH:mm");
+			Date minimumDate = MomentHelper.parse("1969-12-31 23:59", "yyyy-MM-dd HH:mm");
+
+			if (instantiationMoment != null) {
+				Boolean isAfter = instantiationMoment.after(minimumDate) && instantiationMoment.before(maximumDate);
+				super.state(isAfter, "instantiationMoment", "administrator.banner.form.error.instantiation-moment");
+			}
+		}
+
 		if (!super.getBuffer().getErrors().hasErrors("bannerStartTime") && object.getBannerStartTime() != null) {
 			Date bannerStartTime;
 			Date instantiationMoment;
 			bannerStartTime = object.getBannerStartTime();
 			instantiationMoment = object.getInstantiationMoment();
 
-			if (bannerStartTime != null && instantiationMoment != null)
-				super.state(bannerStartTime.after(instantiationMoment), "bannerStartTime", "administrator.banner.form.error.banner-start-time");
+			super.state(bannerStartTime.after(instantiationMoment), "bannerStartTime", "administrator.banner.form.error.banner-start-time");
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("bannerEndTime") && object.getBannerEndTime() != null) {
@@ -77,17 +88,19 @@ public class AdministratorBannerUpdateService extends AbstractService<Administra
 
 			bannerStartTime = object.getBannerStartTime();
 			bannerEndTime = object.getBannerEndTime();
+			Date maximumDate = MomentHelper.parse("2100-01-01 00:00", "yyyy-MM-dd HH:mm");
 
 			if (bannerStartTime != null && bannerEndTime != null)
-				super.state(MomentHelper.isLongEnough(bannerStartTime, bannerEndTime, 1, ChronoUnit.WEEKS) && bannerEndTime.after(bannerStartTime), "bannerEndTime", "administrator.banner.form.error.banner-end-time");
+				super.state(MomentHelper.isLongEnough(bannerStartTime, bannerEndTime, 1, ChronoUnit.WEEKS) && bannerEndTime.after(bannerStartTime) && bannerEndTime.before(maximumDate), "bannerEndTime", "administrator.banner.form.error.banner-end-time");
 		}
 
 		if (!super.getBuffer().getErrors().hasErrors("bannerStartTime")) {
 
 			Date bannerDate = object.getBannerStartTime();
 			Date maximumDate = MomentHelper.parse("2100-01-01 00:00", "yyyy-MM-dd HH:mm");
+			Date minimumDate = MomentHelper.parse("1969-12-31 23:59", "yyyy-MM-dd HH:mm");
 
-			Boolean isBefore = bannerDate.before(maximumDate);
+			Boolean isBefore = bannerDate.after(minimumDate) && bannerDate.before(maximumDate);
 			super.state(isBefore, "bannerStartTime", "administrator.banner.form.error.banner-start-time-maximum");
 		}
 	}
