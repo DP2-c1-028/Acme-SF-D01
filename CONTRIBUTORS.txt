@@ -8,8 +8,8 @@
 # purposes.  The copyright owner does not offer any warranties or representations, nor do
 # they accept any liabilities with respect to them.
 
-- Daniel Benito Hidalgo (danbenhid@alum.us.es)
-- Pablo Jesús Castellanos Compaña (pabcascom@alum.us.es)
-- Fernando José De Celis Hurtado (ferdehur@alum.us.es)
-- Miguel Hernández Sánchez (mighersan1@alum.us.es)
-- Gonzalo Navas Remmers (gonnavrem@alum.us.es)
+- Daniel Benito Hidalgo (danbenhid@alum.us.es) (First call)
+- Pablo Jesús Castellanos Compaña (pabcascom@alum.us.es) (First and second call)
+- Fernando José De Celis Hurtado (ferdehur@alum.us.es) (First call)
+- Miguel Hernández Sánchez (mighersan1@alum.us.es) (First call)
+- Gonzalo Navas Remmers (gonnavrem@alum.us.es) (First and second call)
