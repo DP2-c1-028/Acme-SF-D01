@@ -1,8 +1,6 @@
 
 package acme.features.developer.dashboard;
 
-import java.util.Collection;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,12 +38,11 @@ public class DeveloperDashboardShowService extends AbstractService<Developer, De
 		Integer trainingModulesMaximumTime;
 
 		developerId = super.getRequest().getPrincipal().getActiveRoleId();
-		Collection<Integer> times = this.repository.findTrainingModuleTotalTimesByDeveloperId(developerId);
 
 		totalTrainingModulesWithUpdateMoment = this.repository.countTrainingModulesWithUpdateMomentByDeveloperId(developerId);
 		totalTrainingSessionsWithLink = this.repository.countTrainingSessionsWithLinkByDeveloperId(developerId);
 		trainingModulesAverageTime = this.repository.averageTimesByDeveloperId(developerId);
-		trainingModulesDeviationTime = this.trainingModulesDeviationTime(times);
+		trainingModulesDeviationTime = this.repository.deviatonByDeveloperId(developerId);
 		trainingModulesMinimumTime = this.repository.minimumTimeByDeveloperId(developerId);
 		trainingModulesMaximumTime = this.repository.maximumTimeByDeveloperId(developerId);
 
@@ -58,26 +55,6 @@ public class DeveloperDashboardShowService extends AbstractService<Developer, De
 		dashboard.setTrainingModulesMaximumTime(trainingModulesMaximumTime);
 
 		super.getBuffer().addData(dashboard);
-	}
-
-	private Double trainingModulesDeviationTime(final Collection<Integer> times) {
-		if (times.isEmpty())
-			return null;
-
-		int developerId;
-		developerId = super.getRequest().getPrincipal().getActiveRoleId();
-
-		Double deviation;
-
-		double average = this.repository.averageTimesByDeveloperId(developerId);
-
-		double sumOfSquares = times.stream().mapToDouble(time -> Math.pow(time - average, 2)).sum();
-
-		double vari = sumOfSquares / times.size();
-
-		deviation = Math.sqrt(vari);
-
-		return deviation;
 	}
 
 	@Override
