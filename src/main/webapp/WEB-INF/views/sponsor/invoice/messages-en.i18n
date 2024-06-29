@@ -29,3 +29,4 @@ sponsor.invoice.form.error.published-sponsorship = You cannot create, update or 
 sponsor.invoice.form.error.tax-not-null = The tax cannot be null
 sponsor.invoice.form.error.registration-time = The date must be after 1970-01-01 00:00 and before 2200-12-31 23:59
 sponsor.invoice.form.error.registration-time-bis = The registration date of an invoice must be after the creation date of a sponsorship
+sponsor.invoice.form.error.incorrect-sum = The sum of the invoices total amount cannot be greater than the sponsorship amount

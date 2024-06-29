@@ -74,6 +74,10 @@ public class SponsorSponsorshipUpdateService extends AbstractService<Sponsor, Sp
 	public void validate(final Sponsorship object) {
 		assert object != null;
 
+		Collection<Invoice> allInvoices;
+
+		allInvoices = this.repository.findInvoicesOfASponsorship(object.getId());
+
 		if (!super.getBuffer().getErrors().hasErrors("code")) {
 
 			Sponsorship projectSameCode = this.repository.findOneSponsorshipByCode(object.getCode());
@@ -146,6 +150,15 @@ public class SponsorSponsorshipUpdateService extends AbstractService<Sponsor, Sp
 
 		if (!super.getBuffer().getErrors().hasErrors("project"))
 			super.state(!object.getProject().isDraftMode(), "project", "sponsor.sponsorship.form.error.project-not-published");
+
+		if (object.getAmount() != null) {
+			double sumaAmount = 0.0;
+			for (Invoice i : allInvoices)
+				sumaAmount += this.systemConfigurationRepository.convertToUsd(i.totalAmount()).getAmount();
+
+			if (this.systemConfigurationRepository.existsCurrency(object.getAmount().getCurrency()))
+				super.state(this.systemConfigurationRepository.convertToUsd(object.getAmount()).getAmount() >= sumaAmount, "amount", "sponsor.sponsorship.form.error.amount-less-sum-invoices");
+		}
 
 	}
 

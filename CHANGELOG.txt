@@ -8,4 +8,10 @@
 # purposes.  The copyright owner does not offer any warranties or representations, nor do
 # they accept any liabilities with respect to them.
 
+
+24.4.1 All the errors in the features have been fixed.
+24.4.0 All the features have been tested and those tests have been analysed.
+24.3.0 All the features have been implemented.
+24.2.0 All the entities, roles and forms have been implemented. Sample data for each of them has been done.
+24.1.1 Our favourite websites are in the menu anonymous, with their corresponding IDs.
 24.1.0	This is the first version of Acme-SF

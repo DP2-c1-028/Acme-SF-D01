@@ -2,7 +2,7 @@ administrator.banner.form.title = Datos de tu cartel
 administrator.banner.form.label.instantiation-moment = Última actualización
 administrator.banner.form.label.banner-start-time = Fecha de comienzo del cartel
 administrator.banner.form.label.banner-end-time = Fecha de final del cartel
-administrator.banner.form.label.picture = Foto
+administrator.banner.form.label.picture = Imagen
 administrator.banner.form.label.slogan = Eslogan
 administrator.banner.form.label.link = Enlace
 
@@ -10,7 +10,7 @@ administrator.banner.list.title = Lista de carteles
 administrator.banner.list.label.instantiation-moment = Última actualización
 administrator.banner.list.label.banner-start-time = Fecha de comienzo del cartel
 administrator.banner.list.label.banner-end-time = Fecha de final del cartel
-administrator.banner.list.label.picture = Foto
+administrator.banner.list.label.picture = Imagen
 administrator.banner.list.label.slogan = Eslogan
 administrator.banner.list.label.link = Enlace
 
@@ -20,6 +20,7 @@ administrator.banner.form.button.create = Crear
 administrator.banner.form.button.delete = Borrar
 administrator.banner.form.button.update = Actualizar
 
-administrator.banner.form.error.banner-start-time = Fecha de comienzo del cartel debe estar en el futuro
-administrator.banner.form.error.banner-end-time = Fecha de final del cartel debe estar después de la fecha de final del cartel y tienen que tener al menos una semana de diferencia 
-administrator.banner.form.error.banner-start-time-maximum = Fecha de comienzo del cartel debe ser inferior a 01-01-2100 00:00
+administrator.banner.form.error.instantiation-moment = La fecha debe ser posterior a 01-01-1970 00:00
+administrator.banner.form.error.banner-start-time = La fecha de comienzo del cartel debe ser posterior al momento de instanciación y previa a 01-01-2100 00:00
+administrator.banner.form.error.banner-end-time = La fecha de final del cartel debe estar después de la fecha de final del cartel y previa a 01-01-2100 00:00, además tienen que tener al menos una semana de diferencia 
+administrator.banner.form.error.banner-start-time-maximum = La fecha de comienzo del cartel debe ser posterior a 01-01-1970 00:00 y previa a 01-01-2100 00:00
