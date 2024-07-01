@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>8</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>280</x>
+      <y>48</y>
+      <w>352</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Entity&gt;&gt;
+Objective
+--
++ instantiationMoment: Date{NotNull, Temporal(TIMESTAMP), Past}
++ title: String{NotBlank, Length(1,75)}
++ description: String{NotBlank, Length(1,100)}
++ priority: Priority{NotNull}
++ status: boolean{NotNull}
++ durationStart: Date{NotNull, Temporal(TIMESTAMP)}
++ durationEnd: Date{NotNull, Temporal(TIMESTAMP)}
+- link: String{URL}
+
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>696</x>
+      <y>256</y>
+      <w>336</w>
+      <h>128</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Entity&gt;&gt;
+Risk
+--
++ code: String {NotBlank, Unique, Pattern(regexp="R-[0-9]{3}")}
++ identificationDate: Date {NotNull, Temporal(TIMESTAMP), Past}
++ impact: Integer {NotNull, Min(1)}
++ probability: Double {NotNull, Min(0), Max(1)}
++ description: String {NotBlank, Length(max = 100)}
+- link: String {URL}
++ /value: Double{Transient}
+
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>280</x>
+      <y>256</y>
+      <w>352</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Entity&gt;&gt;
+Notice
+--
++ instantiationMoment: Date {NotNull, Temporal(TIMESTAMP), Past}
++ title: String {NotBlank, Length(max = 75)}
++ fullName: String {NotBlank, Pattern(regexp = "^.+, .+$")}
++ username: String {NotBlank}
++ message: String {NotBlank, Length(max = 100)}
+- email: String {Email}
+- link: String {URL}
++ /author: String {Transient}
+
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>696</x>
+      <y>48</y>
+      <w>352</w>
+      <h>128</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Entity&gt;&gt;
+Claim
+--
++ code: String{NotBlank, Unique, Pattern(regexp="C-[0-9]{4}")}
++ instantiationMoment: Date{NotNull, Temporal(TIMESTAMP), Past}
++ heading: String {NotBlank, Length(max = 75)}
++ description: String {NotBlank, Length(max = 100)}
++ department: String {NotBlank, Length(max = 100)}
++ emailAddress: String{Email}
++ link: String{URL}
+
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>280</x>
+      <y>440</y>
+      <w>352</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Entity&gt;&gt;
+Banner
+--
++ instantiationMoment: Date {NotNull, Temporal(TIMESTAMP), Past}
++ bannerStartTime: Date {NotNull, Temporal(TIMESTAMP)}
++ bannerEndTime: Date {NotNull, Temporal(TIMESTAMP)}
++ picture: String {NotBlank, URL, Length(max = 255)}
++ slogan: String {NotBlank, Length(max = 75)}
++ link: String {NotBlank, URL, Length(max = 255)}
+
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>680</x>
+      <y>448</y>
+      <w>136</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>The value is the product
+of impact and probability
+bg=ORANGE</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>736</x>
+      <y>376</y>
+      <w>24</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>16</x>
+      <y>256</y>
+      <w>216</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>The author must be less than 76 
+characters and computed as follows:
+“〈username〉 - 〈surname, name〉”, where
+“〈username〉” denotes the username of
+the principal who has posted the note and
+“〈surname, name〉” denotes his or her
+full name.
+bg=ORANGE</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>224</x>
+      <y>312</y>
+      <w>72</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>16</x>
+      <y>408</y>
+      <w>216</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>The bannerStartTime must be after
+after the instantiation moment
+bg=ORANGE</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>224</x>
+      <y>432</y>
+      <w>72</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>96</x>
+      <y>88</y>
+      <w>72</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Enum&gt;&gt;
+Priority
+--
+LOW
+MEDIUM
+HIGH
+
+bg=cyan</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>16</x>
+      <y>456</y>
+      <w>216</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>The bannerEndTime must be after
+after the bannerStartTime
+bg=ORANGE</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>224</x>
+      <y>472</y>
+      <w>72</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>16</x>
+      <y>504</y>
+      <w>216</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>The bannerEndTime must be between
+1969-12-31 23:59 and 2100-01-01 00:00
+
+bg=ORANGE</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>224</x>
+      <y>520</y>
+      <w>72</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>16</x>
+      <y>552</y>
+      <w>216</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>The bannerStartTime must be between
+1969-12-31 23:59 and 2100-01-01 00:00
+
+bg=ORANGE</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>224</x>
+      <y>544</y>
+      <w>72</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;30.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>904</x>
+      <y>376</y>
+      <w>96</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-x
+is related to v
+m1=1
+m2= 0..*
+</panel_attributes>
+    <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>848</x>
+      <y>456</y>
+      <w>144</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Entity&gt;&gt;
+Project
+--
+This entity does not belong
+to groupal entities
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

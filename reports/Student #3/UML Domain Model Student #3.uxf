@@ -43,10 +43,10 @@ bg=green</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>682</x>
+      <x>715</x>
       <y>220</y>
       <w>374</w>
-      <h>143</h>
+      <h>154</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Entity&gt;&gt;
 TrainingModule
@@ -58,6 +58,7 @@ TrainingModule
 + difficulty: TrainingModuleDifficulty {NotNull}
 - link: String {URL, Length(max = 255)}
 + totalTime: Integer {NotNull, Min(1), Max(10000}
+- published: boolean
 
 bg=green
 </panel_attributes>
@@ -68,8 +69,8 @@ bg=green
     <coordinates>
       <x>253</x>
       <y>220</y>
-      <w>330</w>
-      <h>143</h>
+      <w>385</w>
+      <h>154</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Entity&gt;&gt;
 TrainingSession
@@ -81,6 +82,7 @@ TrainingSession
 + instructor: String {NotBlank, Length(max = 75)}
 + contactEmail: String {Email}
 - link: String {URL, Length(max = 255)}
+- published: boolean
 bg=green
 </panel_attributes>
     <additional_attributes/>
@@ -97,7 +99,7 @@ bg=green
 TrainingModuleDifficulty
 --
 BASIC
-INTERMEDIATE
+INTERMIEDATE
 ADVANCED
 
 bg=cyan</panel_attributes>
@@ -132,15 +134,15 @@ bg=cyan
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>572</x>
+      <x>627</x>
       <y>308</y>
-      <w>132</w>
+      <w>110</w>
       <h>44</h>
     </coordinates>
     <panel_attributes>lt=x-&gt;&gt;&gt;&gt;&gt;
 
 m1= 1..*</panel_attributes>
-    <additional_attributes>10.0;20.0;100.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;80.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -187,9 +189,9 @@ bg=orange
     <id>Relation</id>
     <coordinates>
       <x>913</x>
-      <y>352</y>
+      <y>363</y>
       <w>99</w>
-      <h>132</h>
+      <h>121</h>
     </coordinates>
     <panel_attributes>lt=&lt;-x
 
@@ -197,7 +199,7 @@ created by v
 m1= 1
 m2= 0..*
 </panel_attributes>
-    <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
