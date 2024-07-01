@@ -28,9 +28,9 @@ master.menu.any = Any
 master.menu.any.claims = Claim list
 master.menu.any.sponsorship = Sponsorship list
 master.menu.any.project = Project list
-
 master.menu.any.code-audit = Code audit list
 master.menu.any.contract = Contract list
+master.menu.any.training-module = Training Module list
 
 # master.menu.administrator ###################################################
 

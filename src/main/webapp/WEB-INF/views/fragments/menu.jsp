@@ -28,9 +28,10 @@
 			<acme:menu-suboption code="master.menu.any.claims" action="/any/claim/list"/>
 			<acme:menu-suboption code="master.menu.any.sponsorship" action="/any/sponsorship/list"/>
 			<acme:menu-suboption code="master.menu.any.project" action="/any/project/list"/>
-			
 			<acme:menu-suboption code="master.menu.any.code-audit" action="/any/code-audit/list"/>
 			<acme:menu-suboption code="master.menu.any.contract" action="/any/contract/list"/>
+			<acme:menu-suboption code="master.menu.any.training-module" action="/any/training-module/list"/>
+			
 		</acme:menu-option>
 
 		<acme:menu-option code="master.menu.administrator" access="hasRole('Administrator')">
