@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -68,11 +67,5 @@ public class Notice extends AbstractEntity {
 		author.append(this.fullName);
 
 		return author.toString();
-	}
-
-	@AssertTrue(message = "El campo 'author' no debe exceder los 75 caracteres")
-	@Transient
-	public boolean isAuthorLengthValid() {
-		return this.author().length() <= 75;
 	}
 }
